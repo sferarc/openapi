@@ -2,6 +2,9 @@
 
 import * as z from "zod";
 
+/**
+ * Defines a security scheme using an API key.
+ */
 export const APIKeySecuritySchemeSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -11,6 +14,9 @@ export const APIKeySecuritySchemeSchema = z
 	})
 	.describe("Defines a security scheme using an API key.");
 
+/**
+ * Model for Controlling UI Access Mode via SSO Groups
+ */
 export const accessControlUIAccessModeSchema = z
 	.object({
 		type: z.enum(["restricted_sso_group"]),
@@ -48,6 +54,9 @@ export const accessGroupInfoSchema = z.object({
 	budget: z.union([accessGroupBudgetSchema, z.null().nullable()]).optional(),
 });
 
+/**
+ * A pending safety check for the computer call.
+ */
 export const acknowledgedSafetyCheckSchema = z
 	.looseObject({
 		id: z.string(),
@@ -56,6 +65,9 @@ export const acknowledgedSafetyCheckSchema = z
 	})
 	.describe("A pending safety check for the computer call.");
 
+/**
+ * The shell commands and limits that describe how to run the tool call.
+ */
 export const actionSchema = z
 	.looseObject({
 		commands: z.array(z.string()),
@@ -64,6 +76,9 @@ export const actionSchema = z
 	})
 	.describe("The shell commands and limits that describe how to run the tool call.");
 
+/**
+ * A click action.
+ */
 export const actionClickSchema = z
 	.looseObject({
 		button: z.enum(["left", "right", "wheel", "back", "forward"]),
@@ -74,6 +89,9 @@ export const actionClickSchema = z
 	})
 	.describe("A click action.");
 
+/**
+ * A double click action.
+ */
 export const actionDoubleClickSchema = z
 	.looseObject({
 		keys: z.union([z.array(z.string()), z.null().nullable()]).optional(),
@@ -83,6 +101,9 @@ export const actionDoubleClickSchema = z
 	})
 	.describe("A double click action.");
 
+/**
+ * An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
+ */
 export const actionDragPathSchema = z
 	.looseObject({
 		x: z.int(),
@@ -90,6 +111,9 @@ export const actionDragPathSchema = z
 	})
 	.describe("An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.");
 
+/**
+ * A drag action.
+ */
 export const actionDragSchema = z
 	.looseObject({
 		path: z.array(actionDragPathSchema),
@@ -98,6 +122,9 @@ export const actionDragSchema = z
 	})
 	.describe("A drag action.");
 
+/**
+ * Action type "find_in_page": Searches for a pattern within a loaded page.
+ */
 export const actionFindSchema = z
 	.looseObject({
 		pattern: z.string(),
@@ -106,6 +133,9 @@ export const actionFindSchema = z
 	})
 	.describe('Action type "find_in_page": Searches for a pattern within a loaded page.');
 
+/**
+ * A collection of keypresses the model would like to perform.
+ */
 export const actionKeypressSchema = z
 	.looseObject({
 		keys: z.array(z.string()),
@@ -113,6 +143,9 @@ export const actionKeypressSchema = z
 	})
 	.describe("A collection of keypresses the model would like to perform.");
 
+/**
+ * A mouse move action.
+ */
 export const actionMoveSchema = z
 	.looseObject({
 		type: z.enum(["move"]),
@@ -122,6 +155,9 @@ export const actionMoveSchema = z
 	})
 	.describe("A mouse move action.");
 
+/**
+ * Action type "open_page" - Opens a specific URL from search results.
+ */
 export const actionOpenPageSchema = z
 	.looseObject({
 		type: z.enum(["open_page"]),
@@ -129,12 +165,18 @@ export const actionOpenPageSchema = z
 	})
 	.describe('Action type "open_page" - Opens a specific URL from search results.');
 
+/**
+ * A screenshot action.
+ */
 export const actionScreenshotSchema = z
 	.looseObject({
 		type: z.enum(["screenshot"]),
 	})
 	.describe("A screenshot action.");
 
+/**
+ * A scroll action.
+ */
 export const actionScrollSchema = z
 	.looseObject({
 		scroll_x: z.int(),
@@ -146,6 +188,9 @@ export const actionScrollSchema = z
 	})
 	.describe("A scroll action.");
 
+/**
+ * A source used in the search.
+ */
 export const actionSearchSourceSchema = z
 	.looseObject({
 		type: z.enum(["url"]),
@@ -153,6 +198,9 @@ export const actionSearchSourceSchema = z
 	})
 	.describe("A source used in the search.");
 
+/**
+ * Action type "search" - Performs a web search query.
+ */
 export const actionSearchSchema = z
 	.looseObject({
 		type: z.enum(["search"]),
@@ -162,6 +210,9 @@ export const actionSearchSchema = z
 	})
 	.describe('Action type "search" - Performs a web search query.');
 
+/**
+ * An action to type in text.
+ */
 export const actionTypeSchema = z
 	.looseObject({
 		text: z.string(),
@@ -169,12 +220,18 @@ export const actionTypeSchema = z
 	})
 	.describe("An action to type in text.");
 
+/**
+ * A wait action.
+ */
 export const actionWaitSchema = z
 	.looseObject({
 		type: z.enum(["wait"]),
 	})
 	.describe("A wait action.");
 
+/**
+ * Response for tag active users metrics
+ */
 export const tagActiveUsersResponseSchema = z
 	.object({
 		tag: z.string(),
@@ -185,6 +242,9 @@ export const tagActiveUsersResponseSchema = z
 	})
 	.describe("Response for tag active users metrics");
 
+/**
+ * Response for active users analytics
+ */
 export const activeUsersAnalyticsResponseSchema = z
 	.object({
 		results: z.array(tagActiveUsersResponseSchema),
@@ -205,6 +265,10 @@ export const addTeamCallbackSchema = z.object({
 	callback_vars: z.record(z.string(), z.string()),
 });
 
+/**
+ * Defines a function in your own code the model can choose to call.
+ * Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
+ */
 export const functionToolSchema = z
 	.looseObject({
 		name: z.string(),
@@ -223,6 +287,9 @@ export const functionToolSchema = z
 		"Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).",
 	);
 
+/**
+ * A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+ */
 export const comparisonFilterSchema = z
 	.looseObject({
 		key: z.string(),
@@ -238,6 +305,9 @@ export const comparisonFilterSchema = z
 		"A filter used to compare a specified attribute key to a given value using a defined comparison operation.",
 	);
 
+/**
+ * Combine multiple filters using `and` or `or`.
+ */
 export const compoundFilterSchema = z
 	.looseObject({
 		filters: z.array(z.union([comparisonFilterSchema, z.unknown()])),
@@ -245,6 +315,9 @@ export const compoundFilterSchema = z
 	})
 	.describe("Combine multiple filters using `and` or `or`.");
 
+/**
+ * Weights that control how reciprocal rank fusion balances semantic embedding matches versus sparse keyword matches when hybrid search is enabled.
+ */
 export const rankingOptionsHybridSearchSchema = z
 	.looseObject({
 		embedding_weight: z.number(),
@@ -254,6 +327,9 @@ export const rankingOptionsHybridSearchSchema = z
 		"Weights that control how reciprocal rank fusion balances semantic embedding matches versus sparse keyword matches when hybrid search is enabled.",
 	);
 
+/**
+ * Ranking options for search.
+ */
 export const rankingOptionsSchema = z
 	.looseObject({
 		hybrid_search: z.union([rankingOptionsHybridSearchSchema, z.null().nullable()]).optional(),
@@ -262,6 +338,10 @@ export const rankingOptionsSchema = z
 	})
 	.describe("Ranking options for search.");
 
+/**
+ * A tool that searches for relevant content from uploaded files.
+ * Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
+ */
 export const fileSearchToolSchema = z
 	.looseObject({
 		type: z.enum(["file_search"]),
@@ -276,6 +356,10 @@ export const fileSearchToolSchema = z
 		"A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).",
 	);
 
+/**
+ * A tool that controls a virtual computer.
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
+ */
 export const computerToolSchema = z
 	.looseObject({
 		type: z.enum(["computer"]),
@@ -284,6 +368,10 @@ export const computerToolSchema = z
 		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
+/**
+ * A tool that controls a virtual computer.
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
+ */
 export const computerUsePreviewToolSchema = z
 	.looseObject({
 		display_height: z.int(),
@@ -295,12 +383,21 @@ export const computerUsePreviewToolSchema = z
 		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
+/**
+ * Filters for the search.
+ */
 export const filtersSchema = z
 	.looseObject({
 		allowed_domains: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 	})
 	.describe("Filters for the search.");
 
+/**
+ * The approximate location of the user.
+ * If omitted or null, defaults to the
+ * United States. To avoid this fallback, pass `{"type": "approximate"}` without
+ * location fields. To localize results, provide the relevant location fields.
+ */
 export const openaiTypesResponsesWebSearchToolUserLocationSchema = z
 	.looseObject({
 		city: z.union([z.string(), z.null().nullable()]).optional(),
@@ -313,6 +410,11 @@ export const openaiTypesResponsesWebSearchToolUserLocationSchema = z
 		'The approximate location of the user.\n\nIf omitted or null, defaults to the\nUnited States. To avoid this fallback, pass `{"type": "approximate"}` without\nlocation fields. To localize results, provide the relevant location fields.',
 	);
 
+/**
+ * Search the Internet for sources related to the prompt.
+ * Learn more about the
+ * [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
+ */
 export const webSearchToolSchema = z
 	.looseObject({
 		type: z.enum(["web_search", "web_search_2025_08_26"]),
@@ -329,6 +431,9 @@ export const webSearchToolSchema = z
 		"Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
+/**
+ * A filter object to specify which tools are allowed.
+ */
 export const mcpAllowedToolsMcpToolFilterSchema = z
 	.looseObject({
 		read_only: z.union([z.boolean(), z.null().nullable()]).optional(),
@@ -336,6 +441,9 @@ export const mcpAllowedToolsMcpToolFilterSchema = z
 	})
 	.describe("A filter object to specify which tools are allowed.");
 
+/**
+ * A filter object to specify which tools are allowed.
+ */
 export const mcpRequireApprovalMcpToolApprovalFilterAlwaysSchema = z
 	.looseObject({
 		read_only: z.union([z.boolean(), z.null().nullable()]).optional(),
@@ -343,6 +451,9 @@ export const mcpRequireApprovalMcpToolApprovalFilterAlwaysSchema = z
 	})
 	.describe("A filter object to specify which tools are allowed.");
 
+/**
+ * A filter object to specify which tools are allowed.
+ */
 export const mcpRequireApprovalMcpToolApprovalFilterNeverSchema = z
 	.looseObject({
 		read_only: z.union([z.boolean(), z.null().nullable()]).optional(),
@@ -350,6 +461,12 @@ export const mcpRequireApprovalMcpToolApprovalFilterNeverSchema = z
 	})
 	.describe("A filter object to specify which tools are allowed.");
 
+/**
+ * Specify which of the MCP server's tools require approval.
+ * Can be
+ * `always`, `never`, or a filter object associated with tools
+ * that require approval.
+ */
 export const mcpRequireApprovalMcpToolApprovalFilterSchema = z
 	.looseObject({
 		always: z
@@ -363,6 +480,10 @@ export const mcpRequireApprovalMcpToolApprovalFilterSchema = z
 		"Specify which of the MCP server's tools require approval.\n\nCan be\n`always`, `never`, or a filter object associated with tools\nthat require approval.",
 	);
 
+/**
+ * Give the model access to additional tools via remote Model Context Protocol
+ * (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
+ */
 export const mcpSchema = z
 	.looseObject({
 		server_label: z.string(),
@@ -424,6 +545,10 @@ export const containerNetworkPolicyAllowlistSchema = z.looseObject({
 		.optional(),
 });
 
+/**
+ * Configuration for a code interpreter container.
+ * Optionally specify the IDs of the files to run the code on.
+ */
 export const codeInterpreterContainerCodeInterpreterToolAutoSchema = z
 	.looseObject({
 		type: z.enum(["auto"]),
@@ -441,6 +566,9 @@ export const codeInterpreterContainerCodeInterpreterToolAutoSchema = z
 		"Configuration for a code interpreter container.\n\nOptionally specify the IDs of the files to run the code on.",
 	);
 
+/**
+ * A tool that runs Python code to help generate a response to a prompt.
+ */
 export const codeInterpreterSchema = z
 	.looseObject({
 		container: z.union([z.string(), codeInterpreterContainerCodeInterpreterToolAutoSchema]),
@@ -455,6 +583,11 @@ export const programmaticToolCallingSchema = z.looseObject({
 	type: z.enum(["programmatic_tool_calling"]),
 });
 
+/**
+ * Optional mask for inpainting.
+ * Contains `image_url`
+ * (string, optional) and `file_id` (string, optional).
+ */
 export const imageGenerationInputImageMaskSchema = z
 	.looseObject({
 		file_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -464,6 +597,10 @@ export const imageGenerationInputImageMaskSchema = z
 		"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
 	);
 
+/**
+ * Reasoning effort for SVG authoring.
+ * When omitted, uses the author model's default in both Images and Responses.
+ */
 export const imageGenerationSvgReasoningSchema = z
 	.looseObject({
 		effort: z
@@ -477,6 +614,13 @@ export const imageGenerationSvgReasoningSchema = z
 		"Reasoning effort for SVG authoring.\n\nWhen omitted, uses the author model's default in both Images and Responses.",
 	);
 
+/**
+ * SVG author model settings.
+ * Requires `output_format` to be `svg`.
+ * When SVG model selection is enabled, omitting this object uses the
+ * outer response model. Otherwise, the default SVG author is used and
+ * explicit model overrides are unavailable.
+ */
 export const imageGenerationSvgSchema = z
 	.looseObject({
 		model: z.union([z.string(), z.null().nullable()]).optional(),
@@ -486,6 +630,9 @@ export const imageGenerationSvgSchema = z
 		"SVG author model settings.\n\nRequires `output_format` to be `svg`.\nWhen SVG model selection is enabled, omitting this object uses the\nouter response model. Otherwise, the default SVG author is used and\nexplicit model overrides are unavailable.",
 	);
 
+/**
+ * A tool that generates images using the GPT image models.
+ */
 export const imageGenerationSchema = z
 	.looseObject({
 		type: z.enum(["image_generation"]),
@@ -540,6 +687,9 @@ export const imageGenerationSchema = z
 	})
 	.describe("A tool that generates images using the GPT image models.");
 
+/**
+ * A tool that allows the model to execute shell commands in a local environment.
+ */
 export const localShellSchema = z
 	.looseObject({
 		type: z.enum(["local_shell"]),
@@ -552,6 +702,9 @@ export const skillReferenceSchema = z.looseObject({
 	version: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Inline skill payload
+ */
 export const inlineSkillSourceSchema = z
 	.looseObject({
 		data: z.string(),
@@ -602,6 +755,9 @@ export const containerReferenceSchema = z.looseObject({
 	type: z.enum(["container_reference"]),
 });
 
+/**
+ * A tool that allows the model to execute shell commands.
+ */
 export const functionShellToolSchema = z
 	.looseObject({
 		type: z.enum(["shell"]),
@@ -619,12 +775,18 @@ export const functionShellToolSchema = z
 	})
 	.describe("A tool that allows the model to execute shell commands.");
 
+/**
+ * Unconstrained free-form text.
+ */
 export const openaiTypesSharedCustomToolInputFormatTextSchema = z
 	.looseObject({
 		type: z.enum(["text"]),
 	})
 	.describe("Unconstrained free-form text.");
 
+/**
+ * A grammar defined by the user.
+ */
 export const grammarSchema = z
 	.looseObject({
 		definition: z.string(),
@@ -633,6 +795,10 @@ export const grammarSchema = z
 	})
 	.describe("A grammar defined by the user.");
 
+/**
+ * A custom tool that processes input using a specified format.
+ * Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
+ */
 export const customToolSchema = z
 	.looseObject({
 		name: z.string(),
@@ -665,6 +831,9 @@ export const toolFunctionSchema = z.looseObject({
 	strict: z.union([z.boolean(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Groups function/custom tools under a shared namespace.
+ */
 export const namespaceToolSchema = z
 	.looseObject({
 		description: z.string(),
@@ -674,6 +843,9 @@ export const namespaceToolSchema = z
 	})
 	.describe("Groups function/custom tools under a shared namespace.");
 
+/**
+ * Hosted or BYOT tool search configuration for deferred tools.
+ */
 export const toolSearchToolSchema = z
 	.looseObject({
 		type: z.enum(["tool_search"]),
@@ -683,6 +855,10 @@ export const toolSearchToolSchema = z
 	})
 	.describe("Hosted or BYOT tool search configuration for deferred tools.");
 
+/**
+ * The approximate location of the user.
+ * If omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.
+ */
 export const openaiTypesResponsesWebSearchPreviewToolUserLocationSchema = z
 	.looseObject({
 		type: z.enum(["approximate"]),
@@ -695,6 +871,10 @@ export const openaiTypesResponsesWebSearchPreviewToolUserLocationSchema = z
 		'The approximate location of the user.\n\nIf omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.',
 	);
 
+/**
+ * This tool searches the web for relevant results to use in a response.
+ * Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
+ */
 export const webSearchPreviewToolSchema = z
 	.looseObject({
 		type: z.enum(["web_search_preview", "web_search_preview_2025_03_11"]),
@@ -712,6 +892,9 @@ export const webSearchPreviewToolSchema = z
 		"This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
+/**
+ * Allows the assistant to create, delete, or update files using unified diffs.
+ */
 export const applyPatchToolSchema = z
 	.looseObject({
 		type: z.enum(["apply_patch"]),
@@ -773,6 +956,9 @@ export const adminMCPPermissionsSchema = z.object({
 	action_allowed: z.union([z.boolean(), z.null().nullable()]).optional(),
 });
 
+/**
+ * A declaration of a protocol extension supported by an Agent.
+ */
 export const agentExtensionSchema = z
 	.object({
 		uri: z.string().optional(),
@@ -782,6 +968,9 @@ export const agentExtensionSchema = z
 	})
 	.describe("A declaration of a protocol extension supported by an Agent.");
 
+/**
+ * Defines optional capabilities supported by an agent.
+ */
 export const agentCapabilitiesSchema = z
 	.object({
 		streaming: z.union([z.boolean(), z.null().nullable()]).optional(),
@@ -791,6 +980,9 @@ export const agentCapabilitiesSchema = z
 	})
 	.describe("Defines optional capabilities supported by an agent.");
 
+/**
+ * Represents a distinct capability or function that an agent can perform.
+ */
 export const agentSkillSchema = z
 	.object({
 		id: z.string().optional(),
@@ -806,6 +998,9 @@ export const agentSkillSchema = z
 	})
 	.describe("Represents a distinct capability or function that an agent can perform.");
 
+/**
+ * Declares a combination of a target URL and a transport protocol.
+ */
 export const agentInterfaceSchema = z
 	.object({
 		url: z.string().optional(),
@@ -813,6 +1008,9 @@ export const agentInterfaceSchema = z
 	})
 	.describe("Declares a combination of a target URL and a transport protocol.");
 
+/**
+ * Represents the service provider of an agent.
+ */
 export const agentProviderSchema = z
 	.object({
 		organization: z.string().optional(),
@@ -820,6 +1018,9 @@ export const agentProviderSchema = z
 	})
 	.describe("Represents the service provider of an agent.");
 
+/**
+ * Defines a security scheme using HTTP authentication.
+ */
 export const HTTPAuthSecuritySchemeSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -829,6 +1030,9 @@ export const HTTPAuthSecuritySchemeSchema = z
 	})
 	.describe("Defines a security scheme using HTTP authentication.");
 
+/**
+ * Defines the configuration for the supported OAuth 2.0 flows.
+ */
 export const oAuthFlowsSchema = z
 	.object({
 		authorizationCode: z.union([z.looseObject({}), z.null().nullable()]).optional(),
@@ -838,6 +1042,9 @@ export const oAuthFlowsSchema = z
 	})
 	.describe("Defines the configuration for the supported OAuth 2.0 flows.");
 
+/**
+ * Defines a security scheme using OAuth 2.0.
+ */
 export const oAuth2SecuritySchemeSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -849,6 +1056,9 @@ export const oAuth2SecuritySchemeSchema = z
 	})
 	.describe("Defines a security scheme using OAuth 2.0.");
 
+/**
+ * Defines a security scheme using OpenID Connect.
+ */
 export const openIdConnectSecuritySchemeSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -857,6 +1067,9 @@ export const openIdConnectSecuritySchemeSchema = z
 	})
 	.describe("Defines a security scheme using OpenID Connect.");
 
+/**
+ * Defines a security scheme using mTLS authentication.
+ */
 export const mutualTLSSecuritySchemeSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -864,6 +1077,9 @@ export const mutualTLSSecuritySchemeSchema = z
 	})
 	.describe("Defines a security scheme using mTLS authentication.");
 
+/**
+ * Represents a JWS signature of an AgentCard.
+ */
 export const agentCardSignatureSchema = z
 	.object({
 		protected: z.string().optional(),
@@ -872,6 +1088,11 @@ export const agentCardSignatureSchema = z
 	})
 	.describe("Represents a JWS signature of an AgentCard.");
 
+/**
+ * The AgentCard is a self-describing manifest for an agent.
+ * It provides essential metadata including the agent's identity, capabilities,
+ * skills, supported communication methods, and security requirements.
+ */
 export const agentCardSchema = z
 	.object({
 		protocolVersion: z.string().optional(),
@@ -983,6 +1204,10 @@ export const agentKillSwitchBearerAuthSchema = z.strictObject({
 	token: z.string(),
 });
 
+/**
+ * Webhook an admin fires to shut an agent down out of band. LiteLLM only
+ * makes the call; whatever the endpoint does with it is the agent's business.
+ */
 export const agentKillSwitchConfigSchema = z
 	.strictObject({
 		url: z.string(),
@@ -1071,6 +1296,9 @@ export const allowedVectorStoreIndexItemSchema = z.object({
 	index_permissions: z.array(z.enum(["read", "write"])),
 });
 
+/**
+ * A citation for a container file used to generate a model response.
+ */
 export const annotationContainerFileCitationSchema = z
 	.looseObject({
 		container_id: z.string(),
@@ -1082,6 +1310,9 @@ export const annotationContainerFileCitationSchema = z
 	})
 	.describe("A citation for a container file used to generate a model response.");
 
+/**
+ * A citation to a file.
+ */
 export const annotationFileCitationSchema = z
 	.looseObject({
 		file_id: z.string(),
@@ -1091,6 +1322,9 @@ export const annotationFileCitationSchema = z
 	})
 	.describe("A citation to a file.");
 
+/**
+ * A path to a file.
+ */
 export const annotationFilePathSchema = z
 	.looseObject({
 		file_id: z.string(),
@@ -1099,6 +1333,9 @@ export const annotationFilePathSchema = z
 	})
 	.describe("A path to a file.");
 
+/**
+ * A citation for a web resource used to generate a model response.
+ */
 export const annotationURLCitationSchema = z
 	.looseObject({
 		end_index: z.int(),
@@ -1109,6 +1346,9 @@ export const annotationURLCitationSchema = z
 	})
 	.describe("A citation for a web resource used to generate a model response.");
 
+/**
+ * Response model for a single audit log entry
+ */
 export const auditLogResponseSchema = z
 	.object({
 		id: z.string(),
@@ -1142,6 +1382,9 @@ export const autoRouterAvailabilityResponseSchema = z.object({
 	error: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * One prompt-caching bucket of turns, with how often those turns hit the cache.
+ */
 export const autoRouterCacheBucketSchema = z
 	.object({
 		turns: z.int().describe("Turns classified into this bucket"),
@@ -1150,6 +1393,12 @@ export const autoRouterCacheBucketSchema = z
 	})
 	.describe("One prompt-caching bucket of turns, with how often those turns hit the cache.");
 
+/**
+ * Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.
+ * Every in-order turn falls in exactly one bucket: the session stayed on the same model,
+ * visited a model for the first time (cold by design), or returned to a model it had
+ * already used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.
+ */
 export const autoRouterCacheStatsSchema = z
 	.object({
 		coverage_pct: z.number().describe("Share of turns that carried cache telemetry"),
@@ -1182,6 +1431,9 @@ export const autoRouterCacheStatsSchema = z
 		"Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.\n\nEvery in-order turn falls in exactly one bucket: the session stayed on the same model,\nvisited a model for the first time (cold by design), or returned to a model it had\nalready used. Out-of-order turns (cross-pod flush races) are counted but not bucketed.",
 	);
 
+/**
+ * One auto-router's slice of the benchmarks.
+ */
 export const autoRouterBenchmarkGroupSchema = z
 	.object({
 		sessions: z.int().describe("Sessions overlapping the window, counted whole"),
@@ -1256,6 +1508,10 @@ export const autoRouterBenchmarkGroupSchema = z
 	})
 	.describe("One auto-router's slice of the benchmarks.");
 
+/**
+ * Auto-routed traffic in the window. Turns, spend and savings count requests on the selected UTC days;
+ * the session averages and cache stats describe every session overlapping the window, whole.
+ */
 export const autoRouterBenchmarkTotalsSchema = z
 	.object({
 		sessions: z.int().describe("Sessions overlapping the window, counted whole"),
@@ -1324,6 +1580,9 @@ export const autoRouterBenchmarkTotalsSchema = z
 		"Auto-routed traffic in the window. Turns, spend and savings count requests on the selected UTC days;\nthe session averages and cache stats describe every session overlapping the window, whole.",
 	);
 
+/**
+ * Benchmarks for the auto-router dashboard, aggregated from the per-session and per-day rollups.
+ */
 export const autoRouterBenchmarksResponseSchema = z
 	.object({
 		start_date: z.string().describe("Window start day, YYYY-MM-DD UTC, inclusive"),
@@ -1346,6 +1605,11 @@ export const autoRouterBenchmarksResponseSchema = z
 		"Benchmarks for the auto-router dashboard, aggregated from the per-session and per-day rollups.",
 	);
 
+/**
+ * The built-in system prompt an auto-router's LLM classifier uses when none is configured.
+ * Served so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than
+ * a copy in the frontend that drifts the moment the rubric is edited.
+ */
 export const autoRouterClassifierDefaultPromptResponseSchema = z
 	.object({
 		system_prompt: z.string(),
@@ -1354,6 +1618,9 @@ export const autoRouterClassifierDefaultPromptResponseSchema = z
 		"The built-in system prompt an auto-router's LLM classifier uses when none is configured.\n\nServed so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than\na copy in the frontend that drifts the moment the rubric is edited.",
 	);
 
+/**
+ * An operator-defined tier: the name the LLM classifier must return and its rubric description.
+ */
 export const tierDefinitionSchema = z
 	.object({
 		name: z
@@ -1370,16 +1637,26 @@ export const tierDefinitionSchema = z
 		"An operator-defined tier: the name the LLM classifier must return and its rubric description.",
 	);
 
+/**
+ * Complexity tiers for routing decisions.
+ */
 export const complexityTierSchema = z
 	.enum(["NON_REASONING", "SIMPLE", "MEDIUM", "COMPLEX", "REASONING"])
 	.describe("Complexity tiers for routing decisions.");
 
+/**
+ * Which calibration examples, and for BUSINESS which tier criteria, the built-in classifier rubric carries.
+ */
 export const classificationRubricSchema = z
 	.enum(["legacy", "agentic", "chat", "business"])
 	.describe(
 		"Which calibration examples, and for BUSINESS which tier criteria, the built-in classifier rubric carries.",
 	);
 
+/**
+ * A POST rather than query params: the classification sections are the operator's own text,
+ * which must not reach access logs through a URL.
+ */
 export const autoRouterClassifierPromptPreviewRequestSchema = z
 	.object({
 		tier_definitions: z.union([z.array(tierDefinitionSchema), z.null().nullable()]).optional(),
@@ -1395,6 +1672,11 @@ export const autoRouterClassifierPromptPreviewRequestSchema = z
 		"A POST rather than query params: the classification sections are the operator's own text,\nwhich must not reach access logs through a URL.",
 	);
 
+/**
+ * Exactly the four built-in tiers the dashboard's preset prefill can apply.
+ * extra="forbid" on purpose: a tier name this dashboard cannot apply would grey out or crash the
+ * picker, so such a catalog is rejected wholesale and the bundled one serves instead.
+ */
 export const autoRouterPresetTiersSchema = z
 	.strictObject({
 		SIMPLE: z.array(z.string()),
@@ -1406,6 +1688,12 @@ export const autoRouterPresetTiersSchema = z
 		'Exactly the four built-in tiers the dashboard\'s preset prefill can apply.\n\nextra="forbid" on purpose: a tier name this dashboard cannot apply would grey out or crash the\npicker, so such a catalog is rejected wholesale and the bundled one serves instead.',
 	);
 
+/**
+ * The complexity_router_config a preset prefills.
+ * Only tiers is validated, because every dashboard consumer dereferences it; everything else
+ * passes through verbatim with unknown fields kept (extra="allow"), so a catalog published after
+ * this proxy shipped still serves its new fields intact.
+ */
 export const autoRouterPresetConfigSchema = z
 	.looseObject({
 		tiers: autoRouterPresetTiersSchema.describe(
@@ -1416,6 +1704,9 @@ export const autoRouterPresetConfigSchema = z
 		'The complexity_router_config a preset prefills.\n\nOnly tiers is validated, because every dashboard consumer dereferences it; everything else\npasses through verbatim with unknown fields kept (extra="allow"), so a catalog published after\nthis proxy shipped still serves its new fields intact.',
 	);
 
+/**
+ * One auto-router preset as served to the dashboard's template picker.
+ */
 export const autoRouterPresetRecordSchema = z
 	.looseObject({
 		label: z.string(),
@@ -1486,6 +1777,9 @@ export const tierGlobalStatisticSchema = z.object({
 	observations: z.number().gt(0),
 });
 
+/**
+ * Fixed v0 taxonomy. User-extensible types come in v1.
+ */
 export const requestTypeSchema = z
 	.enum([
 		"code_generation",
@@ -1545,6 +1839,12 @@ export const trainedTierArtifactSchema = z.object({
 		.default("sha256(prompt): 70% train, 15% validation, 15% test"),
 });
 
+/**
+ * Whether the LLM classifier sees the images on the request it is classifying.
+ * Off by default because images cost far more than the text ask they arrive with, and the
+ * classifier runs on every request. A turn whose complexity lives in the image ("what is wrong in
+ * this stack trace screenshot") is invisible to a text-only classifier, which is what this buys.
+ */
 export const classifierVisionConfigSchema = z
 	.object({
 		enabled: z
@@ -1567,6 +1867,9 @@ export const classifierVisionConfigSchema = z
 		'Whether the LLM classifier sees the images on the request it is classifying.\n\nOff by default because images cost far more than the text ask they arrive with, and the\nclassifier runs on every request. A turn whose complexity lives in the image ("what is wrong in\nthis stack trace screenshot") is invisible to a text-only classifier, which is what this buys.',
 	);
 
+/**
+ * Configuration for the LLM-based complexity classifier.
+ */
 export const classifierLLMConfigSchema = z
 	.object({
 		model: z
@@ -1629,6 +1932,9 @@ export const capabilityCalibrationConfigSchema = z.strictObject({
 	intercept: z.number().min(-20).max(20),
 });
 
+/**
+ * Switchyard-compatible probability threshold policy for two model tiers.
+ */
 export const capabilityClassifierConfigSchema = z
 	.strictObject({
 		efficient_tier: z
@@ -1697,6 +2003,9 @@ export const openSourceClassifierConfigSchema = z.strictObject({
 	circuit_breaker_cooldown_seconds: z.number().gt(0).optional().default(30),
 });
 
+/**
+ * A deterministic override: if any keyword matches, route to this tier.
+ */
 export const keywordTierRuleSchema = z
 	.object({
 		keywords: z
@@ -1718,6 +2027,12 @@ export const contextCompactionConfigSchema = z.strictObject({
 	timeout_seconds: z.number().gt(0).optional().default(120),
 });
 
+/**
+ * One open/close delimiter pair a harness wraps injected context in.
+ * Normalizing here rather than at the scan is what makes matching case-insensitive: markers reach
+ * the scan already lowered, so it lowercases only the haystack and never the needles. Stripping
+ * keeps YAML indentation whitespace from becoming part of the delimiter.
+ */
 export const reminderMarkerPairSchema = z
 	.object({
 		open: z.string().describe("Opening delimiter, e.g. '<system-reminder>'"),
@@ -1727,6 +2042,11 @@ export const reminderMarkerPairSchema = z
 		"One open/close delimiter pair a harness wraps injected context in.\n\nNormalizing here rather than at the scan is what makes matching case-insensitive: markers reach\nthe scan already lowered, so it lowercases only the haystack and never the needles. Stripping\nkeeps YAML indentation whitespace from becoming part of the delimiter.",
 	);
 
+/**
+ * The part of a complexity-router config a request can carry.
+ * `plugins` holds live RoutingPlugin objects, which no JSON body can express and which have no
+ * OpenAPI schema, so it is closed off here rather than left as an arbitrary-type field.
+ */
 export const requestComplexityRouterConfigSchema = z
 	.looseObject({
 		tiers: z
@@ -2158,6 +2478,13 @@ export const requestComplexityRouterConfigSchema = z
 		"The part of a complexity-router config a request can carry.\n\n`plugins` holds live RoutingPlugin objects, which no JSON body can express and which have no\nOpenAPI schema, so it is closed off here rather than left as an arbitrary-type field.",
 	);
 
+/**
+ * A single request to classify against a complexity-router config that need not be saved yet.
+ * Carries the same fields the serving path carries, so a dry run classifies what a real turn
+ * would classify. `messages`, `system` and `tools` are forwarded to the routing hook untranslated,
+ * which is why they are typed loosely: the hook reads whatever dialect the surface produced, and
+ * validating them against one surface's schema would reject the others.
+ */
 export const autoRouterRoutingTestRequestSchema = z
 	.object({
 		prompt: z
@@ -2220,6 +2547,10 @@ export const standardLoggingHeuristicV2ForecastSchema = z.object({
 	request_type: z.string(),
 });
 
+/**
+ * Snapshot of the complexity scorer's tier boundaries at decision time, so a
+ * historical spend log row stays explainable after the router config changes.
+ */
 export const standardLoggingRoutingDecisionTierBoundariesSchema = z
 	.object({
 		simple_medium: z.number(),
@@ -2230,6 +2561,9 @@ export const standardLoggingRoutingDecisionTierBoundariesSchema = z
 		"Snapshot of the complexity scorer's tier boundaries at decision time, so a\nhistorical spend log row stays explainable after the router config changes.",
 	);
 
+/**
+ * Per-request provenance for a pre-routing strategy (auto-router) decision.
+ */
 export const standardLoggingRoutingDecisionSchema = z
 	.object({
 		router_model_name: z.string().optional(),
@@ -2336,6 +2670,9 @@ export const standardLoggingRoutingDecisionSchema = z
 	})
 	.describe("Per-request provenance for a pre-routing strategy (auto-router) decision.");
 
+/**
+ * Where one prompt would have been routed, and why.
+ */
 export const autoRouterRoutingTestResponseSchema = z
 	.object({
 		routed_model: z.string().describe("The model group the router picked"),
@@ -2350,6 +2687,10 @@ export const autoRouterRoutingTestResponseSchema = z
 	})
 	.describe("Where one prompt would have been routed, and why.");
 
+/**
+ * One auto-routed session as its own key sees it: what the last turn ran on, and what the session cost
+ * against the router's savings baseline (the priciest model in its hardest tier).
+ */
 export const autoRouterSessionResponseSchema = z
 	.object({
 		session_id: z.string(),
@@ -2447,6 +2788,12 @@ export const blockUsersSchema = z.object({
 	user_ids: z.array(z.string()),
 });
 
+/**
+ * Represents user-controllable params for a LiteLLM_BudgetTable record.
+ * Budget-write paths use `model_fields.keys()` on this class as an allowlist
+ * for user input. Keep server-managed fields (e.g. `budget_reset_at`) on
+ * `LiteLLM_BudgetTableFull` so they aren't user-settable.
+ */
 export const liteLLMBudgetTableSchema = z
 	.object({
 		budget_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -2466,6 +2813,9 @@ export const liteLLMBudgetTableSchema = z
 		"Represents user-controllable params for a LiteLLM_BudgetTable record.\n\nBudget-write paths use `model_fields.keys()` on this class as an allowlist\nfor user input. Keep server-managed fields (e.g. `budget_reset_at`) on\n`LiteLLM_BudgetTableFull` so they aren't user-settable.",
 	);
 
+/**
+ * Represents a LiteLLM_ObjectPermissionTable record
+ */
 export const liteLLMObjectPermissionTableSchema = z
 	.object({
 		object_permission_id: z.string(),
@@ -2677,6 +3027,9 @@ export const spendMetricsSchema = z.object({
 	timed_requests: z.int().optional().default(0),
 });
 
+/**
+ * Metadata for a key
+ */
 export const keyMetadataSchema = z
 	.object({
 		key_alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -2687,6 +3040,9 @@ export const keyMetadataSchema = z
 	})
 	.describe("Metadata for a key");
 
+/**
+ * Base class for metrics with additional metadata
+ */
 export const keyMetricWithMetadataSchema = z
 	.object({
 		metrics: spendMetricsSchema,
@@ -2737,6 +3093,9 @@ export const guardrailMetricSchema = z.object({
 		),
 });
 
+/**
+ * Breakdown of spend by different dimensions
+ */
 export const breakdownMetricsSchema = z
 	.object({
 		mcp_servers: z.record(z.string(), metricWithMetadataSchema).optional(),
@@ -2766,6 +3125,9 @@ export const budgetDeleteRequestSchema = z.object({
 	id: z.string(),
 });
 
+/**
+ * A single budget window with its own limit and independent reset schedule.
+ */
 export const budgetLimitEntrySchema = z
 	.object({
 		budget_duration: z.string(),
@@ -2774,6 +3136,12 @@ export const budgetLimitEntrySchema = z
 	})
 	.describe("A single budget window with its own limit and independent reset schedule.");
 
+/**
+ * One budget as the Budgets page reads it, and as it comes back off the table.
+ * Validating the raw row through here is what makes `tpm_limit` / `rpm_limit`
+ * numbers: they are `BigInt?` in the schema, which the query engine hands back as
+ * decimal strings, and a quoted "60000" breaks arithmetic in the dashboard.
+ */
 export const budgetListItemSchema = z
 	.object({
 		budget_id: z.string(),
@@ -2840,12 +3208,18 @@ export const budgetRequestSchema = z.object({
 	budgets: z.array(z.string()),
 });
 
+/**
+ * Body of `POST /management/v1/users/bulk_delete`.
+ */
 export const bulkDeleteUserRequestSchema = z
 	.strictObject({
 		user_ids: z.array(z.string()).min(1).max(500),
 	})
 	.describe("Body of `POST /management/v1/users/bulk_delete`.");
 
+/**
+ * Outcome for one requested user, in request order. `teams_removed` lists the teams the user left.
+ */
 export const userDeleteResultSchema = z
 	.object({
 		user_id: z.string(),
@@ -2858,6 +3232,9 @@ export const userDeleteResultSchema = z
 		"Outcome for one requested user, in request order. `teams_removed` lists the teams the user left.",
 	);
 
+/**
+ * `{data: [...]}` with one `UserDeleteResult` per requested user, in request order.
+ */
 export const bulkDeleteUsersResponseSchema = z
 	.object({
 		data: z.array(userDeleteResultSchema),
@@ -2887,6 +3264,10 @@ export const newUserRequestTeamSchema = z.object({
 	user_role: z.enum(["user", "admin"]).optional().default("user"),
 });
 
+/**
+ * One row of `POST /management/v1/users/bulk`: the `/user/new` body, with keys opt-in and invite emails
+ * unsupported. Unknown fields are rejected, as on every `/management/v1` request body.
+ */
 export const bulkNewUserItemSchema = z
 	.strictObject({
 		key_alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -2972,6 +3353,10 @@ export const bulkNewUserRequestSchema = z.strictObject({
 	users: z.array(bulkNewUserItemSchema).min(1).max(500),
 });
 
+/**
+ * Outcome for one row of `POST /management/v1/users/bulk`. `teams` lists the teams the user was actually
+ * added to.
+ */
 export const userCreateResultSchema = z
 	.object({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -2985,6 +3370,9 @@ export const userCreateResultSchema = z
 		"Outcome for one row of `POST /management/v1/users/bulk`. `teams` lists the teams the user was actually\nadded to.",
 	);
 
+/**
+ * `data` holds one result per input row, in input order.
+ */
 export const bulkNewUserResponseSchema = z
 	.object({
 		data: z.array(userCreateResultSchema),
@@ -3010,6 +3398,9 @@ export const memberSchema = z.object({
 		),
 });
 
+/**
+ * Request for bulk team member addition
+ */
 export const bulkTeamMemberAddRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -3019,6 +3410,9 @@ export const bulkTeamMemberAddRequestSchema = z
 	})
 	.describe("Request for bulk team member addition");
 
+/**
+ * Result of a single team member add operation
+ */
 export const teamMemberAddResultSchema = z
 	.object({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -3030,6 +3424,9 @@ export const teamMemberAddResultSchema = z
 	})
 	.describe("Result of a single team member add operation");
 
+/**
+ * Response for bulk team member add operations
+ */
 export const bulkTeamMemberAddResponseSchema = z
 	.object({
 		team_id: z.string(),
@@ -3041,6 +3438,11 @@ export const bulkTeamMemberAddResponseSchema = z
 	})
 	.describe("Response for bulk team member add operations");
 
+/**
+ * One member's per-member limits, merge-patch style: a field left out of the row is
+ * untouched, a field sent as null is cleared, and clearing the last limit drops the
+ * member back to the team default.
+ */
 export const teamMemberBudgetPatchSchema = z
 	.strictObject({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -3055,12 +3457,19 @@ export const teamMemberBudgetPatchSchema = z
 		"One member's per-member limits, merge-patch style: a field left out of the row is\nuntouched, a field sent as null is cleared, and clearing the last limit drops the\nmember back to the team default.",
 	);
 
+/**
+ * Body of `POST /management/v1/teams/{team_id}/members/bulk_update`.
+ */
 export const bulkTeamMemberBudgetUpdateRequestSchema = z
 	.strictObject({
 		members: z.array(teamMemberBudgetPatchSchema).min(1).max(500),
 	})
 	.describe("Body of `POST /management/v1/teams/{team_id}/members/bulk_update`.");
 
+/**
+ * Outcome for one requested member, in request order, carrying the limits in force
+ * after the write rather than the ones that were asked for.
+ */
 export const teamMemberBudgetUpdateResultSchema = z
 	.object({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -3081,6 +3490,9 @@ export const teamMemberBudgetUpdateResultSchema = z
 		"Outcome for one requested member, in request order, carrying the limits in force\nafter the write rather than the ones that were asked for.",
 	);
 
+/**
+ * `{data: [...]}` with one `TeamMemberBudgetUpdateResult` per requested member, in request order.
+ */
 export const bulkTeamMemberBudgetUpdateResponseSchema = z
 	.object({
 		data: z.array(teamMemberBudgetUpdateResultSchema),
@@ -3089,6 +3501,9 @@ export const bulkTeamMemberBudgetUpdateResponseSchema = z
 		"`{data: [...]}` with one `TeamMemberBudgetUpdateResult` per requested member, in request order.",
 	);
 
+/**
+ * One member, named by exactly one of `user_id` or `user_email`.
+ */
 export const teamMemberRefSchema = z
 	.strictObject({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -3096,12 +3511,18 @@ export const teamMemberRefSchema = z
 	})
 	.describe("One member, named by exactly one of `user_id` or `user_email`.");
 
+/**
+ * Body of `POST /management/v1/teams/{team_id}/members/bulk_delete`.
+ */
 export const bulkTeamMemberDeleteRequestSchema = z
 	.strictObject({
 		members: z.array(teamMemberRefSchema).min(1).max(500),
 	})
 	.describe("Body of `POST /management/v1/teams/{team_id}/members/bulk_delete`.");
 
+/**
+ * Outcome for one requested member, in request order.
+ */
 export const teamMemberDeleteResultSchema = z
 	.object({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -3111,6 +3532,9 @@ export const teamMemberDeleteResultSchema = z
 	})
 	.describe("Outcome for one requested member, in request order.");
 
+/**
+ * `{data: [...]}` with one `TeamMemberDeleteResult` per requested member, in request order.
+ */
 export const bulkTeamMemberDeleteResponseSchema = z
 	.object({
 		data: z.array(teamMemberDeleteResultSchema),
@@ -3119,6 +3543,9 @@ export const bulkTeamMemberDeleteResponseSchema = z
 		"`{data: [...]}` with one `TeamMemberDeleteResult` per requested member, in request order.",
 	);
 
+/**
+ * One /key/bulk_update item; only the fields it carries are written.
+ */
 export const bulkUpdateKeyRequestItemSchema = z
 	.object({
 		key: z.string(),
@@ -3130,12 +3557,18 @@ export const bulkUpdateKeyRequestItemSchema = z
 	})
 	.describe("One /key/bulk_update item; only the fields it carries are written.");
 
+/**
+ * Request for bulk key updates
+ */
 export const bulkUpdateKeyRequestSchema = z
 	.object({
 		keys: z.array(bulkUpdateKeyRequestItemSchema),
 	})
 	.describe("Request for bulk key updates");
 
+/**
+ * Successfully updated key with its updated information
+ */
 export const successfulKeyUpdateSchema = z
 	.object({
 		key: z.string(),
@@ -3143,6 +3576,9 @@ export const successfulKeyUpdateSchema = z
 	})
 	.describe("Successfully updated key with its updated information");
 
+/**
+ * Failed key update with reason
+ */
 export const failedKeyUpdateSchema = z
 	.object({
 		key: z.string(),
@@ -3151,6 +3587,9 @@ export const failedKeyUpdateSchema = z
 	})
 	.describe("Failed key update with reason");
 
+/**
+ * Response for bulk key update operations
+ */
 export const bulkUpdateKeyResponseSchema = z
 	.object({
 		total_requested: z.int(),
@@ -3159,6 +3598,9 @@ export const bulkUpdateKeyResponseSchema = z
 	})
 	.describe("Response for bulk key update operations");
 
+/**
+ * Allowlist of bulk-broadcastable fields for /team/key/bulk_update; `extra="forbid"` blocks RBAC/ownership/scope mutations even by team admins.
+ */
 export const keyUpdateFieldsSchema = z
 	.strictObject({
 		max_budget: z.union([z.number(), z.null().nullable()]).optional(),
@@ -3193,6 +3635,9 @@ export const keyUpdateFieldsSchema = z
 		'Allowlist of bulk-broadcastable fields for /team/key/bulk_update; `extra="forbid"` blocks RBAC/ownership/scope mutations even by team admins.',
 	);
 
+/**
+ * Apply one update payload to many keys inside a team; provide either `key_ids` or `all_keys_in_team=True`.
+ */
 export const bulkUpdateTeamKeysRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -3206,6 +3651,9 @@ export const bulkUpdateTeamKeysRequestSchema = z
 		"Apply one update payload to many keys inside a team; provide either `key_ids` or `all_keys_in_team=True`.",
 	);
 
+/**
+ * Enum for key management routes
+ */
 export const keyManagementRoutesSchema = z
 	.enum([
 		"/key/generate",
@@ -3232,6 +3680,9 @@ export const keyManagementRoutesSchema = z
 	])
 	.describe("Enum for key management routes");
 
+/**
+ * Request to bulk-update team member permissions across teams.
+ */
 export const bulkUpdateTeamMemberPermissionsRequestSchema = z
 	.object({
 		permissions: z.array(keyManagementRoutesSchema),
@@ -3240,6 +3691,9 @@ export const bulkUpdateTeamMemberPermissionsRequestSchema = z
 	})
 	.describe("Request to bulk-update team member permissions across teams.");
 
+/**
+ * Response for bulk team member permissions update.
+ */
 export const bulkUpdateTeamMemberPermissionsResponseSchema = z
 	.object({
 		message: z.string(),
@@ -3369,6 +3823,9 @@ export const updateUserRequestNoUserIDorEmailSchema = z.object({
 		.optional(),
 });
 
+/**
+ * Request for bulk user updates
+ */
 export const bulkUpdateUserRequestSchema = z
 	.object({
 		users: z.union([z.array(updateUserRequestSchema), z.null().nullable()]).optional(),
@@ -3377,6 +3834,9 @@ export const bulkUpdateUserRequestSchema = z
 	})
 	.describe("Request for bulk user updates");
 
+/**
+ * Result of a single user update operation
+ */
 export const userUpdateResultSchema = z
 	.object({
 		user_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -3387,6 +3847,9 @@ export const userUpdateResultSchema = z
 	})
 	.describe("Result of a single user update operation");
 
+/**
+ * Response for bulk user update operations
+ */
 export const bulkUpdateUserResponseSchema = z
 	.object({
 		results: z.array(userUpdateResultSchema),
@@ -3702,6 +4165,9 @@ export const callTypesSchema = z.enum([
 	"acreate_skill",
 ]);
 
+/**
+ * A record that failed to replay, identified by its index in the batch.
+ */
 export const callbackLogFailureSchema = z
 	.object({
 		index: z.int(),
@@ -3709,6 +4175,9 @@ export const callbackLogFailureSchema = z
 	})
 	.describe("A record that failed to replay, identified by its index in the batch.");
 
+/**
+ * A single finished logging event to replay through the callbacks.
+ */
 export const callbackLogRecordSchema = z
 	.object({
 		status: z.enum(["success", "failure"]),
@@ -3717,12 +4186,19 @@ export const callbackLogRecordSchema = z
 	})
 	.describe("A single finished logging event to replay through the callbacks.");
 
+/**
+ * A batch of logging events posted by an external producer.
+ */
 export const callbackLogsRequestSchema = z
 	.object({
 		records: z.array(callbackLogRecordSchema).max(1000),
 	})
 	.describe("A batch of logging events posted by an external producer.");
 
+/**
+ * Per-batch result: counts plus per-record failure detail so the caller can
+ * distinguish a transient callback error from a structurally bad payload.
+ */
 export const callbackLogsResponseSchema = z
 	.object({
 		processed: z.int(),
@@ -3819,6 +4295,9 @@ export const chatCompletionReasoningSummaryTextBlockSchema = z.looseObject({
 	text: z.string().optional(),
 });
 
+/**
+ * Represents an OpenAI Responses API reasoning item for round-tripping in conversation history.
+ */
 export const chatCompletionReasoningItemSchema = z
 	.looseObject({
 		type: z.enum(["reasoning"]),
@@ -3933,6 +4412,9 @@ export const choicesSchema = z.looseObject({
 	provider_specific_fields: z.union([z.looseObject({}), z.null().nullable()]).optional(),
 });
 
+/**
+ * A click action.
+ */
 export const clickSchema = z
 	.looseObject({
 		button: z.enum(["left", "right", "wheel", "back", "forward"]),
@@ -3943,6 +4425,10 @@ export const clickSchema = z
 	})
 	.describe("A click action.");
 
+/**
+ * A complexity-router config to validate without saving, so a form can surface the
+ * backend's own verdict inline instead of a raw 400 at write time.
+ */
 export const complexityRouterConfigValidationRequestSchema = z
 	.object({
 		complexity_router_config: z.looseObject({}),
@@ -3962,6 +4448,11 @@ export const complexityRouterConfigValidationResponseSchema = z.object({
 	error: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * The complexity router's shipped heuristic scorer defaults.
+ * The dashboard prefills its Advanced scoring controls from these rather than keeping its own copy, so
+ * a recalibration of the defaults cannot leave the form reporting numbers the router no longer uses.
+ */
 export const complexityScorerDefaultsSchema = z
 	.object({
 		tier_boundaries: z.record(z.string(), z.number()),
@@ -3980,6 +4471,9 @@ export const configurableClientsideParamsCustomAuthOutputSchema = z.object({
 	api_base: z.string(),
 });
 
+/**
+ * Reasoning text from the model.
+ */
 export const contentSchema = z
 	.looseObject({
 		text: z.string(),
@@ -4021,6 +4515,9 @@ export const coordinationRedisTestResponseSchema = z.object({
 		.describe("Error message if the connection failed"),
 });
 
+/**
+ * Request body for /cost/estimate endpoint.
+ */
 export const costEstimateRequestSchema = z
 	.object({
 		model: z.string().describe("Model name (from /model_group/info)"),
@@ -4055,6 +4552,9 @@ export const costEstimateRequestSchema = z
 	})
 	.describe("Request body for /cost/estimate endpoint.");
 
+/**
+ * Response body for /cost/estimate endpoint.
+ */
 export const costEstimateResponseSchema = z
 	.object({
 		model: z.string(),
@@ -4191,6 +4691,12 @@ export const credentialViewSchema = z.object({
 	source: z.enum(["db", "config"]),
 });
 
+/**
+ * A custom/freeform tool call output item (e.g. apply_patch).
+ * Mirrors the ``custom_tool_call`` variant of OpenAI's Responses API output.
+ * Unlike ``OutputFunctionToolCall`` which uses ``arguments`` (JSON string),
+ * this uses ``input`` (raw string) for the tool payload.
+ */
 export const customToolCallOutputItemSchema = z
 	.looseObject({
 		type: z.enum(["custom_tool_call"]),
@@ -4206,6 +4712,9 @@ export const customToolCallOutputItemSchema = z
 		"A custom/freeform tool call output item (e.g. apply_patch).\n\nMirrors the ``custom_tool_call`` variant of OpenAI's Responses API output.\nUnlike ``OutputFunctionToolCall`` which uses ``arguments`` (JSON string),\nthis uses ``input`` (raw string) for the tool payload.",
 	);
 
+/**
+ * LiteLLM_BudgetTable + server-managed fields returned on API responses.
+ */
 export const liteLLMBudgetTableFullSchema = z
 	.object({
 		budget_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -4225,6 +4734,12 @@ export const liteLLMBudgetTableFullSchema = z
 	})
 	.describe("LiteLLM_BudgetTable + server-managed fields returned on API responses.");
 
+/**
+ * Customer object returned by the /customer read+write endpoints.
+ * Nests the full budget response model so server-managed budget fields
+ * (budget_reset_at, created_at) survive response_model filtering, rather than
+ * the narrow write-allowlist shape LiteLLM_EndUserTable carries for internal use.
+ */
 export const customerResponseSchema = z
 	.object({
 		user_id: z.string(),
@@ -4332,6 +4847,9 @@ export const dailySpendMetadataSchema = z.object({
 		),
 });
 
+/**
+ * Default parameters to apply when a new user signs in via SSO or is created on the /user/new API endpoint
+ */
 export const defaultInternalUserParamsSchema = z
 	.object({
 		user_role: z
@@ -4363,6 +4881,10 @@ export const defaultInternalUserParamsSchema = z
 		"Default parameters to apply when a new user signs in via SSO or is created on the /user/new API endpoint",
 	);
 
+/**
+ * Default parameters applied to every /team/new call for fields not explicitly provided in the request.
+ * `models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.
+ */
 export const defaultTeamSSOParamsSchema = z
 	.object({
 		models: z
@@ -4409,6 +4931,9 @@ export const defaultTeamSSOParamsSchema = z
 		"Default parameters applied to every /team/new call for fields not explicitly provided in the request.\n`models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.",
 	);
 
+/**
+ * Response model for default team settings
+ */
 export const defaultTeamSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -4422,6 +4947,9 @@ export const deleteAccessGroupBudgetResponseSchema = z.object({
 	message: z.string(),
 });
 
+/**
+ * Delete multiple Customers
+ */
 export const deleteCustomerRequestSchema = z
 	.object({
 		user_ids: z.array(z.string()),
@@ -4443,12 +4971,23 @@ export const deleteOrganizationRequestSchema = z.object({
 	organization_ids: z.array(z.string()),
 });
 
+/**
+ * Request model for DELETE /project/delete
+ */
 export const deleteProjectRequestSchema = z
 	.object({
 		project_ids: z.array(z.string()),
 	})
 	.describe("Request model for DELETE /project/delete");
 
+/**
+ * Result of a delete response request
+ * {
+ *     "id": "resp_6786a1bec27481909a17d673315b29f6",
+ *     "object": "response",
+ *     "deleted": true
+ * }
+ */
 export const deleteResponseResultSchema = z
 	.looseObject({
 		id: z.union([z.string(), z.null().nullable()]),
@@ -4477,6 +5016,16 @@ export const searchContextCostPerQuerySchema = z.looseObject({
 	search_context_size_high: z.number().optional(),
 });
 
+/**
+ * Timeout configuration.
+ * **Usage**:
+ * Timeout(None)               # No timeouts.
+ * Timeout(5.0)                # 5s timeout on all operations.
+ * Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+ * Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+ * Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.
+ *                             # 5s timeout elsewhere.
+ */
 export const timeoutSchema = z
 	.looseObject({
 		connect: z.union([z.number(), z.null().nullable()]),
@@ -4497,6 +5046,9 @@ export const modelResponseSchema = z.looseObject({
 	choices: z.array(choicesSchema),
 });
 
+/**
+ * LiteLLM Params with 'model' requirement - used for completions
+ */
 export const liteLLMParamsSchema = z
 	.looseObject({
 		input_cost_per_token: z.union([z.number(), z.null().nullable()]).optional(),
@@ -5105,18 +5657,27 @@ export const deprecationTagUsageSchema = z.object({
 	tag: z.string(),
 });
 
+/**
+ * Response for distinct user agent tags
+ */
 export const distinctTagResponseSchema = z
 	.object({
 		tag: z.string(),
 	})
 	.describe("Response for distinct user agent tags");
 
+/**
+ * Response for all distinct user agent tags
+ */
 export const distinctTagsResponseSchema = z
 	.object({
 		results: z.array(distinctTagResponseSchema),
 	})
 	.describe("Response for all distinct user agent tags");
 
+/**
+ * A double click action.
+ */
 export const doubleClickSchema = z
 	.looseObject({
 		keys: z.union([z.array(z.string()), z.null().nullable()]).optional(),
@@ -5126,6 +5687,9 @@ export const doubleClickSchema = z
 	})
 	.describe("A double click action.");
 
+/**
+ * An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
+ */
 export const dragPathSchema = z
 	.looseObject({
 		x: z.int(),
@@ -5133,6 +5697,9 @@ export const dragPathSchema = z
 	})
 	.describe("An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.");
 
+/**
+ * A drag action.
+ */
 export const dragSchema = z
 	.looseObject({
 		path: z.array(dragPathSchema),
@@ -5190,6 +5757,9 @@ export const exportTypeSchema = z.enum([
 	"daily_with_users",
 ]);
 
+/**
+ * `has_more` rather than `total_count`, which would need a COUNT(*) over the whole match set per keystroke.
+ */
 export const pageMetaSchema = z
 	.object({
 		page: z.int(),
@@ -5200,6 +5770,9 @@ export const pageMetaSchema = z
 		"`has_more` rather than `total_count`, which would need a COUNT(*) over the whole match set per keystroke.",
 	);
 
+/**
+ * Hypermedia for a paginated list. No `first`/`last`: without a total count the last page is unknown.
+ */
 export const pageLinksSchema = z
 	.object({
 		self: z.string(),
@@ -5210,6 +5783,9 @@ export const pageLinksSchema = z
 		"Hypermedia for a paginated list. No `first`/`last`: without a total count the last page is unknown.",
 	);
 
+/**
+ * The distinct values one column takes over a filtered query. `data` holds bare values, not entity rows.
+ */
 export const facetListResponseSchema = z
 	.object({
 		data: z.array(z.string()),
@@ -5224,6 +5800,9 @@ export const facetListResponseSchema = z
 		"The distinct values one column takes over a filtered query. `data` holds bare values, not entity rows.",
 	);
 
+/**
+ * Request model for creating/updating fallbacks
+ */
 export const fallbackCreateRequestSchema = z
 	.object({
 		model: z.string().describe("The model name to configure fallbacks for (e.g., 'gpt-3.5-turbo')"),
@@ -5239,6 +5818,9 @@ export const fallbackCreateRequestSchema = z
 	})
 	.describe("Request model for creating/updating fallbacks");
 
+/**
+ * Response model for deleting fallbacks
+ */
 export const fallbackDeleteResponseSchema = z
 	.object({
 		model: z.string().describe("The model name"),
@@ -5247,6 +5829,9 @@ export const fallbackDeleteResponseSchema = z
 	})
 	.describe("Response model for deleting fallbacks");
 
+/**
+ * Response model for getting fallbacks
+ */
 export const fallbackGetResponseSchema = z
 	.object({
 		model: z.string().describe("The model name"),
@@ -5255,6 +5840,9 @@ export const fallbackGetResponseSchema = z
 	})
 	.describe("Response model for getting fallbacks");
 
+/**
+ * Response model for fallback operations
+ */
 export const fallbackResponseSchema = z
 	.object({
 		model: z.string().describe("The model name"),
@@ -5303,6 +5891,9 @@ export const gatewayRequestStatusCodeEntrySchema = z.object({
 	failed_requests: z.int().optional().default(0),
 });
 
+/**
+ * Response for GET /gateway/daily/activity.
+ */
 export const gatewayRequestActivityResponseSchema = z
 	.object({
 		total_successful_requests: z.int().optional().default(0),
@@ -5313,6 +5904,9 @@ export const gatewayRequestActivityResponseSchema = z
 	})
 	.describe("Response for GET /gateway/daily/activity.");
 
+/**
+ * A group of models that share a routing strategy.
+ */
 export const routingGroupSchema = z
 	.object({
 		group_name: z.string(),
@@ -5328,6 +5922,12 @@ export const routingGroupSchema = z
 	})
 	.describe("A group of models that share a routing strategy.");
 
+/**
+ * Use this to set a custom number of retries per exception type
+ * If RateLimitErrorRetries = 3, then 3 retries will be made for RateLimitError
+ * Mapping of Exception type to number of retries
+ * https://docs.litellm.ai/docs/exception_mapping
+ */
 export const retryPolicySchema = z
 	.object({
 		BadRequestErrorRetries: z.union([z.int(), z.null().nullable()]).optional(),
@@ -5344,6 +5944,9 @@ export const retryPolicySchema = z
 		"Use this to set a custom number of retries per exception type\nIf RateLimitErrorRetries = 3, then 3 retries will be made for RateLimitError\nMapping of Exception type to number of retries\nhttps://docs.litellm.ai/docs/exception_mapping",
 	);
 
+/**
+ * Set of params that you can modify via `router.update_settings()`.
+ */
 export const updateRouterConfigSchema = z
 	.object({
 		routing_strategy_args: z.union([z.looseObject({}), z.null().nullable()]).optional(),
@@ -5459,6 +6062,9 @@ export const updateRouterConfigSchema = z
 	})
 	.describe("Set of params that you can modify via `router.update_settings()`.");
 
+/**
+ * Enum for key types that determine what routes a key can access
+ */
 export const liteLLMKeyTypeSchema = z
 	.enum(["llm_api", "management", "read_only", "default"])
 	.describe("Enum for key types that determine what routes a key can access");
@@ -5675,6 +6281,9 @@ export const generateKeyResponseSchema = z.object({
 	updated_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
 });
 
+/**
+ * Annotation for content in a message
+ */
 export const genericResponseOutputItemContentAnnotationSchema = z
 	.looseObject({
 		type: z.union([z.string(), z.null().nullable()]),
@@ -5685,6 +6294,9 @@ export const genericResponseOutputItemContentAnnotationSchema = z
 	})
 	.describe("Annotation for content in a message");
 
+/**
+ * Text output content from an assistant message
+ */
 export const outputTextSchema = z
 	.looseObject({
 		type: z.union([z.string(), z.null().nullable()]),
@@ -5696,6 +6308,9 @@ export const outputTextSchema = z
 	})
 	.describe("Text output content from an assistant message");
 
+/**
+ * A refusal from the model.
+ */
 export const responseOutputRefusalSchema = z
 	.looseObject({
 		refusal: z.string(),
@@ -5703,6 +6318,9 @@ export const responseOutputRefusalSchema = z
 	})
 	.describe("A refusal from the model.");
 
+/**
+ * Generic response API output item
+ */
 export const genericResponseOutputItemSchema = z
 	.looseObject({
 		type: z.string(),
@@ -5714,6 +6332,9 @@ export const genericResponseOutputItemSchema = z
 	})
 	.describe("Generic response API output item");
 
+/**
+ * Response to get the team member permissions for a team
+ */
 export const getTeamMemberPermissionsResponseSchema = z
 	.object({
 		team_id: z.string(),
@@ -5753,6 +6374,9 @@ export const IPAddressSchema = z.object({
 	ip: z.string(),
 });
 
+/**
+ * Public details for a `moderation_blocked` error, when available.
+ */
 export const imageGenerationCallErrorModerationDetailsSchema = z
 	.looseObject({
 		categories: z.array(z.string()),
@@ -5760,6 +6384,9 @@ export const imageGenerationCallErrorModerationDetailsSchema = z
 	})
 	.describe("Public details for a `moderation_blocked` error, when available.");
 
+/**
+ * Details of a moderation failure, when available.
+ */
 export const imageGenerationCallErrorSchema = z
 	.looseObject({
 		code: z.union([z.string(), z.null().nullable()]).optional(),
@@ -5780,6 +6407,9 @@ export const imageGenerationCallSvgUsageSchema = z.looseObject({
 	total_tokens: z.int(),
 });
 
+/**
+ * An image generation request made by the model.
+ */
 export const imageGenerationCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -5805,6 +6435,9 @@ export const imageGenerationCallSchema = z
 	})
 	.describe("An image generation request made by the model.");
 
+/**
+ * Details about why the response is incomplete.
+ */
 export const incompleteDetailsSchema = z
 	.looseObject({
 		reason: z
@@ -5829,6 +6462,9 @@ export const inputTokensDetailsSchema = z.looseObject({
 	video_tokens: z.union([z.int(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Response model for internal user settings
+ */
 export const internalUserSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -5847,6 +6483,19 @@ export const keyHealthResponseSchema = z.object({
 	logging_callbacks: z.union([loggingCallbackStatusSchema, z.null().nullable()]).optional(),
 });
 
+/**
+ * Admin Roles:
+ * PROXY_ADMIN: admin over the platform
+ * PROXY_ADMIN_VIEW_ONLY: can login, view all own keys, view all spend
+ * ORG_ADMIN: admin over a specific organization, can create teams, users only within their organization
+ * Internal User Roles:
+ * INTERNAL_USER: can login, view/create/delete their own keys, view their spend
+ * INTERNAL_USER_VIEW_ONLY: can login, view their own keys, view their own spend
+ * Team Roles:
+ * TEAM: used for JWT auth
+ * Customer Roles:
+ * CUSTOMER: External users -> these are customers
+ */
 export const litellmUserRolesSchema = z
 	.enum([
 		"proxy_admin",
@@ -5861,6 +6510,9 @@ export const litellmUserRolesSchema = z
 		"Admin Roles:\nPROXY_ADMIN: admin over the platform\nPROXY_ADMIN_VIEW_ONLY: can login, view all own keys, view all spend\nORG_ADMIN: admin over a specific organization, can create teams, users only within their organization\n\nInternal User Roles:\nINTERNAL_USER: can login, view/create/delete their own keys, view their spend\nINTERNAL_USER_VIEW_ONLY: can login, view their own keys, view their own spend\n\n\nTeam Roles:\nTEAM: used for JWT auth\n\n\nCustomer Roles:\nCUSTOMER: External users -> these are customers",
 	);
 
+/**
+ * Return the row in the db
+ */
 export const userAPIKeyAuthSchema = z
 	.object({
 		token: z.union([z.string(), z.null().nullable()]).optional(),
@@ -5982,6 +6634,9 @@ export const userAPIKeyAuthSchema = z
 	})
 	.describe("Return the row in the db");
 
+/**
+ * Audit record for deleted keys; mirrors the token plus deletion metadata.
+ */
 export const liteLLMDeletedVerificationTokenSchema = z
 	.object({
 		token: z.union([z.string(), z.null().nullable()]).optional(),
@@ -6068,6 +6723,9 @@ export const keyRequestSchema = z.object({
 	key_aliases: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 });
 
+/**
+ * A collection of keypresses the model would like to perform.
+ */
 export const keypressSchema = z
 	.looseObject({
 		keys: z.array(z.string()),
@@ -6096,6 +6754,9 @@ export const listAccessGroupsResponseSchema = z.object({
 	access_groups: z.array(accessGroupInfoSchema),
 });
 
+/**
+ * Page-mode counterpart to `PageLinks`. `first`/`last` are knowable here because the total count is.
+ */
 export const listLinksSchema = z
 	.object({
 		self: z.string(),
@@ -6108,6 +6769,9 @@ export const listLinksSchema = z
 		"Page-mode counterpart to `PageLinks`. `first`/`last` are knowable here because the total count is.",
 	);
 
+/**
+ * Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
+ */
 export const listMetaSchema = z
 	.object({
 		total_count: z.int(),
@@ -6277,6 +6941,9 @@ export const liteLLMModelTableSchema = z.object({
 	},
 });
 
+/**
+ * Audit record for deleted teams; mirrors the team plus deletion metadata.
+ */
 export const liteLLMDeletedTeamTableSchema = z
 	.object({
 		team_alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -6346,6 +7013,9 @@ export const liteLLMMemoryRowSchema = z.object({
 	updated_by: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Tracks which organizations a user belongs to and their spend within it.
+ */
 export const liteLLMOrganizationMembershipTableSchema = z
 	.object({
 		user_id: z.string(),
@@ -6400,6 +7070,9 @@ export const liteLLMUserTableSchema = z.object({
 	object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null().nullable()]).optional(),
 });
 
+/**
+ * Returned by the /organization/info endpoint and /organization/list endpoint
+ */
 export const liteLLMOrganizationTableWithMembersSchema = z
 	.object({
 		organization_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -6429,6 +7102,9 @@ export const liteLLMOrganizationTableWithMembersSchema = z
 	})
 	.describe("Returned by the /organization/info endpoint and /organization/list endpoint");
 
+/**
+ * Database model representation for project
+ */
 export const liteLLMProjectTableSchema = z
 	.object({
 		project_id: z.string(),
@@ -6614,6 +7290,9 @@ export const liteLLMVerificationTokenSchema = z.object({
 	budget_limits: z.union([z.array(z.looseObject({})), z.null().nullable()]).optional(),
 });
 
+/**
+ * Execute a shell command on the server.
+ */
 export const localShellCallActionSchema = z
 	.looseObject({
 		command: z.array(z.string()),
@@ -6625,6 +7304,9 @@ export const localShellCallActionSchema = z
 	})
 	.describe("Execute a shell command on the server.");
 
+/**
+ * A tool call to run a command on the local shell.
+ */
 export const localShellCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6635,6 +7317,9 @@ export const localShellCallSchema = z
 	})
 	.describe("A tool call to run a command on the local shell.");
 
+/**
+ * The output of a local shell tool call.
+ */
 export const localShellCallOutputSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6646,6 +7331,9 @@ export const localShellCallOutputSchema = z
 	})
 	.describe("The output of a local shell tool call.");
 
+/**
+ * The top log probability of a token.
+ */
 export const logprobTopLogprobSchema = z
 	.looseObject({
 		token: z.string(),
@@ -6654,6 +7342,9 @@ export const logprobTopLogprobSchema = z
 	})
 	.describe("The top log probability of a token.");
 
+/**
+ * The log probability of a token.
+ */
 export const logprobSchema = z
 	.looseObject({
 		token: z.string(),
@@ -6663,6 +7354,9 @@ export const logprobSchema = z
 	})
 	.describe("The log probability of a token.");
 
+/**
+ * Safe params for public MCP servers
+ */
 export const MCPPublicServerSchema = z
 	.object({
 		server_id: z.string(),
@@ -6694,6 +7388,9 @@ export const MCPPublicServerSchema = z
 	})
 	.describe("Safe params for public MCP servers");
 
+/**
+ * Configuration for MCP Semantic Tool Filter
+ */
 export const MCPSemanticFilterSettingsSchema = z
 	.object({
 		enabled: z
@@ -6727,6 +7424,9 @@ export const MCPSemanticFilterSettingsSchema = z
 	})
 	.describe("Configuration for MCP Semantic Tool Filter");
 
+/**
+ * Response model for MCP semantic filter settings
+ */
 export const MCPSemanticFilterSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -6734,6 +7434,9 @@ export const MCPSemanticFilterSettingsResponseSchema = z
 	})
 	.describe("Response model for MCP semantic filter settings");
 
+/**
+ * `litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller's tools.
+ */
 export const MCPToolSearchSettingsSchema = z
 	.object({
 		embedding_model: z
@@ -6772,6 +7475,9 @@ export const MCPToolSearchSettingsSchema = z
 		"`litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller's tools.",
 	);
 
+/**
+ * Response model for native MCP tool search settings
+ */
 export const MCPToolSearchSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -6779,6 +7485,9 @@ export const MCPToolSearchSettingsResponseSchema = z
 	})
 	.describe("Response model for native MCP tool search settings");
 
+/**
+ * A request for human approval of a tool invocation.
+ */
 export const mcpApprovalRequestSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6789,6 +7498,9 @@ export const mcpApprovalRequestSchema = z
 	})
 	.describe("A request for human approval of a tool invocation.");
 
+/**
+ * A response to an MCP approval request.
+ */
 export const mcpApprovalResponseSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6810,6 +7522,9 @@ export const mcpToolExecutionErrorSchema = z.looseObject({
 	type: z.enum(["mcp_tool_execution_error"]),
 });
 
+/**
+ * An invocation of a tool on an MCP server.
+ */
 export const mcpCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6836,6 +7551,9 @@ export const mcpCallSchema = z
 	})
 	.describe("An invocation of a tool on an MCP server.");
 
+/**
+ * A tool available on an MCP server.
+ */
 export const mcpListToolsToolSchema = z
 	.looseObject({
 		input_schema: z.unknown(),
@@ -6845,6 +7563,9 @@ export const mcpListToolsToolSchema = z
 	})
 	.describe("A tool available on an MCP server.");
 
+/**
+ * A list of tools available on an MCP server.
+ */
 export const mcpListToolsSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6965,6 +7686,9 @@ export const modelTopKeysResponseSchema = z.object({
 	api_keys: z.array(keySpendActivityRowSchema),
 });
 
+/**
+ * A mouse move action.
+ */
 export const moveSchema = z
 	.looseObject({
 		type: z.enum(["move"]),
@@ -6994,6 +7718,9 @@ export const moyaiConnectStartResponseSchema = z.object({
 	connect_url: z.string(),
 });
 
+/**
+ * Create a new customer, allocate a budget to them
+ */
 export const newCustomerRequestSchema = z
 	.object({
 		budget_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -7102,6 +7829,9 @@ export const newOrganizationResponseSchema = z.object({
 	updated_at: z.iso.datetime({ offset: true }),
 });
 
+/**
+ * Request model for POST /project/new
+ */
 export const newProjectRequestSchema = z
 	.object({
 		budget_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -7134,6 +7864,9 @@ export const newProjectRequestSchema = z
 	})
 	.describe("Request model for POST /project/new");
 
+/**
+ * Response model for POST /project/new
+ */
 export const newProjectResponseSchema = z
 	.object({
 		project_id: z.string(),
@@ -7406,6 +8139,9 @@ export const newUserResponseSchema = z.object({
 	user_alias: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Instruction describing how to create a file via the apply_patch tool.
+ */
 export const operationCreateFileSchema = z
 	.looseObject({
 		diff: z.string(),
@@ -7414,6 +8150,9 @@ export const operationCreateFileSchema = z
 	})
 	.describe("Instruction describing how to create a file via the apply_patch tool.");
 
+/**
+ * Instruction describing how to delete a file via the apply_patch tool.
+ */
 export const operationDeleteFileSchema = z
 	.looseObject({
 		path: z.string(),
@@ -7421,6 +8160,9 @@ export const operationDeleteFileSchema = z
 	})
 	.describe("Instruction describing how to delete a file via the apply_patch tool.");
 
+/**
+ * Instruction describing how to update a file via the apply_patch tool.
+ */
 export const operationUpdateFileSchema = z
 	.looseObject({
 		diff: z.string(),
@@ -7473,6 +8215,12 @@ export const organizationRequestSchema = z.object({
 	organizations: z.array(z.string()),
 });
 
+/**
+ * Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).
+ * Presence is read from ``model_fields_set``, so a sent field is written and an omitted one is
+ * left untouched. ``extra="forbid"`` makes an unknown key a 422 rather than a silent no-op, since
+ * the contract hinges on which keys are present. See the endpoint for the per-field clear tokens.
+ */
 export const organizationUpdateRequestV2Schema = z
 	.strictObject({
 		organization_alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -7491,12 +8239,18 @@ export const organizationUpdateRequestV2Schema = z
 		'Typed PATCH body for ``/v2/organization/{organization_id}`` (RFC 7396 merge-patch).\n\nPresence is read from ``model_fields_set``, so a sent field is written and an omitted one is\nleft untouched. ``extra="forbid"`` makes an unknown key a 422 rather than a silent no-op, since\nthe contract hinges on which keys are present. See the endpoint for the per-field clear tokens.',
 	);
 
+/**
+ * Indicates that the shell call exceeded its configured time limit.
+ */
 export const outputOutcomeTimeoutSchema = z
 	.looseObject({
 		type: z.enum(["timeout"]),
 	})
 	.describe("Indicates that the shell call exceeded its configured time limit.");
 
+/**
+ * Indicates that the shell commands finished and returned an exit code.
+ */
 export const outputOutcomeExitSchema = z
 	.looseObject({
 		exit_code: z.int(),
@@ -7504,6 +8258,9 @@ export const outputOutcomeExitSchema = z
 	})
 	.describe("Indicates that the shell commands finished and returned an exit code.");
 
+/**
+ * The content of a shell tool call output that was emitted.
+ */
 export const outputSchema = z
 	.looseObject({
 		outcome: z.discriminatedUnion("type", [outputOutcomeTimeoutSchema, outputOutcomeExitSchema]),
@@ -7513,6 +8270,9 @@ export const outputSchema = z
 	})
 	.describe("The content of a shell tool call output that was emitted.");
 
+/**
+ * Log output from a code interpreter call
+ */
 export const outputCodeInterpreterCallLogSchema = z
 	.looseObject({
 		type: z.enum(["logs"]),
@@ -7520,6 +8280,9 @@ export const outputCodeInterpreterCallLogSchema = z
 	})
 	.describe("Log output from a code interpreter call");
 
+/**
+ * A code interpreter / code execution call output
+ */
 export const outputCodeInterpreterCallSchema = z
 	.looseObject({
 		type: z.enum(["code_interpreter_call"]),
@@ -7531,6 +8294,9 @@ export const outputCodeInterpreterCallSchema = z
 	})
 	.describe("A code interpreter / code execution call output");
 
+/**
+ * A tool call to run a function
+ */
 export const outputFunctionToolCallSchema = z
 	.looseObject({
 		arguments: z.union([z.string(), z.null().nullable()]),
@@ -7543,6 +8309,9 @@ export const outputFunctionToolCallSchema = z
 	})
 	.describe("A tool call to run a function");
 
+/**
+ * The image output from the code interpreter.
+ */
 export const outputImageSchema = z
 	.looseObject({
 		type: z.enum(["image"]),
@@ -7550,6 +8319,9 @@ export const outputImageSchema = z
 	})
 	.describe("The image output from the code interpreter.");
 
+/**
+ * An image generation call output
+ */
 export const outputImageGenerationCallSchema = z
 	.looseObject({
 		type: z.enum(["image_generation_call"]),
@@ -7559,6 +8331,9 @@ export const outputImageGenerationCallSchema = z
 	})
 	.describe("An image generation call output");
 
+/**
+ * The logs output from the code interpreter.
+ */
 export const outputLogsSchema = z
 	.looseObject({
 		logs: z.string(),
@@ -7581,6 +8356,9 @@ export const outputToolSearchCallSchema = z.looseObject({
 	type: z.enum(["tool_search_call"]),
 });
 
+/**
+ * Response model for paginated audit logs
+ */
 export const paginatedAuditLogResponseSchema = z
 	.object({
 		audit_logs: z.array(auditLogResponseSchema),
@@ -7591,6 +8369,10 @@ export const paginatedAuditLogResponseSchema = z
 	})
 	.describe("Response model for paginated audit logs");
 
+/**
+ * Settings for a specific guardrail on a passthrough endpoint.
+ * Allows field-level targeting for guardrail execution.
+ */
 export const passThroughGuardrailSettingsSchema = z
 	.object({
 		request_fields: z
@@ -8136,6 +8918,11 @@ export const patchModelRequestSchema = z.object({
 		),
 });
 
+/**
+ * Body of PATCH /team/{team_id}.
+ * Identical to UpdateTeamRequest except team_id is optional, because PATCH takes it
+ * from the path. A team_id in the body is still accepted when it matches the path.
+ */
 export const patchTeamRequestSchema = z
 	.object({
 		team_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -8198,6 +8985,9 @@ export const patchTeamRequestSchema = z
 		"Body of PATCH /team/{team_id}.\n\nIdentical to UpdateTeamRequest except team_id is optional, because PATCH takes it\nfrom the path. A team_id in the body is still accepted when it matches the path.",
 	);
 
+/**
+ * A pending safety check for the computer call.
+ */
 export const pendingSafetyCheckSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8206,6 +8996,9 @@ export const pendingSafetyCheckSchema = z
 	})
 	.describe("A pending safety check for the computer call.");
 
+/**
+ * Metrics for individual user
+ */
 export const perUserMetricsSchema = z
 	.object({
 		user_id: z.string(),
@@ -8219,6 +9012,9 @@ export const perUserMetricsSchema = z
 	})
 	.describe("Metrics for individual user");
 
+/**
+ * Response for per-user analytics
+ */
 export const perUserAnalyticsResponseSchema = z
 	.object({
 		results: z.array(perUserMetricsSchema),
@@ -8245,6 +9041,10 @@ export const programOutputSchema = z.looseObject({
 	type: z.enum(["program_output"]),
 });
 
+/**
+ * Marks the exact end of a reusable prompt prefix.
+ * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+ */
 export const promptCacheBreakpointSchema = z
 	.looseObject({
 		mode: z.enum(["explicit"]),
@@ -8282,6 +9082,9 @@ export const promptTokensDetailsSchema = z.object({
 	tokenCount: z.int(),
 });
 
+/**
+ * Configuration for a single provider's budget settings
+ */
 export const providerBudgetResponseObjectSchema = z
 	.object({
 		budget_limit: z.union([z.number(), z.null().nullable()]),
@@ -8291,6 +9094,10 @@ export const providerBudgetResponseObjectSchema = z
 	})
 	.describe("Configuration for a single provider's budget settings");
 
+/**
+ * Complete provider budget configuration and status.
+ * Maps provider names to their budget configs.
+ */
 export const providerBudgetResponseSchema = z
 	.object({
 		providers: z.record(z.string(), providerBudgetResponseObjectSchema).optional().default({}),
@@ -8338,6 +9145,9 @@ export const rawRequestTypedDictSchema = z.object({
 	error: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * The reasoning configuration applied by this update.
+ */
 export const reasoningSchema = z
 	.looseObject({
 		effort: z
@@ -8481,6 +9291,9 @@ export const requestErrorEntityEntrySchema = z.object({
 	top_status_code_requests: z.int().optional().default(0),
 });
 
+/**
+ * Response for GET /gateway/errors/activity.
+ */
 export const requestErrorActivityResponseSchema = z
 	.object({
 		total_successful_requests: z.int().optional().default(0),
@@ -8507,6 +9320,9 @@ export const responseAPIUsageSchema = z.looseObject({
 	cost: z.union([z.number(), z.null().nullable()]).optional(),
 });
 
+/**
+ * A tool call that applies file diffs by creating, deleting, or updating files.
+ */
 export const responseApplyPatchToolCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8523,6 +9339,9 @@ export const responseApplyPatchToolCallSchema = z
 	})
 	.describe("A tool call that applies file diffs by creating, deleting, or updating files.");
 
+/**
+ * The output emitted by an apply patch tool call.
+ */
 export const responseApplyPatchToolCallOutputSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8535,6 +9354,9 @@ export const responseApplyPatchToolCallOutputSchema = z
 	})
 	.describe("The output emitted by an apply patch tool call.");
 
+/**
+ * A tool call to run code.
+ */
 export const responseCodeInterpreterToolCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8551,6 +9373,9 @@ export const responseCodeInterpreterToolCallSchema = z
 	})
 	.describe("A tool call to run code.");
 
+/**
+ * A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).
+ */
 export const responseCompactionItemSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8562,12 +9387,18 @@ export const responseCompactionItemSchema = z
 		"A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).",
 	);
 
+/**
+ * A screenshot action.
+ */
 export const screenshotSchema = z
 	.looseObject({
 		type: z.enum(["screenshot"]),
 	})
 	.describe("A screenshot action.");
 
+/**
+ * A scroll action.
+ */
 export const scrollSchema = z
 	.looseObject({
 		scroll_x: z.int(),
@@ -8579,6 +9410,9 @@ export const scrollSchema = z
 	})
 	.describe("A scroll action.");
 
+/**
+ * An action to type in text.
+ */
 export const typeSchema = z
 	.looseObject({
 		text: z.string(),
@@ -8586,12 +9420,20 @@ export const typeSchema = z
 	})
 	.describe("An action to type in text.");
 
+/**
+ * A wait action.
+ */
 export const waitSchema = z
 	.looseObject({
 		type: z.enum(["wait"]),
 	})
 	.describe("A wait action.");
 
+/**
+ * A tool call to a computer use tool.
+ * See the
+ * [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
+ */
 export const responseComputerToolCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8636,6 +9478,9 @@ export const responseComputerToolCallSchema = z
 		"A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.",
 	);
 
+/**
+ * A computer screenshot image used with the computer use tool.
+ */
 export const responseComputerToolCallOutputScreenshotSchema = z
 	.looseObject({
 		type: z.enum(["computer_screenshot"]),
@@ -8658,12 +9503,20 @@ export const responseComputerToolCallOutputItemSchema = z.looseObject({
 	created_by: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Default response format. Used to generate text responses.
+ */
 export const responseFormatTextSchema = z
 	.looseObject({
 		type: z.enum(["text"]),
 	})
 	.describe("Default response format. Used to generate text responses.");
 
+/**
+ * JSON Schema response format.
+ * Used to generate structured JSON responses.
+ * Learn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
+ */
 export const responseFormatTextJSONSchemaConfigSchema = z
 	.looseObject({
 		name: z.string(),
@@ -8676,6 +9529,9 @@ export const responseFormatTextJSONSchemaConfigSchema = z
 		"JSON Schema response format.\n\nUsed to generate structured JSON responses.\nLearn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).",
 	);
 
+/**
+ * The text output configuration for subsequent responses.
+ */
 export const openaiTypesResponsesResponseConfigurationUpdateItemTextSchema = z
 	.looseObject({
 		format: z.discriminatedUnion("type", [
@@ -8685,6 +9541,11 @@ export const openaiTypesResponsesResponseConfigurationUpdateItemTextSchema = z
 	})
 	.describe("The text output configuration for subsequent responses.");
 
+/**
+ * A configuration update for subsequent responses.
+ * Each setting stays in effect
+ * until a later update replaces that setting.
+ */
 export const responseConfigurationUpdateItemSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8698,6 +9559,9 @@ export const responseConfigurationUpdateItemSchema = z
 		"A configuration update for subsequent responses.\n\nEach setting stays in effect\nuntil a later update replaces that setting.",
 	);
 
+/**
+ * Represents a container created with /v1/containers.
+ */
 export const responseContainerReferenceSchema = z
 	.looseObject({
 		container_id: z.string(),
@@ -8705,6 +9569,9 @@ export const responseContainerReferenceSchema = z
 	})
 	.describe("Represents a container created with /v1/containers.");
 
+/**
+ * A call to a custom tool created by the model.
+ */
 export const responseCustomToolCallSchema = z
 	.looseObject({
 		call_id: z.string(),
@@ -8718,6 +9585,9 @@ export const responseCustomToolCallSchema = z
 	})
 	.describe("A call to a custom tool created by the model.");
 
+/**
+ * A call to a custom tool created by the model.
+ */
 export const responseCustomToolCallItemSchema = z
 	.looseObject({
 		call_id: z.string(),
@@ -8733,6 +9603,9 @@ export const responseCustomToolCallItemSchema = z
 	})
 	.describe("A call to a custom tool created by the model.");
 
+/**
+ * A text input to the model.
+ */
 export const responseInputTextSchema = z
 	.looseObject({
 		text: z.string(),
@@ -8741,6 +9614,10 @@ export const responseInputTextSchema = z
 	})
 	.describe("A text input to the model.");
 
+/**
+ * An image input to the model.
+ * Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
+ */
 export const responseInputImageSchema = z
 	.looseObject({
 		detail: z.enum(["low", "high", "auto", "original"]),
@@ -8753,6 +9630,9 @@ export const responseInputImageSchema = z
 		"An image input to the model.\n\nLearn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).",
 	);
 
+/**
+ * A file input to the model.
+ */
 export const responseInputFileSchema = z
 	.looseObject({
 		type: z.enum(["input_file"]),
@@ -8765,6 +9645,9 @@ export const responseInputFileSchema = z
 	})
 	.describe("A file input to the model.");
 
+/**
+ * The output of a custom tool call from your code, being sent back to the model.
+ */
 export const responseCustomToolCallOutputItemSchema = z
 	.looseObject({
 		call_id: z.string(),
@@ -8799,6 +9682,11 @@ export const resultSchema = z.looseObject({
 	text: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * The results of a file search tool call.
+ * See the
+ * [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
+ */
 export const responseFileSearchToolCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8811,6 +9699,13 @@ export const responseFileSearchToolCallSchema = z
 		"The results of a file search tool call.\n\nSee the\n[file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.",
 	);
 
+/**
+ * JSON object response format.
+ * An older method of generating JSON responses.
+ * Using `json_schema` is recommended for models that support it. Note that the
+ * model will not generate JSON without a system or user message instructing it
+ * to do so.
+ */
 export const responseFormatJSONObjectSchema = z
 	.looseObject({
 		type: z.enum(["json_object"]),
@@ -8819,6 +9714,11 @@ export const responseFormatJSONObjectSchema = z
 		"JSON object response format.\n\nAn older method of generating JSON responses.\nUsing `json_schema` is recommended for models that support it. Note that the\nmodel will not generate JSON without a system or user message instructing it\nto do so.",
 	);
 
+/**
+ * JSON Schema response format.
+ * Used to generate structured JSON responses.
+ * Learn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
+ */
 export const responseFormatTextJSONSchemaConfigParamSchema = z
 	.looseObject({
 		name: z.string(),
@@ -8831,12 +9731,18 @@ export const responseFormatTextJSONSchemaConfigParamSchema = z
 		"JSON Schema response format.\n\nUsed to generate structured JSON responses.\nLearn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).",
 	);
 
+/**
+ * Represents the use of a local environment to perform shell actions.
+ */
 export const responseLocalEnvironmentSchema = z
 	.looseObject({
 		type: z.enum(["local"]),
 	})
 	.describe("Represents the use of a local environment to perform shell actions.");
 
+/**
+ * A tool call that executes one or more shell commands in a managed environment.
+ */
 export const responseFunctionShellToolCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8858,6 +9764,9 @@ export const responseFunctionShellToolCallSchema = z
 	})
 	.describe("A tool call that executes one or more shell commands in a managed environment.");
 
+/**
+ * The output of a shell tool call that was emitted.
+ */
 export const responseFunctionShellToolCallOutputSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8871,6 +9780,11 @@ export const responseFunctionShellToolCallOutputSchema = z
 	})
 	.describe("The output of a shell tool call that was emitted.");
 
+/**
+ * A tool call to run a function.
+ * See the
+ * [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
+ */
 export const responseFunctionToolCallSchema = z
 	.looseObject({
 		arguments: z.string(),
@@ -8889,6 +9803,11 @@ export const responseFunctionToolCallSchema = z
 		"A tool call to run a function.\n\nSee the\n[function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.",
 	);
 
+/**
+ * A tool call to run a function.
+ * See the
+ * [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
+ */
 export const responseFunctionToolCallItemSchema = z
 	.looseObject({
 		arguments: z.string(),
@@ -8927,6 +9846,11 @@ export const responseFunctionToolCallOutputItemSchema = z.looseObject({
 	namespace: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * The results of a web search tool call.
+ * See the
+ * [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
+ */
 export const responseFunctionWebSearchSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8958,6 +9882,9 @@ export const responseInputMessageItemSchema = z.looseObject({
 		.optional(),
 });
 
+/**
+ * A text output from the model.
+ */
 export const responseOutputTextSchema = z
 	.looseObject({
 		annotations: z.array(
@@ -8974,6 +9901,9 @@ export const responseOutputTextSchema = z
 	})
 	.describe("A text output from the model.");
 
+/**
+ * An output message from the model.
+ */
 export const responseOutputMessageSchema = z
 	.looseObject({
 		id: z.string(),
@@ -9026,6 +9956,9 @@ export const responseToolSearchOutputItemSchema = z.looseObject({
 	created_by: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * A summary text from the model.
+ */
 export const summarySchema = z
 	.looseObject({
 		text: z.string(),
@@ -9033,6 +9966,12 @@ export const summarySchema = z
 	})
 	.describe("A summary text from the model.");
 
+/**
+ * A description of the chain of thought used by a reasoning model while generating
+ * a response. Be sure to include these items in your `input` to the Responses API
+ * for subsequent turns of a conversation if you are manually
+ * [managing context](https://developers.openai.com/api/docs/guides/conversation-state).
+ */
 export const responseReasoningItemSchema = z
 	.looseObject({
 		id: z.string(),
@@ -9048,6 +9987,9 @@ export const responseReasoningItemSchema = z
 		"A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://developers.openai.com/api/docs/guides/conversation-state).",
 	);
 
+/**
+ * A list of Response items.
+ */
 export const responseItemListSchema = z
 	.looseObject({
 		data: z.array(
@@ -9091,6 +10033,13 @@ export const responseItemListSchema = z
 	})
 	.describe("A list of Response items.");
 
+/**
+ * Configuration options for a text response from the model.
+ * Can be plain
+ * text or structured JSON data. Learn more:
+ * - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text)
+ * - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
+ */
 export const responseTextConfigParamSchema = z
 	.looseObject({
 		format: z
@@ -9106,6 +10055,9 @@ export const responseTextConfigParamSchema = z
 		"Configuration options for a text response from the model.\n\nCan be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text)\n- [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)",
 	);
 
+/**
+ * Constrains the tools available to the model to a pre-defined set.
+ */
 export const toolChoiceAllowedParamSchema = z
 	.looseObject({
 		mode: z.enum(["auto", "required"]),
@@ -9114,6 +10066,10 @@ export const toolChoiceAllowedParamSchema = z
 	})
 	.describe("Constrains the tools available to the model to a pre-defined set.");
 
+/**
+ * Indicates that the model should use a built-in tool to generate a response.
+ * [Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).
+ */
 export const toolChoiceTypesParamSchema = z
 	.looseObject({
 		type: z.enum([
@@ -9131,6 +10087,9 @@ export const toolChoiceTypesParamSchema = z
 		"Indicates that the model should use a built-in tool to generate a response.\n[Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).",
 	);
 
+/**
+ * Use this option to force the model to call a specific function.
+ */
 export const toolChoiceFunctionParamSchema = z
 	.looseObject({
 		name: z.string(),
@@ -9138,6 +10097,9 @@ export const toolChoiceFunctionParamSchema = z
 	})
 	.describe("Use this option to force the model to call a specific function.");
 
+/**
+ * Use this option to force the model to call a specific tool on a remote MCP server.
+ */
 export const toolChoiceMcpParamSchema = z
 	.looseObject({
 		server_label: z.string(),
@@ -9146,6 +10108,9 @@ export const toolChoiceMcpParamSchema = z
 	})
 	.describe("Use this option to force the model to call a specific tool on a remote MCP server.");
 
+/**
+ * Use this option to force the model to call a specific custom tool.
+ */
 export const toolChoiceCustomParamSchema = z
 	.looseObject({
 		name: z.string(),
@@ -9157,12 +10122,18 @@ export const toolChoiceSpecificProgrammaticToolCallingParamSchema = z.looseObjec
 	type: z.enum(["programmatic_tool_calling"]),
 });
 
+/**
+ * Forces the model to call the apply_patch tool when executing a tool call.
+ */
 export const toolChoiceApplyPatchParamSchema = z
 	.looseObject({
 		type: z.enum(["apply_patch"]),
 	})
 	.describe("Forces the model to call the apply_patch tool when executing a tool call.");
 
+/**
+ * Forces the model to call the shell tool when a tool call is required.
+ */
 export const toolChoiceShellParamSchema = z
 	.looseObject({
 		type: z.enum(["shell"]),
@@ -9281,6 +10252,11 @@ export const responsesAPIResponseSchema = z.looseObject({
 	store: z.union([z.boolean(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Configuration for mapping SSO groups to LiteLLM roles.
+ * The system will look at the group_claim field in the SSO token to determine
+ * which role to assign the user based on the roles mapping.
+ */
 export const roleMappingsSchema = z
 	.object({
 		provider: z.string().describe("SSO Provider name (e.g., 'google', 'microsoft', 'generic')"),
@@ -9352,6 +10328,11 @@ export const runSourceSchema = z.object({
 	user: z.string().optional(),
 });
 
+/**
+ * Configuration for mapping SSO JWT fields to team IDs.
+ * This allows configuring team_ids_jwt_field via the database instead of
+ * requiring config file changes and restarts.
+ */
 export const teamMappingsSchema = z
 	.object({
 		team_ids_jwt_field: z
@@ -9365,6 +10346,9 @@ export const teamMappingsSchema = z
 		"Configuration for mapping SSO JWT fields to team IDs.\n\nThis allows configuring team_ids_jwt_field via the database instead of\nrequiring config file changes and restarts.",
 	);
 
+/**
+ * Configuration for SSO environment variables and settings
+ */
 export const SSOConfigSchema = z
 	.object({
 		google_client_id: z
@@ -9460,6 +10444,9 @@ export const SSOConfigSchema = z
 	})
 	.describe("Configuration for SSO environment variables and settings");
 
+/**
+ * Response model for SSO settings
+ */
 export const SSOSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -9488,6 +10475,11 @@ export const sessionLogoutResponseSchema = z.object({
 	message: z.string(),
 });
 
+/**
+ * Judge outcomes for one slice of a job's verdicts: a router tier, one of the
+ * models that served the real arm, or one scoped target (embedded on that target's
+ * own entry, so slices never need re-joining to a target by id).
+ */
 export const shadowEvalSliceSchema = z
 	.object({
 		group: z.string(),
@@ -9530,6 +10522,9 @@ export const shadowEvalSliceSchema = z
 		"Judge outcomes for one slice of a job's verdicts: a router tier, one of the\nmodels that served the real arm, or one scoped target (embedded on that target's\nown entry, so slices never need re-joining to a target by id).",
 	);
 
+/**
+ * One target a job shadows (a key, team, or user), with its own budget and stop state.
+ */
 export const shadowEvalJobTargetResponseSchema = z
 	.object({
 		target_type: z.enum(["key", "team", "user"]).describe("What kind of entity this entry scopes"),
@@ -9586,6 +10581,9 @@ export const shadowEvalJobTargetResponseSchema = z
 	})
 	.describe("One target a job shadows (a key, team, or user), with its own budget and stop state.");
 
+/**
+ * Stratified results of a shadow-eval job's verdicts so far.
+ */
 export const shadowEvalResultSchema = z
 	.object({
 		by_tier: z.array(shadowEvalSliceSchema),
@@ -9640,6 +10638,12 @@ export const shadowEvalResultSchema = z
 	})
 	.describe("Stratified results of a shadow-eval job's verdicts so far.");
 
+/**
+ * A shadow-eval job over one or more targets, each with its own budget and stop state;
+ * status is derived from stopped_by, the targets' stop and budget state, and ends_at,
+ * never stored, so no writer anywhere can produce an inconsistent one. Aggregate
+ * fields are populated by the detail endpoint only and stay None on list responses.
+ */
 export const shadowEvalJobResponseSchema = z
 	.object({
 		job_id: z.string(),
@@ -9806,6 +10810,13 @@ export const spendCalculateRequestSchema = z.object({
 	completion_response: z.union([z.looseObject({}), z.null().nullable()]).optional(),
 });
 
+/**
+ * Start duplicating one or more targets' traffic for blind comparison against an auto-router.
+ * A target is a virtual key, a team, or a user; each becomes its own leg with its own
+ * budget and stop state. Team and user targets match on the identity every request
+ * carries after auth (user_api_key_team_id / user_api_key_user_id), so they cover
+ * JWT-authenticated traffic, which presents no virtual key at all.
+ */
 export const startShadowEvalRequestSchema = z
 	.object({
 		api_key_ids: z
@@ -9966,6 +10977,9 @@ export const tagNewRequestSchema = z.object({
 	budget_duration: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Summary metrics for a tag
+ */
 export const tagSummaryMetricsSchema = z
 	.object({
 		tag: z.string(),
@@ -9978,6 +10992,9 @@ export const tagSummaryMetricsSchema = z
 	})
 	.describe("Summary metrics for a tag");
 
+/**
+ * Response for tag summary analytics
+ */
 export const tagSummaryResponseSchema = z
 	.object({
 		results: z.array(tagSummaryMetricsSchema),
@@ -10061,6 +11078,9 @@ export const teamCallbackDeleteResponseSchema = z.object({
 	data: teamCallbackDeleteResponseDataSchema,
 });
 
+/**
+ * The calling user's own spend and effective member budget in a team.
+ */
 export const teamListCallerMembershipSchema = z
 	.object({
 		spend: z.number().optional().default(0),
@@ -10069,6 +11089,9 @@ export const teamListCallerMembershipSchema = z
 	})
 	.describe("The calling user's own spend and effective member budget in a team.");
 
+/**
+ * A team item in the paginated list response, enriched with computed fields.
+ */
 export const teamListItemSchema = z
 	.object({
 		team_alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -10127,6 +11150,9 @@ export const teamListItemSchema = z
 	})
 	.describe("A team item in the paginated list response, enriched with computed fields.");
 
+/**
+ * Response to get the list of teams
+ */
 export const teamListResponseSchema = z
 	.object({
 		get teams() {
@@ -10141,6 +11167,20 @@ export const teamListResponseSchema = z
 	})
 	.describe("Response to get the list of teams");
 
+/**
+ * Request body for adding members to a team.
+ * Example:
+ * ```json
+ * {
+ *     "team_id": "45e3e396-ee08-4a61-a88e-16b3ce7e0849",
+ *     "member": {
+ *         "role": "user",
+ *         "user_id": "user123"
+ *     },
+ *     "max_budget_in_team": 100.0
+ * }
+ * ```
+ */
 export const teamMemberAddRequestSchema = z
 	.object({
 		member: z
@@ -10178,6 +11218,9 @@ export const teamMemberDeleteRequestSchema = z.object({
 	team_id: z.string(),
 });
 
+/**
+ * Response for GET /team/{team_id}/members/me — caller's own membership row.
+ */
 export const teamMemberInfoResponseSchema = z
 	.object({
 		user_id: z.string(),
@@ -10262,6 +11305,11 @@ export const teamMemberUpdateResponseSchema = z.object({
 		.optional(),
 });
 
+/**
+ * One declared team metadata field from ``general_settings.team_metadata_schema``.
+ * Advisory only: the UI uses it to prepopulate the team metadata form.
+ * Enforcement stays with ``custom_team_metadata_validate``.
+ */
 export const teamMetadataFieldSchemaSchema = z
 	.strictObject({
 		key: z.string().min(1),
@@ -10271,6 +11319,9 @@ export const teamMetadataFieldSchemaSchema = z
 		"One declared team metadata field from ``general_settings.team_metadata_schema``.\n\nAdvisory only: the UI uses it to prepopulate the team metadata form.\nEnforcement stays with ``custom_team_metadata_validate``.",
 	);
 
+/**
+ * Response for GET /team/metadata_schema; ``fields`` is empty when no schema is configured.
+ */
 export const teamMetadataSchemaResponseSchema = z
 	.object({
 		fields: z.array(teamMetadataFieldSchemaSchema),
@@ -10279,6 +11330,9 @@ export const teamMetadataSchemaResponseSchema = z
 		"Response for GET /team/metadata_schema; ``fields`` is empty when no schema is configured.",
 	);
 
+/**
+ * Request to add models to a team
+ */
 export const teamModelAddRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -10286,6 +11340,9 @@ export const teamModelAddRequestSchema = z
 	})
 	.describe("Request to add models to a team");
 
+/**
+ * Request to delete models from a team
+ */
 export const teamModelDeleteRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -10316,6 +11373,10 @@ export const teamUserSpendResponseSchema = z.object({
 
 export const telemetryDestinationSchema = z.enum(["local_table", "http"]);
 
+/**
+ * A telemetry group describes a group of metrics that can be toggled on/off separately. One
+ * group may have dependencies on another.
+ */
 export const telemetryGroupSchema = z
 	.enum([
 		"heartbeat",
@@ -10366,6 +11427,12 @@ export const telemetrySettingsUpdateSchema = z.strictObject({
 	destination: z.union([telemetryDestinationSchema, z.null().nullable()]).optional(),
 });
 
+/**
+ * Response structure for token count details with modality breakdown.
+ * Example:
+ *     {'totalTokens': 12, 'promptTokensDetails': [{'modality': 'TEXT', 'tokenCount': 12}],
+ *      'litellm_count_source': 'provider'}
+ */
 export const tokenCountDetailsResponseSchema = z
 	.object({
 		litellm_count_source: z.enum(["provider", "token_count_model", "local_estimate"]).optional(),
@@ -10433,6 +11500,9 @@ export const traceSchema = z.object({
 	summary: traceSummarySchema,
 });
 
+/**
+ * One agent seen in the caller's traces, for picking which agent's runs to look at.
+ */
 export const traceAgentSchema = z
 	.object({
 		name: z.string(),
@@ -10608,6 +11678,9 @@ export const UIEventsEnabledResponseSchema = z.object({
 	enabled: z.boolean(),
 });
 
+/**
+ * Response model for UI settings
+ */
 export const UISettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -10616,6 +11689,9 @@ export const UISettingsResponseSchema = z
 	})
 	.describe("Response model for UI settings");
 
+/**
+ * Configuration for UI theme customization
+ */
 export const UIThemeConfigSchema = z
 	.object({
 		logo_url: z
@@ -10637,6 +11713,9 @@ export const UIThemeConfigSchema = z
 	})
 	.describe("Configuration for UI theme customization");
 
+/**
+ * Response model for UI theme settings
+ */
 export const UIThemeSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -10682,6 +11761,9 @@ export const updateCredentialItemSchema = z.object({
 	credential_values_to_delete: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 });
 
+/**
+ * Update a Customer, use this to update customer budgets etc
+ */
 export const updateCustomerRequestSchema = z
 	.object({
 		user_id: z.string(),
@@ -10801,6 +11883,9 @@ export const updateModelGroupRequestSchema = z.object({
 	model_ids: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 });
 
+/**
+ * Request model for POST /project/update
+ */
 export const updateProjectRequestSchema = z
 	.object({
 		budget_id: z.union([z.string(), z.null().nullable()]).optional(),
@@ -10833,6 +11918,9 @@ export const updateProjectRequestSchema = z
 	})
 	.describe("Request model for POST /project/update");
 
+/**
+ * Request model for updating public model groups
+ */
 export const updatePublicModelGroupsRequestSchema = z
 	.strictObject({
 		model_groups: z.array(z.string()).describe("List of model group names to make public"),
@@ -10847,6 +11935,9 @@ export const updateSubscriptionAccountFeeRequestSchema = z.object({
 	label: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Request to update the team member permissions for a team
+ */
 export const updateTeamMemberPermissionsRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -10854,6 +11945,21 @@ export const updateTeamMemberPermissionsRequestSchema = z
 	})
 	.describe("Request to update the team member permissions for a team");
 
+/**
+ * UpdateTeamRequest, used by /team/update when you need to update a team
+ * team_id: str
+ * team_alias: Optional[str] = None
+ * organization_id: Optional[str] = None
+ * metadata: Optional[dict] = None
+ * tpm_limit: Optional[int] = None
+ * rpm_limit: Optional[int] = None
+ * max_budget: Optional[float] = None
+ * models: Optional[list] = None
+ * blocked: Optional[bool] = None
+ * budget_duration: Optional[str] = None
+ * guardrails: Optional[List[str]] = None
+ * policies: Optional[List[str]] = None
+ */
 export const updateTeamRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -11000,6 +12106,11 @@ export const userInfoResponseSchema = z.object({
 	admin_mcp_permissions: z.union([adminMCPPermissionsSchema, z.null().nullable()]).optional(),
 });
 
+/**
+ * Response model for GET /v2/user/info
+ * Returns ONLY the user object - no keys, no teams objects.
+ * This is a lightweight alternative to UserInfoResponse.
+ */
 export const userInfoV2ResponseSchema = z
 	.object({
 		user_id: z.string(),
@@ -11030,6 +12141,9 @@ export const userInfoV2ResponseSchema = z
 		"Response model for GET /v2/user/info\n\nReturns ONLY the user object - no keys, no teams objects.\nThis is a lightweight alternative to UserInfoResponse.",
 	);
 
+/**
+ * Response model for the user list endpoint
+ */
 export const userListResponseSchema = z
 	.object({
 		users: z.array(liteLLMUserTableWithKeyCountSchema),
@@ -11052,6 +12166,9 @@ export const userProviderConnectionsResponseSchema = z.object({
 	connections: z.array(userProviderConnectionSchema),
 });
 
+/**
+ * Configuration for server-side web search interception
+ */
 export const webSearchInterceptionSettingsSchema = z
 	.object({
 		enabled: z
@@ -11082,6 +12199,9 @@ export const webSearchInterceptionSettingsSchema = z
 	})
 	.describe("Configuration for server-side web search interception");
 
+/**
+ * Response model for web search interception settings
+ */
 export const webSearchInterceptionSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
@@ -11266,6 +12386,9 @@ export const chatCompletionSystemMessageSchema = z.object({
 	cache_control: chatCompletionCachedContentSchema.optional(),
 });
 
+/**
+ * Anthropic tool-search result block, carried through untouched so it survives a round trip.
+ */
 export const chatCompletionToolReferenceObjectSchema = z
 	.object({
 		type: z.enum(["tool_reference"]),
@@ -11321,6 +12444,10 @@ export const chatCompletionUserMessageSchema = z.object({
 	cache_control: chatCompletionCachedContentSchema.optional(),
 });
 
+/**
+ * Pydantic model for chat completion requests that includes both OpenAI standard fields
+ * and LiteLLM-specific parameters. This replaces the previous TypedDict version.
+ */
 export const proxyChatCompletionRequestSchema = z
 	.object({
 		model: z.string(),
@@ -11384,6 +12511,9 @@ export const embeddingRequestSchema = z.looseObject({
 	logger_fn: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * A double click action.
+ */
 export const responsesAPIRequestParamsActionDoubleClickSchema = z
 	.object({
 		keys: z.union([z.array(z.string()), z.null().nullable()]),
@@ -11393,6 +12523,10 @@ export const responsesAPIRequestParamsActionDoubleClickSchema = z
 	})
 	.describe("A double click action.");
 
+/**
+ * Defines a function in your own code the model can choose to call.
+ * Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
+ */
 export const functionToolParamSchema = z
 	.object({
 		async: z.boolean().optional(),
@@ -11411,6 +12545,10 @@ export const functionToolParamSchema = z
 		"Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).",
 	);
 
+/**
+ * A tool that searches for relevant content from uploaded files.
+ * Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
+ */
 export const fileSearchToolParamSchema = z
 	.object({
 		type: z.enum(["file_search"]),
@@ -11425,6 +12563,10 @@ export const fileSearchToolParamSchema = z
 		"A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).",
 	);
 
+/**
+ * A tool that controls a virtual computer.
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
+ */
 export const openaiTypesResponsesComputerToolParamComputerToolParamSchema = z
 	.object({
 		type: z.enum(["computer"]),
@@ -11433,6 +12575,10 @@ export const openaiTypesResponsesComputerToolParamComputerToolParamSchema = z
 		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
+/**
+ * A tool that controls a virtual computer.
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
+ */
 export const computerUsePreviewToolParamSchema = z
 	.object({
 		display_height: z.int(),
@@ -11444,6 +12590,12 @@ export const computerUsePreviewToolParamSchema = z
 		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
+/**
+ * The approximate location of the user.
+ * If omitted or null, defaults to the
+ * United States. To avoid this fallback, pass `{"type": "approximate"}` without
+ * location fields. To localize results, provide the relevant location fields.
+ */
 export const openaiTypesResponsesWebSearchToolParamUserLocationSchema = z
 	.object({
 		city: z.union([z.string(), z.null().nullable()]).optional(),
@@ -11456,6 +12608,11 @@ export const openaiTypesResponsesWebSearchToolParamUserLocationSchema = z
 		'The approximate location of the user.\n\nIf omitted or null, defaults to the\nUnited States. To avoid this fallback, pass `{"type": "approximate"}` without\nlocation fields. To localize results, provide the relevant location fields.',
 	);
 
+/**
+ * Search the Internet for sources related to the prompt.
+ * Learn more about the
+ * [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
+ */
 export const webSearchToolParamSchema = z
 	.object({
 		type: z.enum(["web_search", "web_search_2025_08_26"]),
@@ -11492,6 +12649,9 @@ export const skillReferenceParamSchema = z.object({
 	version: z.string().optional(),
 });
 
+/**
+ * Inline skill payload
+ */
 export const inlineSkillSourceParamSchema = z
 	.object({
 		data: z.string(),
@@ -11538,6 +12698,9 @@ export const containerReferenceParamSchema = z.object({
 	type: z.enum(["container_reference"]),
 });
 
+/**
+ * A tool that allows the model to execute shell commands.
+ */
 export const functionShellToolParamSchema = z
 	.object({
 		type: z.enum(["shell"]),
@@ -11555,12 +12718,19 @@ export const functionShellToolParamSchema = z
 	})
 	.describe("A tool that allows the model to execute shell commands.");
 
+/**
+ * Unconstrained free-form text.
+ */
 export const openaiTypesSharedParamsCustomToolInputFormatTextSchema = z
 	.object({
 		type: z.enum(["text"]),
 	})
 	.describe("Unconstrained free-form text.");
 
+/**
+ * A custom tool that processes input using a specified format.
+ * Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
+ */
 export const customToolParamSchema = z
 	.object({
 		async: z.boolean().optional(),
@@ -11582,6 +12752,9 @@ export const customToolParamSchema = z
 		"A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)",
 	);
 
+/**
+ * Groups function/custom tools under a shared namespace.
+ */
 export const namespaceToolParamSchema = z
 	.object({
 		description: z.string(),
@@ -11591,6 +12764,9 @@ export const namespaceToolParamSchema = z
 	})
 	.describe("Groups function/custom tools under a shared namespace.");
 
+/**
+ * Hosted or BYOT tool search configuration for deferred tools.
+ */
 export const toolSearchToolParamSchema = z
 	.object({
 		type: z.enum(["tool_search"]),
@@ -11600,6 +12776,10 @@ export const toolSearchToolParamSchema = z
 	})
 	.describe("Hosted or BYOT tool search configuration for deferred tools.");
 
+/**
+ * The approximate location of the user.
+ * If omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.
+ */
 export const openaiTypesResponsesWebSearchPreviewToolParamUserLocationSchema = z
 	.object({
 		type: z.enum(["approximate"]),
@@ -11612,6 +12792,10 @@ export const openaiTypesResponsesWebSearchPreviewToolParamUserLocationSchema = z
 		'The approximate location of the user.\n\nIf omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.',
 	);
 
+/**
+ * This tool searches the web for relevant results to use in a response.
+ * Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
+ */
 export const webSearchPreviewToolParamSchema = z
 	.object({
 		type: z.enum(["web_search_preview", "web_search_preview_2025_03_11"]),
@@ -11625,6 +12809,9 @@ export const webSearchPreviewToolParamSchema = z
 		"This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
+/**
+ * Allows the assistant to create, delete, or update files using unified diffs.
+ */
 export const applyPatchToolParamSchema = z
 	.object({
 		type: z.enum(["apply_patch"]),
@@ -11660,6 +12847,9 @@ export const responsesAPIRequestParamsAdditionalToolsSchema = z.object({
 	id: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Instruction for creating a new file via the apply_patch tool.
+ */
 export const applyPatchCallOperationCreateFileSchema = z
 	.object({
 		diff: z.string(),
@@ -11668,6 +12858,9 @@ export const applyPatchCallOperationCreateFileSchema = z
 	})
 	.describe("Instruction for creating a new file via the apply_patch tool.");
 
+/**
+ * Instruction for deleting an existing file via the apply_patch tool.
+ */
 export const applyPatchCallOperationDeleteFileSchema = z
 	.object({
 		path: z.string(),
@@ -11675,6 +12868,9 @@ export const applyPatchCallOperationDeleteFileSchema = z
 	})
 	.describe("Instruction for deleting an existing file via the apply_patch tool.");
 
+/**
+ * Instruction for updating an existing file via the apply_patch tool.
+ */
 export const applyPatchCallOperationUpdateFileSchema = z
 	.object({
 		diff: z.string(),
@@ -11692,6 +12888,9 @@ export const applyPatchCallCallerProgramSchema = z.object({
 	type: z.enum(["program"]),
 });
 
+/**
+ * A tool call representing a request to create, delete, or update files using diff patches.
+ */
 export const applyPatchCallSchema = z
 	.object({
 		call_id: z.string(),
@@ -11724,6 +12923,9 @@ export const applyPatchCallOutputCallerProgramSchema = z.object({
 	type: z.enum(["program"]),
 });
 
+/**
+ * The streamed output emitted by an apply patch tool call.
+ */
 export const applyPatchCallOutputSchema = z
 	.object({
 		call_id: z.string(),
@@ -11741,6 +12943,9 @@ export const applyPatchCallOutputSchema = z
 	})
 	.describe("The streamed output emitted by an apply patch tool call.");
 
+/**
+ * Compacts the current context. Must be the final input item.
+ */
 export const compactionTriggerSchema = z
 	.object({
 		type: z.enum(["compaction_trigger"]),
@@ -11748,6 +12953,9 @@ export const compactionTriggerSchema = z
 	})
 	.describe("Compacts the current context. Must be the final input item.");
 
+/**
+ * A computer screenshot image used with the computer use tool.
+ */
 export const responseComputerToolCallOutputScreenshotParamSchema = z
 	.object({
 		type: z.enum(["computer_screenshot"]),
@@ -11756,6 +12964,9 @@ export const responseComputerToolCallOutputScreenshotParamSchema = z
 	})
 	.describe("A computer screenshot image used with the computer use tool.");
 
+/**
+ * A pending safety check for the computer call.
+ */
 export const computerCallOutputAcknowledgedSafetyCheckSchema = z
 	.object({
 		id: z.string(),
@@ -11764,6 +12975,9 @@ export const computerCallOutputAcknowledgedSafetyCheckSchema = z
 	})
 	.describe("A pending safety check for the computer call.");
 
+/**
+ * The output of a computer tool call.
+ */
 export const computerCallOutputSchema = z
 	.object({
 		call_id: z.string(),
@@ -11781,6 +12995,10 @@ export const computerCallOutputSchema = z
 	})
 	.describe("The output of a computer tool call.");
 
+/**
+ * Context management configuration entry for a request.
+ * See https://developers.openai.com/api/docs/guides/compaction.
+ */
 export const contextManagementEntrySchema = z
 	.object({
 		type: z.string().optional(),
@@ -11790,6 +13008,9 @@ export const contextManagementEntrySchema = z
 		"Context management configuration entry for a request.\nSee https://developers.openai.com/api/docs/guides/compaction.",
 	);
 
+/**
+ * A double click action.
+ */
 export const responsesAPIRequestParamsDoubleClickSchema = z
 	.object({
 		keys: z.union([z.array(z.string()), z.null().nullable()]),
@@ -11799,6 +13020,9 @@ export const responsesAPIRequestParamsDoubleClickSchema = z
 	})
 	.describe("A double click action.");
 
+/**
+ * A text input to the model.
+ */
 export const responseInputTextParamSchema = z
 	.object({
 		text: z.string(),
@@ -11811,6 +13035,10 @@ export const responseInputTextParamSchema = z
 	})
 	.describe("A text input to the model.");
 
+/**
+ * An image input to the model.
+ * Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
+ */
 export const responseInputImageParamSchema = z
 	.object({
 		detail: z.enum(["low", "high", "auto", "original"]),
@@ -11827,6 +13055,9 @@ export const responseInputImageParamSchema = z
 		"An image input to the model.\n\nLearn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).",
 	);
 
+/**
+ * A file input to the model.
+ */
 export const responseInputFileParamSchema = z
 	.object({
 		type: z.enum(["input_file"]),
@@ -11843,6 +13074,13 @@ export const responseInputFileParamSchema = z
 	})
 	.describe("A file input to the model.");
 
+/**
+ * A message input to the model with a role indicating instruction following
+ * hierarchy. Instructions given with the `developer` or `system` role take
+ * precedence over instructions given with the `user` role. Messages with the
+ * `assistant` role are presumed to have been generated by the model in previous
+ * interactions.
+ */
 export const easyInputMessageParamSchema = z
 	.object({
 		content: z.union([
@@ -11863,6 +13101,9 @@ export const easyInputMessageParamSchema = z
 		"A message input to the model with a role indicating instruction following\nhierarchy. Instructions given with the `developer` or `system` role take\nprecedence over instructions given with the `user` role. Messages with the\n`assistant` role are presumed to have been generated by the model in previous\ninteractions.",
 	);
 
+/**
+ * A text input to the model.
+ */
 export const responseInputTextContentParamSchema = z
 	.object({
 		text: z.string(),
@@ -11871,6 +13112,10 @@ export const responseInputTextContentParamSchema = z
 	})
 	.describe("A text input to the model.");
 
+/**
+ * An image input to the model.
+ * Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)
+ */
 export const responseInputImageContentParamSchema = z
 	.object({
 		type: z.enum(["input_image"]),
@@ -11883,6 +13128,9 @@ export const responseInputImageContentParamSchema = z
 		"An image input to the model.\n\nLearn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)",
 	);
 
+/**
+ * A file input to the model.
+ */
 export const responseInputFileContentParamSchema = z
 	.object({
 		type: z.enum(["input_file"]),
@@ -11904,6 +13152,9 @@ export const functionCallOutputCallerProgramSchema = z.object({
 	type: z.enum(["program"]),
 });
 
+/**
+ * The output of a function tool call.
+ */
 export const functionCallOutputSchema = z
 	.object({
 		output: z.union([
@@ -11934,6 +13185,9 @@ export const functionCallOutputSchema = z
 	})
 	.describe("The output of a function tool call.");
 
+/**
+ * Details of a moderation failure, when available.
+ */
 export const responsesAPIRequestParamsImageGenerationCallErrorSchema = z
 	.object({
 		code: z.union([z.string(), z.null().nullable()]),
@@ -11946,6 +13200,9 @@ export const responsesAPIRequestParamsImageGenerationCallErrorSchema = z
 	})
 	.describe("Details of a moderation failure, when available.");
 
+/**
+ * An image generation request made by the model.
+ */
 export const responsesAPIRequestParamsImageGenerationCallSchema = z
 	.object({
 		id: z.string(),
@@ -11973,6 +13230,9 @@ export const responsesAPIRequestParamsImageGenerationCallSchema = z
 	})
 	.describe("An image generation request made by the model.");
 
+/**
+ * An internal identifier for an item to reference.
+ */
 export const itemReferenceSchema = z
 	.object({
 		id: z.string(),
@@ -11980,6 +13240,9 @@ export const itemReferenceSchema = z
 	})
 	.describe("An internal identifier for an item to reference.");
 
+/**
+ * A response to an MCP approval request.
+ */
 export const responsesAPIRequestParamsMcpApprovalResponseSchema = z
 	.object({
 		approval_request_id: z.string(),
@@ -11990,6 +13253,11 @@ export const responsesAPIRequestParamsMcpApprovalResponseSchema = z
 	})
 	.describe("A response to an MCP approval request.");
 
+/**
+ * A message input to the model with a role indicating instruction following
+ * hierarchy. Instructions given with the `developer` or `system` role take
+ * precedence over instructions given with the `user` role.
+ */
 export const responsesAPIRequestParamsMessageSchema = z
 	.object({
 		content: z.array(
@@ -12012,6 +13280,9 @@ export const openAIToolSearchToolParamSchema = z.object({
 	execution: z.string().optional(),
 });
 
+/**
+ * Indicates that the shell commands finished and returned an exit code.
+ */
 export const outcomeExitSchema = z
 	.object({
 		exit_code: z.int(),
@@ -12019,6 +13290,9 @@ export const outcomeExitSchema = z
 	})
 	.describe("Indicates that the shell commands finished and returned an exit code.");
 
+/**
+ * Indicates that the shell call exceeded its configured time limit.
+ */
 export const outcomeTimeoutSchema = z
 	.object({
 		type: z.enum(["timeout"]),
@@ -12031,6 +13305,9 @@ export const promptCacheOptionsSchema = z.object({
 	comparison_response_id: z.string().optional(),
 });
 
+/**
+ * Reference to a stored prompt template.
+ */
 export const promptObjectSchema = z
 	.object({
 		id: z.string(),
@@ -12039,6 +13316,9 @@ export const promptObjectSchema = z
 	})
 	.describe("Reference to a stored prompt template.");
 
+/**
+ * A tool call to run code.
+ */
 export const responseCodeInterpreterToolCallParamSchema = z
 	.object({
 		id: z.string(),
@@ -12053,6 +13333,9 @@ export const responseCodeInterpreterToolCallParamSchema = z
 	})
 	.describe("A tool call to run code.");
 
+/**
+ * A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).
+ */
 export const responseCompactionItemParamParamSchema = z
 	.object({
 		encrypted_content: z.string(),
@@ -12063,6 +13346,11 @@ export const responseCompactionItemParamParamSchema = z
 		"A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).",
 	);
 
+/**
+ * A tool call to a computer use tool.
+ * See the
+ * [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
+ */
 export const responseComputerToolCallParamSchema = z
 	.object({
 		id: z.string(),
@@ -12103,6 +13391,9 @@ export const responseComputerToolCallParamSchema = z
 		"A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.",
 	);
 
+/**
+ * Updates to reasoning configuration. Only effort is supported.
+ */
 export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningSchema = z
 	.object({
 		effort: z
@@ -12114,6 +13405,9 @@ export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamReason
 	})
 	.describe("Updates to reasoning configuration. Only effort is supported.");
 
+/**
+ * The text output configuration for subsequent responses.
+ */
 export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamTextSchema = z
 	.object({
 		format: z.discriminatedUnion("type", [
@@ -12123,6 +13417,11 @@ export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamTextSc
 	})
 	.describe("The text output configuration for subsequent responses.");
 
+/**
+ * An update to the conversation's response configuration.
+ * Supply reasoning,
+ * text, or both. Each setting stays in effect until a later update replaces it.
+ */
 export const responseConfigurationUpdateItemParamParamSchema = z
 	.object({
 		type: z.enum(["configuration_update"]),
@@ -12138,6 +13437,9 @@ export const responseConfigurationUpdateItemParamParamSchema = z
 		"An update to the conversation's response configuration.\n\nSupply reasoning,\ntext, or both. Each setting stays in effect until a later update replaces it.",
 	);
 
+/**
+ * The output of a custom tool call from your code, being sent back to the model.
+ */
 export const responseCustomToolCallOutputParamSchema = z
 	.object({
 		call_id: z.string(),
@@ -12157,6 +13459,9 @@ export const responseCustomToolCallOutputParamSchema = z
 	})
 	.describe("The output of a custom tool call from your code, being sent back to the model.");
 
+/**
+ * A call to a custom tool created by the model.
+ */
 export const responseCustomToolCallParamSchema = z
 	.object({
 		async: z.boolean().optional(),
@@ -12170,6 +13475,11 @@ export const responseCustomToolCallParamSchema = z
 	})
 	.describe("A call to a custom tool created by the model.");
 
+/**
+ * The results of a file search tool call.
+ * See the
+ * [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
+ */
 export const responseFileSearchToolCallParamSchema = z
 	.object({
 		id: z.string(),
@@ -12182,6 +13492,9 @@ export const responseFileSearchToolCallParamSchema = z
 		"The results of a file search tool call.\n\nSee the\n[file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.",
 	);
 
+/**
+ * Captured stdout and stderr for a portion of a shell tool call output.
+ */
 export const responseFunctionShellCallOutputContentParamSchema = z
 	.object({
 		outcome: z.discriminatedUnion("type", [outcomeTimeoutSchema, outcomeExitSchema]),
@@ -12190,6 +13503,11 @@ export const responseFunctionShellCallOutputContentParamSchema = z
 	})
 	.describe("Captured stdout and stderr for a portion of a shell tool call output.");
 
+/**
+ * A tool call to run a function.
+ * See the
+ * [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
+ */
 export const responseFunctionToolCallParamSchema = z
 	.object({
 		async: z.boolean().optional(),
@@ -12206,6 +13524,11 @@ export const responseFunctionToolCallParamSchema = z
 		"A tool call to run a function.\n\nSee the\n[function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.",
 	);
 
+/**
+ * The results of a web search tool call.
+ * See the
+ * [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
+ */
 export const responseFunctionWebSearchParamSchema = z
 	.object({
 		id: z.string(),
@@ -12221,6 +13544,9 @@ export const responseFunctionWebSearchParamSchema = z
 		"The results of a web search tool call.\n\nSee the\n[web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.",
 	);
 
+/**
+ * A text output from the model.
+ */
 export const responseOutputTextParamSchema = z
 	.object({
 		annotations: z.array(
@@ -12237,6 +13563,9 @@ export const responseOutputTextParamSchema = z
 	})
 	.describe("A text output from the model.");
 
+/**
+ * A refusal from the model.
+ */
 export const responseOutputRefusalParamSchema = z
 	.object({
 		refusal: z.string(),
@@ -12244,6 +13573,9 @@ export const responseOutputRefusalParamSchema = z
 	})
 	.describe("A refusal from the model.");
 
+/**
+ * An output message from the model.
+ */
 export const responseOutputMessageParamSchema = z
 	.object({
 		id: z.string(),
@@ -12260,6 +13592,12 @@ export const responseOutputMessageParamSchema = z
 	})
 	.describe("An output message from the model.");
 
+/**
+ * A description of the chain of thought used by a reasoning model while generating
+ * a response. Be sure to include these items in your `input` to the Responses API
+ * for subsequent turns of a conversation if you are manually
+ * [managing context](https://developers.openai.com/api/docs/guides/conversation-state).
+ */
 export const responseReasoningItemParamSchema = z
 	.object({
 		id: z.string(),
@@ -12273,6 +13611,9 @@ export const responseReasoningItemParamSchema = z
 		"A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://developers.openai.com/api/docs/guides/conversation-state).",
 	);
 
+/**
+ * A filter object to specify which tools are allowed.
+ */
 export const toolMcpAllowedToolsMcpToolFilterSchema = z
 	.object({
 		read_only: z.boolean().optional(),
@@ -12280,6 +13621,9 @@ export const toolMcpAllowedToolsMcpToolFilterSchema = z
 	})
 	.describe("A filter object to specify which tools are allowed.");
 
+/**
+ * A filter object to specify which tools are allowed.
+ */
 export const toolMcpRequireApprovalMcpToolApprovalFilterAlwaysSchema = z
 	.object({
 		read_only: z.boolean().optional(),
@@ -12287,6 +13631,9 @@ export const toolMcpRequireApprovalMcpToolApprovalFilterAlwaysSchema = z
 	})
 	.describe("A filter object to specify which tools are allowed.");
 
+/**
+ * A filter object to specify which tools are allowed.
+ */
 export const toolMcpRequireApprovalMcpToolApprovalFilterNeverSchema = z
 	.object({
 		read_only: z.boolean().optional(),
@@ -12294,6 +13641,12 @@ export const toolMcpRequireApprovalMcpToolApprovalFilterNeverSchema = z
 	})
 	.describe("A filter object to specify which tools are allowed.");
 
+/**
+ * Specify which of the MCP server's tools require approval.
+ * Can be
+ * `always`, `never`, or a filter object associated with tools
+ * that require approval.
+ */
 export const toolMcpRequireApprovalMcpToolApprovalFilterSchema = z
 	.object({
 		always: toolMcpRequireApprovalMcpToolApprovalFilterAlwaysSchema
@@ -12307,6 +13660,10 @@ export const toolMcpRequireApprovalMcpToolApprovalFilterSchema = z
 		"Specify which of the MCP server's tools require approval.\n\nCan be\n`always`, `never`, or a filter object associated with tools\nthat require approval.",
 	);
 
+/**
+ * Give the model access to additional tools via remote Model Context Protocol
+ * (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
+ */
 export const toolMcpSchema = z
 	.object({
 		server_label: z.string(),
@@ -12347,6 +13704,10 @@ export const toolMcpSchema = z
 		"Give the model access to additional tools via remote Model Context Protocol\n(MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).",
 	);
 
+/**
+ * Configuration for a code interpreter container.
+ * Optionally specify the IDs of the files to run the code on.
+ */
 export const toolCodeInterpreterContainerCodeInterpreterToolAutoSchema = z
 	.object({
 		type: z.enum(["auto"]),
@@ -12363,6 +13724,9 @@ export const toolCodeInterpreterContainerCodeInterpreterToolAutoSchema = z
 		"Configuration for a code interpreter container.\n\nOptionally specify the IDs of the files to run the code on.",
 	);
 
+/**
+ * A tool that runs Python code to help generate a response to a prompt.
+ */
 export const toolCodeInterpreterSchema = z
 	.object({
 		container: z.union([z.string(), toolCodeInterpreterContainerCodeInterpreterToolAutoSchema]),
@@ -12377,6 +13741,11 @@ export const toolProgrammaticToolCallingSchema = z.object({
 	type: z.enum(["programmatic_tool_calling"]),
 });
 
+/**
+ * Optional mask for inpainting.
+ * Contains `image_url`
+ * (string, optional) and `file_id` (string, optional).
+ */
 export const toolImageGenerationInputImageMaskSchema = z
 	.object({
 		file_id: z.string().optional(),
@@ -12386,6 +13755,10 @@ export const toolImageGenerationInputImageMaskSchema = z
 		"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
 	);
 
+/**
+ * Reasoning effort for SVG authoring.
+ * When omitted, uses the author model's default in both Images and Responses.
+ */
 export const toolImageGenerationSvgReasoningSchema = z
 	.object({
 		effort: z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]).optional(),
@@ -12394,6 +13767,13 @@ export const toolImageGenerationSvgReasoningSchema = z
 		"Reasoning effort for SVG authoring.\n\nWhen omitted, uses the author model's default in both Images and Responses.",
 	);
 
+/**
+ * SVG author model settings.
+ * Requires `output_format` to be `svg`.
+ * When SVG model selection is enabled, omitting this object uses the
+ * outer response model. Otherwise, the default SVG author is used and
+ * explicit model overrides are unavailable.
+ */
 export const toolImageGenerationSvgSchema = z
 	.object({
 		model: z.string().optional(),
@@ -12403,6 +13783,9 @@ export const toolImageGenerationSvgSchema = z
 		"SVG author model settings.\n\nRequires `output_format` to be `svg`.\nWhen SVG model selection is enabled, omitting this object uses the\nouter response model. Otherwise, the default SVG author is used and\nexplicit model overrides are unavailable.",
 	);
 
+/**
+ * A tool that generates images using the GPT image models.
+ */
 export const toolImageGenerationSchema = z
 	.object({
 		type: z.enum(["image_generation"]),
@@ -12450,12 +13833,18 @@ export const toolImageGenerationSchema = z
 	})
 	.describe("A tool that generates images using the GPT image models.");
 
+/**
+ * A tool that allows the model to execute shell commands in a local environment.
+ */
 export const toolLocalShellSchema = z
 	.object({
 		type: z.enum(["local_shell"]),
 	})
 	.describe("A tool that allows the model to execute shell commands in a local environment.");
 
+/**
+ * Groups function/custom tools under a shared namespace.
+ */
 export const toolSearchOutputNamespaceToolParamSchema = z
 	.object({
 		description: z.string(),
@@ -12503,6 +13892,9 @@ export const responsesAPIStreamOptionsSchema = z.object({
 	include_obfuscation: z.boolean().optional(),
 });
 
+/**
+ * The shell commands and limits that describe how to run the tool call.
+ */
 export const shellCallActionSchema = z
 	.object({
 		commands: z.array(z.string()),
@@ -12520,6 +13912,9 @@ export const shellCallCallerProgramSchema = z.object({
 	type: z.enum(["program"]),
 });
 
+/**
+ * A tool representing a request to execute one or more shell commands.
+ */
 export const shellCallSchema = z
 	.object({
 		action: shellCallActionSchema.describe(
@@ -12549,6 +13944,9 @@ export const shellCallOutputCallerProgramSchema = z.object({
 	type: z.enum(["program"]),
 });
 
+/**
+ * The streamed output items emitted by a shell tool call.
+ */
 export const shellCallOutputSchema = z
 	.object({
 		call_id: z.string(),
@@ -12569,6 +13967,10 @@ export const shellCallOutputSchema = z
 	})
 	.describe("The streamed output items emitted by a shell tool call.");
 
+/**
+ * Shell tool for Responses API: run commands in hosted containers or local runtime.
+ * See https://developers.openai.com/api/docs/guides/tools-shell.
+ */
 export const shellToolParamSchema = z
 	.object({
 		type: z.union([z.enum(["shell"]), z.string()]),
@@ -12596,6 +13998,10 @@ export const litellmTypesLlmsOpenaiComputerToolParamSchema = z.object({
 	type: z.union([z.enum(["computer_use_preview"]), z.string()]),
 });
 
+/**
+ * Configuration options for
+ * [reasoning models](https://developers.openai.com/api/docs/guides/reasoning).
+ */
 export const openaiTypesSharedParamsReasoningReasoningSchema = z
 	.object({
 		context: z
@@ -12617,6 +14023,9 @@ export const openaiTypesSharedParamsReasoningReasoningSchema = z
 		"Configuration options for\n[reasoning models](https://developers.openai.com/api/docs/guides/reasoning).",
 	);
 
+/**
+ * TypedDict for request parameters supported by the responses API.
+ */
 export const responsesAPIRequestParamsSchema = z
 	.object({
 		include: z
@@ -12851,10 +14260,16 @@ export const applyGuardrailResponseSchema = z.object({
 	response_text: z.string(),
 });
 
+/**
+ * Action to take when content filter detects a match
+ */
 export const contentFilterActionSchema = z
 	.enum(["BLOCK", "MASK"])
 	.describe("Action to take when content filter detects a match");
 
+/**
+ * Represents a blocked word with its action and optional description
+ */
 export const blockedWordSchema = z
 	.object({
 		action: contentFilterActionSchema.describe(
@@ -12868,6 +14283,13 @@ export const blockedWordSchema = z
 	})
 	.describe("Represents a blocked word with its action and optional description");
 
+/**
+ * category: "harmful_self_harm"
+ *               enabled: true
+ *               action: "BLOCK"
+ *               severity_threshold: "medium"
+ *               category_file: "/path/to/custom_file.yaml"  # optional override
+ */
 export const contentFilterCategoryConfigSchema = z
 	.looseObject({
 		action: z.enum(["BLOCK", "MASK"]).describe("The action to take when the category is detected"),
@@ -12892,6 +14314,9 @@ export const lakeraCategoryThresholdsSchema = z.looseObject({
 	prompt_injection: z.number().optional(),
 });
 
+/**
+ * Represents a content filter pattern (prebuilt or custom regex)
+ */
 export const contentFilterPatternSchema = z
 	.object({
 		action: contentFilterActionSchema.describe(
@@ -13260,6 +14685,10 @@ export const bedrockChecksSensitiveInformationModelSchema = z.object({
 	entities: z.array(bedrockChecksSensitiveInformationEntityItemSchema),
 });
 
+/**
+ * Inline `checks` config for the resource-less Bedrock InvokeGuardrailChecks API.
+ * Include only the checks you want to run; at least one must be set.
+ */
 export const bedrockChecksConfigModelSchema = z
 	.object({
 		contentFilter: z.union([bedrockChecksContentFilterModelSchema, z.null().nullable()]).optional(),
@@ -13274,6 +14703,9 @@ export const bedrockChecksConfigModelSchema = z
 
 export const bedrockGuardrailOutputScopeSchema = z.enum(["INTERVENTIONS", "FULL"]);
 
+/**
+ * A single rule to enable for Cisco AI Defense inspection.
+ */
 export const ciscoAIDefenseRuleSchema = z
 	.object({
 		entity_types: z
@@ -13300,6 +14732,9 @@ export const ciscoAIDefenseRuleSchema = z
 	})
 	.describe("A single rule to enable for Cisco AI Defense inspection.");
 
+/**
+ * Optional parameters for the Cisco AI Defense guardrail.
+ */
 export const ciscoAIDefenseGuardrailConfigModelOptionalParamsSchema = z
 	.looseObject({
 		enabled_rules: z
@@ -13359,6 +14794,9 @@ export const ciscoAIDefenseGuardrailConfigModelOptionalParamsSchema = z
 	})
 	.describe("Optional parameters for the Cisco AI Defense guardrail.");
 
+/**
+ * One predicate the decision model scores the request or response against.
+ */
 export const decisionModelCheckSchema = z
 	.object({
 		action: z.enum(["block", "log"]).optional().default("block"),
@@ -13380,6 +14818,9 @@ export const modeSchema = z.object({
 
 export const piiActionSchema = z.enum(["BLOCK", "MASK"]);
 
+/**
+ * A rule defining permission for a specific tool or tool pattern
+ */
 export const toolPermissionRuleSchema = z
 	.object({
 		allowed_param_patterns: z
@@ -14369,6 +15810,9 @@ export const patchGuardrailRequestSchema = z.object({
 	litellm_params: z.union([baseLitellmParamsSchema, z.null().nullable()]).optional(),
 });
 
+/**
+ * Request body for POST /guardrails/register. Follows Generic Guardrail API config.
+ */
 export const registerGuardrailRequestSchema = z
 	.object({
 		guardrail_info: z.union([z.looseObject({}), z.null().nullable()]).optional(),
@@ -14385,6 +15829,9 @@ export const registerGuardrailResponseSchema = z.object({
 	submitted_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
 });
 
+/**
+ * Request model for testing custom code guardrails.
+ */
 export const testCustomCodeGuardrailRequestSchema = z
 	.object({
 		custom_code: z.string(),
@@ -14394,6 +15841,9 @@ export const testCustomCodeGuardrailRequestSchema = z
 	})
 	.describe("Request model for testing custom code guardrails.");
 
+/**
+ * Response model for testing custom code guardrails.
+ */
 export const testCustomCodeGuardrailResponseSchema = z
 	.object({
 		error: z.union([z.string(), z.null().nullable()]).optional(),
@@ -14573,6 +16023,9 @@ export const guardrailTestResultEntrySchema = z.object({
 	output_text: z.string(),
 });
 
+/**
+ * Guardrails configuration for a policy.
+ */
 export const policyGuardrailsResponseSchema = z
 	.object({
 		add: z.array(z.string()).optional(),
@@ -14580,6 +16033,9 @@ export const policyGuardrailsResponseSchema = z
 	})
 	.describe("Guardrails configuration for a policy.");
 
+/**
+ * Scope configuration for a policy.
+ */
 export const policyScopeResponseSchema = z
 	.object({
 		keys: z.array(z.string()).optional(),
@@ -14589,6 +16045,9 @@ export const policyScopeResponseSchema = z
 	})
 	.describe("Scope configuration for a policy.");
 
+/**
+ * Response for /policy/info/{policy_name} endpoint.
+ */
 export const policyInfoResponseSchema = z
 	.object({
 		guardrails: policyGuardrailsResponseSchema.describe("Guardrails configuration for a policy."),
@@ -14600,6 +16059,9 @@ export const policyInfoResponseSchema = z
 	})
 	.describe("Response for /policy/info/{policy_name} endpoint.");
 
+/**
+ * Summary of a single policy for list endpoint.
+ */
 export const policySummaryItemSchema = z
 	.object({
 		guardrails: policyGuardrailsResponseSchema.describe("Guardrails configuration for a policy."),
@@ -14610,6 +16072,9 @@ export const policySummaryItemSchema = z
 	})
 	.describe("Summary of a single policy for list endpoint.");
 
+/**
+ * Response for /policy/list endpoint.
+ */
 export const policyListResponseSchema = z
 	.object({
 		policies: z.record(z.string(), policySummaryItemSchema),
@@ -14617,6 +16082,10 @@ export const policyListResponseSchema = z
 	})
 	.describe("Response for /policy/list endpoint.");
 
+/**
+ * Context used to match a request against policies.
+ * Contains the team alias, key alias, and model from the incoming request.
+ */
 export const policyMatchContextSchema = z
 	.strictObject({
 		key_alias: z
@@ -14640,6 +16109,9 @@ export const policyMatchContextSchema = z
 		"Context used to match a request against policies.\n\nContains the team alias, key alias, and model from the incoming request.",
 	);
 
+/**
+ * Response for /policy/test endpoint.
+ */
 export const policyTestResponseSchema = z
 	.object({
 		context: policyMatchContextSchema.describe(
@@ -14651,6 +16123,9 @@ export const policyTestResponseSchema = z
 	})
 	.describe("Response for /policy/test endpoint.");
 
+/**
+ * Request body for the /policy/validate endpoint.
+ */
 export const policyValidateRequestSchema = z
 	.strictObject({
 		policies: z
@@ -14659,6 +16134,9 @@ export const policyValidateRequestSchema = z
 	})
 	.describe("Request body for the /policy/validate endpoint.");
 
+/**
+ * Types of validation errors that can occur.
+ */
 export const policyValidationErrorTypeSchema = z
 	.enum([
 		"invalid_guardrail",
@@ -14672,6 +16150,9 @@ export const policyValidationErrorTypeSchema = z
 	])
 	.describe("Types of validation errors that can occur.");
 
+/**
+ * Represents a validation error or warning for a policy.
+ */
 export const policyValidationErrorSchema = z
 	.strictObject({
 		error_type: policyValidationErrorTypeSchema.describe("Type of validation error."),
@@ -14688,6 +16169,12 @@ export const policyValidationErrorSchema = z
 	})
 	.describe("Represents a validation error or warning for a policy.");
 
+/**
+ * Response from policy validation.
+ * - `valid`: True if no blocking errors were found
+ * - `errors`: List of blocking errors (prevent policy from being applied)
+ * - `warnings`: List of non-blocking warnings (policy can still be applied)
+ */
 export const policyValidationResponseSchema = z
 	.strictObject({
 		errors: z
@@ -14710,6 +16197,9 @@ export const suggestTemplatesRequestSchema = z.object({
 	model: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Request body for POST /utils/test_policies_and_guardrails.
+ */
 export const testPoliciesAndGuardrailsRequestSchema = z
 	.object({
 		agent_id: z
@@ -14754,6 +16244,9 @@ export const testPolicyTemplateResponseSchema = z.object({
 	results: z.array(guardrailTestResultEntrySchema),
 });
 
+/**
+ * Response for estimating the impact of a policy attachment.
+ */
 export const attachmentImpactResponseSchema = z
 	.object({
 		affected_keys_count: z
@@ -14787,6 +16280,9 @@ export const attachmentImpactResponseSchema = z
 	})
 	.describe("Response for estimating the impact of a policy attachment.");
 
+/**
+ * Request body for testing a guardrail pipeline with sample messages.
+ */
 export const pipelineTestRequestSchema = z
 	.object({
 		pipeline: z.looseObject({}).describe("Pipeline definition with 'mode' and 'steps'."),
@@ -14798,6 +16294,9 @@ export const pipelineTestRequestSchema = z
 	})
 	.describe("Request body for testing a guardrail pipeline with sample messages.");
 
+/**
+ * Request body for creating a policy attachment.
+ */
 export const policyAttachmentCreateRequestSchema = z
 	.object({
 		default: z
@@ -14835,6 +16334,9 @@ export const policyAttachmentCreateRequestSchema = z
 	})
 	.describe("Request body for creating a policy attachment.");
 
+/**
+ * Response for a policy attachment from the database.
+ */
 export const policyAttachmentDBResponseSchema = z
 	.object({
 		attachment_id: z.string().describe("Unique ID of the attachment."),
@@ -14882,6 +16384,9 @@ export const policyAttachmentDBResponseSchema = z
 	})
 	.describe("Response for a policy attachment from the database.");
 
+/**
+ * Response for listing policy attachments.
+ */
 export const policyAttachmentListResponseSchema = z
 	.object({
 		attachments: z
@@ -14892,6 +16397,9 @@ export const policyAttachmentListResponseSchema = z
 	})
 	.describe("Response for listing policy attachments.");
 
+/**
+ * Condition for when a policy applies.
+ */
 export const policyConditionRequestSchema = z
 	.object({
 		model: z
@@ -14901,6 +16409,9 @@ export const policyConditionRequestSchema = z
 	})
 	.describe("Condition for when a policy applies.");
 
+/**
+ * Request body for creating a new policy.
+ */
 export const policyCreateRequestSchema = z
 	.object({
 		condition: z
@@ -14931,6 +16442,9 @@ export const policyCreateRequestSchema = z
 	})
 	.describe("Request body for creating a new policy.");
 
+/**
+ * Response for a policy from the database.
+ */
 export const policyDBResponseSchema = z
 	.object({
 		condition: z
@@ -14997,6 +16511,9 @@ export const policyDBResponseSchema = z
 	})
 	.describe("Response for a policy from the database.");
 
+/**
+ * Response for listing policies from the database.
+ */
 export const policyListDBResponseSchema = z
 	.object({
 		policies: z.array(policyDBResponseSchema).optional().describe("List of policies."),
@@ -15004,6 +16521,9 @@ export const policyListDBResponseSchema = z
 	})
 	.describe("Response for listing policies from the database.");
 
+/**
+ * Details about why a specific policy matched.
+ */
 export const policyMatchDetailSchema = z
 	.object({
 		guardrails_added: z
@@ -15019,6 +16539,9 @@ export const policyMatchDetailSchema = z
 	})
 	.describe("Details about why a specific policy matched.");
 
+/**
+ * Request body for resolving effective policies/guardrails for a context.
+ */
 export const policyResolveRequestSchema = z
 	.object({
 		key_alias: z
@@ -15040,6 +16563,9 @@ export const policyResolveRequestSchema = z
 	})
 	.describe("Request body for resolving effective policies/guardrails for a context.");
 
+/**
+ * Response for resolving effective policies/guardrails for a context.
+ */
 export const policyResolveResponseSchema = z
 	.object({
 		effective_guardrails: z
@@ -15053,6 +16579,9 @@ export const policyResolveResponseSchema = z
 	})
 	.describe("Response for resolving effective policies/guardrails for a context.");
 
+/**
+ * Request body for updating a policy.
+ */
 export const policyUpdateRequestSchema = z
 	.object({
 		condition: z
@@ -15086,6 +16615,9 @@ export const policyUpdateRequestSchema = z
 	})
 	.describe("Request body for updating a policy.");
 
+/**
+ * Response for comparing two policy versions.
+ */
 export const policyVersionCompareResponseSchema = z
 	.object({
 		field_diffs: z
@@ -15097,6 +16629,9 @@ export const policyVersionCompareResponseSchema = z
 	})
 	.describe("Response for comparing two policy versions.");
 
+/**
+ * Request body for creating a new policy version (draft).
+ */
 export const policyVersionCreateRequestSchema = z
 	.object({
 		source_policy_id: z
@@ -15106,6 +16641,9 @@ export const policyVersionCreateRequestSchema = z
 	})
 	.describe("Request body for creating a new policy version (draft).");
 
+/**
+ * Response for listing all versions of a policy.
+ */
 export const policyVersionListResponseSchema = z
 	.object({
 		policy_name: z.string().describe("Name of the policy."),
@@ -15117,6 +16655,9 @@ export const policyVersionListResponseSchema = z
 	})
 	.describe("Response for listing all versions of a policy.");
 
+/**
+ * Request body for updating a policy version's status.
+ */
 export const policyVersionStatusUpdateRequestSchema = z
 	.object({
 		version_status: z.string().describe("New status: 'published' or 'production'."),
@@ -15229,6 +16770,10 @@ export const A2AJsonRpcResponseSchema = z.looseObject({
 	result: z.union([z.unknown(), z.null().nullable()]).optional(),
 });
 
+/**
+ * How to locate the upstream agent card.
+ * String-valued so it serializes cleanly over JSON / Pydantic.
+ */
 export const discoveryModeSchema = z
 	.enum(["well_known_fallback", "langgraph_platform"])
 	.describe(
@@ -15271,6 +16816,9 @@ export const indexCreateRequestSchema = z.object({
 	litellm_params: indexCreateLiteLLMParamsSchema,
 });
 
+/**
+ * LiteLLM managed vector store index object - this is is the object stored in the database
+ */
 export const liteLLMManagedVectorStoreIndexSchema = z
 	.object({
 		created_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
@@ -15291,6 +16839,9 @@ export const indexListResponseSchema = z.object({
 	object: z.enum(["list"]).optional().default("list"),
 });
 
+/**
+ * LiteLLM managed vector store object - this is is the object stored in the database
+ */
 export const liteLLMManagedVectorStoreSchema = z
 	.object({
 		created_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
@@ -15308,6 +16859,9 @@ export const liteLLMManagedVectorStoreSchema = z
 	})
 	.describe("LiteLLM managed vector store object - this is is the object stored in the database");
 
+/**
+ * Response format for listing vector stores
+ */
 export const liteLLMManagedVectorStoreListResponseSchema = z
 	.object({
 		current_page: z.union([z.int(), z.null().nullable()]).optional(),
@@ -15433,6 +16987,9 @@ export const toolPolicyUpdateResponseSchema = z.object({
 	updated: z.boolean(),
 });
 
+/**
+ * Spend attributed to one tool on one UTC day.
+ */
 export const toolSpendDailyEntrySchema = z
 	.object({
 		call_count: z.int().optional().default(0),
@@ -15442,6 +16999,9 @@ export const toolSpendDailyEntrySchema = z
 	})
 	.describe("Spend attributed to one tool on one UTC day.");
 
+/**
+ * Total spend attributed to one tool over the requested window.
+ */
 export const toolSpendEntrySchema = z
 	.object({
 		call_count: z.int().optional().default(0),
@@ -15464,6 +17024,9 @@ export const toolSpendResponseSchema = z.object({
 	start_date: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * One spend log row for a tool call (for UI "recent logs" table).
+ */
 export const toolUsageLogEntrySchema = z
 	.object({
 		id: z.string(),
@@ -15539,6 +17102,9 @@ export const modelInsightsResponseSchema = z.object({
 	top_models: z.array(modelInsightMetricSchema),
 });
 
+/**
+ * LiteLLM params for search tools configuration.
+ */
 export const searchToolLiteLLMParamsSchema = z
 	.object({
 		api_base: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15550,6 +17116,21 @@ export const searchToolLiteLLMParamsSchema = z
 	})
 	.describe("LiteLLM params for search tools configuration.");
 
+/**
+ * Search tool configuration.
+ * Example:
+ *     {
+ *         "search_tool_id": "123e4567-e89b-12d3-a456-426614174000",
+ *         "search_tool_name": "litellm-search",
+ *         "litellm_params": {
+ *             "search_provider": "perplexity",
+ *             "api_key": "sk-..."
+ *         },
+ *         "search_tool_info": {
+ *             "description": "Perplexity search tool"
+ *         }
+ *     }
+ */
 export const searchToolSchema = z
 	.object({
 		created_at: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15571,6 +17152,9 @@ export const createSearchToolRequestSchema = z.object({
 	),
 });
 
+/**
+ * Response model for search tool information.
+ */
 export const searchToolInfoResponseSchema = z
 	.object({
 		created_at: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15583,6 +17167,9 @@ export const searchToolInfoResponseSchema = z
 	})
 	.describe("Response model for search tool information.");
 
+/**
+ * Response model for listing search tools.
+ */
 export const listSearchToolsResponseSchema = z
 	.object({
 		search_tools: z.array(searchToolInfoResponseSchema),
@@ -15633,12 +17220,26 @@ export const MCPCredentialsSchema = z.object({
 	upstream_token_header: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Scope for an MCP server environment variable.
+ * - ``global``: value is provided by the admin and used for all users.
+ * - ``user``: each user must provide their own value via the per-user
+ *   env-var endpoint. The admin-supplied ``value`` is treated as a
+ *   placeholder/hint and is not used at request time.
+ */
 export const MCPEnvVarScopeSchema = z
 	.enum(["global", "user"])
 	.describe(
 		"Scope for an MCP server environment variable.\n\n- ``global``: value is provided by the admin and used for all users.\n- ``user``: each user must provide their own value via the per-user\n  env-var endpoint. The admin-supplied ``value`` is treated as a\n  placeholder/hint and is not used at request time.",
 	);
 
+/**
+ * One environment variable for an MCP server.
+ * Variables can be interpolated into ``static_headers`` using ``${NAME}``
+ * syntax. ``scope=global`` values are stored on the server. ``scope=user``
+ * values are stored per-user in ``LiteLLM_MCPUserEnvVars`` and supplied by
+ * each user.
+ */
 export const MCPEnvVarSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15654,6 +17255,9 @@ export const MCPEnvVarSchema = z
 		"One environment variable for an MCP server.\n\nVariables can be interpolated into ``static_headers`` using ``${NAME}``\nsyntax. ``scope=global`` values are stored on the server. ``scope=user``\nvalues are stored per-user in ``LiteLLM_MCPUserEnvVars`` and supplied by\neach user.",
 	);
 
+/**
+ * One tool of an admin-pinned catalog: the description and input schema tools/list keeps serving.
+ */
 export const pinnedMCPToolSchema = z
 	.strictObject({
 		description: z.string().optional().default(""),
@@ -15663,6 +17267,9 @@ export const pinnedMCPToolSchema = z
 		"One tool of an admin-pinned catalog: the description and input schema tools/list keeps serving.",
 	);
 
+/**
+ * Represents a LiteLLM_MCPServerTable record
+ */
 export const liteLLMMCPServerTableSchema = z
 	.object({
 		alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15809,6 +17416,9 @@ export const MCPConnectorImportResponseSchema = z.object({
 	skipped: z.array(MCPConnectorImportSkippedSchema),
 });
 
+/**
+ * One live stateful Streamable HTTP session held by this proxy worker.
+ */
 export const MCPGatewaySessionSchema = z
 	.object({
 		client_ip: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15838,6 +17448,9 @@ export const MCPGatewaySessionsResponseSchema = z.object({
 	worker_pid: z.int(),
 });
 
+/**
+ * Stateful sessions an administrator force-closed on this proxy worker.
+ */
 export const MCPGatewaySessionsTerminateResponseSchema = z
 	.object({
 		sessions: z.array(MCPGatewaySessionSchema).optional(),
@@ -15846,6 +17459,9 @@ export const MCPGatewaySessionsTerminateResponseSchema = z
 	})
 	.describe("Stateful sessions an administrator force-closed on this proxy worker.");
 
+/**
+ * Stores a user's OAuth2 token for an OpenAPI MCP server.
+ */
 export const MCPOAuthUserCredentialRequestSchema = z
 	.object({
 		access_token: z.string(),
@@ -15855,6 +17471,9 @@ export const MCPOAuthUserCredentialRequestSchema = z
 	})
 	.describe("Stores a user's OAuth2 token for an OpenAPI MCP server.");
 
+/**
+ * Describes whether the calling user has a stored OAuth credential.
+ */
 export const MCPOAuthUserCredentialStatusSchema = z
 	.object({
 		connected_at: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15865,6 +17484,9 @@ export const MCPOAuthUserCredentialStatusSchema = z
 	})
 	.describe("Describes whether the calling user has a stored OAuth credential.");
 
+/**
+ * One user's stored credential for an MCP server, as an admin sees it. Never carries the secret.
+ */
 export const MCPServerUserCredentialListItemSchema = z
 	.object({
 		connected_at: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15890,6 +17512,9 @@ export const MCPToolsetToolSchema = z.object({
 	tool_name: z.string(),
 });
 
+/**
+ * One entry in the /user-credentials list.
+ */
 export const MCPUserCredentialListItemSchema = z
 	.object({
 		alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15912,6 +17537,11 @@ export const MCPUserCredentialResponseSchema = z.object({
 	server_id: z.string(),
 });
 
+/**
+ * Describes one per-user env var slot for the calling user.
+ * Stored values are write-only: the status only reports whether a value
+ * ``is_set`` and never echoes the decrypted secret back to the client.
+ */
 export const MCPUserEnvVarSpecSchema = z
 	.object({
 		description: z.union([z.string(), z.null().nullable()]).optional(),
@@ -15922,12 +17552,18 @@ export const MCPUserEnvVarSpecSchema = z
 		"Describes one per-user env var slot for the calling user.\n\nStored values are write-only: the status only reports whether a value\n``is_set`` and never echoes the decrypted secret back to the client.",
 	);
 
+/**
+ * Payload for storing the calling user's per-user env var values.
+ */
 export const MCPUserEnvVarsRequestSchema = z
 	.object({
 		values: z.record(z.string(), z.string()),
 	})
 	.describe("Payload for storing the calling user's per-user env var values.");
 
+/**
+ * Per-user env var status for a single MCP server.
+ */
 export const MCPUserEnvVarsStatusSchema = z
 	.object({
 		alias: z.union([z.string(), z.null().nullable()]).optional(),
@@ -16160,6 +17796,9 @@ export const bodyTokenEndpointTokenPostSchema = z.object({
 	subject_token_type: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Response model for config override settings GET endpoints.
+ */
 export const configOverrideSettingsResponseSchema = z
 	.object({
 		config_type: z.string().describe("The type of config override"),
@@ -16168,6 +17807,9 @@ export const configOverrideSettingsResponseSchema = z
 	})
 	.describe("Response model for config override settings GET endpoints.");
 
+/**
+ * Configuration for CyberArk Conjur secret manager integration.
+ */
 export const cyberArkConfigSchema = z
 	.object({
 		client_cert: z
@@ -16205,6 +17847,9 @@ export const cyberArkConfigSchema = z
 	})
 	.describe("Configuration for CyberArk Conjur secret manager integration.");
 
+/**
+ * Configuration for Hashicorp Vault secret manager integration.
+ */
 export const hashicorpVaultConfigSchema = z
 	.object({
 		approle_mount_path: z
@@ -16329,6 +17974,12 @@ export const euJevDecisionResponseSchema = z.object({
 	usage: euJevUsageSchema,
 });
 
+/**
+ * Response from POST /v1/realtime/client_secrets.
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
+ */
 export const realtimeClientSecretResponseSchema = z
 	.object({
 		expires_at: z.union([z.int(), z.null().nullable()]).optional(),
@@ -16339,6 +17990,11 @@ export const realtimeClientSecretResponseSchema = z
 		"Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.",
 	);
 
+/**
+ * Response from POST /v1/realtime/transcription_sessions.
+ * `client_secret.value` contains the encrypted token instead of the raw
+ * ephemeral key. Unknown fields pass through unchanged.
+ */
 export const realtimeTranscriptionSessionResponseSchema = z
 	.looseObject({
 		client_secret: z.union([z.looseObject({}), z.null().nullable()]).optional(),
@@ -16347,12 +18003,18 @@ export const realtimeTranscriptionSessionResponseSchema = z
 		"Response from POST /v1/realtime/transcription_sessions.\n\n`client_secret.value` contains the encrypted token instead of the raw\nephemeral key. Unknown fields pass through unchanged.",
 	);
 
+/**
+ * Unconstrained free-form text.
+ */
 export const textSchema = z
 	.looseObject({
 		type: z.enum(["text"]),
 	})
 	.describe("Unconstrained free-form text.");
 
+/**
+ * Response from deleting a skill
+ */
 export const deleteSkillResponseSchema = z
 	.object({
 		id: z.string(),
@@ -16360,6 +18022,9 @@ export const deleteSkillResponseSchema = z
 	})
 	.describe("Response from deleting a skill");
 
+/**
+ * Represents a skill from the Anthropic Skills API
+ */
 export const skillSchema = z
 	.object({
 		created_at: z.string(),
@@ -16374,6 +18039,9 @@ export const skillSchema = z
 	})
 	.describe("Represents a skill from the Anthropic Skills API");
 
+/**
+ * Response from listing skills
+ */
 export const listSkillsResponseSchema = z
 	.object({
 		data: z.array(skillSchema),
@@ -16382,6 +18050,9 @@ export const listSkillsResponseSchema = z
 	})
 	.describe("Response from listing skills");
 
+/**
+ * Response from cancelling an evaluation
+ */
 export const cancelEvalResponseSchema = z
 	.object({
 		id: z.string(),
@@ -16390,6 +18061,9 @@ export const cancelEvalResponseSchema = z
 	})
 	.describe("Response from cancelling an evaluation");
 
+/**
+ * Response from cancelling a run
+ */
 export const cancelRunResponseSchema = z
 	.object({
 		id: z.string(),
@@ -16398,6 +18072,9 @@ export const cancelRunResponseSchema = z
 	})
 	.describe("Response from cancelling a run");
 
+/**
+ * Response from deleting an evaluation
+ */
 export const deleteEvalResponseSchema = z
 	.object({
 		deleted: z.boolean(),
@@ -16406,6 +18083,9 @@ export const deleteEvalResponseSchema = z
 	})
 	.describe("Response from deleting an evaluation");
 
+/**
+ * Represents an evaluation from the OpenAI Evals API
+ */
 export const evalSchema = z
 	.object({
 		created_at: z.int(),
@@ -16419,6 +18099,9 @@ export const evalSchema = z
 	})
 	.describe("Represents an evaluation from the OpenAI Evals API");
 
+/**
+ * Response from listing evaluations
+ */
 export const listEvalsResponseSchema = z
 	.object({
 		data: z.array(evalSchema),
@@ -16429,6 +18112,9 @@ export const listEvalsResponseSchema = z
 	})
 	.describe("Response from listing evaluations");
 
+/**
+ * Result counts for a run
+ */
 export const resultCountsSchema = z
 	.object({
 		error: z.int().optional().default(0),
@@ -16438,6 +18124,9 @@ export const resultCountsSchema = z
 	})
 	.describe("Result counts for a run");
 
+/**
+ * Results for a specific testing criteria
+ */
 export const perTestingCriteriaResultSchema = z
 	.object({
 		average_score: z.union([z.number(), z.null().nullable()]).optional(),
@@ -16446,6 +18135,9 @@ export const perTestingCriteriaResultSchema = z
 	})
 	.describe("Results for a specific testing criteria");
 
+/**
+ * Represents a run from the OpenAI Evals API
+ */
 export const runSchema = z
 	.object({
 		completed_at: z.union([z.int(), z.null().nullable()]).optional(),
@@ -16470,6 +18162,9 @@ export const runSchema = z
 	})
 	.describe("Represents a run from the OpenAI Evals API");
 
+/**
+ * Response from listing runs
+ */
 export const listRunsResponseSchema = z
 	.object({
 		data: z.array(runSchema),
@@ -16480,6 +18175,9 @@ export const listRunsResponseSchema = z
 	})
 	.describe("Response from listing runs");
 
+/**
+ * Response from deleting a run
+ */
 export const runDeleteResponseSchema = z
 	.object({
 		deleted: z.union([z.boolean(), z.null().nullable()]).optional().default(true),
@@ -16868,6 +18566,9 @@ export const skillScanResponseSchema = z.object({
 	scan: z.union([skillScanSchema, z.null().nullable()]),
 });
 
+/**
+ * Plugin author information.
+ */
 export const pluginAuthorSchema = z
 	.object({
 		email: z.union([z.string(), z.null().nullable()]).optional().describe("Author email"),
@@ -16928,6 +18629,9 @@ export const bodyUploadPluginClaudeCodePluginsUploadPostSchema = z.object({
 		.describe("JSON skill metadata without a source URL"),
 });
 
+/**
+ * Plugin item in list responses.
+ */
 export const pluginListItemSchema = z
 	.object({
 		approved_by: z.union([z.string(), z.null().nullable()]).optional(),
@@ -16955,6 +18659,9 @@ export const pluginListItemSchema = z
 	})
 	.describe("Plugin item in list responses.");
 
+/**
+ * Response from listing plugins.
+ */
 export const listPluginsResponseSchema = z
 	.object({
 		count: z.int(),
@@ -16962,6 +18669,9 @@ export const listPluginsResponseSchema = z
 	})
 	.describe("Response from listing plugins.");
 
+/**
+ * Plugin information in API responses.
+ */
 export const pluginResponseSchema = z
 	.object({
 		description: z
@@ -16980,6 +18690,11 @@ export const pluginResponseSchema = z
 	})
 	.describe("Plugin information in API responses.");
 
+/**
+ * Request body for registering a plugin in the marketplace.
+ * LiteLLM acts as a registry/discovery layer. Plugins are hosted on
+ * GitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.
+ */
 export const registerPluginRequestSchema = z
 	.object({
 		author: z.union([pluginAuthorSchema, z.null().nullable()]).optional().describe("Plugin author"),
@@ -17026,6 +18741,9 @@ export const registerPluginRequestSchema = z
 		"Request body for registering a plugin in the marketplace.\n\nLiteLLM acts as a registry/discovery layer. Plugins are hosted on\nGitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.",
 	);
 
+/**
+ * Response from plugin registration.
+ */
 export const registerPluginResponseSchema = z
 	.object({
 		action: z.string().describe("Action taken (created/updated)"),
@@ -17034,6 +18752,13 @@ export const registerPluginResponseSchema = z
 	})
 	.describe("Response from plugin registration.");
 
+/**
+ * Request body for replacing an existing plugin.
+ * The plugin name is the resource identity and is supplied as the path
+ * parameter, so it cannot be changed here. This is a full replace: omitted
+ * fields reset to their defaults, except version which automatically increments
+ * the published patch version when omitted or null.
+ */
 export const updatePluginRequestSchema = z
 	.object({
 		author: z.union([pluginAuthorSchema, z.null().nullable()]).optional().describe("Plugin author"),
@@ -17150,6 +18875,9 @@ export const SCIMPatchOpSchema = z.object({
 		.default(["urn:ietf:params:scim:api:messages:2.0:PatchOp"]),
 });
 
+/**
+ * A user row keyed by a value that names another account by SSO identity or email.
+ */
 export const SCIMPlaceholderSchema = z
 	.object({
 		placeholder_user_id: z.string(),
@@ -17218,6 +18946,9 @@ export const SCIMUserInputSchema = z.object({
 	userName: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Request model for CloudZero export operations
+ */
 export const cloudZeroExportRequestSchema = z
 	.object({
 		end_time_utc: z
@@ -17240,6 +18971,9 @@ export const cloudZeroExportRequestSchema = z
 	})
 	.describe("Request model for CloudZero export operations");
 
+/**
+ * Response model for CloudZero export operations
+ */
 export const cloudZeroExportResponseSchema = z
 	.object({
 		dry_run_data: z
@@ -17256,6 +18990,9 @@ export const cloudZeroExportResponseSchema = z
 	})
 	.describe("Response model for CloudZero export operations");
 
+/**
+ * Request model for initializing CloudZero settings
+ */
 export const cloudZeroInitRequestSchema = z
 	.object({
 		api_key: z.string().describe("CloudZero API key for authentication"),
@@ -17268,6 +19005,9 @@ export const cloudZeroInitRequestSchema = z
 	})
 	.describe("Request model for initializing CloudZero settings");
 
+/**
+ * Response model for CloudZero initialization
+ */
 export const cloudZeroInitResponseSchema = z
 	.object({
 		message: z.string(),
@@ -17275,6 +19015,9 @@ export const cloudZeroInitResponseSchema = z
 	})
 	.describe("Response model for CloudZero initialization");
 
+/**
+ * Request model for updating CloudZero settings
+ */
 export const cloudZeroSettingsUpdateSchema = z
 	.object({
 		api_key: z
@@ -17292,6 +19035,9 @@ export const cloudZeroSettingsUpdateSchema = z
 	})
 	.describe("Request model for updating CloudZero settings");
 
+/**
+ * Response model for viewing CloudZero settings with masked API key
+ */
 export const cloudZeroSettingsViewSchema = z
 	.object({
 		api_key_masked: z
@@ -17310,6 +19056,9 @@ export const cloudZeroSettingsViewSchema = z
 	})
 	.describe("Response model for viewing CloudZero settings with masked API key");
 
+/**
+ * Request model for Vantage dry-run operations (capped for preview)
+ */
 export const vantageDryRunRequestSchema = z
 	.object({
 		limit: z
@@ -17320,6 +19069,9 @@ export const vantageDryRunRequestSchema = z
 	})
 	.describe("Request model for Vantage dry-run operations (capped for preview)");
 
+/**
+ * Request model for Vantage export operations (actual export, no default limit)
+ */
 export const vantageExportRequestSchema = z
 	.object({
 		end_time_utc: z
@@ -17337,6 +19089,9 @@ export const vantageExportRequestSchema = z
 	})
 	.describe("Request model for Vantage export operations (actual export, no default limit)");
 
+/**
+ * Response model for Vantage export operations
+ */
 export const vantageExportResponseSchema = z
 	.object({
 		dry_run_data: z
@@ -17352,6 +19107,9 @@ export const vantageExportResponseSchema = z
 	})
 	.describe("Response model for Vantage export operations");
 
+/**
+ * Request model for initializing Vantage settings
+ */
 export const vantageInitRequestSchema = z
 	.object({
 		api_key: z.string().describe("Vantage API key for authentication"),
@@ -17366,6 +19124,9 @@ export const vantageInitRequestSchema = z
 	})
 	.describe("Request model for initializing Vantage settings");
 
+/**
+ * Response model for Vantage initialization
+ */
 export const vantageInitResponseSchema = z
 	.object({
 		message: z.string(),
@@ -17373,6 +19134,9 @@ export const vantageInitResponseSchema = z
 	})
 	.describe("Response model for Vantage initialization");
 
+/**
+ * Request model for updating Vantage settings
+ */
 export const vantageSettingsUpdateSchema = z
 	.object({
 		api_key: z
@@ -17390,6 +19154,9 @@ export const vantageSettingsUpdateSchema = z
 	})
 	.describe("Request model for updating Vantage settings");
 
+/**
+ * Response model for viewing Vantage settings with masked API key
+ */
 export const vantageSettingsViewSchema = z
 	.object({
 		api_key_masked: z
@@ -17515,6 +19282,10 @@ export const updateJWTKeyMappingRequestSchema = z.object({
 	token: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+/**
+ * Request payload for compliance check endpoints.
+ * Mirrors the spend log fields needed for compliance evaluation.
+ */
 export const complianceCheckRequestSchema = z
 	.object({
 		guardrail_information: z.union([z.array(z.looseObject({})), z.null().nullable()]).optional(),
@@ -17527,6 +19298,9 @@ export const complianceCheckRequestSchema = z
 		"Request payload for compliance check endpoints.\n\nMirrors the spend log fields needed for compliance evaluation.",
 	);
 
+/**
+ * Result of a single compliance check.
+ */
 export const complianceCheckResultSchema = z
 	.object({
 		article: z.string(),
@@ -17536,6 +19310,9 @@ export const complianceCheckResultSchema = z
 	})
 	.describe("Result of a single compliance check.");
 
+/**
+ * Response from a compliance check endpoint.
+ */
 export const complianceResponseSchema = z
 	.object({
 		checks: z.array(complianceCheckResultSchema),
@@ -17558,6 +19335,9 @@ export const accessGroupCreateRequestSchema = z.object({
 		.optional(),
 });
 
+/**
+ * A resource referenced by an access group. `name` is null when the id no longer resolves or has no alias.
+ */
 export const accessGroupResourceSchema = z
 	.object({
 		id: z.string(),
@@ -17653,18 +19433,15 @@ export const modelListModelsGetResponseSchema = modelListModelsGetStatus200Schem
 export const modelListModelsGetErrorSchema = modelListModelsGetStatus422Schema;
 
 export const modelListModelsGetQuerySchema = z.object({
-	return_wildcard_routes: z.union([z.boolean(), z.null().nullable()]).optional(),
-	team_id: z.union([z.string(), z.null().nullable()]).optional(),
-	include_model_access_groups: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false),
-	only_model_access_groups: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	include_metadata: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	fallback_type: z.union([z.string(), z.null().nullable()]).optional(),
-	scope: z.union([z.string(), z.null().nullable()]).optional(),
-	healthy_only: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	client_version: z.union([z.string(), z.null().nullable()]).optional(),
+	return_wildcard_routes: modelListModelsGetQueryReturnWildcardRoutesSchema,
+	team_id: modelListModelsGetQueryTeamIdSchema,
+	include_model_access_groups: modelListModelsGetQueryIncludeModelAccessGroupsSchema,
+	only_model_access_groups: modelListModelsGetQueryOnlyModelAccessGroupsSchema,
+	include_metadata: modelListModelsGetQueryIncludeMetadataSchema,
+	fallback_type: modelListModelsGetQueryFallbackTypeSchema,
+	scope: modelListModelsGetQueryScopeSchema,
+	healthy_only: modelListModelsGetQueryHealthyOnlySchema,
+	client_version: modelListModelsGetQueryClientVersionSchema,
 });
 
 export const modelListV1ModelsGetQueryReturnWildcardRoutesSchema = z
@@ -17716,18 +19493,15 @@ export const modelListV1ModelsGetResponseSchema = modelListV1ModelsGetStatus200S
 export const modelListV1ModelsGetErrorSchema = modelListV1ModelsGetStatus422Schema;
 
 export const modelListV1ModelsGetQuerySchema = z.object({
-	return_wildcard_routes: z.union([z.boolean(), z.null().nullable()]).optional(),
-	team_id: z.union([z.string(), z.null().nullable()]).optional(),
-	include_model_access_groups: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false),
-	only_model_access_groups: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	include_metadata: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	fallback_type: z.union([z.string(), z.null().nullable()]).optional(),
-	scope: z.union([z.string(), z.null().nullable()]).optional(),
-	healthy_only: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	client_version: z.union([z.string(), z.null().nullable()]).optional(),
+	return_wildcard_routes: modelListV1ModelsGetQueryReturnWildcardRoutesSchema,
+	team_id: modelListV1ModelsGetQueryTeamIdSchema,
+	include_model_access_groups: modelListV1ModelsGetQueryIncludeModelAccessGroupsSchema,
+	only_model_access_groups: modelListV1ModelsGetQueryOnlyModelAccessGroupsSchema,
+	include_metadata: modelListV1ModelsGetQueryIncludeMetadataSchema,
+	fallback_type: modelListV1ModelsGetQueryFallbackTypeSchema,
+	scope: modelListV1ModelsGetQueryScopeSchema,
+	healthy_only: modelListV1ModelsGetQueryHealthyOnlySchema,
+	client_version: modelListV1ModelsGetQueryClientVersionSchema,
 });
 
 export const modelInfoModelsModelIdGetPathModelIdSchema = z.string();
@@ -17750,12 +19524,12 @@ export const modelInfoModelsModelIdGetResponseSchema = modelInfoModelsModelIdGet
 export const modelInfoModelsModelIdGetErrorSchema = modelInfoModelsModelIdGetStatus422Schema;
 
 export const modelInfoModelsModelIdGetPathSchema = z.object({
-	model_id: z.string(),
+	model_id: modelInfoModelsModelIdGetPathModelIdSchema,
 });
 
 export const modelInfoModelsModelIdGetQuerySchema = z.object({
-	team_id: z.union([z.string(), z.null().nullable()]).optional(),
-	healthy_only: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
+	team_id: modelInfoModelsModelIdGetQueryTeamIdSchema,
+	healthy_only: modelInfoModelsModelIdGetQueryHealthyOnlySchema,
 });
 
 export const modelInfoV1ModelsModelIdGetPathModelIdSchema = z.string();
@@ -17778,12 +19552,12 @@ export const modelInfoV1ModelsModelIdGetResponseSchema = modelInfoV1ModelsModelI
 export const modelInfoV1ModelsModelIdGetErrorSchema = modelInfoV1ModelsModelIdGetStatus422Schema;
 
 export const modelInfoV1ModelsModelIdGetPathSchema = z.object({
-	model_id: z.string(),
+	model_id: modelInfoV1ModelsModelIdGetPathModelIdSchema,
 });
 
 export const modelInfoV1ModelsModelIdGetQuerySchema = z.object({
-	team_id: z.union([z.string(), z.null().nullable()]).optional(),
-	healthy_only: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
+	team_id: modelInfoV1ModelsModelIdGetQueryTeamIdSchema,
+	healthy_only: modelInfoV1ModelsModelIdGetQueryHealthyOnlySchema,
 });
 
 export const chatCompletionOpenaiDeploymentsModelChatCompletionsPostPathModelSchema = z.union([
@@ -17883,7 +19657,7 @@ export const chatCompletionOpenaiDeploymentsModelChatCompletionsPostBodySchema =
 });
 
 export const chatCompletionOpenaiDeploymentsModelChatCompletionsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: chatCompletionOpenaiDeploymentsModelChatCompletionsPostPathModelSchema,
 });
 
 export const chatCompletionEnginesModelChatCompletionsPostPathModelSchema = z.union([
@@ -17948,7 +19722,7 @@ export const chatCompletionEnginesModelChatCompletionsPostBodySchema = z.object(
 });
 
 export const chatCompletionEnginesModelChatCompletionsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: chatCompletionEnginesModelChatCompletionsPostPathModelSchema,
 });
 
 export const chatCompletionChatCompletionsPostStatus200Schema = z.looseObject({});
@@ -18078,7 +19852,7 @@ export const completionOpenaiDeploymentsModelCompletionsPostErrorSchema =
 	completionOpenaiDeploymentsModelCompletionsPostStatus422Schema;
 
 export const completionOpenaiDeploymentsModelCompletionsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: completionOpenaiDeploymentsModelCompletionsPostPathModelSchema,
 });
 
 export const completionEnginesModelCompletionsPostPathModelSchema = z.union([
@@ -18097,7 +19871,7 @@ export const completionEnginesModelCompletionsPostErrorSchema =
 	completionEnginesModelCompletionsPostStatus422Schema;
 
 export const completionEnginesModelCompletionsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: completionEnginesModelCompletionsPostPathModelSchema,
 });
 
 export const completionCompletionsPostQueryModelSchema = z
@@ -18113,7 +19887,7 @@ export const completionCompletionsPostResponseSchema = completionCompletionsPost
 export const completionCompletionsPostErrorSchema = completionCompletionsPostStatus422Schema;
 
 export const completionCompletionsPostQuerySchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]).optional(),
+	model: completionCompletionsPostQueryModelSchema,
 });
 
 export const completionV1CompletionsPostQueryModelSchema = z
@@ -18129,7 +19903,7 @@ export const completionV1CompletionsPostResponseSchema = completionV1Completions
 export const completionV1CompletionsPostErrorSchema = completionV1CompletionsPostStatus422Schema;
 
 export const completionV1CompletionsPostQuerySchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]).optional(),
+	model: completionV1CompletionsPostQueryModelSchema,
 });
 
 export const embeddingsOpenaiDeploymentsModelEmbeddingsPostPathModelSchema = z.union([
@@ -18165,7 +19939,7 @@ export const embeddingsOpenaiDeploymentsModelEmbeddingsPostBodySchema = z.object
 });
 
 export const embeddingsOpenaiDeploymentsModelEmbeddingsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: embeddingsOpenaiDeploymentsModelEmbeddingsPostPathModelSchema,
 });
 
 export const embeddingsEnginesModelEmbeddingsPostPathModelSchema = z.union([
@@ -18200,7 +19974,7 @@ export const embeddingsEnginesModelEmbeddingsPostBodySchema = z.object({
 });
 
 export const embeddingsEnginesModelEmbeddingsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: embeddingsEnginesModelEmbeddingsPostPathModelSchema,
 });
 
 export const embeddingsEmbeddingsPostStatus200Schema = z.looseObject({});
@@ -18330,7 +20104,7 @@ export const deleteAssistantAssistantsAssistantIdDeleteErrorSchema =
 	deleteAssistantAssistantsAssistantIdDeleteStatus422Schema;
 
 export const deleteAssistantAssistantsAssistantIdDeletePathSchema = z.object({
-	assistant_id: z.string(),
+	assistant_id: deleteAssistantAssistantsAssistantIdDeletePathAssistantIdSchema,
 });
 
 export const deleteAssistantV1AssistantsAssistantIdDeletePathAssistantIdSchema = z.string();
@@ -18347,7 +20121,7 @@ export const deleteAssistantV1AssistantsAssistantIdDeleteErrorSchema =
 	deleteAssistantV1AssistantsAssistantIdDeleteStatus422Schema;
 
 export const deleteAssistantV1AssistantsAssistantIdDeletePathSchema = z.object({
-	assistant_id: z.string(),
+	assistant_id: deleteAssistantV1AssistantsAssistantIdDeletePathAssistantIdSchema,
 });
 
 export const createThreadsThreadsPostStatus200Schema = z.looseObject({});
@@ -18369,7 +20143,7 @@ export const getThreadThreadsThreadIdGetResponseSchema = getThreadThreadsThreadI
 export const getThreadThreadsThreadIdGetErrorSchema = getThreadThreadsThreadIdGetStatus422Schema;
 
 export const getThreadThreadsThreadIdGetPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: getThreadThreadsThreadIdGetPathThreadIdSchema,
 });
 
 export const getThreadV1ThreadsThreadIdGetPathThreadIdSchema = z.string();
@@ -18385,7 +20159,7 @@ export const getThreadV1ThreadsThreadIdGetErrorSchema =
 	getThreadV1ThreadsThreadIdGetStatus422Schema;
 
 export const getThreadV1ThreadsThreadIdGetPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: getThreadV1ThreadsThreadIdGetPathThreadIdSchema,
 });
 
 export const getMessagesThreadsThreadIdMessagesGetPathThreadIdSchema = z.string();
@@ -18401,7 +20175,7 @@ export const getMessagesThreadsThreadIdMessagesGetErrorSchema =
 	getMessagesThreadsThreadIdMessagesGetStatus422Schema;
 
 export const getMessagesThreadsThreadIdMessagesGetPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: getMessagesThreadsThreadIdMessagesGetPathThreadIdSchema,
 });
 
 export const addMessagesThreadsThreadIdMessagesPostPathThreadIdSchema = z.string();
@@ -18417,7 +20191,7 @@ export const addMessagesThreadsThreadIdMessagesPostErrorSchema =
 	addMessagesThreadsThreadIdMessagesPostStatus422Schema;
 
 export const addMessagesThreadsThreadIdMessagesPostPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: addMessagesThreadsThreadIdMessagesPostPathThreadIdSchema,
 });
 
 export const getMessagesV1ThreadsThreadIdMessagesGetPathThreadIdSchema = z.string();
@@ -18433,7 +20207,7 @@ export const getMessagesV1ThreadsThreadIdMessagesGetErrorSchema =
 	getMessagesV1ThreadsThreadIdMessagesGetStatus422Schema;
 
 export const getMessagesV1ThreadsThreadIdMessagesGetPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: getMessagesV1ThreadsThreadIdMessagesGetPathThreadIdSchema,
 });
 
 export const addMessagesV1ThreadsThreadIdMessagesPostPathThreadIdSchema = z.string();
@@ -18449,7 +20223,7 @@ export const addMessagesV1ThreadsThreadIdMessagesPostErrorSchema =
 	addMessagesV1ThreadsThreadIdMessagesPostStatus422Schema;
 
 export const addMessagesV1ThreadsThreadIdMessagesPostPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: addMessagesV1ThreadsThreadIdMessagesPostPathThreadIdSchema,
 });
 
 export const runThreadThreadsThreadIdRunsPostPathThreadIdSchema = z.string();
@@ -18465,7 +20239,7 @@ export const runThreadThreadsThreadIdRunsPostErrorSchema =
 	runThreadThreadsThreadIdRunsPostStatus422Schema;
 
 export const runThreadThreadsThreadIdRunsPostPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: runThreadThreadsThreadIdRunsPostPathThreadIdSchema,
 });
 
 export const runThreadV1ThreadsThreadIdRunsPostPathThreadIdSchema = z.string();
@@ -18481,7 +20255,7 @@ export const runThreadV1ThreadsThreadIdRunsPostErrorSchema =
 	runThreadV1ThreadsThreadIdRunsPostStatus422Schema;
 
 export const runThreadV1ThreadsThreadIdRunsPostPathSchema = z.object({
-	thread_id: z.string(),
+	thread_id: runThreadV1ThreadsThreadIdRunsPostPathThreadIdSchema,
 });
 
 export const tokenCounterUtilsTokenCounterPostQueryCallEndpointSchema = z
@@ -18506,11 +20280,11 @@ export const tokenCounterUtilsTokenCounterPostErrorSchema =
 export const tokenCounterUtilsTokenCounterPostBodySchema = tokenCountRequestSchema;
 
 export const tokenCounterUtilsTokenCounterPostQuerySchema = z.object({
-	call_endpoint: z.boolean().optional().default(false),
+	call_endpoint: tokenCounterUtilsTokenCounterPostQueryCallEndpointSchema,
 });
 
 export const tokenCounterUtilsTokenCounterPostHeadersSchema = z.object({
-	"x-litellm-call-id": z.union([z.string(), z.null().nullable()]).optional(),
+	"x-litellm-call-id": tokenCounterUtilsTokenCounterPostHeaderXLitellmCallIdSchema,
 });
 
 export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetQueryModelSchema = z.string();
@@ -18527,7 +20301,7 @@ export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetErrorSchema =
 	supportedOpenaiParamsUtilsSupportedOpenaiParamsGetStatus422Schema;
 
 export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetQuerySchema = z.object({
-	model: z.string(),
+	model: supportedOpenaiParamsUtilsSupportedOpenaiParamsGetQueryModelSchema,
 });
 
 export const modelInfoLookupUtilsModelInfoGetQueryModelSchema = z.string();
@@ -18547,8 +20321,8 @@ export const modelInfoLookupUtilsModelInfoGetErrorSchema =
 	modelInfoLookupUtilsModelInfoGetStatus422Schema;
 
 export const modelInfoLookupUtilsModelInfoGetQuerySchema = z.object({
-	model: z.string(),
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional(),
+	model: modelInfoLookupUtilsModelInfoGetQueryModelSchema,
+	custom_llm_provider: modelInfoLookupUtilsModelInfoGetQueryCustomLlmProviderSchema,
 });
 
 export const transformRequestUtilsTransformRequestPostStatus200Schema = rawRequestTypedDictSchema;
@@ -18563,17 +20337,26 @@ export const transformRequestUtilsTransformRequestPostErrorSchema =
 
 export const transformRequestUtilsTransformRequestPostBodySchema = transformRequestBodySchema;
 
+/**
+ * Specify the model name (optional)
+ */
 export const modelInfoV2V2ModelInfoGetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Specify the model name (optional)");
 
+/**
+ * Only return models added by this user
+ */
 export const modelInfoV2V2ModelInfoGetQueryUserModelsOnlySchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
 	.default(false)
 	.describe("Only return models added by this user");
 
+/**
+ * Return all models across all teams user is in.
+ */
 export const modelInfoV2V2ModelInfoGetQueryIncludeTeamModelsSchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -18585,6 +20368,9 @@ export const modelInfoV2V2ModelInfoGetQueryDebugSchema = z
 	.optional()
 	.default(false);
 
+/**
+ * Page number
+ */
 export const modelInfoV2V2ModelInfoGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -18592,6 +20378,9 @@ export const modelInfoV2V2ModelInfoGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Page size
+ */
 export const modelInfoV2V2ModelInfoGetQuerySizeSchema = z
 	.int()
 	.min(1)
@@ -18599,16 +20388,25 @@ export const modelInfoV2V2ModelInfoGetQuerySizeSchema = z
 	.default(50)
 	.describe("Page size");
 
+/**
+ * Search model names (case-insensitive partial match)
+ */
 export const modelInfoV2V2ModelInfoGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Search model names (case-insensitive partial match)");
 
+/**
+ * Search for a specific model by its unique ID
+ */
 export const modelInfoV2V2ModelInfoGetQueryModelIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Search for a specific model by its unique ID");
 
+/**
+ * With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.
+ */
 export const modelInfoV2V2ModelInfoGetQueryUseStoredParamsSchema = z
 	.boolean()
 	.optional()
@@ -18617,6 +20415,9 @@ export const modelInfoV2V2ModelInfoGetQueryUseStoredParamsSchema = z
 		"With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.",
 	);
 
+/**
+ * Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
+ */
 export const modelInfoV2V2ModelInfoGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -18624,17 +20425,26 @@ export const modelInfoV2V2ModelInfoGetQueryTeamIdSchema = z
 		"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
 	);
 
+/**
+ * Field to sort by. Options: model_name, created_at, updated_at, costs, status
+ */
 export const modelInfoV2V2ModelInfoGetQuerySortBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Field to sort by. Options: model_name, created_at, updated_at, costs, status");
 
+/**
+ * Sort order. Options: asc, desc
+ */
 export const modelInfoV2V2ModelInfoGetQuerySortOrderSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.default("asc")
 	.describe("Sort order. Options: asc, desc");
 
+/**
+ * Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.
+ */
 export const modelInfoV2V2ModelInfoGetQueryBlockedSchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -18642,6 +20452,9 @@ export const modelInfoV2V2ModelInfoGetQueryBlockedSchema = z
 		"Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.",
 	);
 
+/**
+ * Omit auto-router deployments (litellm model prefixed `auto_router/`). They select among deployments rather than being deployments themselves, so a caller rendering a deployment list can leave them out. Defaults to false, so existing callers are unaffected
+ */
 export const modelInfoV2V2ModelInfoGetQueryExcludeAutoRoutersSchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -18650,11 +20463,17 @@ export const modelInfoV2V2ModelInfoGetQueryExcludeAutoRoutersSchema = z
 		"Omit auto-router deployments (litellm model prefixed `auto_router/`). They select among deployments rather than being deployments themselves, so a caller rendering a deployment list can leave them out. Defaults to false, so existing callers are unaffected",
 	);
 
+/**
+ * Only return deployments whose `model_info.access_groups` contains this access group
+ */
 export const modelInfoV2V2ModelInfoGetQueryAccessGroupSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Only return deployments whose `model_info.access_groups` contains this access group");
 
+/**
+ * Only return wildcard deployments, i.e. those whose `model_name` contains `*`
+ */
 export const modelInfoV2V2ModelInfoGetQueryWildcardOnlySchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -18670,83 +20489,31 @@ export const modelInfoV2V2ModelInfoGetResponseSchema = modelInfoV2V2ModelInfoGet
 export const modelInfoV2V2ModelInfoGetErrorSchema = modelInfoV2V2ModelInfoGetStatus422Schema;
 
 export const modelInfoV2V2ModelInfoGetQuerySchema = z.object({
-	model: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Specify the model name (optional)"),
-	user_models_only: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false)
-		.describe("Only return models added by this user"),
-	include_team_models: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false)
-		.describe("Return all models across all teams user is in."),
-	debug: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	size: z.int().min(1).optional().default(50).describe("Page size"),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Search model names (case-insensitive partial match)"),
-	modelId: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Search for a specific model by its unique ID"),
-	use_stored_params: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.",
-		),
-	teamId: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
-		),
-	sortBy: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Field to sort by. Options: model_name, created_at, updated_at, costs, status"),
-	sortOrder: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.default("asc")
-		.describe("Sort order. Options: asc, desc"),
-	blocked: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.",
-		),
-	exclude_auto_routers: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false)
-		.describe(
-			"Omit auto-router deployments (litellm model prefixed `auto_router/`). They select among deployments rather than being deployments themselves, so a caller rendering a deployment list can leave them out. Defaults to false, so existing callers are unaffected",
-		),
-	access_group: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Only return deployments whose `model_info.access_groups` contains this access group",
-		),
-	wildcard_only: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false)
-		.describe("Only return wildcard deployments, i.e. those whose `model_name` contains `*`"),
+	model: modelInfoV2V2ModelInfoGetQueryModelSchema,
+	user_models_only: modelInfoV2V2ModelInfoGetQueryUserModelsOnlySchema,
+	include_team_models: modelInfoV2V2ModelInfoGetQueryIncludeTeamModelsSchema,
+	debug: modelInfoV2V2ModelInfoGetQueryDebugSchema,
+	page: modelInfoV2V2ModelInfoGetQueryPageSchema,
+	size: modelInfoV2V2ModelInfoGetQuerySizeSchema,
+	search: modelInfoV2V2ModelInfoGetQuerySearchSchema,
+	modelId: modelInfoV2V2ModelInfoGetQueryModelIdSchema,
+	use_stored_params: modelInfoV2V2ModelInfoGetQueryUseStoredParamsSchema,
+	teamId: modelInfoV2V2ModelInfoGetQueryTeamIdSchema,
+	sortBy: modelInfoV2V2ModelInfoGetQuerySortBySchema,
+	sortOrder: modelInfoV2V2ModelInfoGetQuerySortOrderSchema,
+	blocked: modelInfoV2V2ModelInfoGetQueryBlockedSchema,
+	exclude_auto_routers: modelInfoV2V2ModelInfoGetQueryExcludeAutoRoutersSchema,
+	access_group: modelInfoV2V2ModelInfoGetQueryAccessGroupSchema,
+	wildcard_only: modelInfoV2V2ModelInfoGetQueryWildcardOnlySchema,
 });
 
 export const modelInfoV1V1ModelInfoGetQueryLitellmModelIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional();
 
+/**
+ * When true, filter to deployments the caller can use via direct access or team membership.
+ */
 export const modelInfoV1V1ModelInfoGetQueryIncludeTeamModelsSchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -18755,6 +20522,9 @@ export const modelInfoV1V1ModelInfoGetQueryIncludeTeamModelsSchema = z
 		"When true, filter to deployments the caller can use via direct access or team membership.",
 	);
 
+/**
+ * Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
+ */
 export const modelInfoV1V1ModelInfoGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -18778,27 +20548,19 @@ export const modelInfoV1V1ModelInfoGetResponseSchema = modelInfoV1V1ModelInfoGet
 export const modelInfoV1V1ModelInfoGetErrorSchema = modelInfoV1V1ModelInfoGetStatus422Schema;
 
 export const modelInfoV1V1ModelInfoGetQuerySchema = z.object({
-	litellm_model_id: z.union([z.string(), z.null().nullable()]).optional(),
-	include_team_models: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false)
-		.describe(
-			"When true, filter to deployments the caller can use via direct access or team membership.",
-		),
-	teamId: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
-		),
-	healthy_only: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
+	litellm_model_id: modelInfoV1V1ModelInfoGetQueryLitellmModelIdSchema,
+	include_team_models: modelInfoV1V1ModelInfoGetQueryIncludeTeamModelsSchema,
+	teamId: modelInfoV1V1ModelInfoGetQueryTeamIdSchema,
+	healthy_only: modelInfoV1V1ModelInfoGetQueryHealthyOnlySchema,
 });
 
 export const modelInfoV1ModelInfoGetQueryLitellmModelIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional();
 
+/**
+ * When true, filter to deployments the caller can use via direct access or team membership.
+ */
 export const modelInfoV1ModelInfoGetQueryIncludeTeamModelsSchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -18807,6 +20569,9 @@ export const modelInfoV1ModelInfoGetQueryIncludeTeamModelsSchema = z
 		"When true, filter to deployments the caller can use via direct access or team membership.",
 	);
 
+/**
+ * Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
+ */
 export const modelInfoV1ModelInfoGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -18828,21 +20593,10 @@ export const modelInfoV1ModelInfoGetResponseSchema = modelInfoV1ModelInfoGetStat
 export const modelInfoV1ModelInfoGetErrorSchema = modelInfoV1ModelInfoGetStatus422Schema;
 
 export const modelInfoV1ModelInfoGetQuerySchema = z.object({
-	litellm_model_id: z.union([z.string(), z.null().nullable()]).optional(),
-	include_team_models: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.default(false)
-		.describe(
-			"When true, filter to deployments the caller can use via direct access or team membership.",
-		),
-	teamId: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids",
-		),
-	healthy_only: z.union([z.boolean(), z.null().nullable()]).optional().default(false),
+	litellm_model_id: modelInfoV1ModelInfoGetQueryLitellmModelIdSchema,
+	include_team_models: modelInfoV1ModelInfoGetQueryIncludeTeamModelsSchema,
+	teamId: modelInfoV1ModelInfoGetQueryTeamIdSchema,
+	healthy_only: modelInfoV1ModelInfoGetQueryHealthyOnlySchema,
 });
 
 export const modelDeprecationsV1ModelDeprecationsGetQueryWarnWithinDaysSchema = z
@@ -18862,7 +20616,7 @@ export const modelDeprecationsV1ModelDeprecationsGetErrorSchema =
 	modelDeprecationsV1ModelDeprecationsGetStatus422Schema;
 
 export const modelDeprecationsV1ModelDeprecationsGetQuerySchema = z.object({
-	warn_within_days: z.int().optional().default(30),
+	warn_within_days: modelDeprecationsV1ModelDeprecationsGetQueryWarnWithinDaysSchema,
 });
 
 export const modelDeprecationsModelDeprecationsGetQueryWarnWithinDaysSchema = z
@@ -18881,7 +20635,7 @@ export const modelDeprecationsModelDeprecationsGetErrorSchema =
 	modelDeprecationsModelDeprecationsGetStatus422Schema;
 
 export const modelDeprecationsModelDeprecationsGetQuerySchema = z.object({
-	warn_within_days: z.int().optional().default(30),
+	warn_within_days: modelDeprecationsModelDeprecationsGetQueryWarnWithinDaysSchema,
 });
 
 export const modelGroupInfoModelGroupInfoGetQueryModelGroupSchema = z
@@ -18899,7 +20653,7 @@ export const modelGroupInfoModelGroupInfoGetErrorSchema =
 	modelGroupInfoModelGroupInfoGetStatus422Schema;
 
 export const modelGroupInfoModelGroupInfoGetQuerySchema = z.object({
-	model_group: z.union([z.string(), z.null().nullable()]).optional(),
+	model_group: modelGroupInfoModelGroupInfoGetQueryModelGroupSchema,
 });
 
 export const homeGetStatus200Schema = z.looseObject({});
@@ -19344,6 +21098,9 @@ export const cursorChatCompletionsCursorChatCompletionsPostResponseSchema =
 
 export const getResponseOpenaiV1ResponsesResponseIdGetPathResponseIdSchema = z.string();
 
+/**
+ * Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)
+ */
 export const getResponseOpenaiV1ResponsesResponseIdGetQueryStreamSchema = z
 	.boolean()
 	.optional()
@@ -19351,17 +21108,26 @@ export const getResponseOpenaiV1ResponsesResponseIdGetQueryStreamSchema = z
 		"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
 	);
 
+/**
+ * With stream=true, replay only the events after this sequence number
+ */
 export const getResponseOpenaiV1ResponsesResponseIdGetQueryStartingAfterSchema = z
 	.int()
 	.min(0)
 	.optional()
 	.describe("With stream=true, replay only the events after this sequence number");
 
+/**
+ * Additional output data to include, forwarded to the provider
+ */
 export const getResponseOpenaiV1ResponsesResponseIdGetQueryIncludeSchema = z
 	.array(z.string())
 	.optional()
 	.describe("Additional output data to include, forwarded to the provider");
 
+/**
+ * With stream=true, whether delta events carry obfuscation padding
+ */
 export const getResponseOpenaiV1ResponsesResponseIdGetQueryIncludeObfuscationSchema = z
 	.boolean()
 	.optional()
@@ -19378,29 +21144,14 @@ export const getResponseOpenaiV1ResponsesResponseIdGetErrorSchema =
 	getResponseOpenaiV1ResponsesResponseIdGetStatus422Schema;
 
 export const getResponseOpenaiV1ResponsesResponseIdGetPathSchema = z.object({
-	response_id: z.string(),
+	response_id: getResponseOpenaiV1ResponsesResponseIdGetPathResponseIdSchema,
 });
 
 export const getResponseOpenaiV1ResponsesResponseIdGetQuerySchema = z.object({
-	stream: z
-		.boolean()
-		.optional()
-		.describe(
-			"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
-		),
-	starting_after: z
-		.int()
-		.min(0)
-		.optional()
-		.describe("With stream=true, replay only the events after this sequence number"),
-	include: z
-		.array(z.string())
-		.optional()
-		.describe("Additional output data to include, forwarded to the provider"),
-	include_obfuscation: z
-		.boolean()
-		.optional()
-		.describe("With stream=true, whether delta events carry obfuscation padding"),
+	stream: getResponseOpenaiV1ResponsesResponseIdGetQueryStreamSchema,
+	starting_after: getResponseOpenaiV1ResponsesResponseIdGetQueryStartingAfterSchema,
+	include: getResponseOpenaiV1ResponsesResponseIdGetQueryIncludeSchema,
+	include_obfuscation: getResponseOpenaiV1ResponsesResponseIdGetQueryIncludeObfuscationSchema,
 });
 
 export const deleteResponseOpenaiV1ResponsesResponseIdDeletePathResponseIdSchema = z.string();
@@ -19420,11 +21171,14 @@ export const deleteResponseOpenaiV1ResponsesResponseIdDeleteErrorSchema =
 	deleteResponseOpenaiV1ResponsesResponseIdDeleteStatus422Schema;
 
 export const deleteResponseOpenaiV1ResponsesResponseIdDeletePathSchema = z.object({
-	response_id: z.string(),
+	response_id: deleteResponseOpenaiV1ResponsesResponseIdDeletePathResponseIdSchema,
 });
 
 export const getResponseResponsesResponseIdGetPathResponseIdSchema = z.string();
 
+/**
+ * Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)
+ */
 export const getResponseResponsesResponseIdGetQueryStreamSchema = z
 	.boolean()
 	.optional()
@@ -19432,17 +21186,26 @@ export const getResponseResponsesResponseIdGetQueryStreamSchema = z
 		"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
 	);
 
+/**
+ * With stream=true, replay only the events after this sequence number
+ */
 export const getResponseResponsesResponseIdGetQueryStartingAfterSchema = z
 	.int()
 	.min(0)
 	.optional()
 	.describe("With stream=true, replay only the events after this sequence number");
 
+/**
+ * Additional output data to include, forwarded to the provider
+ */
 export const getResponseResponsesResponseIdGetQueryIncludeSchema = z
 	.array(z.string())
 	.optional()
 	.describe("Additional output data to include, forwarded to the provider");
 
+/**
+ * With stream=true, whether delta events carry obfuscation padding
+ */
 export const getResponseResponsesResponseIdGetQueryIncludeObfuscationSchema = z
 	.boolean()
 	.optional()
@@ -19459,29 +21222,14 @@ export const getResponseResponsesResponseIdGetErrorSchema =
 	getResponseResponsesResponseIdGetStatus422Schema;
 
 export const getResponseResponsesResponseIdGetPathSchema = z.object({
-	response_id: z.string(),
+	response_id: getResponseResponsesResponseIdGetPathResponseIdSchema,
 });
 
 export const getResponseResponsesResponseIdGetQuerySchema = z.object({
-	stream: z
-		.boolean()
-		.optional()
-		.describe(
-			"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
-		),
-	starting_after: z
-		.int()
-		.min(0)
-		.optional()
-		.describe("With stream=true, replay only the events after this sequence number"),
-	include: z
-		.array(z.string())
-		.optional()
-		.describe("Additional output data to include, forwarded to the provider"),
-	include_obfuscation: z
-		.boolean()
-		.optional()
-		.describe("With stream=true, whether delta events carry obfuscation padding"),
+	stream: getResponseResponsesResponseIdGetQueryStreamSchema,
+	starting_after: getResponseResponsesResponseIdGetQueryStartingAfterSchema,
+	include: getResponseResponsesResponseIdGetQueryIncludeSchema,
+	include_obfuscation: getResponseResponsesResponseIdGetQueryIncludeObfuscationSchema,
 });
 
 export const deleteResponseResponsesResponseIdDeletePathResponseIdSchema = z.string();
@@ -19500,11 +21248,14 @@ export const deleteResponseResponsesResponseIdDeleteErrorSchema =
 	deleteResponseResponsesResponseIdDeleteStatus422Schema;
 
 export const deleteResponseResponsesResponseIdDeletePathSchema = z.object({
-	response_id: z.string(),
+	response_id: deleteResponseResponsesResponseIdDeletePathResponseIdSchema,
 });
 
 export const getResponseV1ResponsesResponseIdGetPathResponseIdSchema = z.string();
 
+/**
+ * Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)
+ */
 export const getResponseV1ResponsesResponseIdGetQueryStreamSchema = z
 	.boolean()
 	.optional()
@@ -19512,17 +21263,26 @@ export const getResponseV1ResponsesResponseIdGetQueryStreamSchema = z
 		"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
 	);
 
+/**
+ * With stream=true, replay only the events after this sequence number
+ */
 export const getResponseV1ResponsesResponseIdGetQueryStartingAfterSchema = z
 	.int()
 	.min(0)
 	.optional()
 	.describe("With stream=true, replay only the events after this sequence number");
 
+/**
+ * Additional output data to include, forwarded to the provider
+ */
 export const getResponseV1ResponsesResponseIdGetQueryIncludeSchema = z
 	.array(z.string())
 	.optional()
 	.describe("Additional output data to include, forwarded to the provider");
 
+/**
+ * With stream=true, whether delta events carry obfuscation padding
+ */
 export const getResponseV1ResponsesResponseIdGetQueryIncludeObfuscationSchema = z
 	.boolean()
 	.optional()
@@ -19539,29 +21299,14 @@ export const getResponseV1ResponsesResponseIdGetErrorSchema =
 	getResponseV1ResponsesResponseIdGetStatus422Schema;
 
 export const getResponseV1ResponsesResponseIdGetPathSchema = z.object({
-	response_id: z.string(),
+	response_id: getResponseV1ResponsesResponseIdGetPathResponseIdSchema,
 });
 
 export const getResponseV1ResponsesResponseIdGetQuerySchema = z.object({
-	stream: z
-		.boolean()
-		.optional()
-		.describe(
-			"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
-		),
-	starting_after: z
-		.int()
-		.min(0)
-		.optional()
-		.describe("With stream=true, replay only the events after this sequence number"),
-	include: z
-		.array(z.string())
-		.optional()
-		.describe("Additional output data to include, forwarded to the provider"),
-	include_obfuscation: z
-		.boolean()
-		.optional()
-		.describe("With stream=true, whether delta events carry obfuscation padding"),
+	stream: getResponseV1ResponsesResponseIdGetQueryStreamSchema,
+	starting_after: getResponseV1ResponsesResponseIdGetQueryStartingAfterSchema,
+	include: getResponseV1ResponsesResponseIdGetQueryIncludeSchema,
+	include_obfuscation: getResponseV1ResponsesResponseIdGetQueryIncludeObfuscationSchema,
 });
 
 export const deleteResponseV1ResponsesResponseIdDeletePathResponseIdSchema = z.string();
@@ -19580,7 +21325,7 @@ export const deleteResponseV1ResponsesResponseIdDeleteErrorSchema =
 	deleteResponseV1ResponsesResponseIdDeleteStatus422Schema;
 
 export const deleteResponseV1ResponsesResponseIdDeletePathSchema = z.object({
-	response_id: z.string(),
+	response_id: deleteResponseV1ResponsesResponseIdDeletePathResponseIdSchema,
 });
 
 export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetPathResponseIdSchema =
@@ -19599,7 +21344,7 @@ export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetErrorS
 	getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetStatus422Schema;
 
 export const getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetPathSchema = z.object({
-	response_id: z.string(),
+	response_id: getResponseInputItemsOpenaiV1ResponsesResponseIdInputItemsGetPathResponseIdSchema,
 });
 
 export const getResponseInputItemsResponsesResponseIdInputItemsGetPathResponseIdSchema = z.string();
@@ -19617,7 +21362,7 @@ export const getResponseInputItemsResponsesResponseIdInputItemsGetErrorSchema =
 	getResponseInputItemsResponsesResponseIdInputItemsGetStatus422Schema;
 
 export const getResponseInputItemsResponsesResponseIdInputItemsGetPathSchema = z.object({
-	response_id: z.string(),
+	response_id: getResponseInputItemsResponsesResponseIdInputItemsGetPathResponseIdSchema,
 });
 
 export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetPathResponseIdSchema =
@@ -19636,7 +21381,7 @@ export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetErrorSchema 
 	getResponseInputItemsV1ResponsesResponseIdInputItemsGetStatus422Schema;
 
 export const getResponseInputItemsV1ResponsesResponseIdInputItemsGetPathSchema = z.object({
-	response_id: z.string(),
+	response_id: getResponseInputItemsV1ResponsesResponseIdInputItemsGetPathResponseIdSchema,
 });
 
 export const compactResponseOpenaiV1ResponsesCompactPostStatus200Schema = z.looseObject({});
@@ -19685,7 +21430,7 @@ export const cancelResponseOpenaiV1ResponsesResponseIdCancelPostErrorSchema =
 	cancelResponseOpenaiV1ResponsesResponseIdCancelPostStatus422Schema;
 
 export const cancelResponseOpenaiV1ResponsesResponseIdCancelPostPathSchema = z.object({
-	response_id: z.string(),
+	response_id: cancelResponseOpenaiV1ResponsesResponseIdCancelPostPathResponseIdSchema,
 });
 
 export const cancelResponseResponsesResponseIdCancelPostPathResponseIdSchema = z.string();
@@ -19701,7 +21446,7 @@ export const cancelResponseResponsesResponseIdCancelPostErrorSchema =
 	cancelResponseResponsesResponseIdCancelPostStatus422Schema;
 
 export const cancelResponseResponsesResponseIdCancelPostPathSchema = z.object({
-	response_id: z.string(),
+	response_id: cancelResponseResponsesResponseIdCancelPostPathResponseIdSchema,
 });
 
 export const cancelResponseV1ResponsesResponseIdCancelPostPathResponseIdSchema = z.string();
@@ -19718,7 +21463,7 @@ export const cancelResponseV1ResponsesResponseIdCancelPostErrorSchema =
 	cancelResponseV1ResponsesResponseIdCancelPostStatus422Schema;
 
 export const cancelResponseV1ResponsesResponseIdCancelPostPathSchema = z.object({
-	response_id: z.string(),
+	response_id: cancelResponseV1ResponsesResponseIdCancelPostPathResponseIdSchema,
 });
 
 export const publicModelHubPublicModelHubGetStatus200Schema = z.array(modelGroupInfoProxySchema);
@@ -19787,7 +21532,7 @@ export const getLitellmModelCostMapPublicLitellmModelCostMapGetErrorSchema =
 	getLitellmModelCostMapPublicLitellmModelCostMapGetStatus422Schema;
 
 export const getLitellmModelCostMapPublicLitellmModelCostMapGetQuerySchema = z.object({
-	catalog_only: z.boolean().optional().default(false),
+	catalog_only: getLitellmModelCostMapPublicLitellmModelCostMapGetQueryCatalogOnlySchema,
 });
 
 export const getLitellmBlogPostsPublicLitellmBlogPostsGetStatus200Schema = blogPostsResponseSchema;
@@ -19840,7 +21585,7 @@ export const publicModelHubFacetPublicV1ModelHubFacetGetErrorSchema =
 	publicModelHubFacetPublicV1ModelHubFacetGetStatus422Schema;
 
 export const publicModelHubFacetPublicV1ModelHubFacetGetPathSchema = z.object({
-	facet: z.enum(["providers", "modes", "features"]),
+	facet: publicModelHubFacetPublicV1ModelHubFacetGetPathFacetSchema,
 });
 
 export const rerankRerankPostStatus200Schema = z.looseObject({});
@@ -19919,7 +21664,7 @@ export const videoStatusVideosVideoIdGetResponseSchema = videoStatusVideosVideoI
 export const videoStatusVideosVideoIdGetErrorSchema = videoStatusVideosVideoIdGetStatus422Schema;
 
 export const videoStatusVideosVideoIdGetPathSchema = z.object({
-	video_id: z.string(),
+	video_id: videoStatusVideosVideoIdGetPathVideoIdSchema,
 });
 
 export const videoStatusV1VideosVideoIdGetPathVideoIdSchema = z.string();
@@ -19935,7 +21680,7 @@ export const videoStatusV1VideosVideoIdGetErrorSchema =
 	videoStatusV1VideosVideoIdGetStatus422Schema;
 
 export const videoStatusV1VideosVideoIdGetPathSchema = z.object({
-	video_id: z.string(),
+	video_id: videoStatusV1VideosVideoIdGetPathVideoIdSchema,
 });
 
 export const videoContentVideosVideoIdContentGetPathVideoIdSchema = z.string();
@@ -19951,7 +21696,7 @@ export const videoContentVideosVideoIdContentGetErrorSchema =
 	videoContentVideosVideoIdContentGetStatus422Schema;
 
 export const videoContentVideosVideoIdContentGetPathSchema = z.object({
-	video_id: z.string(),
+	video_id: videoContentVideosVideoIdContentGetPathVideoIdSchema,
 });
 
 export const videoContentV1VideosVideoIdContentGetPathVideoIdSchema = z.string();
@@ -19967,7 +21712,7 @@ export const videoContentV1VideosVideoIdContentGetErrorSchema =
 	videoContentV1VideosVideoIdContentGetStatus422Schema;
 
 export const videoContentV1VideosVideoIdContentGetPathSchema = z.object({
-	video_id: z.string(),
+	video_id: videoContentV1VideosVideoIdContentGetPathVideoIdSchema,
 });
 
 export const videoRemixVideosVideoIdRemixPostPathVideoIdSchema = z.string();
@@ -19983,7 +21728,7 @@ export const videoRemixVideosVideoIdRemixPostErrorSchema =
 	videoRemixVideosVideoIdRemixPostStatus422Schema;
 
 export const videoRemixVideosVideoIdRemixPostPathSchema = z.object({
-	video_id: z.string(),
+	video_id: videoRemixVideosVideoIdRemixPostPathVideoIdSchema,
 });
 
 export const videoRemixV1VideosVideoIdRemixPostPathVideoIdSchema = z.string();
@@ -19999,7 +21744,7 @@ export const videoRemixV1VideosVideoIdRemixPostErrorSchema =
 	videoRemixV1VideosVideoIdRemixPostStatus422Schema;
 
 export const videoRemixV1VideosVideoIdRemixPostPathSchema = z.object({
-	video_id: z.string(),
+	video_id: videoRemixV1VideosVideoIdRemixPostPathVideoIdSchema,
 });
 
 export const videoCreateCharacterVideosCharactersPostStatus200Schema = z.looseObject({});
@@ -20042,7 +21787,7 @@ export const videoGetCharacterVideosCharactersCharacterIdGetErrorSchema =
 	videoGetCharacterVideosCharactersCharacterIdGetStatus422Schema;
 
 export const videoGetCharacterVideosCharactersCharacterIdGetPathSchema = z.object({
-	character_id: z.string(),
+	character_id: videoGetCharacterVideosCharactersCharacterIdGetPathCharacterIdSchema,
 });
 
 export const videoGetCharacterV1VideosCharactersCharacterIdGetPathCharacterIdSchema = z.string();
@@ -20059,7 +21804,7 @@ export const videoGetCharacterV1VideosCharactersCharacterIdGetErrorSchema =
 	videoGetCharacterV1VideosCharactersCharacterIdGetStatus422Schema;
 
 export const videoGetCharacterV1VideosCharactersCharacterIdGetPathSchema = z.object({
-	character_id: z.string(),
+	character_id: videoGetCharacterV1VideosCharactersCharacterIdGetPathCharacterIdSchema,
 });
 
 export const videoEditVideosEditsPostStatus200Schema = z.looseObject({});
@@ -20101,9 +21846,9 @@ export const listContainersContainersGetResponseSchema = listContainersContainer
 export const listContainersContainersGetErrorSchema = listContainersContainersGetStatus422Schema;
 
 export const listContainersContainersGetQuerySchema = z.object({
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	order: z.union([z.string(), z.null().nullable()]).optional(),
+	after: listContainersContainersGetQueryAfterSchema,
+	limit: listContainersContainersGetQueryLimitSchema,
+	order: listContainersContainersGetQueryOrderSchema,
 });
 
 export const createContainerContainersPostStatus200Schema = z.looseObject({});
@@ -20134,9 +21879,9 @@ export const listContainersV1ContainersGetErrorSchema =
 	listContainersV1ContainersGetStatus422Schema;
 
 export const listContainersV1ContainersGetQuerySchema = z.object({
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	order: z.union([z.string(), z.null().nullable()]).optional(),
+	after: listContainersV1ContainersGetQueryAfterSchema,
+	limit: listContainersV1ContainersGetQueryLimitSchema,
+	order: listContainersV1ContainersGetQueryOrderSchema,
 });
 
 export const createContainerV1ContainersPostStatus200Schema = z.looseObject({});
@@ -20157,7 +21902,7 @@ export const retrieveContainerContainersContainerIdGetErrorSchema =
 	retrieveContainerContainersContainerIdGetStatus422Schema;
 
 export const retrieveContainerContainersContainerIdGetPathSchema = z.object({
-	container_id: z.string(),
+	container_id: retrieveContainerContainersContainerIdGetPathContainerIdSchema,
 });
 
 export const deleteContainerContainersContainerIdDeletePathContainerIdSchema = z.string();
@@ -20173,7 +21918,7 @@ export const deleteContainerContainersContainerIdDeleteErrorSchema =
 	deleteContainerContainersContainerIdDeleteStatus422Schema;
 
 export const deleteContainerContainersContainerIdDeletePathSchema = z.object({
-	container_id: z.string(),
+	container_id: deleteContainerContainersContainerIdDeletePathContainerIdSchema,
 });
 
 export const retrieveContainerV1ContainersContainerIdGetPathContainerIdSchema = z.string();
@@ -20189,7 +21934,7 @@ export const retrieveContainerV1ContainersContainerIdGetErrorSchema =
 	retrieveContainerV1ContainersContainerIdGetStatus422Schema;
 
 export const retrieveContainerV1ContainersContainerIdGetPathSchema = z.object({
-	container_id: z.string(),
+	container_id: retrieveContainerV1ContainersContainerIdGetPathContainerIdSchema,
 });
 
 export const deleteContainerV1ContainersContainerIdDeletePathContainerIdSchema = z.string();
@@ -20206,7 +21951,7 @@ export const deleteContainerV1ContainersContainerIdDeleteErrorSchema =
 	deleteContainerV1ContainersContainerIdDeleteStatus422Schema;
 
 export const deleteContainerV1ContainersContainerIdDeletePathSchema = z.object({
-	container_id: z.string(),
+	container_id: deleteContainerV1ContainersContainerIdDeletePathContainerIdSchema,
 });
 
 export const handlerContainerIdV1ContainersContainerIdFilesGetPathContainerIdSchema = z.string();
@@ -20223,7 +21968,7 @@ export const handlerContainerIdV1ContainersContainerIdFilesGetErrorSchema =
 	handlerContainerIdV1ContainersContainerIdFilesGetStatus422Schema;
 
 export const handlerContainerIdV1ContainersContainerIdFilesGetPathSchema = z.object({
-	container_id: z.string(),
+	container_id: handlerContainerIdV1ContainersContainerIdFilesGetPathContainerIdSchema,
 });
 
 export const handlerMultipartUploadV1ContainersContainerIdFilesPostPathContainerIdSchema =
@@ -20243,7 +21988,7 @@ export const handlerMultipartUploadV1ContainersContainerIdFilesPostErrorSchema =
 	handlerMultipartUploadV1ContainersContainerIdFilesPostStatus422Schema;
 
 export const handlerMultipartUploadV1ContainersContainerIdFilesPostPathSchema = z.object({
-	container_id: z.string(),
+	container_id: handlerMultipartUploadV1ContainersContainerIdFilesPostPathContainerIdSchema,
 });
 
 export const handlerContainerIdContainersContainerIdFilesGetPathContainerIdSchema = z.string();
@@ -20260,7 +22005,7 @@ export const handlerContainerIdContainersContainerIdFilesGetErrorSchema =
 	handlerContainerIdContainersContainerIdFilesGetStatus422Schema;
 
 export const handlerContainerIdContainersContainerIdFilesGetPathSchema = z.object({
-	container_id: z.string(),
+	container_id: handlerContainerIdContainersContainerIdFilesGetPathContainerIdSchema,
 });
 
 export const handlerMultipartUploadContainersContainerIdFilesPostPathContainerIdSchema = z.string();
@@ -20279,7 +22024,7 @@ export const handlerMultipartUploadContainersContainerIdFilesPostErrorSchema =
 	handlerMultipartUploadContainersContainerIdFilesPostStatus422Schema;
 
 export const handlerMultipartUploadContainersContainerIdFilesPostPathSchema = z.object({
-	container_id: z.string(),
+	container_id: handlerMultipartUploadContainersContainerIdFilesPostPathContainerIdSchema,
 });
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetPathContainerIdSchema =
@@ -20300,8 +22045,8 @@ export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetErrorSchem
 	handlerContainerFileV1ContainersContainerIdFilesFileIdGetStatus422Schema;
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdGetPathSchema = z.object({
-	container_id: z.string(),
-	file_id: z.string(),
+	container_id: handlerContainerFileV1ContainersContainerIdFilesFileIdGetPathContainerIdSchema,
+	file_id: handlerContainerFileV1ContainersContainerIdFilesFileIdGetPathFileIdSchema,
 });
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeletePathContainerIdSchema =
@@ -20323,8 +22068,8 @@ export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeleteErrorSc
 	handlerContainerFileV1ContainersContainerIdFilesFileIdDeleteStatus422Schema;
 
 export const handlerContainerFileV1ContainersContainerIdFilesFileIdDeletePathSchema = z.object({
-	container_id: z.string(),
-	file_id: z.string(),
+	container_id: handlerContainerFileV1ContainersContainerIdFilesFileIdDeletePathContainerIdSchema,
+	file_id: handlerContainerFileV1ContainersContainerIdFilesFileIdDeletePathFileIdSchema,
 });
 
 export const handlerContainerFileContainersContainerIdFilesFileIdGetPathContainerIdSchema =
@@ -20346,8 +22091,8 @@ export const handlerContainerFileContainersContainerIdFilesFileIdGetErrorSchema 
 	handlerContainerFileContainersContainerIdFilesFileIdGetStatus422Schema;
 
 export const handlerContainerFileContainersContainerIdFilesFileIdGetPathSchema = z.object({
-	container_id: z.string(),
-	file_id: z.string(),
+	container_id: handlerContainerFileContainersContainerIdFilesFileIdGetPathContainerIdSchema,
+	file_id: handlerContainerFileContainersContainerIdFilesFileIdGetPathFileIdSchema,
 });
 
 export const handlerContainerFileContainersContainerIdFilesFileIdDeletePathContainerIdSchema =
@@ -20369,8 +22114,8 @@ export const handlerContainerFileContainersContainerIdFilesFileIdDeleteErrorSche
 	handlerContainerFileContainersContainerIdFilesFileIdDeleteStatus422Schema;
 
 export const handlerContainerFileContainersContainerIdFilesFileIdDeletePathSchema = z.object({
-	container_id: z.string(),
-	file_id: z.string(),
+	container_id: handlerContainerFileContainersContainerIdFilesFileIdDeletePathContainerIdSchema,
+	file_id: handlerContainerFileContainersContainerIdFilesFileIdDeletePathFileIdSchema,
 });
 
 export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetPathContainerIdSchema =
@@ -20392,8 +22137,9 @@ export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetErr
 	handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetStatus422Schema;
 
 export const handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetPathSchema = z.object({
-	container_id: z.string(),
-	file_id: z.string(),
+	container_id:
+		handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetPathContainerIdSchema,
+	file_id: handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGetPathFileIdSchema,
 });
 
 export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetPathContainerIdSchema =
@@ -20415,8 +22161,8 @@ export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetError
 	handlerBinaryContentContainersContainerIdFilesFileIdContentGetStatus422Schema;
 
 export const handlerBinaryContentContainersContainerIdFilesFileIdContentGetPathSchema = z.object({
-	container_id: z.string(),
-	file_id: z.string(),
+	container_id: handlerBinaryContentContainersContainerIdFilesFileIdContentGetPathContainerIdSchema,
+	file_id: handlerBinaryContentContainersContainerIdFilesFileIdContentGetPathFileIdSchema,
 });
 
 export const searchSearchPostQuerySearchToolNameSchema = z
@@ -20432,7 +22178,7 @@ export const searchSearchPostResponseSchema = searchSearchPostStatus200Schema;
 export const searchSearchPostErrorSchema = searchSearchPostStatus422Schema;
 
 export const searchSearchPostQuerySchema = z.object({
-	search_tool_name: z.union([z.string(), z.null().nullable()]).optional(),
+	search_tool_name: searchSearchPostQuerySearchToolNameSchema,
 });
 
 export const searchV1SearchPostQuerySearchToolNameSchema = z
@@ -20448,7 +22194,7 @@ export const searchV1SearchPostResponseSchema = searchV1SearchPostStatus200Schem
 export const searchV1SearchPostErrorSchema = searchV1SearchPostStatus422Schema;
 
 export const searchV1SearchPostQuerySchema = z.object({
-	search_tool_name: z.union([z.string(), z.null().nullable()]).optional(),
+	search_tool_name: searchV1SearchPostQuerySearchToolNameSchema,
 });
 
 export const searchSearchSearchToolNamePostPathSearchToolNameSchema = z.union([
@@ -20467,7 +22213,7 @@ export const searchSearchSearchToolNamePostErrorSchema =
 	searchSearchSearchToolNamePostStatus422Schema;
 
 export const searchSearchSearchToolNamePostPathSchema = z.object({
-	search_tool_name: z.union([z.string(), z.null().nullable()]),
+	search_tool_name: searchSearchSearchToolNamePostPathSearchToolNameSchema,
 });
 
 export const searchV1SearchSearchToolNamePostPathSearchToolNameSchema = z.union([
@@ -20486,7 +22232,7 @@ export const searchV1SearchSearchToolNamePostErrorSchema =
 	searchV1SearchSearchToolNamePostStatus422Schema;
 
 export const searchV1SearchSearchToolNamePostPathSchema = z.object({
-	search_tool_name: z.union([z.string(), z.null().nullable()]),
+	search_tool_name: searchV1SearchSearchToolNamePostPathSearchToolNameSchema,
 });
 
 export const listSearchToolsSearchToolsGetStatus200Schema = z.looseObject({});
@@ -20503,11 +22249,17 @@ export const listAgentTracesV1TracesGetQueryCursorSchema = z
 	.union([z.string().max(512), z.null().nullable()])
 	.optional();
 
+/**
+ * Window end, unix ms. Default: now
+ */
 export const listAgentTracesV1TracesGetQueryEndMsSchema = z
 	.union([z.int(), z.null().nullable()])
 	.optional()
 	.describe("Window end, unix ms. Default: now");
 
+/**
+ * Window start, unix ms. Default: 24h ago
+ */
 export const listAgentTracesV1TracesGetQueryStartMsSchema = z
 	.union([z.int(), z.null().nullable()])
 	.optional()
@@ -20522,15 +22274,9 @@ export const listAgentTracesV1TracesGetResponseSchema = listAgentTracesV1TracesG
 export const listAgentTracesV1TracesGetErrorSchema = listAgentTracesV1TracesGetStatus422Schema;
 
 export const listAgentTracesV1TracesGetQuerySchema = z.object({
-	cursor: z.union([z.string().max(512), z.null().nullable()]).optional(),
-	end_ms: z
-		.union([z.int(), z.null().nullable()])
-		.optional()
-		.describe("Window end, unix ms. Default: now"),
-	start_ms: z
-		.union([z.int(), z.null().nullable()])
-		.optional()
-		.describe("Window start, unix ms. Default: 24h ago"),
+	cursor: listAgentTracesV1TracesGetQueryCursorSchema,
+	end_ms: listAgentTracesV1TracesGetQueryEndMsSchema,
+	start_ms: listAgentTracesV1TracesGetQueryStartMsSchema,
 });
 
 export const listTraceAgentsV1TracesAgentsGetQueryStartMsSchema = z
@@ -20552,8 +22298,8 @@ export const listTraceAgentsV1TracesAgentsGetErrorSchema =
 	listTraceAgentsV1TracesAgentsGetStatus422Schema;
 
 export const listTraceAgentsV1TracesAgentsGetQuerySchema = z.object({
-	start_ms: z.union([z.int(), z.null().nullable()]).optional(),
-	end_ms: z.union([z.int(), z.null().nullable()]).optional(),
+	start_ms: listTraceAgentsV1TracesAgentsGetQueryStartMsSchema,
+	end_ms: listTraceAgentsV1TracesAgentsGetQueryEndMsSchema,
 });
 
 export const queryAgentTracesV1TracesQueryPostStatus200Schema = traceSQLResponseSchema;
@@ -20596,13 +22342,13 @@ export const getAgentTraceV1TracesTraceIdGetErrorSchema =
 	getAgentTraceV1TracesTraceIdGetStatus422Schema;
 
 export const getAgentTraceV1TracesTraceIdGetPathSchema = z.object({
-	trace_id: z.string(),
+	trace_id: getAgentTraceV1TracesTraceIdGetPathTraceIdSchema,
 });
 
 export const getAgentTraceV1TracesTraceIdGetQuerySchema = z.object({
-	cursor: z.union([z.string().max(512), z.null().nullable()]).optional(),
-	page_size: z.union([z.int().min(1).max(500), z.null().nullable()]).optional(),
-	trace_ref: z.string().optional().default(""),
+	cursor: getAgentTraceV1TracesTraceIdGetQueryCursorSchema,
+	page_size: getAgentTraceV1TracesTraceIdGetQueryPageSizeSchema,
+	trace_ref: getAgentTraceV1TracesTraceIdGetQueryTraceRefSchema,
 });
 
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathTraceIdSchema = z.string();
@@ -20626,12 +22372,12 @@ export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetErrorSchema =
 	getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetStatus422Schema;
 
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathSchema = z.object({
-	trace_id: z.string(),
-	span_id: z.string(),
+	trace_id: getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathTraceIdSchema,
+	span_id: getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathSpanIdSchema,
 });
 
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetQuerySchema = z.object({
-	trace_ref: z.string().optional().default(""),
+	trace_ref: getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetQueryTraceRefSchema,
 });
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathTraceIdSchema = z.string();
@@ -20660,13 +22406,13 @@ export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetErrorSchema
 	getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetStatus422Schema;
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathSchema = z.object({
-	trace_id: z.string(),
-	span_id: z.string(),
+	trace_id: getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathTraceIdSchema,
+	span_id: getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathSpanIdSchema,
 });
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQuerySchema = z.object({
-	cursor: z.union([z.string().max(512), z.null().nullable()]).optional(),
-	trace_ref: z.string().optional().default(""),
+	cursor: getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQueryCursorSchema,
+	trace_ref: getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQueryTraceRefSchema,
 });
 
 export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostPathModelSchema = z.union([
@@ -20687,7 +22433,7 @@ export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostErrorSche
 	imageGenerationOpenaiDeploymentsModelImagesGenerationsPostStatus422Schema;
 
 export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: imageGenerationOpenaiDeploymentsModelImagesGenerationsPostPathModelSchema,
 });
 
 export const imageGenerationImagesGenerationsPostQueryModelSchema = z
@@ -20705,7 +22451,7 @@ export const imageGenerationImagesGenerationsPostErrorSchema =
 	imageGenerationImagesGenerationsPostStatus422Schema;
 
 export const imageGenerationImagesGenerationsPostQuerySchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]).optional(),
+	model: imageGenerationImagesGenerationsPostQueryModelSchema,
 });
 
 export const imageGenerationV1ImagesGenerationsPostQueryModelSchema = z
@@ -20723,7 +22469,7 @@ export const imageGenerationV1ImagesGenerationsPostErrorSchema =
 	imageGenerationV1ImagesGenerationsPostStatus422Schema;
 
 export const imageGenerationV1ImagesGenerationsPostQuerySchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]).optional(),
+	model: imageGenerationV1ImagesGenerationsPostQueryModelSchema,
 });
 
 export const imageEditApiOpenaiDeploymentsModelImagesEditsPostPathModelSchema = z.union([
@@ -20746,7 +22492,7 @@ export const imageEditApiOpenaiDeploymentsModelImagesEditsPostBodySchema =
 	bodyImageEditApiOpenaiDeploymentsModelImagesEditsPostSchema.optional();
 
 export const imageEditApiOpenaiDeploymentsModelImagesEditsPostPathSchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]),
+	model: imageEditApiOpenaiDeploymentsModelImagesEditsPostPathModelSchema,
 });
 
 export const imageEditApiImagesEditsPostQueryModelSchema = z
@@ -20765,7 +22511,7 @@ export const imageEditApiImagesEditsPostBodySchema =
 	bodyImageEditApiImagesEditsPostSchema.optional();
 
 export const imageEditApiImagesEditsPostQuerySchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]).optional(),
+	model: imageEditApiImagesEditsPostQueryModelSchema,
 });
 
 export const imageEditApiV1ImagesEditsPostQueryModelSchema = z
@@ -20786,13 +22532,16 @@ export const imageEditApiV1ImagesEditsPostBodySchema =
 	bodyImageEditApiV1ImagesEditsPostSchema.optional();
 
 export const imageEditApiV1ImagesEditsPostQuerySchema = z.object({
-	model: z.union([z.string(), z.null().nullable()]).optional(),
+	model: imageEditApiV1ImagesEditsPostQueryModelSchema,
 });
 
 export const listFineTuningJobsFineTuningJobsGetQueryCustomLlmProviderSchema = z
 	.union([z.enum(["openai", "azure"]), z.null().nullable()])
 	.optional();
 
+/**
+ * Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
+ */
 export const listFineTuningJobsFineTuningJobsGetQueryTargetModelNamesSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -20817,13 +22566,10 @@ export const listFineTuningJobsFineTuningJobsGetErrorSchema =
 	listFineTuningJobsFineTuningJobsGetStatus422Schema;
 
 export const listFineTuningJobsFineTuningJobsGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null().nullable()]).optional(),
-	target_model_names: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'"),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
+	custom_llm_provider: listFineTuningJobsFineTuningJobsGetQueryCustomLlmProviderSchema,
+	target_model_names: listFineTuningJobsFineTuningJobsGetQueryTargetModelNamesSchema,
+	after: listFineTuningJobsFineTuningJobsGetQueryAfterSchema,
+	limit: listFineTuningJobsFineTuningJobsGetQueryLimitSchema,
 });
 
 export const createFineTuningJobFineTuningJobsPostStatus200Schema = z.looseObject({});
@@ -20842,6 +22588,9 @@ export const listFineTuningJobsV1FineTuningJobsGetQueryCustomLlmProviderSchema =
 	.union([z.enum(["openai", "azure"]), z.null().nullable()])
 	.optional();
 
+/**
+ * Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
+ */
 export const listFineTuningJobsV1FineTuningJobsGetQueryTargetModelNamesSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -20866,13 +22615,10 @@ export const listFineTuningJobsV1FineTuningJobsGetErrorSchema =
 	listFineTuningJobsV1FineTuningJobsGetStatus422Schema;
 
 export const listFineTuningJobsV1FineTuningJobsGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null().nullable()]).optional(),
-	target_model_names: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'"),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
+	custom_llm_provider: listFineTuningJobsV1FineTuningJobsGetQueryCustomLlmProviderSchema,
+	target_model_names: listFineTuningJobsV1FineTuningJobsGetQueryTargetModelNamesSchema,
+	after: listFineTuningJobsV1FineTuningJobsGetQueryAfterSchema,
+	limit: listFineTuningJobsV1FineTuningJobsGetQueryLimitSchema,
 });
 
 export const createFineTuningJobV1FineTuningJobsPostStatus200Schema = z.looseObject({});
@@ -20908,11 +22654,13 @@ export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetErrorSchema =
 	retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetStatus422Schema;
 
 export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetPathSchema = z.object({
-	fine_tuning_job_id: z.string(),
+	fine_tuning_job_id:
+		retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetPathFineTuningJobIdSchema,
 });
 
 export const retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null().nullable()]).optional(),
+	custom_llm_provider:
+		retrieveFineTuningJobFineTuningJobsFineTuningJobIdGetQueryCustomLlmProviderSchema,
 });
 
 export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetPathFineTuningJobIdSchema =
@@ -20936,11 +22684,13 @@ export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetErrorSchema 
 	retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetStatus422Schema;
 
 export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetPathSchema = z.object({
-	fine_tuning_job_id: z.string(),
+	fine_tuning_job_id:
+		retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetPathFineTuningJobIdSchema,
 });
 
 export const retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.enum(["openai", "azure"]), z.null().nullable()]).optional(),
+	custom_llm_provider:
+		retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetQueryCustomLlmProviderSchema,
 });
 
 export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostPathFineTuningJobIdSchema =
@@ -20959,7 +22709,8 @@ export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostErrorSche
 	cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostStatus422Schema;
 
 export const cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostPathSchema = z.object({
-	fine_tuning_job_id: z.string(),
+	fine_tuning_job_id:
+		cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPostPathFineTuningJobIdSchema,
 });
 
 export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostPathFineTuningJobIdSchema =
@@ -20978,7 +22729,8 @@ export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostErrorSc
 	cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostStatus422Schema;
 
 export const cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostPathSchema = z.object({
-	fine_tuning_job_id: z.string(),
+	fine_tuning_job_id:
+		cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPostPathFineTuningJobIdSchema,
 });
 
 export const getCredentialsCredentialsGetStatus200Schema = z.looseObject({});
@@ -20998,6 +22750,9 @@ export const createCredentialCredentialsPostErrorSchema =
 
 export const createCredentialCredentialsPostBodySchema = createCredentialItemSchema;
 
+/**
+ * The credential name, percent-decoded; may contain slashes
+ */
 export const getCredentialByNameCredentialsByNameCredentialNameGetPathCredentialNameSchema = z
 	.string()
 	.describe("The credential name, percent-decoded; may contain slashes");
@@ -21015,9 +22770,12 @@ export const getCredentialByNameCredentialsByNameCredentialNameGetErrorSchema =
 	getCredentialByNameCredentialsByNameCredentialNameGetStatus422Schema;
 
 export const getCredentialByNameCredentialsByNameCredentialNameGetPathSchema = z.object({
-	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+	credential_name: getCredentialByNameCredentialsByNameCredentialNameGetPathCredentialNameSchema,
 });
 
+/**
+ * The credential name, percent-decoded; may contain slashes
+ */
 export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetPathCredentialNameSchema =
 	z.string().describe("The credential name, percent-decoded; may contain slashes");
 
@@ -21034,9 +22792,13 @@ export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetErro
 	getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetStatus422Schema;
 
 export const getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetPathSchema = z.object({
-	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+	credential_name:
+		getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGetPathCredentialNameSchema,
 });
 
+/**
+ * The model ID to look up credentials for
+ */
 export const getCredentialByModelCredentialsByModelModelIdGetPathModelIdSchema = z
 	.string()
 	.describe("The model ID to look up credentials for");
@@ -21053,7 +22815,7 @@ export const getCredentialByModelCredentialsByModelModelIdGetErrorSchema =
 	getCredentialByModelCredentialsByModelModelIdGetStatus422Schema;
 
 export const getCredentialByModelCredentialsByModelModelIdGetPathSchema = z.object({
-	model_id: z.string().describe("The model ID to look up credentials for"),
+	model_id: getCredentialByModelCredentialsByModelModelIdGetPathModelIdSchema,
 });
 
 export const listUserConnectionsCredentialsUserConnectionsGetStatus200Schema =
@@ -21062,6 +22824,9 @@ export const listUserConnectionsCredentialsUserConnectionsGetStatus200Schema =
 export const listUserConnectionsCredentialsUserConnectionsGetResponseSchema =
 	listUserConnectionsCredentialsUserConnectionsGetStatus200Schema;
 
+/**
+ * The credential name, percent-decoded
+ */
 export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostPathCredentialNameSchema =
 	z.string().describe("The credential name, percent-decoded");
 
@@ -21079,9 +22844,13 @@ export const startUserConnectionCredentialsCredentialNameUserConnectionStartPost
 
 export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostPathSchema =
 	z.object({
-		credential_name: z.string().describe("The credential name, percent-decoded"),
+		credential_name:
+			startUserConnectionCredentialsCredentialNameUserConnectionStartPostPathCredentialNameSchema,
 	});
 
+/**
+ * The credential name, percent-decoded
+ */
 export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostPathCredentialNameSchema =
 	z.string().describe("The credential name, percent-decoded");
 
@@ -21102,10 +22871,14 @@ export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostBo
 
 export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostPathSchema = z.object(
 	{
-		credential_name: z.string().describe("The credential name, percent-decoded"),
+		credential_name:
+			pollUserConnectionCredentialsCredentialNameUserConnectionPollPostPathCredentialNameSchema,
 	},
 );
 
+/**
+ * The credential name, percent-decoded
+ */
 export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeletePathCredentialNameSchema =
 	z.string().describe("The credential name, percent-decoded");
 
@@ -21123,10 +22896,14 @@ export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteEr
 
 export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeletePathSchema = z.object(
 	{
-		credential_name: z.string().describe("The credential name, percent-decoded"),
+		credential_name:
+			deleteUserConnectionCredentialsCredentialNameUserConnectionDeletePathCredentialNameSchema,
 	},
 );
 
+/**
+ * The credential name, percent-decoded; may contain slashes
+ */
 export const updateCredentialCredentialsCredentialNamePatchPathCredentialNameSchema = z
 	.string()
 	.describe("The credential name, percent-decoded; may contain slashes");
@@ -21145,9 +22922,12 @@ export const updateCredentialCredentialsCredentialNamePatchErrorSchema =
 export const updateCredentialCredentialsCredentialNamePatchBodySchema = updateCredentialItemSchema;
 
 export const updateCredentialCredentialsCredentialNamePatchPathSchema = z.object({
-	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+	credential_name: updateCredentialCredentialsCredentialNamePatchPathCredentialNameSchema,
 });
 
+/**
+ * The credential name, percent-decoded; may contain slashes
+ */
 export const deleteCredentialCredentialsCredentialNameDeletePathCredentialNameSchema = z
 	.string()
 	.describe("The credential name, percent-decoded; may contain slashes");
@@ -21164,7 +22944,7 @@ export const deleteCredentialCredentialsCredentialNameDeleteErrorSchema =
 	deleteCredentialCredentialsCredentialNameDeleteStatus422Schema;
 
 export const deleteCredentialCredentialsCredentialNameDeletePathSchema = z.object({
-	credential_name: z.string().describe("The credential name, percent-decoded; may contain slashes"),
+	credential_name: deleteCredentialCredentialsCredentialNameDeletePathCredentialNameSchema,
 });
 
 export const listBatchesBatchesGetQueryProviderSchema = z
@@ -21192,10 +22972,10 @@ export const listBatchesBatchesGetResponseSchema = listBatchesBatchesGetStatus20
 export const listBatchesBatchesGetErrorSchema = listBatchesBatchesGetStatus422Schema;
 
 export const listBatchesBatchesGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	target_model_names: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: listBatchesBatchesGetQueryProviderSchema,
+	limit: listBatchesBatchesGetQueryLimitSchema,
+	after: listBatchesBatchesGetQueryAfterSchema,
+	target_model_names: listBatchesBatchesGetQueryTargetModelNamesSchema,
 });
 
 export const createBatchBatchesPostQueryProviderSchema = z
@@ -21211,7 +22991,7 @@ export const createBatchBatchesPostResponseSchema = createBatchBatchesPostStatus
 export const createBatchBatchesPostErrorSchema = createBatchBatchesPostStatus422Schema;
 
 export const createBatchBatchesPostQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: createBatchBatchesPostQueryProviderSchema,
 });
 
 export const listBatchesV1BatchesGetQueryProviderSchema = z
@@ -21239,10 +23019,10 @@ export const listBatchesV1BatchesGetResponseSchema = listBatchesV1BatchesGetStat
 export const listBatchesV1BatchesGetErrorSchema = listBatchesV1BatchesGetStatus422Schema;
 
 export const listBatchesV1BatchesGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	target_model_names: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: listBatchesV1BatchesGetQueryProviderSchema,
+	limit: listBatchesV1BatchesGetQueryLimitSchema,
+	after: listBatchesV1BatchesGetQueryAfterSchema,
+	target_model_names: listBatchesV1BatchesGetQueryTargetModelNamesSchema,
 });
 
 export const createBatchV1BatchesPostQueryProviderSchema = z
@@ -21258,7 +23038,7 @@ export const createBatchV1BatchesPostResponseSchema = createBatchV1BatchesPostSt
 export const createBatchV1BatchesPostErrorSchema = createBatchV1BatchesPostStatus422Schema;
 
 export const createBatchV1BatchesPostQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: createBatchV1BatchesPostQueryProviderSchema,
 });
 
 export const listBatchesProviderV1BatchesGetPathProviderSchema = z.union([
@@ -21289,13 +23069,13 @@ export const listBatchesProviderV1BatchesGetErrorSchema =
 	listBatchesProviderV1BatchesGetStatus422Schema;
 
 export const listBatchesProviderV1BatchesGetPathSchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]),
+	provider: listBatchesProviderV1BatchesGetPathProviderSchema,
 });
 
 export const listBatchesProviderV1BatchesGetQuerySchema = z.object({
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	target_model_names: z.union([z.string(), z.null().nullable()]).optional(),
+	limit: listBatchesProviderV1BatchesGetQueryLimitSchema,
+	after: listBatchesProviderV1BatchesGetQueryAfterSchema,
+	target_model_names: listBatchesProviderV1BatchesGetQueryTargetModelNamesSchema,
 });
 
 export const createBatchProviderV1BatchesPostPathProviderSchema = z.union([
@@ -21314,9 +23094,12 @@ export const createBatchProviderV1BatchesPostErrorSchema =
 	createBatchProviderV1BatchesPostStatus422Schema;
 
 export const createBatchProviderV1BatchesPostPathSchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]),
+	provider: createBatchProviderV1BatchesPostPathProviderSchema,
 });
 
+/**
+ * The ID of the batch to retrieve
+ */
 export const retrieveBatchBatchesBatchIdGetPathBatchIdSchema = z
 	.string()
 	.describe("The ID of the batch to retrieve");
@@ -21336,13 +23119,16 @@ export const retrieveBatchBatchesBatchIdGetErrorSchema =
 	retrieveBatchBatchesBatchIdGetStatus422Schema;
 
 export const retrieveBatchBatchesBatchIdGetPathSchema = z.object({
-	batch_id: z.string().describe("The ID of the batch to retrieve"),
+	batch_id: retrieveBatchBatchesBatchIdGetPathBatchIdSchema,
 });
 
 export const retrieveBatchBatchesBatchIdGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: retrieveBatchBatchesBatchIdGetQueryProviderSchema,
 });
 
+/**
+ * The ID of the batch to retrieve
+ */
 export const retrieveBatchV1BatchesBatchIdGetPathBatchIdSchema = z
 	.string()
 	.describe("The ID of the batch to retrieve");
@@ -21362,11 +23148,11 @@ export const retrieveBatchV1BatchesBatchIdGetErrorSchema =
 	retrieveBatchV1BatchesBatchIdGetStatus422Schema;
 
 export const retrieveBatchV1BatchesBatchIdGetPathSchema = z.object({
-	batch_id: z.string().describe("The ID of the batch to retrieve"),
+	batch_id: retrieveBatchV1BatchesBatchIdGetPathBatchIdSchema,
 });
 
 export const retrieveBatchV1BatchesBatchIdGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: retrieveBatchV1BatchesBatchIdGetQueryProviderSchema,
 });
 
 export const retrieveBatchProviderV1BatchesBatchIdGetPathProviderSchema = z.union([
@@ -21374,6 +23160,9 @@ export const retrieveBatchProviderV1BatchesBatchIdGetPathProviderSchema = z.unio
 	z.null().nullable(),
 ]);
 
+/**
+ * The ID of the batch to retrieve
+ */
 export const retrieveBatchProviderV1BatchesBatchIdGetPathBatchIdSchema = z
 	.string()
 	.describe("The ID of the batch to retrieve");
@@ -21389,8 +23178,8 @@ export const retrieveBatchProviderV1BatchesBatchIdGetErrorSchema =
 	retrieveBatchProviderV1BatchesBatchIdGetStatus422Schema;
 
 export const retrieveBatchProviderV1BatchesBatchIdGetPathSchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]),
-	batch_id: z.string().describe("The ID of the batch to retrieve"),
+	provider: retrieveBatchProviderV1BatchesBatchIdGetPathProviderSchema,
+	batch_id: retrieveBatchProviderV1BatchesBatchIdGetPathBatchIdSchema,
 });
 
 export const cancelBatchBatchesBatchIdCancelPostPathBatchIdSchema = z.string();
@@ -21410,11 +23199,11 @@ export const cancelBatchBatchesBatchIdCancelPostErrorSchema =
 	cancelBatchBatchesBatchIdCancelPostStatus422Schema;
 
 export const cancelBatchBatchesBatchIdCancelPostPathSchema = z.object({
-	batch_id: z.string(),
+	batch_id: cancelBatchBatchesBatchIdCancelPostPathBatchIdSchema,
 });
 
 export const cancelBatchBatchesBatchIdCancelPostQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: cancelBatchBatchesBatchIdCancelPostQueryProviderSchema,
 });
 
 export const cancelBatchV1BatchesBatchIdCancelPostPathBatchIdSchema = z.string();
@@ -21434,11 +23223,11 @@ export const cancelBatchV1BatchesBatchIdCancelPostErrorSchema =
 	cancelBatchV1BatchesBatchIdCancelPostStatus422Schema;
 
 export const cancelBatchV1BatchesBatchIdCancelPostPathSchema = z.object({
-	batch_id: z.string(),
+	batch_id: cancelBatchV1BatchesBatchIdCancelPostPathBatchIdSchema,
 });
 
 export const cancelBatchV1BatchesBatchIdCancelPostQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: cancelBatchV1BatchesBatchIdCancelPostQueryProviderSchema,
 });
 
 export const cancelBatchProviderV1BatchesBatchIdCancelPostPathBatchIdSchema = z.string();
@@ -21460,8 +23249,8 @@ export const cancelBatchProviderV1BatchesBatchIdCancelPostErrorSchema =
 	cancelBatchProviderV1BatchesBatchIdCancelPostStatus422Schema;
 
 export const cancelBatchProviderV1BatchesBatchIdCancelPostPathSchema = z.object({
-	batch_id: z.string(),
-	provider: z.union([z.string(), z.null().nullable()]),
+	batch_id: cancelBatchProviderV1BatchesBatchIdCancelPostPathBatchIdSchema,
+	provider: cancelBatchProviderV1BatchesBatchIdCancelPostPathProviderSchema,
 });
 
 export const listFilesFilesGetQueryProviderSchema = z
@@ -21499,13 +23288,13 @@ export const listFilesFilesGetResponseSchema = listFilesFilesGetStatus200Schema;
 export const listFilesFilesGetErrorSchema = listFilesFilesGetStatus422Schema;
 
 export const listFilesFilesGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
-	target_model_names: z.union([z.string(), z.null().nullable()]).optional(),
-	purpose: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	after_id: z.union([z.string(), z.null().nullable()]).optional(),
-	before_id: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: listFilesFilesGetQueryProviderSchema,
+	target_model_names: listFilesFilesGetQueryTargetModelNamesSchema,
+	purpose: listFilesFilesGetQueryPurposeSchema,
+	limit: listFilesFilesGetQueryLimitSchema,
+	after: listFilesFilesGetQueryAfterSchema,
+	after_id: listFilesFilesGetQueryAfterIdSchema,
+	before_id: listFilesFilesGetQueryBeforeIdSchema,
 });
 
 export const createFileFilesPostQueryProviderSchema = z
@@ -21523,7 +23312,7 @@ export const createFileFilesPostErrorSchema = createFileFilesPostStatus422Schema
 export const createFileFilesPostBodySchema = bodyCreateFileFilesPostSchema;
 
 export const createFileFilesPostQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: createFileFilesPostQueryProviderSchema,
 });
 
 export const listFilesV1FilesGetQueryProviderSchema = z
@@ -21563,13 +23352,13 @@ export const listFilesV1FilesGetResponseSchema = listFilesV1FilesGetStatus200Sch
 export const listFilesV1FilesGetErrorSchema = listFilesV1FilesGetStatus422Schema;
 
 export const listFilesV1FilesGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
-	target_model_names: z.union([z.string(), z.null().nullable()]).optional(),
-	purpose: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	after_id: z.union([z.string(), z.null().nullable()]).optional(),
-	before_id: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: listFilesV1FilesGetQueryProviderSchema,
+	target_model_names: listFilesV1FilesGetQueryTargetModelNamesSchema,
+	purpose: listFilesV1FilesGetQueryPurposeSchema,
+	limit: listFilesV1FilesGetQueryLimitSchema,
+	after: listFilesV1FilesGetQueryAfterSchema,
+	after_id: listFilesV1FilesGetQueryAfterIdSchema,
+	before_id: listFilesV1FilesGetQueryBeforeIdSchema,
 });
 
 export const createFileV1FilesPostQueryProviderSchema = z
@@ -21587,7 +23376,7 @@ export const createFileV1FilesPostErrorSchema = createFileV1FilesPostStatus422Sc
 export const createFileV1FilesPostBodySchema = bodyCreateFileV1FilesPostSchema;
 
 export const createFileV1FilesPostQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: createFileV1FilesPostQueryProviderSchema,
 });
 
 export const listFilesProviderV1FilesGetPathProviderSchema = z.union([
@@ -21628,16 +23417,16 @@ export const listFilesProviderV1FilesGetResponseSchema = listFilesProviderV1File
 export const listFilesProviderV1FilesGetErrorSchema = listFilesProviderV1FilesGetStatus422Schema;
 
 export const listFilesProviderV1FilesGetPathSchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]),
+	provider: listFilesProviderV1FilesGetPathProviderSchema,
 });
 
 export const listFilesProviderV1FilesGetQuerySchema = z.object({
-	target_model_names: z.union([z.string(), z.null().nullable()]).optional(),
-	purpose: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional(),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	after_id: z.union([z.string(), z.null().nullable()]).optional(),
-	before_id: z.union([z.string(), z.null().nullable()]).optional(),
+	target_model_names: listFilesProviderV1FilesGetQueryTargetModelNamesSchema,
+	purpose: listFilesProviderV1FilesGetQueryPurposeSchema,
+	limit: listFilesProviderV1FilesGetQueryLimitSchema,
+	after: listFilesProviderV1FilesGetQueryAfterSchema,
+	after_id: listFilesProviderV1FilesGetQueryAfterIdSchema,
+	before_id: listFilesProviderV1FilesGetQueryBeforeIdSchema,
 });
 
 export const createFileProviderV1FilesPostPathProviderSchema = z.union([
@@ -21658,7 +23447,7 @@ export const createFileProviderV1FilesPostErrorSchema =
 export const createFileProviderV1FilesPostBodySchema = bodyCreateFileProviderV1FilesPostSchema;
 
 export const createFileProviderV1FilesPostPathSchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]),
+	provider: createFileProviderV1FilesPostPathProviderSchema,
 });
 
 export const getFileContentFilesFileIdContentGetPathFileIdSchema = z.string();
@@ -21678,11 +23467,11 @@ export const getFileContentFilesFileIdContentGetErrorSchema =
 	getFileContentFilesFileIdContentGetStatus422Schema;
 
 export const getFileContentFilesFileIdContentGetPathSchema = z.object({
-	file_id: z.string(),
+	file_id: getFileContentFilesFileIdContentGetPathFileIdSchema,
 });
 
 export const getFileContentFilesFileIdContentGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: getFileContentFilesFileIdContentGetQueryProviderSchema,
 });
 
 export const getFileContentV1FilesFileIdContentGetPathFileIdSchema = z.string();
@@ -21702,11 +23491,11 @@ export const getFileContentV1FilesFileIdContentGetErrorSchema =
 	getFileContentV1FilesFileIdContentGetStatus422Schema;
 
 export const getFileContentV1FilesFileIdContentGetPathSchema = z.object({
-	file_id: z.string(),
+	file_id: getFileContentV1FilesFileIdContentGetPathFileIdSchema,
 });
 
 export const getFileContentV1FilesFileIdContentGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: getFileContentV1FilesFileIdContentGetQueryProviderSchema,
 });
 
 export const getFileContentProviderV1FilesFileIdContentGetPathFileIdSchema = z.string();
@@ -21728,8 +23517,8 @@ export const getFileContentProviderV1FilesFileIdContentGetErrorSchema =
 	getFileContentProviderV1FilesFileIdContentGetStatus422Schema;
 
 export const getFileContentProviderV1FilesFileIdContentGetPathSchema = z.object({
-	file_id: z.string(),
-	provider: z.union([z.string(), z.null().nullable()]),
+	file_id: getFileContentProviderV1FilesFileIdContentGetPathFileIdSchema,
+	provider: getFileContentProviderV1FilesFileIdContentGetPathProviderSchema,
 });
 
 export const getFileFilesFileIdGetPathFileIdSchema = z.string();
@@ -21747,11 +23536,11 @@ export const getFileFilesFileIdGetResponseSchema = getFileFilesFileIdGetStatus20
 export const getFileFilesFileIdGetErrorSchema = getFileFilesFileIdGetStatus422Schema;
 
 export const getFileFilesFileIdGetPathSchema = z.object({
-	file_id: z.string(),
+	file_id: getFileFilesFileIdGetPathFileIdSchema,
 });
 
 export const getFileFilesFileIdGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: getFileFilesFileIdGetQueryProviderSchema,
 });
 
 export const deleteFileFilesFileIdDeletePathFileIdSchema = z.string();
@@ -21769,11 +23558,11 @@ export const deleteFileFilesFileIdDeleteResponseSchema = deleteFileFilesFileIdDe
 export const deleteFileFilesFileIdDeleteErrorSchema = deleteFileFilesFileIdDeleteStatus422Schema;
 
 export const deleteFileFilesFileIdDeletePathSchema = z.object({
-	file_id: z.string(),
+	file_id: deleteFileFilesFileIdDeletePathFileIdSchema,
 });
 
 export const deleteFileFilesFileIdDeleteQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: deleteFileFilesFileIdDeleteQueryProviderSchema,
 });
 
 export const getFileV1FilesFileIdGetPathFileIdSchema = z.string();
@@ -21791,11 +23580,11 @@ export const getFileV1FilesFileIdGetResponseSchema = getFileV1FilesFileIdGetStat
 export const getFileV1FilesFileIdGetErrorSchema = getFileV1FilesFileIdGetStatus422Schema;
 
 export const getFileV1FilesFileIdGetPathSchema = z.object({
-	file_id: z.string(),
+	file_id: getFileV1FilesFileIdGetPathFileIdSchema,
 });
 
 export const getFileV1FilesFileIdGetQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: getFileV1FilesFileIdGetQueryProviderSchema,
 });
 
 export const deleteFileV1FilesFileIdDeletePathFileIdSchema = z.string();
@@ -21815,11 +23604,11 @@ export const deleteFileV1FilesFileIdDeleteErrorSchema =
 	deleteFileV1FilesFileIdDeleteStatus422Schema;
 
 export const deleteFileV1FilesFileIdDeletePathSchema = z.object({
-	file_id: z.string(),
+	file_id: deleteFileV1FilesFileIdDeletePathFileIdSchema,
 });
 
 export const deleteFileV1FilesFileIdDeleteQuerySchema = z.object({
-	provider: z.union([z.string(), z.null().nullable()]).optional(),
+	provider: deleteFileV1FilesFileIdDeleteQueryProviderSchema,
 });
 
 export const getFileProviderV1FilesFileIdGetPathFileIdSchema = z.string();
@@ -21840,8 +23629,8 @@ export const getFileProviderV1FilesFileIdGetErrorSchema =
 	getFileProviderV1FilesFileIdGetStatus422Schema;
 
 export const getFileProviderV1FilesFileIdGetPathSchema = z.object({
-	file_id: z.string(),
-	provider: z.union([z.string(), z.null().nullable()]),
+	file_id: getFileProviderV1FilesFileIdGetPathFileIdSchema,
+	provider: getFileProviderV1FilesFileIdGetPathProviderSchema,
 });
 
 export const deleteFileProviderV1FilesFileIdDeletePathFileIdSchema = z.string();
@@ -21862,8 +23651,8 @@ export const deleteFileProviderV1FilesFileIdDeleteErrorSchema =
 	deleteFileProviderV1FilesFileIdDeleteStatus422Schema;
 
 export const deleteFileProviderV1FilesFileIdDeletePathSchema = z.object({
-	file_id: z.string(),
-	provider: z.union([z.string(), z.null().nullable()]),
+	file_id: deleteFileProviderV1FilesFileIdDeletePathFileIdSchema,
+	provider: deleteFileProviderV1FilesFileIdDeletePathProviderSchema,
 });
 
 export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetPathTeamIdSchema =
@@ -21886,11 +23675,11 @@ export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetErrorS
 	getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetStatus422Schema;
 
 export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetPathSchema = z.object({
-	team_id: z.union([z.string(), z.null().nullable()]),
+	team_id: getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetPathTeamIdSchema,
 });
 
 export const getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetQuerySchema = z.object({
-	endpoint_id: z.union([z.string(), z.null().nullable()]).optional(),
+	endpoint_id: getPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetQueryEndpointIdSchema,
 });
 
 export const getPassThroughEndpointsConfigPassThroughEndpointGetQueryEndpointIdSchema = z
@@ -21914,8 +23703,8 @@ export const getPassThroughEndpointsConfigPassThroughEndpointGetErrorSchema =
 	getPassThroughEndpointsConfigPassThroughEndpointGetStatus422Schema;
 
 export const getPassThroughEndpointsConfigPassThroughEndpointGetQuerySchema = z.object({
-	endpoint_id: z.union([z.string(), z.null().nullable()]).optional(),
-	team_id: z.union([z.string(), z.null().nullable()]).optional(),
+	endpoint_id: getPassThroughEndpointsConfigPassThroughEndpointGetQueryEndpointIdSchema,
+	team_id: getPassThroughEndpointsConfigPassThroughEndpointGetQueryTeamIdSchema,
 });
 
 export const createPassThroughEndpointsConfigPassThroughEndpointPostStatus200Schema = z.looseObject(
@@ -21950,7 +23739,7 @@ export const deletePassThroughEndpointsConfigPassThroughEndpointDeleteErrorSchem
 	deletePassThroughEndpointsConfigPassThroughEndpointDeleteStatus422Schema;
 
 export const deletePassThroughEndpointsConfigPassThroughEndpointDeleteQuerySchema = z.object({
-	endpoint_id: z.string(),
+	endpoint_id: deletePassThroughEndpointsConfigPassThroughEndpointDeleteQueryEndpointIdSchema,
 });
 
 export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostPathEndpointIdSchema =
@@ -21973,7 +23762,8 @@ export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostBo
 
 export const updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostPathSchema = z.object(
 	{
-		endpoint_id: z.string(),
+		endpoint_id:
+			updatePassThroughEndpointsConfigPassThroughEndpointEndpointIdPostPathEndpointIdSchema,
 	},
 );
 
@@ -21981,6 +23771,9 @@ export const testEndpointTestGetStatus200Schema = z.looseObject({});
 
 export const testEndpointTestGetResponseSchema = testEndpointTestGetStatus200Schema;
 
+/**
+ * Specify the service being hit.
+ */
 export const healthServicesEndpointHealthServicesGetQueryServiceSchema = z
 	.union([
 		z.enum([
@@ -22018,38 +23811,20 @@ export const healthServicesEndpointHealthServicesGetErrorSchema =
 	healthServicesEndpointHealthServicesGetStatus422Schema;
 
 export const healthServicesEndpointHealthServicesGetQuerySchema = z.object({
-	service: z
-		.union([
-			z.enum([
-				"slack_budget_alerts",
-				"langfuse",
-				"langfuse_otel",
-				"slack",
-				"ms_teams",
-				"openmeter",
-				"webhook",
-				"email",
-				"braintrust",
-				"datadog",
-				"datadog_llm_observability",
-				"generic_api",
-				"arize",
-				"galileo",
-				"newrelic",
-				"pointfive",
-				"signoz",
-				"sqs",
-			]),
-			z.string(),
-		])
-		.describe("Specify the service being hit."),
+	service: healthServicesEndpointHealthServicesGetQueryServiceSchema,
 });
 
+/**
+ * Specify the model name (optional)
+ */
 export const healthEndpointHealthGetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Specify the model name (optional)");
 
+/**
+ * Specify the model ID (optional)
+ */
 export const healthEndpointHealthGetQueryModelIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22064,26 +23839,29 @@ export const healthEndpointHealthGetResponseSchema = healthEndpointHealthGetStat
 export const healthEndpointHealthGetErrorSchema = healthEndpointHealthGetStatus422Schema;
 
 export const healthEndpointHealthGetQuerySchema = z.object({
-	model: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Specify the model name (optional)"),
-	model_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Specify the model ID (optional)"),
+	model: healthEndpointHealthGetQueryModelSchema,
+	model_id: healthEndpointHealthGetQueryModelIdSchema,
 });
 
+/**
+ * Filter by specific model name
+ */
 export const healthCheckHistoryEndpointHealthHistoryGetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific model name");
 
+/**
+ * Filter by status (healthy/unhealthy)
+ */
 export const healthCheckHistoryEndpointHealthHistoryGetQueryStatusFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by status (healthy/unhealthy)");
 
+/**
+ * Number of records to return
+ */
 export const healthCheckHistoryEndpointHealthHistoryGetQueryLimitSchema = z
 	.int()
 	.min(1)
@@ -22092,6 +23870,9 @@ export const healthCheckHistoryEndpointHealthHistoryGetQueryLimitSchema = z
 	.default(100)
 	.describe("Number of records to return");
 
+/**
+ * Number of records to skip
+ */
 export const healthCheckHistoryEndpointHealthHistoryGetQueryOffsetSchema = z
 	.int()
 	.min(0)
@@ -22110,16 +23891,10 @@ export const healthCheckHistoryEndpointHealthHistoryGetErrorSchema =
 	healthCheckHistoryEndpointHealthHistoryGetStatus422Schema;
 
 export const healthCheckHistoryEndpointHealthHistoryGetQuerySchema = z.object({
-	model: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by specific model name"),
-	status_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by status (healthy/unhealthy)"),
-	limit: z.int().min(1).max(1000).optional().default(100).describe("Number of records to return"),
-	offset: z.int().min(0).optional().default(0).describe("Number of records to skip"),
+	model: healthCheckHistoryEndpointHealthHistoryGetQueryModelSchema,
+	status_filter: healthCheckHistoryEndpointHealthHistoryGetQueryStatusFilterSchema,
+	limit: healthCheckHistoryEndpointHealthHistoryGetQueryLimitSchema,
+	offset: healthCheckHistoryEndpointHealthHistoryGetQueryOffsetSchema,
 });
 
 export const latestHealthChecksEndpointHealthLatestGetStatus200Schema = z.looseObject({});
@@ -22231,9 +24006,13 @@ export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatch
 
 export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPathSchema =
 	z.object({
-		warning_id: z.string(),
+		warning_id:
+			updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPathWarningIdSchema,
 	});
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const generateKeyFnKeyGeneratePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22253,14 +24032,12 @@ export const generateKeyFnKeyGeneratePostErrorSchema = generateKeyFnKeyGenerateP
 export const generateKeyFnKeyGeneratePostBodySchema = generateKeyRequestSchema;
 
 export const generateKeyFnKeyGeneratePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": generateKeyFnKeyGeneratePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostHeaderLitellmChangedBySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -22285,14 +24062,13 @@ export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostBodySchema 
 	generateKeyRequestSchema;
 
 export const generateServiceAccountKeyFnKeyServiceAccountGeneratePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by":
+		generateServiceAccountKeyFnKeyServiceAccountGeneratePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const updateKeyFnKeyUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22311,14 +24087,12 @@ export const updateKeyFnKeyUpdatePostErrorSchema = updateKeyFnKeyUpdatePostStatu
 export const updateKeyFnKeyUpdatePostBodySchema = updateKeyRequestSchema;
 
 export const updateKeyFnKeyUpdatePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": updateKeyFnKeyUpdatePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const bulkUpdateKeysKeyBulkUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22343,14 +24117,12 @@ export const bulkUpdateKeysKeyBulkUpdatePostBodySchema = bulkUpdateKeyRequestSch
 );
 
 export const bulkUpdateKeysKeyBulkUpdatePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": bulkUpdateKeysKeyBulkUpdatePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const bulkUpdateTeamKeysTeamKeyBulkUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22375,14 +24147,12 @@ export const bulkUpdateTeamKeysTeamKeyBulkUpdatePostBodySchema =
 	);
 
 export const bulkUpdateTeamKeysTeamKeyBulkUpdatePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": bulkUpdateTeamKeysTeamKeyBulkUpdatePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const deleteKeyFnKeyDeletePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22401,14 +24171,12 @@ export const deleteKeyFnKeyDeletePostErrorSchema = deleteKeyFnKeyDeletePostStatu
 export const deleteKeyFnKeyDeletePostBodySchema = keyRequestSchema;
 
 export const deleteKeyFnKeyDeletePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": deleteKeyFnKeyDeletePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
+ */
 export const infoKeyFnKeyInfoGetQueryKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22425,14 +24193,12 @@ export const infoKeyFnKeyInfoGetResponseSchema = infoKeyFnKeyInfoGetStatus200Sch
 export const infoKeyFnKeyInfoGetErrorSchema = infoKeyFnKeyInfoGetStatus422Schema;
 
 export const infoKeyFnKeyInfoGetQuerySchema = z.object({
-	key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
-		),
+	key: infoKeyFnKeyInfoGetQueryKeySchema,
 });
 
+/**
+ * If true, scan and report without writing any changes.
+ */
 export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostQueryDryRunSchema = z
 	.boolean()
 	.optional()
@@ -22452,11 +24218,7 @@ export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostErrorSchem
 	migrateEncryptionEndpointCredentialsMigrateEncryptionPostStatus422Schema;
 
 export const migrateEncryptionEndpointCredentialsMigrateEncryptionPostQuerySchema = z.object({
-	dry_run: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe("If true, scan and report without writing any changes."),
+	dry_run: migrateEncryptionEndpointCredentialsMigrateEncryptionPostQueryDryRunSchema,
 });
 
 export const checkEncryptionEndpointCredentialsMigrateEncryptionCheckGetStatus200Schema =
@@ -22469,6 +24231,9 @@ export const regenerateKeyFnKeyRegeneratePostQueryKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const regenerateKeyFnKeyRegeneratePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22494,16 +24259,11 @@ export const regenerateKeyFnKeyRegeneratePostBodySchema = z
 	.optional();
 
 export const regenerateKeyFnKeyRegeneratePostQuerySchema = z.object({
-	key: z.union([z.string(), z.null().nullable()]).optional(),
+	key: regenerateKeyFnKeyRegeneratePostQueryKeySchema,
 });
 
 export const regenerateKeyFnKeyRegeneratePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": regenerateKeyFnKeyRegeneratePostHeaderLitellmChangedBySchema,
 });
 
 export const regenerateKeyFnKeyKeyRegeneratePostPathKeySchema = z.union([
@@ -22511,6 +24271,9 @@ export const regenerateKeyFnKeyKeyRegeneratePostPathKeySchema = z.union([
 	z.null().nullable(),
 ]);
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const regenerateKeyFnKeyKeyRegeneratePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22536,20 +24299,18 @@ export const regenerateKeyFnKeyKeyRegeneratePostBodySchema = z
 	.optional();
 
 export const regenerateKeyFnKeyKeyRegeneratePostPathSchema = z.object({
-	key: z.union([z.string(), z.null().nullable()]),
+	key: regenerateKeyFnKeyKeyRegeneratePostPathKeySchema,
 });
 
 export const regenerateKeyFnKeyKeyRegeneratePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": regenerateKeyFnKeyKeyRegeneratePostHeaderLitellmChangedBySchema,
 });
 
 export const resetKeySpendFnKeyKeyResetSpendPostPathKeySchema = z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const resetKeySpendFnKeyKeyResetSpendPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22570,18 +24331,16 @@ export const resetKeySpendFnKeyKeyResetSpendPostErrorSchema =
 export const resetKeySpendFnKeyKeyResetSpendPostBodySchema = resetSpendRequestSchema;
 
 export const resetKeySpendFnKeyKeyResetSpendPostPathSchema = z.object({
-	key: z.string(),
+	key: resetKeySpendFnKeyKeyResetSpendPostPathKeySchema,
 });
 
 export const resetKeySpendFnKeyKeyResetSpendPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": resetKeySpendFnKeyKeyResetSpendPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Page number
+ */
 export const listKeysKeyListGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -22589,6 +24348,9 @@ export const listKeysKeyListGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Page size
+ */
 export const listKeysKeyListGetQuerySizeSchema = z
 	.int()
 	.min(1)
@@ -22597,6 +24359,9 @@ export const listKeysKeyListGetQuerySizeSchema = z
 	.default(10)
 	.describe("Page size");
 
+/**
+ * Filter keys by user ID. Exact match by default; set substring_matching=true (admin only) for case-insensitive substring matching.
+ */
 export const listKeysKeyListGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22604,21 +24369,33 @@ export const listKeysKeyListGetQueryUserIdSchema = z
 		"Filter keys by user ID. Exact match by default; set substring_matching=true (admin only) for case-insensitive substring matching.",
 	);
 
+/**
+ * Filter keys by team ID
+ */
 export const listKeysKeyListGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter keys by team ID");
 
+/**
+ * Filter keys by organization ID
+ */
 export const listKeysKeyListGetQueryOrganizationIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter keys by organization ID");
 
+/**
+ * Filter keys by key hash
+ */
 export const listKeysKeyListGetQueryKeyHashSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter keys by key hash");
 
+/**
+ * Filter keys by key alias. Exact match by default; set substring_matching=true for case-insensitive substring matching.
+ */
 export const listKeysKeyListGetQueryKeyAliasSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22626,6 +24403,9 @@ export const listKeysKeyListGetQueryKeyAliasSchema = z
 		"Filter keys by key alias. Exact match by default; set substring_matching=true for case-insensitive substring matching.",
 	);
 
+/**
+ * Combined search: matches keys whose token (key hash) equals the value OR whose key_alias contains it (case-insensitive).
+ */
 export const listKeysKeyListGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22633,40 +24413,61 @@ export const listKeysKeyListGetQuerySearchSchema = z
 		"Combined search: matches keys whose token (key hash) equals the value OR whose key_alias contains it (case-insensitive).",
 	);
 
+/**
+ * Return full key object
+ */
 export const listKeysKeyListGetQueryReturnFullObjectSchema = z
 	.boolean()
 	.optional()
 	.default(false)
 	.describe("Return full key object");
 
+/**
+ * Include all keys for teams that user is an admin of.
+ */
 export const listKeysKeyListGetQueryIncludeTeamKeysSchema = z
 	.boolean()
 	.optional()
 	.default(false)
 	.describe("Include all keys for teams that user is an admin of.");
 
+/**
+ * Include keys created by the user
+ */
 export const listKeysKeyListGetQueryIncludeCreatedByKeysSchema = z
 	.boolean()
 	.optional()
 	.default(false)
 	.describe("Include keys created by the user");
 
+/**
+ * Column to sort by (e.g. 'user_id', 'created_at', 'spend')
+ */
 export const listKeysKeyListGetQuerySortBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Column to sort by (e.g. 'user_id', 'created_at', 'spend')");
 
+/**
+ * Sort order ('asc' or 'desc')
+ */
 export const listKeysKeyListGetQuerySortOrderSchema = z
 	.string()
 	.optional()
 	.default("desc")
 	.describe("Sort order ('asc' or 'desc')");
 
+/**
+ * Expand related objects (e.g. 'user')
+ */
 export const listKeysKeyListGetQueryExpandSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
 	.describe("Expand related objects (e.g. 'user')");
 
+/**
+ * Filter by status: 'active' (not blocked, not expired), 'expired' (not blocked, past expiry), 'revoked' (blocked) or 'deleted' (archived keys). Omit to return live keys regardless of status.
+ */
 export const listKeysKeyListGetQueryStatusSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22674,21 +24475,33 @@ export const listKeysKeyListGetQueryStatusSchema = z
 		"Filter by status: 'active' (not blocked, not expired), 'expired' (not blocked, past expiry), 'revoked' (blocked) or 'deleted' (archived keys). Omit to return live keys regardless of status.",
 	);
 
+/**
+ * Filter keys by project ID
+ */
 export const listKeysKeyListGetQueryProjectIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter keys by project ID");
 
+/**
+ * Filter keys by access group ID
+ */
 export const listKeysKeyListGetQueryAccessGroupIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter keys by access group ID");
 
+/**
+ * Filter keys by agent ID
+ */
 export const listKeysKeyListGetQueryAgentIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter keys by agent ID");
 
+/**
+ * If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user's keys.
+ */
 export const listKeysKeyListGetQuerySubstringMatchingSchema = z
 	.boolean()
 	.optional()
@@ -22697,6 +24510,9 @@ export const listKeysKeyListGetQuerySubstringMatchingSchema = z
 		"If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user's keys.",
 	);
 
+/**
+ * Filter keys by expiration. 'expired' returns keys whose expires is in the past; 'active' returns keys that never expire or expire in the future. Omit to return keys regardless of expiration.
+ */
 export const listKeysKeyListGetQueryExpiresSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22713,88 +24529,31 @@ export const listKeysKeyListGetResponseSchema = listKeysKeyListGetStatus200Schem
 export const listKeysKeyListGetErrorSchema = listKeysKeyListGetStatus422Schema;
 
 export const listKeysKeyListGetQuerySchema = z.object({
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	size: z.int().min(1).max(100).optional().default(10).describe("Page size"),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter keys by user ID. Exact match by default; set substring_matching=true (admin only) for case-insensitive substring matching.",
-		),
-	team_id: z.union([z.string(), z.null().nullable()]).optional().describe("Filter keys by team ID"),
-	organization_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter keys by organization ID"),
-	key_hash: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter keys by key hash"),
-	key_alias: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter keys by key alias. Exact match by default; set substring_matching=true for case-insensitive substring matching.",
-		),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Combined search: matches keys whose token (key hash) equals the value OR whose key_alias contains it (case-insensitive).",
-		),
-	return_full_object: z.boolean().optional().default(false).describe("Return full key object"),
-	include_team_keys: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe("Include all keys for teams that user is an admin of."),
-	include_created_by_keys: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe("Include keys created by the user"),
-	sort_by: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Column to sort by (e.g. 'user_id', 'created_at', 'spend')"),
-	sort_order: z.string().optional().default("desc").describe("Sort order ('asc' or 'desc')"),
-	expand: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Expand related objects (e.g. 'user')"),
-	status: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by status: 'active' (not blocked, not expired), 'expired' (not blocked, past expiry), 'revoked' (blocked) or 'deleted' (archived keys). Omit to return live keys regardless of status.",
-		),
-	project_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter keys by project ID"),
-	access_group_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter keys by access group ID"),
-	agent_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter keys by agent ID"),
-	substring_matching: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user's keys.",
-		),
-	expires: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter keys by expiration. 'expired' returns keys whose expires is in the past; 'active' returns keys that never expire or expire in the future. Omit to return keys regardless of expiration.",
-		),
+	page: listKeysKeyListGetQueryPageSchema,
+	size: listKeysKeyListGetQuerySizeSchema,
+	user_id: listKeysKeyListGetQueryUserIdSchema,
+	team_id: listKeysKeyListGetQueryTeamIdSchema,
+	organization_id: listKeysKeyListGetQueryOrganizationIdSchema,
+	key_hash: listKeysKeyListGetQueryKeyHashSchema,
+	key_alias: listKeysKeyListGetQueryKeyAliasSchema,
+	search: listKeysKeyListGetQuerySearchSchema,
+	return_full_object: listKeysKeyListGetQueryReturnFullObjectSchema,
+	include_team_keys: listKeysKeyListGetQueryIncludeTeamKeysSchema,
+	include_created_by_keys: listKeysKeyListGetQueryIncludeCreatedByKeysSchema,
+	sort_by: listKeysKeyListGetQuerySortBySchema,
+	sort_order: listKeysKeyListGetQuerySortOrderSchema,
+	expand: listKeysKeyListGetQueryExpandSchema,
+	status: listKeysKeyListGetQueryStatusSchema,
+	project_id: listKeysKeyListGetQueryProjectIdSchema,
+	access_group_id: listKeysKeyListGetQueryAccessGroupIdSchema,
+	agent_id: listKeysKeyListGetQueryAgentIdSchema,
+	substring_matching: listKeysKeyListGetQuerySubstringMatchingSchema,
+	expires: listKeysKeyListGetQueryExpiresSchema,
 });
 
+/**
+ * Page number
+ */
 export const keyAliasesKeyAliasesGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -22802,6 +24561,9 @@ export const keyAliasesKeyAliasesGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Page size
+ */
 export const keyAliasesKeyAliasesGetQuerySizeSchema = z
 	.int()
 	.min(1)
@@ -22810,11 +24572,17 @@ export const keyAliasesKeyAliasesGetQuerySizeSchema = z
 	.default(50)
 	.describe("Page size");
 
+/**
+ * Search key aliases (case-insensitive partial match)
+ */
 export const keyAliasesKeyAliasesGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Search key aliases (case-insensitive partial match)");
 
+/**
+ * Filter aliases to keys belonging to this team
+ */
 export const keyAliasesKeyAliasesGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22829,18 +24597,15 @@ export const keyAliasesKeyAliasesGetResponseSchema = keyAliasesKeyAliasesGetStat
 export const keyAliasesKeyAliasesGetErrorSchema = keyAliasesKeyAliasesGetStatus422Schema;
 
 export const keyAliasesKeyAliasesGetQuerySchema = z.object({
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Search key aliases (case-insensitive partial match)"),
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter aliases to keys belonging to this team"),
+	page: keyAliasesKeyAliasesGetQueryPageSchema,
+	size: keyAliasesKeyAliasesGetQuerySizeSchema,
+	search: keyAliasesKeyAliasesGetQuerySearchSchema,
+	team_id: keyAliasesKeyAliasesGetQueryTeamIdSchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const blockKeyKeyBlockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22862,14 +24627,12 @@ export const blockKeyKeyBlockPostErrorSchema = blockKeyKeyBlockPostStatus422Sche
 export const blockKeyKeyBlockPostBodySchema = blockKeyRequestSchema;
 
 export const blockKeyKeyBlockPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": blockKeyKeyBlockPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const unblockKeyKeyUnblockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22888,12 +24651,7 @@ export const unblockKeyKeyUnblockPostErrorSchema = unblockKeyKeyUnblockPostStatu
 export const unblockKeyKeyUnblockPostBodySchema = blockKeyRequestSchema;
 
 export const unblockKeyKeyUnblockPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": unblockKeyKeyUnblockPostHeaderLitellmChangedBySchema,
 });
 
 export const keyHealthKeyHealthPostStatus200Schema = keyHealthResponseSchema;
@@ -22910,22 +24668,34 @@ export const newUserUserNewPostErrorSchema = newUserUserNewPostStatus422Schema;
 
 export const newUserUserNewPostBodySchema = newUserRequestSchema;
 
+/**
+ * User ID in the request parameters
+ */
 export const userInfoUserInfoGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("User ID in the request parameters");
 
+/**
+ * Include the caller's current admin MCP route permissions
+ */
 export const userInfoUserInfoGetQueryAdminMcpSchema = z
 	.boolean()
 	.optional()
 	.default(false)
 	.describe("Include the caller's current admin MCP route permissions");
 
+/**
+ * Admin MCP tool to authorize for this caller
+ */
 export const userInfoUserInfoGetQueryMcpToolSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Admin MCP tool to authorize for this caller");
 
+/**
+ * URL-encoded concrete management path used by the MCP tool, before query-string encoding
+ */
 export const userInfoUserInfoGetQueryMcpPathSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22942,27 +24712,15 @@ export const userInfoUserInfoGetResponseSchema = userInfoUserInfoGetStatus200Sch
 export const userInfoUserInfoGetErrorSchema = userInfoUserInfoGetStatus422Schema;
 
 export const userInfoUserInfoGetQuerySchema = z.object({
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("User ID in the request parameters"),
-	admin_mcp: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe("Include the caller's current admin MCP route permissions"),
-	mcp_tool: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Admin MCP tool to authorize for this caller"),
-	mcp_path: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"URL-encoded concrete management path used by the MCP tool, before query-string encoding",
-		),
+	user_id: userInfoUserInfoGetQueryUserIdSchema,
+	admin_mcp: userInfoUserInfoGetQueryAdminMcpSchema,
+	mcp_tool: userInfoUserInfoGetQueryMcpToolSchema,
+	mcp_path: userInfoUserInfoGetQueryMcpPathSchema,
 });
 
+/**
+ * User ID in the request parameters
+ */
 export const userInfoV2V2UserInfoGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -22979,10 +24737,7 @@ export const userInfoV2V2UserInfoGetResponseSchema = userInfoV2V2UserInfoGetStat
 export const userInfoV2V2UserInfoGetErrorSchema = userInfoV2V2UserInfoGetStatus422Schema;
 
 export const userInfoV2V2UserInfoGetQuerySchema = z.object({
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("User ID in the request parameters"),
+	user_id: userInfoV2V2UserInfoGetQueryUserIdSchema,
 });
 
 export const userUpdateUserUpdatePostStatus200Schema = z.looseObject({});
@@ -22995,6 +24750,9 @@ export const userUpdateUserUpdatePostErrorSchema = userUpdateUserUpdatePostStatu
 
 export const userUpdateUserUpdatePostBodySchema = updateUserRequestSchema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const bulkUserUpdateUserBulkUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23018,34 +24776,44 @@ export const bulkUserUpdateUserBulkUpdatePostBodySchema = bulkUpdateUserRequestS
 );
 
 export const bulkUserUpdateUserBulkUpdatePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": bulkUserUpdateUserBulkUpdatePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Filter users by role
+ */
 export const getUsersUserListGetQueryRoleSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter users by role");
 
+/**
+ * Get list of users by user_ids
+ */
 export const getUsersUserListGetQueryUserIdsSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Get list of users by user_ids");
 
+/**
+ * Get list of users by sso_user_id
+ */
 export const getUsersUserListGetQuerySsoUserIdsSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Get list of users by sso_user_id");
 
+/**
+ * Filter users by partial email match
+ */
 export const getUsersUserListGetQueryUserEmailSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter users by partial email match");
 
+/**
+ * Combined search: matches users whose 'user_id' or 'user_email' contains the value (case-insensitive).
+ */
 export const getUsersUserListGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23053,11 +24821,17 @@ export const getUsersUserListGetQuerySearchSchema = z
 		"Combined search: matches users whose 'user_id' or 'user_email' contains the value (case-insensitive).",
 	);
 
+/**
+ * Filter users by team id
+ */
 export const getUsersUserListGetQueryTeamSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter users by team id");
 
+/**
+ * Page number
+ */
 export const getUsersUserListGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -23065,6 +24839,9 @@ export const getUsersUserListGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Number of items per page
+ */
 export const getUsersUserListGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -23073,17 +24850,26 @@ export const getUsersUserListGetQueryPageSizeSchema = z
 	.default(25)
 	.describe("Number of items per page");
 
+/**
+ * Column to sort by (e.g. 'user_id', 'user_email', 'created_at', 'spend')
+ */
 export const getUsersUserListGetQuerySortBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Column to sort by (e.g. 'user_id', 'user_email', 'created_at', 'spend')");
 
+/**
+ * Sort order ('asc' or 'desc')
+ */
 export const getUsersUserListGetQuerySortOrderSchema = z
 	.string()
 	.optional()
 	.default("asc")
 	.describe("Sort order ('asc' or 'desc')");
 
+/**
+ * Filter users by organization membership. Comma-separated list of org IDs.
+ */
 export const getUsersUserListGetQueryOrganizationIdsSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23100,39 +24886,22 @@ export const getUsersUserListGetResponseSchema = getUsersUserListGetStatus200Sch
 export const getUsersUserListGetErrorSchema = getUsersUserListGetStatus422Schema;
 
 export const getUsersUserListGetQuerySchema = z.object({
-	role: z.union([z.string(), z.null().nullable()]).optional().describe("Filter users by role"),
-	user_ids: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Get list of users by user_ids"),
-	sso_user_ids: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Get list of users by sso_user_id"),
-	user_email: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter users by partial email match"),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Combined search: matches users whose 'user_id' or 'user_email' contains the value (case-insensitive).",
-		),
-	team: z.union([z.string(), z.null().nullable()]).optional().describe("Filter users by team id"),
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	page_size: z.int().min(1).max(100).optional().default(25).describe("Number of items per page"),
-	sort_by: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Column to sort by (e.g. 'user_id', 'user_email', 'created_at', 'spend')"),
-	sort_order: z.string().optional().default("asc").describe("Sort order ('asc' or 'desc')"),
-	organization_ids: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter users by organization membership. Comma-separated list of org IDs."),
+	role: getUsersUserListGetQueryRoleSchema,
+	user_ids: getUsersUserListGetQueryUserIdsSchema,
+	sso_user_ids: getUsersUserListGetQuerySsoUserIdsSchema,
+	user_email: getUsersUserListGetQueryUserEmailSchema,
+	search: getUsersUserListGetQuerySearchSchema,
+	team: getUsersUserListGetQueryTeamSchema,
+	page: getUsersUserListGetQueryPageSchema,
+	page_size: getUsersUserListGetQueryPageSizeSchema,
+	sort_by: getUsersUserListGetQuerySortBySchema,
+	sort_order: getUsersUserListGetQuerySortOrderSchema,
+	organization_ids: getUsersUserListGetQueryOrganizationIdsSchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const deleteUserUserDeletePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23151,29 +24920,36 @@ export const deleteUserUserDeletePostErrorSchema = deleteUserUserDeletePostStatu
 export const deleteUserUserDeletePostBodySchema = deleteUserRequestSchema;
 
 export const deleteUserUserDeletePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": deleteUserUserDeletePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23181,6 +24957,9 @@ export const getUserDailyActivityUserDailyActivityGetQueryApiKeySchema = z
 		"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 	);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23188,6 +24967,9 @@ export const getUserDailyActivityUserDailyActivityGetQueryUserIdSchema = z
 		"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 	);
 
+/**
+ * Page number for pagination
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -23195,6 +24977,9 @@ export const getUserDailyActivityUserDailyActivityGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number for pagination");
 
+/**
+ * Items per page
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -23203,6 +24988,9 @@ export const getUserDailyActivityUserDailyActivityGetQueryPageSizeSchema = z
 	.default(50)
 	.describe("Items per page");
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryTimezoneSchema = z
 	.union([z.int(), z.null().nullable()])
 	.optional()
@@ -23210,6 +24998,9 @@ export const getUserDailyActivityUserDailyActivityGetQueryTimezoneSchema = z
 		"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 	);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityUserDailyActivityGetQueryIncludeCurrentUtcDaySchema = z
 	.boolean()
 	.optional()
@@ -23230,42 +25021,15 @@ export const getUserDailyActivityUserDailyActivityGetErrorSchema =
 	getUserDailyActivityUserDailyActivityGetStatus422Schema;
 
 export const getUserDailyActivityUserDailyActivityGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Start date in YYYY-MM-DD format"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("End date in YYYY-MM-DD format"),
-	model: z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model"),
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-		),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-		),
-	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
-	page_size: z.int().min(1).max(1000).optional().default(50).describe("Items per page"),
-	timezone: z
-		.union([z.int(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-		),
-	include_current_utc_day: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-		),
+	start_date: getUserDailyActivityUserDailyActivityGetQueryStartDateSchema,
+	end_date: getUserDailyActivityUserDailyActivityGetQueryEndDateSchema,
+	model: getUserDailyActivityUserDailyActivityGetQueryModelSchema,
+	api_key: getUserDailyActivityUserDailyActivityGetQueryApiKeySchema,
+	user_id: getUserDailyActivityUserDailyActivityGetQueryUserIdSchema,
+	page: getUserDailyActivityUserDailyActivityGetQueryPageSchema,
+	page_size: getUserDailyActivityUserDailyActivityGetQueryPageSizeSchema,
+	timezone: getUserDailyActivityUserDailyActivityGetQueryTimezoneSchema,
+	include_current_utc_day: getUserDailyActivityUserDailyActivityGetQueryIncludeCurrentUtcDaySchema,
 });
 
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryApiKeyLimitSchema = z
@@ -23275,21 +25039,33 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryAp
 	.optional()
 	.default(100);
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23297,6 +25073,9 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryAp
 		"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 	);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23304,6 +25083,9 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryUs
 		"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 	);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryTimezoneSchema = z
 	.union([z.int(), z.null().nullable()])
 	.optional()
@@ -23311,6 +25093,9 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryTi
 		"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 	);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryIncludeCurrentUtcDaySchema =
 	z
 		.boolean()
@@ -23333,41 +25118,15 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetErrorSc
 	getUserDailyActivityAggregatedUserDailyActivityAggregatedGetStatus422Schema;
 
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuerySchema = z.object({
-	api_key_limit: z.int().min(1).max(1000).optional().default(100),
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Start date in YYYY-MM-DD format"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("End date in YYYY-MM-DD format"),
-	model: z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model"),
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-		),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-		),
-	timezone: z
-		.union([z.int(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-		),
-	include_current_utc_day: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-		),
+	api_key_limit: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryApiKeyLimitSchema,
+	start_date: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryStartDateSchema,
+	end_date: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryEndDateSchema,
+	model: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryModelSchema,
+	api_key: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryApiKeySchema,
+	user_id: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryUserIdSchema,
+	timezone: getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryTimezoneSchema,
+	include_current_utc_day:
+		getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryIncludeCurrentUtcDaySchema,
 });
 
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryOffsetSchema =
@@ -23376,15 +25135,27 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(50);
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryStartDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryEndDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryModelSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryApiKeySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23393,6 +25164,9 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 		);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryUserIdSchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23401,6 +25175,9 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 		);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryTimezoneSchema =
 	z
 		.union([z.int(), z.null().nullable()])
@@ -23409,6 +25186,9 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 		);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryIncludeCurrentUtcDaySchema =
 	z
 		.boolean()
@@ -23432,45 +25212,19 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		start_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Start date in YYYY-MM-DD format"),
-		end_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("End date in YYYY-MM-DD format"),
-		model: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Filter by specific model"),
-		api_key: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-			),
-		user_id: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-			),
-		timezone: z
-			.union([z.int(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-			),
-		include_current_utc_day: z
-			.boolean()
-			.optional()
-			.default(false)
-			.describe(
-				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-			),
+		offset: getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryOffsetSchema,
+		limit: getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryLimitSchema,
+		start_date:
+			getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryStartDateSchema,
+		end_date:
+			getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryEndDateSchema,
+		model: getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryModelSchema,
+		api_key: getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryApiKeySchema,
+		user_id: getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryUserIdSchema,
+		timezone:
+			getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryTimezoneSchema,
+		include_current_utc_day:
+			getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryIncludeCurrentUtcDaySchema,
 	});
 
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuerySearchSchema =
@@ -23479,15 +25233,27 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(100);
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryStartDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryEndDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryModelSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryApiKeySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23496,6 +25262,9 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 		);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryUserIdSchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23504,6 +25273,9 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 		);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryTimezoneSchema =
 	z
 		.union([z.int(), z.null().nullable()])
@@ -23512,6 +25284,9 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 		);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryIncludeCurrentUtcDaySchema =
 	z
 		.boolean()
@@ -23535,45 +25310,22 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuerySchema =
 	z.object({
-		search: z.string().min(1),
-		limit: z.int().min(1).max(100).optional().default(100),
-		start_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Start date in YYYY-MM-DD format"),
-		end_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("End date in YYYY-MM-DD format"),
-		model: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Filter by specific model"),
-		api_key: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-			),
-		user_id: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-			),
-		timezone: z
-			.union([z.int(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-			),
-		include_current_utc_day: z
-			.boolean()
-			.optional()
-			.default(false)
-			.describe(
-				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-			),
+		search:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuerySearchSchema,
+		limit: getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryLimitSchema,
+		start_date:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryStartDateSchema,
+		end_date:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryEndDateSchema,
+		model: getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryModelSchema,
+		api_key:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryApiKeySchema,
+		user_id:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryUserIdSchema,
+		timezone:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryTimezoneSchema,
+		include_current_utc_day:
+			getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryIncludeCurrentUtcDaySchema,
 	});
 
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
@@ -23585,15 +25337,27 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(5);
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryModelSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23602,6 +25366,9 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 		);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryUserIdSchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23610,6 +25377,9 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 		);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema =
 	z
 		.union([z.int(), z.null().nullable()])
@@ -23618,6 +25388,9 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 		);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryIncludeCurrentUtcDaySchema =
 	z
 		.boolean()
@@ -23641,46 +25414,26 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQuerySchema =
 	z.object({
-		model_group: z.string().min(1),
-		by_model_group: z.boolean().optional().default(true),
-		limit: z.int().min(1).max(100).optional().default(5),
-		start_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Start date in YYYY-MM-DD format"),
-		end_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("End date in YYYY-MM-DD format"),
-		model: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Filter by specific model"),
-		api_key: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-			),
-		user_id: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-			),
-		timezone: z
-			.union([z.int(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-			),
-		include_current_utc_day: z
-			.boolean()
-			.optional()
-			.default(false)
-			.describe(
-				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-			),
+		model_group:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema,
+		by_model_group:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryByModelGroupSchema,
+		limit:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryLimitSchema,
+		start_date:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema,
+		end_date:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema,
+		model:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryModelSchema,
+		api_key:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema,
+		user_id:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryUserIdSchema,
+		timezone:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema,
+		include_current_utc_day:
+			getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryIncludeCurrentUtcDaySchema,
 	});
 
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryExportTypeSchema =
@@ -23691,21 +25444,33 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQueryFormatSche
 	.optional()
 	.default("csv");
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23713,6 +25478,9 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQueryApiKeySche
 		"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 	);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -23720,6 +25488,9 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQueryUserIdSche
 		"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 	);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryTimezoneSchema = z
 	.union([z.int(), z.null().nullable()])
 	.optional()
@@ -23727,6 +25498,9 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQueryTimezoneSc
 		"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 	);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryIncludeCurrentUtcDaySchema = z
 	.boolean()
 	.optional()
@@ -23749,42 +25523,16 @@ export const getUserDailyActivityExportUserDailyActivityExportGetErrorSchema =
 	getUserDailyActivityExportUserDailyActivityExportGetStatus422Schema;
 
 export const getUserDailyActivityExportUserDailyActivityExportGetQuerySchema = z.object({
-	export_type: exportTypeSchema.optional().default("daily"),
-	format: z.enum(["csv", "json"]).optional().default("csv"),
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Start date in YYYY-MM-DD format"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("End date in YYYY-MM-DD format"),
-	model: z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model"),
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-		),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-		),
-	timezone: z
-		.union([z.int(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-		),
-	include_current_utc_day: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-		),
+	export_type: getUserDailyActivityExportUserDailyActivityExportGetQueryExportTypeSchema,
+	format: getUserDailyActivityExportUserDailyActivityExportGetQueryFormatSchema,
+	start_date: getUserDailyActivityExportUserDailyActivityExportGetQueryStartDateSchema,
+	end_date: getUserDailyActivityExportUserDailyActivityExportGetQueryEndDateSchema,
+	model: getUserDailyActivityExportUserDailyActivityExportGetQueryModelSchema,
+	api_key: getUserDailyActivityExportUserDailyActivityExportGetQueryApiKeySchema,
+	user_id: getUserDailyActivityExportUserDailyActivityExportGetQueryUserIdSchema,
+	timezone: getUserDailyActivityExportUserDailyActivityExportGetQueryTimezoneSchema,
+	include_current_utc_day:
+		getUserDailyActivityExportUserDailyActivityExportGetQueryIncludeCurrentUtcDaySchema,
 });
 
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryOffsetSchema =
@@ -23793,15 +25541,27 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(50);
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryStartDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryEndDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryModelSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryApiKeySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23810,6 +25570,9 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 		);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryUserIdSchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23818,6 +25581,9 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 		);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryTimezoneSchema =
 	z
 		.union([z.int(), z.null().nullable()])
@@ -23826,6 +25592,9 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 		);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryIncludeCurrentUtcDaySchema =
 	z
 		.boolean()
@@ -23849,59 +25618,47 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		start_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Start date in YYYY-MM-DD format"),
-		end_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("End date in YYYY-MM-DD format"),
-		model: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Filter by specific model"),
-		api_key: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-			),
-		user_id: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-			),
-		timezone: z
-			.union([z.int(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-			),
-		include_current_utc_day: z
-			.boolean()
-			.optional()
-			.default(false)
-			.describe(
-				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-			),
+		offset: getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryOffsetSchema,
+		limit: getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryLimitSchema,
+		start_date:
+			getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryStartDateSchema,
+		end_date:
+			getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryEndDateSchema,
+		model: getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryModelSchema,
+		api_key:
+			getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryApiKeySchema,
+		user_id:
+			getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryUserIdSchema,
+		timezone:
+			getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryTimezoneSchema,
+		include_current_utc_day:
+			getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryIncludeCurrentUtcDaySchema,
 	});
 
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(20);
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryStartDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryEndDateSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific model
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryModelSchema =
 	z.union([z.string(), z.null().nullable()]).optional().describe("Filter by specific model");
 
+/**
+ * Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryApiKeySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23910,6 +25667,9 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
 		);
 
+/**
+ * Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryUserIdSchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -23918,6 +25678,9 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
 		);
 
+/**
+ * Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryTimezoneSchema =
 	z
 		.union([z.int(), z.null().nullable()])
@@ -23926,6 +25689,9 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
 		);
 
+/**
+ * When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+ */
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryIncludeCurrentUtcDaySchema =
 	z
 		.boolean()
@@ -23949,44 +25715,22 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQuerySchema =
 	z.object({
-		limit: z.int().min(1).max(100).optional().default(20),
-		start_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Start date in YYYY-MM-DD format"),
-		end_date: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("End date in YYYY-MM-DD format"),
-		model: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe("Filter by specific model"),
-		api_key: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
-			),
-		user_id: z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
-			),
-		timezone: z
-			.union([z.int(), z.null().nullable()])
-			.optional()
-			.describe(
-				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
-			),
-		include_current_utc_day: z
-			.boolean()
-			.optional()
-			.default(false)
-			.describe(
-				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
-			),
+		limit:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryLimitSchema,
+		start_date:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryStartDateSchema,
+		end_date:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryEndDateSchema,
+		model:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryModelSchema,
+		api_key:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryApiKeySchema,
+		user_id:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryUserIdSchema,
+		timezone:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryTimezoneSchema,
+		include_current_utc_day:
+			getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryIncludeCurrentUtcDaySchema,
 	});
 
 export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryApiKeyLimitSchema = z
@@ -24036,14 +25780,15 @@ export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetErrorSc
 	getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetStatus422Schema;
 
 export const getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQuerySchema = z.object({
-	api_key_limit: z.int().min(1).max(1000).optional().default(100),
-	team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	exclude_team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	api_key_limit: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryApiKeyLimitSchema,
+	team_ids: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryTeamIdsSchema,
+	start_date: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryStartDateSchema,
+	end_date: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryEndDateSchema,
+	model: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryModelSchema,
+	api_key: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryApiKeySchema,
+	exclude_team_ids:
+		getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryExcludeTeamIdsSchema,
+	timezone: getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQueryTimezoneSchema,
 });
 
 export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryOffsetSchema =
@@ -24087,15 +25832,20 @@ export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGe
 
 export const getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		offset: getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryOffsetSchema,
+		limit: getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryLimitSchema,
+		team_ids:
+			getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryTeamIdsSchema,
+		start_date:
+			getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryStartDateSchema,
+		end_date:
+			getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryEndDateSchema,
+		model: getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryModelSchema,
+		api_key: getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryApiKeySchema,
+		exclude_team_ids:
+			getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryExcludeTeamIdsSchema,
+		timezone:
+			getTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQueryTimezoneSchema,
 	});
 
 export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuerySearchSchema =
@@ -24139,15 +25889,22 @@ export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSear
 
 export const getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuerySchema =
 	z.object({
-		search: z.string().min(1),
-		limit: z.int().min(1).max(100).optional().default(100),
-		team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		search:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuerySearchSchema,
+		limit: getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryLimitSchema,
+		team_ids:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryTeamIdsSchema,
+		start_date:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryStartDateSchema,
+		end_date:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryEndDateSchema,
+		model: getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryModelSchema,
+		api_key:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryApiKeySchema,
+		exclude_team_ids:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryExcludeTeamIdsSchema,
+		timezone:
+			getTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQueryTimezoneSchema,
 	});
 
 export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
@@ -24194,16 +25951,26 @@ export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTop
 
 export const getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQuerySchema =
 	z.object({
-		model_group: z.string().min(1),
-		by_model_group: z.boolean().optional().default(true),
-		limit: z.int().min(1).max(100).optional().default(5),
-		team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		model_group:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema,
+		by_model_group:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryByModelGroupSchema,
+		limit:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryLimitSchema,
+		team_ids:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryTeamIdsSchema,
+		start_date:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema,
+		end_date:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema,
+		model:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryModelSchema,
+		api_key:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema,
+		exclude_team_ids:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryExcludeTeamIdsSchema,
+		timezone:
+			getTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema,
 	});
 
 export const getTeamDailyActivityExportTeamDailyActivityExportGetQueryExportTypeSchema =
@@ -24256,15 +26023,15 @@ export const getTeamDailyActivityExportTeamDailyActivityExportGetErrorSchema =
 	getTeamDailyActivityExportTeamDailyActivityExportGetStatus422Schema;
 
 export const getTeamDailyActivityExportTeamDailyActivityExportGetQuerySchema = z.object({
-	export_type: exportTypeSchema.optional().default("daily"),
-	format: z.enum(["csv", "json"]).optional().default("csv"),
-	team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	exclude_team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	export_type: getTeamDailyActivityExportTeamDailyActivityExportGetQueryExportTypeSchema,
+	format: getTeamDailyActivityExportTeamDailyActivityExportGetQueryFormatSchema,
+	team_ids: getTeamDailyActivityExportTeamDailyActivityExportGetQueryTeamIdsSchema,
+	start_date: getTeamDailyActivityExportTeamDailyActivityExportGetQueryStartDateSchema,
+	end_date: getTeamDailyActivityExportTeamDailyActivityExportGetQueryEndDateSchema,
+	model: getTeamDailyActivityExportTeamDailyActivityExportGetQueryModelSchema,
+	api_key: getTeamDailyActivityExportTeamDailyActivityExportGetQueryApiKeySchema,
+	exclude_team_ids: getTeamDailyActivityExportTeamDailyActivityExportGetQueryExcludeTeamIdsSchema,
+	timezone: getTeamDailyActivityExportTeamDailyActivityExportGetQueryTimezoneSchema,
 });
 
 export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryApiKeyLimitSchema = z
@@ -24311,13 +26078,13 @@ export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetErrorSche
 	getTagDailyActivityAggregatedTagDailyActivityAggregatedGetStatus422Schema;
 
 export const getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQuerySchema = z.object({
-	api_key_limit: z.int().min(1).max(1000).optional().default(100),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	tags: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	api_key_limit: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryApiKeyLimitSchema,
+	start_date: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryStartDateSchema,
+	end_date: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryEndDateSchema,
+	model: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryModelSchema,
+	api_key: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryApiKeySchema,
+	tags: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryTagsSchema,
+	timezone: getTagDailyActivityAggregatedTagDailyActivityAggregatedGetQueryTimezoneSchema,
 });
 
 export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryOffsetSchema = z
@@ -24368,14 +26135,15 @@ export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetE
 
 export const getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		tags: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		offset: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryOffsetSchema,
+		limit: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryLimitSchema,
+		start_date:
+			getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryStartDateSchema,
+		end_date: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryEndDateSchema,
+		model: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryModelSchema,
+		api_key: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryApiKeySchema,
+		tags: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryTagsSchema,
+		timezone: getTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQueryTimezoneSchema,
 	});
 
 export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuerySearchSchema =
@@ -24416,14 +26184,18 @@ export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearch
 
 export const getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuerySchema =
 	z.object({
-		search: z.string().min(1),
-		limit: z.int().min(1).max(100).optional().default(100),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		tags: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		search: getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuerySearchSchema,
+		limit: getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryLimitSchema,
+		start_date:
+			getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryStartDateSchema,
+		end_date:
+			getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryEndDateSchema,
+		model: getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryModelSchema,
+		api_key:
+			getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryApiKeySchema,
+		tags: getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryTagsSchema,
+		timezone:
+			getTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQueryTimezoneSchema,
 	});
 
 export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
@@ -24467,15 +26239,21 @@ export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKe
 
 export const getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQuerySchema =
 	z.object({
-		model_group: z.string().min(1),
-		by_model_group: z.boolean().optional().default(true),
-		limit: z.int().min(1).max(100).optional().default(5),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		tags: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		model_group:
+			getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema,
+		by_model_group:
+			getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryByModelGroupSchema,
+		limit: getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryLimitSchema,
+		start_date:
+			getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema,
+		end_date:
+			getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema,
+		model: getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryModelSchema,
+		api_key:
+			getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema,
+		tags: getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryTagsSchema,
+		timezone:
+			getTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema,
 	});
 
 export const getTagDailyActivityExportTagDailyActivityExportGetQueryExportTypeSchema =
@@ -24524,14 +26302,14 @@ export const getTagDailyActivityExportTagDailyActivityExportGetErrorSchema =
 	getTagDailyActivityExportTagDailyActivityExportGetStatus422Schema;
 
 export const getTagDailyActivityExportTagDailyActivityExportGetQuerySchema = z.object({
-	export_type: exportTypeSchema.optional().default("daily"),
-	format: z.enum(["csv", "json"]).optional().default("csv"),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	tags: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	export_type: getTagDailyActivityExportTagDailyActivityExportGetQueryExportTypeSchema,
+	format: getTagDailyActivityExportTagDailyActivityExportGetQueryFormatSchema,
+	start_date: getTagDailyActivityExportTagDailyActivityExportGetQueryStartDateSchema,
+	end_date: getTagDailyActivityExportTagDailyActivityExportGetQueryEndDateSchema,
+	model: getTagDailyActivityExportTagDailyActivityExportGetQueryModelSchema,
+	api_key: getTagDailyActivityExportTagDailyActivityExportGetQueryApiKeySchema,
+	tags: getTagDailyActivityExportTagDailyActivityExportGetQueryTagsSchema,
+	timezone: getTagDailyActivityExportTagDailyActivityExportGetQueryTimezoneSchema,
 });
 
 export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryApiKeyLimitSchema =
@@ -24572,14 +26350,22 @@ export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggr
 
 export const getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQuerySchema =
 	z.object({
-		api_key_limit: z.int().min(1).max(1000).optional().default(100),
-		organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		api_key_limit:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryApiKeyLimitSchema,
+		organization_ids:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryOrganizationIdsSchema,
+		start_date:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryStartDateSchema,
+		end_date:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryEndDateSchema,
+		model:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryModelSchema,
+		api_key:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryApiKeySchema,
+		exclude_organization_ids:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryExcludeOrganizationIdsSchema,
+		timezone:
+			getOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQueryTimezoneSchema,
 	});
 
 export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryOffsetSchema =
@@ -24623,15 +26409,24 @@ export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivity
 
 export const getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		offset:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryOffsetSchema,
+		limit:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryLimitSchema,
+		organization_ids:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryOrganizationIdsSchema,
+		start_date:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryStartDateSchema,
+		end_date:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryEndDateSchema,
+		model:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryModelSchema,
+		api_key:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryApiKeySchema,
+		exclude_organization_ids:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryExcludeOrganizationIdsSchema,
+		timezone:
+			getOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQueryTimezoneSchema,
 	});
 
 export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuerySearchSchema =
@@ -24675,15 +26470,24 @@ export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivi
 
 export const getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuerySchema =
 	z.object({
-		search: z.string().min(1),
-		limit: z.int().min(1).max(100).optional().default(100),
-		organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		search:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuerySearchSchema,
+		limit:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryLimitSchema,
+		organization_ids:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryOrganizationIdsSchema,
+		start_date:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryStartDateSchema,
+		end_date:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryEndDateSchema,
+		model:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryModelSchema,
+		api_key:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryApiKeySchema,
+		exclude_organization_ids:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryExcludeOrganizationIdsSchema,
+		timezone:
+			getOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQueryTimezoneSchema,
 	});
 
 export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
@@ -24730,16 +26534,26 @@ export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAg
 
 export const getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQuerySchema =
 	z.object({
-		model_group: z.string().min(1),
-		by_model_group: z.boolean().optional().default(true),
-		limit: z.int().min(1).max(100).optional().default(5),
-		organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		model_group:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema,
+		by_model_group:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryByModelGroupSchema,
+		limit:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryLimitSchema,
+		organization_ids:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryOrganizationIdsSchema,
+		start_date:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema,
+		end_date:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema,
+		model:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryModelSchema,
+		api_key:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema,
+		exclude_organization_ids:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryExcludeOrganizationIdsSchema,
+		timezone:
+			getOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema,
 	});
 
 export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryExportTypeSchema =
@@ -24783,15 +26597,21 @@ export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGe
 
 export const getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQuerySchema =
 	z.object({
-		export_type: exportTypeSchema.optional().default("daily"),
-		format: z.enum(["csv", "json"]).optional().default("csv"),
-		organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		export_type:
+			getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryExportTypeSchema,
+		format: getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryFormatSchema,
+		organization_ids:
+			getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryOrganizationIdsSchema,
+		start_date:
+			getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryStartDateSchema,
+		end_date:
+			getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryEndDateSchema,
+		model: getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryModelSchema,
+		api_key: getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryApiKeySchema,
+		exclude_organization_ids:
+			getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryExcludeOrganizationIdsSchema,
+		timezone:
+			getOrganizationDailyActivityExportOrganizationDailyActivityExportGetQueryTimezoneSchema,
 	});
 
 export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryApiKeyLimitSchema =
@@ -24832,14 +26652,20 @@ export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGe
 
 export const getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQuerySchema =
 	z.object({
-		api_key_limit: z.int().min(1).max(1000).optional().default(100),
-		end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		api_key_limit:
+			getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryApiKeyLimitSchema,
+		end_user_ids:
+			getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryEndUserIdsSchema,
+		start_date:
+			getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryStartDateSchema,
+		end_date:
+			getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryEndDateSchema,
+		model: getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryModelSchema,
+		api_key: getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryApiKeySchema,
+		exclude_end_user_ids:
+			getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryExcludeEndUserIdsSchema,
+		timezone:
+			getCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQueryTimezoneSchema,
 	});
 
 export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryOffsetSchema =
@@ -24883,15 +26709,24 @@ export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregat
 
 export const getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		offset:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryOffsetSchema,
+		limit:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryLimitSchema,
+		end_user_ids:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryEndUserIdsSchema,
+		start_date:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryStartDateSchema,
+		end_date:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryEndDateSchema,
+		model:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryModelSchema,
+		api_key:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryApiKeySchema,
+		exclude_end_user_ids:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryExcludeEndUserIdsSchema,
+		timezone:
+			getCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQueryTimezoneSchema,
 	});
 
 export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuerySearchSchema =
@@ -24935,15 +26770,24 @@ export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggreg
 
 export const getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuerySchema =
 	z.object({
-		search: z.string().min(1),
-		limit: z.int().min(1).max(100).optional().default(100),
-		end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		search:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuerySearchSchema,
+		limit:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryLimitSchema,
+		end_user_ids:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryEndUserIdsSchema,
+		start_date:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryStartDateSchema,
+		end_date:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryEndDateSchema,
+		model:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryModelSchema,
+		api_key:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryApiKeySchema,
+		exclude_end_user_ids:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryExcludeEndUserIdsSchema,
+		timezone:
+			getCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQueryTimezoneSchema,
 	});
 
 export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
@@ -24990,16 +26834,26 @@ export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregated
 
 export const getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuerySchema =
 	z.object({
-		model_group: z.string().min(1),
-		by_model_group: z.boolean().optional().default(true),
-		limit: z.int().min(1).max(100).optional().default(5),
-		end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		model_group:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema,
+		by_model_group:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryByModelGroupSchema,
+		limit:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryLimitSchema,
+		end_user_ids:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryEndUserIdsSchema,
+		start_date:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema,
+		end_date:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema,
+		model:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryModelSchema,
+		api_key:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema,
+		exclude_end_user_ids:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryExcludeEndUserIdsSchema,
+		timezone:
+			getCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema,
 	});
 
 export const getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryExportTypeSchema =
@@ -25051,15 +26905,16 @@ export const getCustomerDailyActivityExportCustomerDailyActivityExportGetErrorSc
 	getCustomerDailyActivityExportCustomerDailyActivityExportGetStatus422Schema;
 
 export const getCustomerDailyActivityExportCustomerDailyActivityExportGetQuerySchema = z.object({
-	export_type: exportTypeSchema.optional().default("daily"),
-	format: z.enum(["csv", "json"]).optional().default("csv"),
-	end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	exclude_end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	export_type: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryExportTypeSchema,
+	format: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryFormatSchema,
+	end_user_ids: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryEndUserIdsSchema,
+	start_date: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryStartDateSchema,
+	end_date: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryEndDateSchema,
+	model: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryModelSchema,
+	api_key: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryApiKeySchema,
+	exclude_end_user_ids:
+		getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryExcludeEndUserIdsSchema,
+	timezone: getCustomerDailyActivityExportCustomerDailyActivityExportGetQueryTimezoneSchema,
 });
 
 export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryApiKeyLimitSchema =
@@ -25105,14 +26960,16 @@ export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetError
 	getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetStatus422Schema;
 
 export const getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQuerySchema = z.object({
-	api_key_limit: z.int().min(1).max(1000).optional().default(100),
-	agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	exclude_agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	api_key_limit:
+		getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryApiKeyLimitSchema,
+	agent_ids: getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryAgentIdsSchema,
+	start_date: getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryStartDateSchema,
+	end_date: getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryEndDateSchema,
+	model: getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryModelSchema,
+	api_key: getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryApiKeySchema,
+	exclude_agent_ids:
+		getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryExcludeAgentIdsSchema,
+	timezone: getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQueryTimezoneSchema,
 });
 
 export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryOffsetSchema =
@@ -25156,15 +27013,21 @@ export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeys
 
 export const getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQuerySchema =
 	z.object({
-		offset: z.int().min(0).optional().default(0),
-		limit: z.int().min(1).max(100).optional().default(50),
-		agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		offset: getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryOffsetSchema,
+		limit: getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryLimitSchema,
+		agent_ids:
+			getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryAgentIdsSchema,
+		start_date:
+			getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryStartDateSchema,
+		end_date:
+			getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryEndDateSchema,
+		model: getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryModelSchema,
+		api_key:
+			getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryApiKeySchema,
+		exclude_agent_ids:
+			getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryExcludeAgentIdsSchema,
+		timezone:
+			getAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQueryTimezoneSchema,
 	});
 
 export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuerySearchSchema =
@@ -25208,15 +27071,24 @@ export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSe
 
 export const getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuerySchema =
 	z.object({
-		search: z.string().min(1),
-		limit: z.int().min(1).max(100).optional().default(100),
-		agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		search:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuerySearchSchema,
+		limit:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryLimitSchema,
+		agent_ids:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryAgentIdsSchema,
+		start_date:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryStartDateSchema,
+		end_date:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryEndDateSchema,
+		model:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryModelSchema,
+		api_key:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryApiKeySchema,
+		exclude_agent_ids:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryExcludeAgentIdsSchema,
+		timezone:
+			getAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQueryTimezoneSchema,
 	});
 
 export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema =
@@ -25263,16 +27135,26 @@ export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelT
 
 export const getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQuerySchema =
 	z.object({
-		model_group: z.string().min(1),
-		by_model_group: z.boolean().optional().default(true),
-		limit: z.int().min(1).max(100).optional().default(5),
-		agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		start_date: z.union([z.string(), z.null().nullable()]).optional(),
-		end_date: z.union([z.string(), z.null().nullable()]).optional(),
-		model: z.union([z.string(), z.null().nullable()]).optional(),
-		api_key: z.union([z.string(), z.null().nullable()]).optional(),
-		exclude_agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-		timezone: z.union([z.int(), z.null().nullable()]).optional(),
+		model_group:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryModelGroupSchema,
+		by_model_group:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryByModelGroupSchema,
+		limit:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryLimitSchema,
+		agent_ids:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryAgentIdsSchema,
+		start_date:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryStartDateSchema,
+		end_date:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryEndDateSchema,
+		model:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryModelSchema,
+		api_key:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema,
+		exclude_agent_ids:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryExcludeAgentIdsSchema,
+		timezone:
+			getAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQueryTimezoneSchema,
 	});
 
 export const getAgentDailyActivityExportAgentDailyActivityExportGetQueryExportTypeSchema =
@@ -25325,15 +27207,16 @@ export const getAgentDailyActivityExportAgentDailyActivityExportGetErrorSchema =
 	getAgentDailyActivityExportAgentDailyActivityExportGetStatus422Schema;
 
 export const getAgentDailyActivityExportAgentDailyActivityExportGetQuerySchema = z.object({
-	export_type: exportTypeSchema.optional().default("daily"),
-	format: z.enum(["csv", "json"]).optional().default("csv"),
-	agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	exclude_agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	timezone: z.union([z.int(), z.null().nullable()]).optional(),
+	export_type: getAgentDailyActivityExportAgentDailyActivityExportGetQueryExportTypeSchema,
+	format: getAgentDailyActivityExportAgentDailyActivityExportGetQueryFormatSchema,
+	agent_ids: getAgentDailyActivityExportAgentDailyActivityExportGetQueryAgentIdsSchema,
+	start_date: getAgentDailyActivityExportAgentDailyActivityExportGetQueryStartDateSchema,
+	end_date: getAgentDailyActivityExportAgentDailyActivityExportGetQueryEndDateSchema,
+	model: getAgentDailyActivityExportAgentDailyActivityExportGetQueryModelSchema,
+	api_key: getAgentDailyActivityExportAgentDailyActivityExportGetQueryApiKeySchema,
+	exclude_agent_ids:
+		getAgentDailyActivityExportAgentDailyActivityExportGetQueryExcludeAgentIdsSchema,
+	timezone: getAgentDailyActivityExportAgentDailyActivityExportGetQueryTimezoneSchema,
 });
 
 export const changePasswordUserPasswordChangePostStatus200Schema = changePasswordResponseSchema;
@@ -25353,6 +27236,9 @@ export const sessionLogoutSessionLogoutPostStatus200Schema = sessionLogoutRespon
 export const sessionLogoutSessionLogoutPostResponseSchema =
 	sessionLogoutSessionLogoutPostStatus200Schema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const newTeamTeamNewPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25371,14 +27257,12 @@ export const newTeamTeamNewPostErrorSchema = newTeamTeamNewPostStatus422Schema;
 export const newTeamTeamNewPostBodySchema = newTeamRequestSchema;
 
 export const newTeamTeamNewPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": newTeamTeamNewPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const updateTeamTeamUpdatePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25399,16 +27283,14 @@ export const updateTeamTeamUpdatePostBodySchema = updateTeamRequestSchema.descri
 );
 
 export const updateTeamTeamUpdatePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": updateTeamTeamUpdatePostHeaderLitellmChangedBySchema,
 });
 
 export const patchTeamTeamTeamIdPatchPathTeamIdSchema = z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const patchTeamTeamTeamIdPatchHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25429,16 +27311,11 @@ export const patchTeamTeamTeamIdPatchBodySchema = patchTeamRequestSchema.describ
 );
 
 export const patchTeamTeamTeamIdPatchPathSchema = z.object({
-	team_id: z.string(),
+	team_id: patchTeamTeamTeamIdPatchPathTeamIdSchema,
 });
 
 export const patchTeamTeamTeamIdPatchHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": patchTeamTeamTeamIdPatchHeaderLitellmChangedBySchema,
 });
 
 export const teamMemberAddTeamMemberAddPostStatus200Schema = teamAddMemberResponseSchema;
@@ -25501,8 +27378,8 @@ export const resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostBodySchem
 	resetSpendRequestSchema;
 
 export const resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostPathSchema = z.object({
-	team_id: z.string(),
-	user_id: z.string(),
+	team_id: resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostPathTeamIdSchema,
+	user_id: resetTeamMemberSpendFnTeamTeamIdMemberUserIdResetSpendPostPathUserIdSchema,
 });
 
 export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostPathTeamIdSchema =
@@ -25524,8 +27401,8 @@ export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostErrorSc
 	resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostStatus422Schema;
 
 export const resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostPathSchema = z.object({
-	team_id: z.string(),
-	user_id: z.string(),
+	team_id: resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostPathTeamIdSchema,
+	user_id: resetTeamMemberBudgetFnTeamTeamIdMemberUserIdResetBudgetPostPathUserIdSchema,
 });
 
 export const bulkTeamMemberAddTeamBulkMemberAddPostStatus200Schema =
@@ -25542,6 +27419,9 @@ export const bulkTeamMemberAddTeamBulkMemberAddPostErrorSchema =
 export const bulkTeamMemberAddTeamBulkMemberAddPostBodySchema =
 	bulkTeamMemberAddRequestSchema.describe("Request for bulk team member addition");
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const deleteTeamTeamDeletePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25560,19 +27440,20 @@ export const deleteTeamTeamDeletePostErrorSchema = deleteTeamTeamDeletePostStatu
 export const deleteTeamTeamDeletePostBodySchema = deleteTeamRequestSchema;
 
 export const deleteTeamTeamDeletePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": deleteTeamTeamDeletePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Team ID in the request parameters
+ */
 export const teamInfoTeamInfoGetQueryTeamIdSchema = z
 	.string()
 	.optional()
 	.describe("Team ID in the request parameters");
 
+/**
+ * Limit the number of keys returned
+ */
 export const teamInfoTeamInfoGetQueryKeyLimitSchema = z
 	.union([z.int().gt(0), z.null().nullable()])
 	.optional()
@@ -25587,11 +27468,8 @@ export const teamInfoTeamInfoGetResponseSchema = teamInfoTeamInfoGetStatus200Sch
 export const teamInfoTeamInfoGetErrorSchema = teamInfoTeamInfoGetStatus422Schema;
 
 export const teamInfoTeamInfoGetQuerySchema = z.object({
-	team_id: z.string().optional().describe("Team ID in the request parameters"),
-	key_limit: z
-		.union([z.int().gt(0), z.null().nullable()])
-		.optional()
-		.describe("Limit the number of keys returned"),
+	team_id: teamInfoTeamInfoGetQueryTeamIdSchema,
+	key_limit: teamInfoTeamInfoGetQueryKeyLimitSchema,
 });
 
 export const teamMemberMeTeamTeamIdMembersMeGetPathTeamIdSchema = z.string();
@@ -25610,7 +27488,7 @@ export const teamMemberMeTeamTeamIdMembersMeGetErrorSchema =
 	teamMemberMeTeamTeamIdMembersMeGetStatus422Schema;
 
 export const teamMemberMeTeamTeamIdMembersMeGetPathSchema = z.object({
-	team_id: z.string(),
+	team_id: teamMemberMeTeamTeamIdMembersMeGetPathTeamIdSchema,
 });
 
 export const blockTeamTeamBlockPostStatus200Schema = z.looseObject({});
@@ -25654,29 +27532,44 @@ export const listAvailableTeamsTeamAvailableGetErrorSchema =
 	listAvailableTeamsTeamAvailableGetStatus422Schema;
 
 export const listAvailableTeamsTeamAvailableGetQuerySchema = z.object({
-	response_model: z.unknown().optional(),
+	response_model: listAvailableTeamsTeamAvailableGetQueryResponseModelSchema,
 });
 
+/**
+ * Only return teams which this 'user_id' belongs to
+ */
 export const listTeamV2V2TeamListGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Only return teams which this 'user_id' belongs to");
 
+/**
+ * Only return teams which this 'organization_id' belongs to
+ */
 export const listTeamV2V2TeamListGetQueryOrganizationIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Only return teams which this 'organization_id' belongs to");
 
+/**
+ * Only return teams which this 'team_id' belongs to
+ */
 export const listTeamV2V2TeamListGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Only return teams which this 'team_id' belongs to");
 
+/**
+ * Only return teams which this 'team_alias' belongs to. Supports partial matching.
+ */
 export const listTeamV2V2TeamListGetQueryTeamAliasSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Only return teams which this 'team_alias' belongs to. Supports partial matching.");
 
+/**
+ * Combined search: matches teams whose 'team_id' matches the value OR whose 'team_alias' contains it (case-insensitive).
+ */
 export const listTeamV2V2TeamListGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25684,6 +27577,9 @@ export const listTeamV2V2TeamListGetQuerySearchSchema = z
 		"Combined search: matches teams whose 'team_id' matches the value OR whose 'team_alias' contains it (case-insensitive).",
 	);
 
+/**
+ * How 'search' matches 'team_id': 'exact' (default) or 'prefix' for a case-sensitive prefix match.
+ */
 export const listTeamV2V2TeamListGetQuerySearchTeamIdMatchSchema = z
 	.enum(["exact", "prefix"])
 	.optional()
@@ -25692,6 +27588,9 @@ export const listTeamV2V2TeamListGetQuerySearchTeamIdMatchSchema = z
 		"How 'search' matches 'team_id': 'exact' (default) or 'prefix' for a case-sensitive prefix match.",
 	);
 
+/**
+ * Page number for pagination
+ */
 export const listTeamV2V2TeamListGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -25699,6 +27598,9 @@ export const listTeamV2V2TeamListGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number for pagination");
 
+/**
+ * Number of teams per page
+ */
 export const listTeamV2V2TeamListGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -25707,17 +27609,26 @@ export const listTeamV2V2TeamListGetQueryPageSizeSchema = z
 	.default(10)
 	.describe("Number of teams per page");
 
+/**
+ * Column to sort by (e.g. 'team_id', 'team_alias', 'created_at')
+ */
 export const listTeamV2V2TeamListGetQuerySortBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Column to sort by (e.g. 'team_id', 'team_alias', 'created_at')");
 
+/**
+ * Sort order ('asc' or 'desc')
+ */
 export const listTeamV2V2TeamListGetQuerySortOrderSchema = z
 	.string()
 	.optional()
 	.default("asc")
 	.describe("Sort order ('asc' or 'desc')");
 
+/**
+ * Filter by status (e.g. 'deleted')
+ */
 export const listTeamV2V2TeamListGetQueryStatusSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25734,48 +27645,22 @@ export const listTeamV2V2TeamListGetResponseSchema = listTeamV2V2TeamListGetStat
 export const listTeamV2V2TeamListGetErrorSchema = listTeamV2V2TeamListGetStatus422Schema;
 
 export const listTeamV2V2TeamListGetQuerySchema = z.object({
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Only return teams which this 'user_id' belongs to"),
-	organization_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Only return teams which this 'organization_id' belongs to"),
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Only return teams which this 'team_id' belongs to"),
-	team_alias: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Only return teams which this 'team_alias' belongs to. Supports partial matching."),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Combined search: matches teams whose 'team_id' matches the value OR whose 'team_alias' contains it (case-insensitive).",
-		),
-	search_team_id_match: z
-		.enum(["exact", "prefix"])
-		.optional()
-		.default("exact")
-		.describe(
-			"How 'search' matches 'team_id': 'exact' (default) or 'prefix' for a case-sensitive prefix match.",
-		),
-	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
-	page_size: z.int().min(1).max(100).optional().default(10).describe("Number of teams per page"),
-	sort_by: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Column to sort by (e.g. 'team_id', 'team_alias', 'created_at')"),
-	sort_order: z.string().optional().default("asc").describe("Sort order ('asc' or 'desc')"),
-	status: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by status (e.g. 'deleted')"),
+	user_id: listTeamV2V2TeamListGetQueryUserIdSchema,
+	organization_id: listTeamV2V2TeamListGetQueryOrganizationIdSchema,
+	team_id: listTeamV2V2TeamListGetQueryTeamIdSchema,
+	team_alias: listTeamV2V2TeamListGetQueryTeamAliasSchema,
+	search: listTeamV2V2TeamListGetQuerySearchSchema,
+	search_team_id_match: listTeamV2V2TeamListGetQuerySearchTeamIdMatchSchema,
+	page: listTeamV2V2TeamListGetQueryPageSchema,
+	page_size: listTeamV2V2TeamListGetQueryPageSizeSchema,
+	sort_by: listTeamV2V2TeamListGetQuerySortBySchema,
+	sort_order: listTeamV2V2TeamListGetQuerySortOrderSchema,
+	status: listTeamV2V2TeamListGetQueryStatusSchema,
 });
 
+/**
+ * Only return teams which this 'user_id' belongs to
+ */
 export const listTeamTeamListGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -25794,11 +27679,8 @@ export const listTeamTeamListGetResponseSchema = listTeamTeamListGetStatus200Sch
 export const listTeamTeamListGetErrorSchema = listTeamTeamListGetStatus422Schema;
 
 export const listTeamTeamListGetQuerySchema = z.object({
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Only return teams which this 'user_id' belongs to"),
-	organization_id: z.union([z.string(), z.null().nullable()]).optional(),
+	user_id: listTeamTeamListGetQueryUserIdSchema,
+	organization_id: listTeamTeamListGetQueryOrganizationIdSchema,
 });
 
 export const teamModelAddTeamModelAddPostStatus200Schema = z.looseObject({});
@@ -25828,6 +27710,9 @@ export const teamModelDeleteTeamModelDeletePostBodySchema = teamModelDeleteReque
 	"Request to delete models from a team",
 );
 
+/**
+ * Team ID in the request parameters
+ */
 export const teamMemberPermissionsTeamPermissionsListGetQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -25847,7 +27732,7 @@ export const teamMemberPermissionsTeamPermissionsListGetErrorSchema =
 	teamMemberPermissionsTeamPermissionsListGetStatus422Schema;
 
 export const teamMemberPermissionsTeamPermissionsListGetQuerySchema = z.object({
-	team_id: z.string().optional().describe("Team ID in the request parameters"),
+	team_id: teamMemberPermissionsTeamPermissionsListGetQueryTeamIdSchema,
 });
 
 export const updateTeamMemberPermissionsTeamPermissionsUpdatePostStatus200Schema = z.lazy(
@@ -25933,14 +27818,14 @@ export const getTeamDailyActivityTeamDailyActivityGetErrorSchema =
 	getTeamDailyActivityTeamDailyActivityGetStatus422Schema;
 
 export const getTeamDailyActivityTeamDailyActivityGetQuerySchema = z.object({
-	team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(10),
-	exclude_team_ids: z.union([z.string(), z.null().nullable()]).optional(),
+	team_ids: getTeamDailyActivityTeamDailyActivityGetQueryTeamIdsSchema,
+	start_date: getTeamDailyActivityTeamDailyActivityGetQueryStartDateSchema,
+	end_date: getTeamDailyActivityTeamDailyActivityGetQueryEndDateSchema,
+	model: getTeamDailyActivityTeamDailyActivityGetQueryModelSchema,
+	api_key: getTeamDailyActivityTeamDailyActivityGetQueryApiKeySchema,
+	page: getTeamDailyActivityTeamDailyActivityGetQueryPageSchema,
+	page_size: getTeamDailyActivityTeamDailyActivityGetQueryPageSizeSchema,
+	exclude_team_ids: getTeamDailyActivityTeamDailyActivityGetQueryExcludeTeamIdsSchema,
 });
 
 export const getTeamSpendByUserTeamSpendByUserGetQueryTeamIdsSchema = z
@@ -25966,9 +27851,9 @@ export const getTeamSpendByUserTeamSpendByUserGetErrorSchema =
 	getTeamSpendByUserTeamSpendByUserGetStatus422Schema;
 
 export const getTeamSpendByUserTeamSpendByUserGetQuerySchema = z.object({
-	team_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
+	team_ids: getTeamSpendByUserTeamSpendByUserGetQueryTeamIdsSchema,
+	start_date: getTeamSpendByUserTeamSpendByUserGetQueryStartDateSchema,
+	end_date: getTeamSpendByUserTeamSpendByUserGetQueryEndDateSchema,
 });
 
 export const ssoReadinessSsoReadinessGetStatus200Schema = z.looseObject({});
@@ -26033,14 +27918,16 @@ export const getOrganizationDailyActivityOrganizationDailyActivityGetErrorSchema
 	getOrganizationDailyActivityOrganizationDailyActivityGetStatus422Schema;
 
 export const getOrganizationDailyActivityOrganizationDailyActivityGetQuerySchema = z.object({
-	organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(10),
-	exclude_organization_ids: z.union([z.string(), z.null().nullable()]).optional(),
+	organization_ids:
+		getOrganizationDailyActivityOrganizationDailyActivityGetQueryOrganizationIdsSchema,
+	start_date: getOrganizationDailyActivityOrganizationDailyActivityGetQueryStartDateSchema,
+	end_date: getOrganizationDailyActivityOrganizationDailyActivityGetQueryEndDateSchema,
+	model: getOrganizationDailyActivityOrganizationDailyActivityGetQueryModelSchema,
+	api_key: getOrganizationDailyActivityOrganizationDailyActivityGetQueryApiKeySchema,
+	page: getOrganizationDailyActivityOrganizationDailyActivityGetQueryPageSchema,
+	page_size: getOrganizationDailyActivityOrganizationDailyActivityGetQueryPageSizeSchema,
+	exclude_organization_ids:
+		getOrganizationDailyActivityOrganizationDailyActivityGetQueryExcludeOrganizationIdsSchema,
 });
 
 export const updateOrganizationOrganizationUpdatePatchStatus200Schema =
@@ -26074,7 +27961,7 @@ export const updateOrganizationV2V2OrganizationOrganizationIdPatchBodySchema =
 	);
 
 export const updateOrganizationV2V2OrganizationOrganizationIdPatchPathSchema = z.object({
-	organization_id: z.string(),
+	organization_id: updateOrganizationV2V2OrganizationOrganizationIdPatchPathOrganizationIdSchema,
 });
 
 export const deleteOrganizationOrganizationDeleteDeleteStatus200Schema = z.array(
@@ -26091,11 +27978,17 @@ export const deleteOrganizationOrganizationDeleteDeleteErrorSchema =
 
 export const deleteOrganizationOrganizationDeleteDeleteBodySchema = deleteOrganizationRequestSchema;
 
+/**
+ * Filter organizations by exact organization_id match
+ */
 export const listOrganizationOrganizationListGetQueryOrgIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter organizations by exact organization_id match");
 
+/**
+ * Filter organizations by partial organization_alias match. Supports case-insensitive search.
+ */
 export const listOrganizationOrganizationListGetQueryOrgAliasSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26116,16 +28009,8 @@ export const listOrganizationOrganizationListGetErrorSchema =
 	listOrganizationOrganizationListGetStatus422Schema;
 
 export const listOrganizationOrganizationListGetQuerySchema = z.object({
-	org_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter organizations by exact organization_id match"),
-	org_alias: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter organizations by partial organization_alias match. Supports case-insensitive search.",
-		),
+	org_id: listOrganizationOrganizationListGetQueryOrgIdSchema,
+	org_alias: listOrganizationOrganizationListGetQueryOrgAliasSchema,
 });
 
 export const infoOrganizationOrganizationInfoGetQueryOrganizationIdSchema = z.string();
@@ -26144,7 +28029,7 @@ export const infoOrganizationOrganizationInfoGetErrorSchema =
 	infoOrganizationOrganizationInfoGetStatus422Schema;
 
 export const infoOrganizationOrganizationInfoGetQuerySchema = z.object({
-	organization_id: z.string(),
+	organization_id: infoOrganizationOrganizationInfoGetQueryOrganizationIdSchema,
 });
 
 export const deprecatedInfoOrganizationOrganizationInfoPostStatus200Schema = z.looseObject({});
@@ -26244,6 +28129,9 @@ export const newEndUserCustomerNewPostBodySchema = newCustomerRequestSchema.desc
 	"Create a new customer, allocate a budget to them",
 );
 
+/**
+ * End User ID in the request parameters
+ */
 export const endUserInfoCustomerInfoGetQueryEndUserIdSchema = z
 	.string()
 	.describe("End User ID in the request parameters");
@@ -26259,7 +28147,7 @@ export const endUserInfoCustomerInfoGetResponseSchema = endUserInfoCustomerInfoG
 export const endUserInfoCustomerInfoGetErrorSchema = endUserInfoCustomerInfoGetStatus422Schema;
 
 export const endUserInfoCustomerInfoGetQuerySchema = z.object({
-	end_user_id: z.string().describe("End User ID in the request parameters"),
+	end_user_id: endUserInfoCustomerInfoGetQueryEndUserIdSchema,
 });
 
 export const updateEndUserCustomerUpdatePostStatus200Schema = customerResponseSchema.describe(
@@ -26292,6 +28180,9 @@ export const deleteEndUserCustomerDeletePostBodySchema = deleteCustomerRequestSc
 	"Delete multiple Customers",
 );
 
+/**
+ * Page number
+ */
 export const listEndUserCustomerListGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -26299,6 +28190,9 @@ export const listEndUserCustomerListGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Number of customers per page
+ */
 export const listEndUserCustomerListGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -26307,6 +28201,9 @@ export const listEndUserCustomerListGetQueryPageSizeSchema = z
 	.default(50)
 	.describe("Number of customers per page");
 
+/**
+ * Case-insensitive search by customer ID or alias
+ */
 export const listEndUserCustomerListGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26321,18 +28218,9 @@ export const listEndUserCustomerListGetResponseSchema = listEndUserCustomerListG
 export const listEndUserCustomerListGetErrorSchema = listEndUserCustomerListGetStatus422Schema;
 
 export const listEndUserCustomerListGetQuerySchema = z.object({
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	page_size: z
-		.int()
-		.min(1)
-		.max(100)
-		.optional()
-		.default(50)
-		.describe("Number of customers per page"),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Case-insensitive search by customer ID or alias"),
+	page: listEndUserCustomerListGetQueryPageSchema,
+	page_size: listEndUserCustomerListGetQueryPageSizeSchema,
+	search: listEndUserCustomerListGetQuerySearchSchema,
 });
 
 export const getCustomerDailyActivityCustomerDailyActivityGetQueryEndUserIdsSchema = z
@@ -26382,14 +28270,15 @@ export const getCustomerDailyActivityCustomerDailyActivityGetErrorSchema =
 	getCustomerDailyActivityCustomerDailyActivityGetStatus422Schema;
 
 export const getCustomerDailyActivityCustomerDailyActivityGetQuerySchema = z.object({
-	end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(10),
-	exclude_end_user_ids: z.union([z.string(), z.null().nullable()]).optional(),
+	end_user_ids: getCustomerDailyActivityCustomerDailyActivityGetQueryEndUserIdsSchema,
+	start_date: getCustomerDailyActivityCustomerDailyActivityGetQueryStartDateSchema,
+	end_date: getCustomerDailyActivityCustomerDailyActivityGetQueryEndDateSchema,
+	model: getCustomerDailyActivityCustomerDailyActivityGetQueryModelSchema,
+	api_key: getCustomerDailyActivityCustomerDailyActivityGetQueryApiKeySchema,
+	page: getCustomerDailyActivityCustomerDailyActivityGetQueryPageSchema,
+	page_size: getCustomerDailyActivityCustomerDailyActivityGetQueryPageSizeSchema,
+	exclude_end_user_ids:
+		getCustomerDailyActivityCustomerDailyActivityGetQueryExcludeEndUserIdsSchema,
 });
 
 export const listBudgetsManagementV1BudgetsGetStatus200Schema = listResponseBudgetListItemSchema;
@@ -26397,17 +28286,29 @@ export const listBudgetsManagementV1BudgetsGetStatus200Schema = listResponseBudg
 export const listBudgetsManagementV1BudgetsGetResponseSchema =
 	listBudgetsManagementV1BudgetsGetStatus200Schema;
 
+/**
+ * Window start (UTC when no offset is given)
+ */
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryFilterstartTimegteSchema =
 	z.iso.datetime({ offset: true }).describe("Window start (UTC when no offset is given)");
 
+/**
+ * Window end (UTC when no offset is given)
+ */
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryFilterstartTimelteSchema =
 	z.iso.datetime({ offset: true }).describe("Window end (UTC when no offset is given)");
 
+/**
+ * Case-insensitive partial match on the end user id
+ */
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryQSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Case-insensitive partial match on the end user id");
 
+/**
+ * Page number
+ */
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -26415,6 +28316,9 @@ export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryPageSchema
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Page size
+ */
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -26438,33 +28342,40 @@ export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetErrorSchema =
 	listSpendLogEndUsersManagementV1SpendLogsEndUsersGetStatus422Schema;
 
 export const listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuerySchema = z.object({
-	"filter[startTime][gte]": z.iso
-		.datetime({ offset: true })
-		.describe("Window start (UTC when no offset is given)"),
-	"filter[startTime][lte]": z.iso
-		.datetime({ offset: true })
-		.describe("Window end (UTC when no offset is given)"),
-	q: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Case-insensitive partial match on the end user id"),
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	page_size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+	"filter[startTime][gte]":
+		listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryFilterstartTimegteSchema,
+	"filter[startTime][lte]":
+		listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryFilterstartTimelteSchema,
+	q: listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryQSchema,
+	page: listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryPageSchema,
+	page_size: listSpendLogEndUsersManagementV1SpendLogsEndUsersGetQueryPageSizeSchema,
 });
 
+/**
+ * Window start (UTC when no offset is given)
+ */
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimegteSchema = z.iso
 	.datetime({ offset: true })
 	.describe("Window start (UTC when no offset is given)");
 
+/**
+ * Window end (UTC when no offset is given)
+ */
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimelteSchema = z.iso
 	.datetime({ offset: true })
 	.describe("Window end (UTC when no offset is given)");
 
+/**
+ * Case-insensitive partial match on the internal user id
+ */
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryQSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Case-insensitive partial match on the internal user id");
 
+/**
+ * Page number
+ */
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -26472,6 +28383,9 @@ export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Page size
+ */
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -26495,18 +28409,13 @@ export const listSpendLogUsersManagementV1SpendLogsUsersGetErrorSchema =
 	listSpendLogUsersManagementV1SpendLogsUsersGetStatus422Schema;
 
 export const listSpendLogUsersManagementV1SpendLogsUsersGetQuerySchema = z.object({
-	"filter[startTime][gte]": z.iso
-		.datetime({ offset: true })
-		.describe("Window start (UTC when no offset is given)"),
-	"filter[startTime][lte]": z.iso
-		.datetime({ offset: true })
-		.describe("Window end (UTC when no offset is given)"),
-	q: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Case-insensitive partial match on the internal user id"),
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	page_size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+	"filter[startTime][gte]":
+		listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimegteSchema,
+	"filter[startTime][lte]":
+		listSpendLogUsersManagementV1SpendLogsUsersGetQueryFilterstartTimelteSchema,
+	q: listSpendLogUsersManagementV1SpendLogsUsersGetQueryQSchema,
+	page: listSpendLogUsersManagementV1SpendLogsUsersGetQueryPageSchema,
+	page_size: listSpendLogUsersManagementV1SpendLogsUsersGetQueryPageSizeSchema,
 });
 
 export const bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePostPathTeamIdSchema =
@@ -26533,12 +28442,16 @@ export const bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDelete
 
 export const bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePostPathSchema =
 	z.object({
-		team_id: z.string(),
+		team_id:
+			bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePostPathTeamIdSchema,
 	});
 
 export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostPathTeamIdSchema =
 	z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostHeaderLitellmChangedBySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -26568,17 +28481,14 @@ export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulk
 
 export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostPathSchema =
 	z.object({
-		team_id: z.string(),
+		team_id:
+			bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostPathTeamIdSchema,
 	});
 
 export const bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostHeadersSchema =
 	z.object({
-		"litellm-changed-by": z
-			.union([z.string(), z.null().nullable()])
-			.optional()
-			.describe(
-				"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-			),
+		"litellm-changed-by":
+			bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePostHeaderLitellmChangedBySchema,
 	});
 
 export const bulkCreateUsersRouteManagementV1UsersBulkPostStatus200Schema =
@@ -26595,6 +28505,9 @@ export const bulkCreateUsersRouteManagementV1UsersBulkPostErrorSchema =
 
 export const bulkCreateUsersRouteManagementV1UsersBulkPostBodySchema = bulkNewUserRequestSchema;
 
+/**
+ * Who the caller is acting for; recorded on the audit log entries this call writes.
+ */
 export const bulkDeleteUsersActionManagementV1UsersBulkDeletePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26618,17 +28531,21 @@ export const bulkDeleteUsersActionManagementV1UsersBulkDeletePostBodySchema =
 	bulkDeleteUserRequestSchema.describe("Body of `POST /management/v1/users/bulk_delete`.");
 
 export const bulkDeleteUsersActionManagementV1UsersBulkDeletePostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Who the caller is acting for; recorded on the audit log entries this call writes."),
+	"litellm-changed-by":
+		bulkDeleteUsersActionManagementV1UsersBulkDeletePostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Time from which to start viewing key spend
+ */
 export const viewSpendTagsSpendTagsGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing key spend");
 
+/**
+ * Time till which to view key spend
+ */
 export const viewSpendTagsSpendTagsGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26643,30 +28560,36 @@ export const viewSpendTagsSpendTagsGetResponseSchema = viewSpendTagsSpendTagsGet
 export const viewSpendTagsSpendTagsGetErrorSchema = viewSpendTagsSpendTagsGetStatus422Schema;
 
 export const viewSpendTagsSpendTagsGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing key spend"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view key spend"),
+	start_date: viewSpendTagsSpendTagsGetQueryStartDateSchema,
+	end_date: viewSpendTagsSpendTagsGetQueryEndDateSchema,
 });
 
+/**
+ * First UTC day of the range, YYYY-MM-DD
+ */
 export const getSpendCaptureRateSpendCaptureRateGetQueryStartDateSchema = z.iso
 	.date()
 	.describe("First UTC day of the range, YYYY-MM-DD");
 
+/**
+ * Last UTC day of the range, YYYY-MM-DD, inclusive
+ */
 export const getSpendCaptureRateSpendCaptureRateGetQueryEndDateSchema = z.iso
 	.date()
 	.describe("Last UTC day of the range, YYYY-MM-DD, inclusive");
 
+/**
+ * Provider whose bill to compare against; needs OPENAI_ADMIN_KEY set on the proxy
+ */
 export const getSpendCaptureRateSpendCaptureRateGetQueryProviderSchema = z
 	.enum(["openai"])
 	.optional()
 	.default("openai")
 	.describe("Provider whose bill to compare against; needs OPENAI_ADMIN_KEY set on the proxy");
 
+/**
+ * Ratio under which the report flags below_threshold
+ */
 export const getSpendCaptureRateSpendCaptureRateGetQueryThresholdSchema = z
 	.number()
 	.max(1)
@@ -26675,6 +28598,9 @@ export const getSpendCaptureRateSpendCaptureRateGetQueryThresholdSchema = z
 	.default(0.9)
 	.describe("Ratio under which the report flags below_threshold");
 
+/**
+ * Scope the OpenAI bill to these project ids; omit to compare against the whole organization. Captured spend is never scoped, so pass every project LiteLLM's OpenAI keys belong to
+ */
 export const getSpendCaptureRateSpendCaptureRateGetQueryProjectIdsSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
@@ -26693,44 +28619,41 @@ export const getSpendCaptureRateSpendCaptureRateGetErrorSchema =
 	getSpendCaptureRateSpendCaptureRateGetStatus422Schema;
 
 export const getSpendCaptureRateSpendCaptureRateGetQuerySchema = z.object({
-	start_date: z.iso.date().describe("First UTC day of the range, YYYY-MM-DD"),
-	end_date: z.iso.date().describe("Last UTC day of the range, YYYY-MM-DD, inclusive"),
-	provider: z
-		.enum(["openai"])
-		.optional()
-		.default("openai")
-		.describe("Provider whose bill to compare against; needs OPENAI_ADMIN_KEY set on the proxy"),
-	threshold: z
-		.number()
-		.max(1)
-		.gt(0)
-		.optional()
-		.default(0.9)
-		.describe("Ratio under which the report flags below_threshold"),
-	project_ids: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe(
-			"Scope the OpenAI bill to these project ids; omit to compare against the whole organization. Captured spend is never scoped, so pass every project LiteLLM's OpenAI keys belong to",
-		),
+	start_date: getSpendCaptureRateSpendCaptureRateGetQueryStartDateSchema,
+	end_date: getSpendCaptureRateSpendCaptureRateGetQueryEndDateSchema,
+	provider: getSpendCaptureRateSpendCaptureRateGetQueryProviderSchema,
+	threshold: getSpendCaptureRateSpendCaptureRateGetQueryThresholdSchema,
+	project_ids: getSpendCaptureRateSpendCaptureRateGetQueryProjectIdsSchema,
 });
 
+/**
+ * Time from which to start viewing spend
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing spend");
 
+/**
+ * Time till which to view spend
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view spend");
 
+/**
+ * Group spend by internal team or customer or api_key
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryGroupBySchema = z
 	.union([z.enum(["team", "customer", "api_key"]), z.null().nullable()])
 	.optional()
 	.default("team")
 	.describe("Group spend by internal team or customer or api_key");
 
+/**
+ * View spend for a specific api_key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26738,16 +28661,25 @@ export const getGlobalSpendReportGlobalSpendReportGetQueryApiKeySchema = z
 		"View spend for a specific api_key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
 	);
 
+/**
+ * View spend for a specific internal_user_id. Example internal_user_id='1234
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryInternalUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("View spend for a specific internal_user_id. Example internal_user_id='1234");
 
+/**
+ * View spend for a specific team_id. Example team_id='1234
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("View spend for a specific team_id. Example team_id='1234");
 
+/**
+ * View spend for a specific customer_id. Example customer_id='1234. Can be used in conjunction with team_id as well.
+ */
 export const getGlobalSpendReportGlobalSpendReportGetQueryCustomerIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26767,51 +28699,34 @@ export const getGlobalSpendReportGlobalSpendReportGetErrorSchema =
 	getGlobalSpendReportGlobalSpendReportGetStatus422Schema;
 
 export const getGlobalSpendReportGlobalSpendReportGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing spend"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view spend"),
-	group_by: z
-		.union([z.enum(["team", "customer", "api_key"]), z.null().nullable()])
-		.optional()
-		.default("team")
-		.describe("Group spend by internal team or customer or api_key"),
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"View spend for a specific api_key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
-		),
-	internal_user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("View spend for a specific internal_user_id. Example internal_user_id='1234"),
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("View spend for a specific team_id. Example team_id='1234"),
-	customer_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"View spend for a specific customer_id. Example customer_id='1234. Can be used in conjunction with team_id as well.",
-		),
+	start_date: getGlobalSpendReportGlobalSpendReportGetQueryStartDateSchema,
+	end_date: getGlobalSpendReportGlobalSpendReportGetQueryEndDateSchema,
+	group_by: getGlobalSpendReportGlobalSpendReportGetQueryGroupBySchema,
+	api_key: getGlobalSpendReportGlobalSpendReportGetQueryApiKeySchema,
+	internal_user_id: getGlobalSpendReportGlobalSpendReportGetQueryInternalUserIdSchema,
+	team_id: getGlobalSpendReportGlobalSpendReportGetQueryTeamIdSchema,
+	customer_id: getGlobalSpendReportGlobalSpendReportGetQueryCustomerIdSchema,
 });
 
+/**
+ * Time from which to start viewing spend (YYYY-MM-DD)
+ */
 export const getKeySpendReportKeySpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing spend (YYYY-MM-DD)");
 
+/**
+ * Time till which to view spend (YYYY-MM-DD)
+ */
 export const getKeySpendReportKeySpendReportGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view spend (YYYY-MM-DD)");
 
+/**
+ * View spend for a specific api_key. Proxy admin only; other callers are scoped to their own key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
+ */
 export const getKeySpendReportKeySpendReportGetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26830,32 +28745,30 @@ export const getKeySpendReportKeySpendReportGetErrorSchema =
 	getKeySpendReportKeySpendReportGetStatus422Schema;
 
 export const getKeySpendReportKeySpendReportGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view spend (YYYY-MM-DD)"),
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"View spend for a specific api_key. Proxy admin only; other callers are scoped to their own key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'",
-		),
+	start_date: getKeySpendReportKeySpendReportGetQueryStartDateSchema,
+	end_date: getKeySpendReportKeySpendReportGetQueryEndDateSchema,
+	api_key: getKeySpendReportKeySpendReportGetQueryApiKeySchema,
 });
 
+/**
+ * Time from which to start viewing spend (YYYY-MM-DD)
+ */
 export const getUserSpendReportUserSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing spend (YYYY-MM-DD)");
 
+/**
+ * Time till which to view spend (YYYY-MM-DD)
+ */
 export const getUserSpendReportUserSpendReportGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view spend (YYYY-MM-DD)");
 
+/**
+ * View spend for a specific internal_user_id. Proxy admin only; other callers are scoped to their own user_id.
+ */
 export const getUserSpendReportUserSpendReportGetQueryInternalUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26874,32 +28787,30 @@ export const getUserSpendReportUserSpendReportGetErrorSchema =
 	getUserSpendReportUserSpendReportGetStatus422Schema;
 
 export const getUserSpendReportUserSpendReportGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view spend (YYYY-MM-DD)"),
-	internal_user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"View spend for a specific internal_user_id. Proxy admin only; other callers are scoped to their own user_id.",
-		),
+	start_date: getUserSpendReportUserSpendReportGetQueryStartDateSchema,
+	end_date: getUserSpendReportUserSpendReportGetQueryEndDateSchema,
+	internal_user_id: getUserSpendReportUserSpendReportGetQueryInternalUserIdSchema,
 });
 
+/**
+ * Time from which to start viewing spend (YYYY-MM-DD)
+ */
 export const getTeamSpendReportTeamSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing spend (YYYY-MM-DD)");
 
+/**
+ * Time till which to view spend (YYYY-MM-DD)
+ */
 export const getTeamSpendReportTeamSpendReportGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view spend (YYYY-MM-DD)");
 
+/**
+ * View spend for a specific team_id. Proxy admin only; other callers are scoped to their key's team.
+ */
 export const getTeamSpendReportTeamSpendReportGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26918,32 +28829,30 @@ export const getTeamSpendReportTeamSpendReportGetErrorSchema =
 	getTeamSpendReportTeamSpendReportGetStatus422Schema;
 
 export const getTeamSpendReportTeamSpendReportGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view spend (YYYY-MM-DD)"),
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"View spend for a specific team_id. Proxy admin only; other callers are scoped to their key's team.",
-		),
+	start_date: getTeamSpendReportTeamSpendReportGetQueryStartDateSchema,
+	end_date: getTeamSpendReportTeamSpendReportGetQueryEndDateSchema,
+	team_id: getTeamSpendReportTeamSpendReportGetQueryTeamIdSchema,
 });
 
+/**
+ * Time from which to start viewing spend (YYYY-MM-DD)
+ */
 export const getOrganizationSpendReportOrganizationSpendReportGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing spend (YYYY-MM-DD)");
 
+/**
+ * Time till which to view spend (YYYY-MM-DD)
+ */
 export const getOrganizationSpendReportOrganizationSpendReportGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view spend (YYYY-MM-DD)");
 
+/**
+ * View spend for a specific organization_id. Proxy admins may pass any organization; org admins are scoped to organizations they administer.
+ */
 export const getOrganizationSpendReportOrganizationSpendReportGetQueryOrganizationIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -26965,32 +28874,30 @@ export const getOrganizationSpendReportOrganizationSpendReportGetErrorSchema =
 	getOrganizationSpendReportOrganizationSpendReportGetStatus422Schema;
 
 export const getOrganizationSpendReportOrganizationSpendReportGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing spend (YYYY-MM-DD)"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view spend (YYYY-MM-DD)"),
-	organization_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"View spend for a specific organization_id. Proxy admins may pass any organization; org admins are scoped to organizations they administer.",
-		),
+	start_date: getOrganizationSpendReportOrganizationSpendReportGetQueryStartDateSchema,
+	end_date: getOrganizationSpendReportOrganizationSpendReportGetQueryEndDateSchema,
+	organization_id: getOrganizationSpendReportOrganizationSpendReportGetQueryOrganizationIdSchema,
 });
 
+/**
+ * Time from which to start viewing key spend
+ */
 export const globalViewSpendTagsGlobalSpendTagsGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing key spend");
 
+/**
+ * Time till which to view key spend
+ */
 export const globalViewSpendTagsGlobalSpendTagsGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view key spend");
 
+/**
+ * comman separated tags to filter on
+ */
 export const globalViewSpendTagsGlobalSpendTagsGetQueryTagsSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27007,18 +28914,9 @@ export const globalViewSpendTagsGlobalSpendTagsGetErrorSchema =
 	globalViewSpendTagsGlobalSpendTagsGetStatus422Schema;
 
 export const globalViewSpendTagsGlobalSpendTagsGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing key spend"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view key spend"),
-	tags: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("comman separated tags to filter on"),
+	start_date: globalViewSpendTagsGlobalSpendTagsGetQueryStartDateSchema,
+	end_date: globalViewSpendTagsGlobalSpendTagsGetQueryEndDateSchema,
+	tags: globalViewSpendTagsGlobalSpendTagsGetQueryTagsSchema,
 });
 
 export const calculateSpendSpendCalculatePostStatus200Schema = z.object({
@@ -27039,51 +28937,81 @@ export const calculateSpendSpendCalculatePostErrorSchema =
 
 export const calculateSpendSpendCalculatePostBodySchema = spendCalculateRequestSchema;
 
+/**
+ * Get spend logs based on api key
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Get spend logs based on api key");
 
+/**
+ * Get spend logs based on user_id
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Get spend logs based on user_id");
 
+/**
+ * request_id to get spend logs for specific request_id
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryRequestIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("request_id to get spend logs for specific request_id");
 
+/**
+ * Filter spend logs by session_id (partial string match)
+ */
 export const uiViewSpendLogsSpendLogsV2GetQuerySessionIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter spend logs by session_id (partial string match)");
 
+/**
+ * Filter spend logs by team_id
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter spend logs by team_id");
 
+/**
+ * Filter logs with spend greater than or equal to this value
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryMinSpendSchema = z
 	.union([z.number(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs with spend greater than or equal to this value");
 
+/**
+ * Filter logs with spend less than or equal to this value
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryMaxSpendSchema = z
 	.union([z.number(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs with spend less than or equal to this value");
 
+/**
+ * Time from which to start viewing key spend
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing key spend");
 
+/**
+ * Time till which to view key spend
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view key spend");
 
+/**
+ * Page number for pagination
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -27091,6 +29019,9 @@ export const uiViewSpendLogsSpendLogsV2GetQueryPageSchema = z
 	.default(1)
 	.describe("Page number for pagination");
 
+/**
+ * Number of items per page
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -27099,11 +29030,17 @@ export const uiViewSpendLogsSpendLogsV2GetQueryPageSizeSchema = z
 	.default(50)
 	.describe("Number of items per page");
 
+/**
+ * Filter logs by status (e.g., success, failure)
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryStatusFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by status (e.g., success, failure)");
 
+/**
+ * Filter logs by cache state: 'hit' or 'miss'. Miss includes legacy rows with a null/unknown cache state
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryCacheHitFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27111,6 +29048,9 @@ export const uiViewSpendLogsSpendLogsV2GetQueryCacheHitFilterSchema = z
 		"Filter logs by cache state: 'hit' or 'miss'. Miss includes legacy rows with a null/unknown cache state",
 	);
 
+/**
+ * Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment's configured key. Rows written before this flag existed match neither
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryUsedClientOauthTokenSchema = z
 	.union([z.boolean(), z.null().nullable()])
 	.optional()
@@ -27118,46 +29058,73 @@ export const uiViewSpendLogsSpendLogsV2GetQueryUsedClientOauthTokenSchema = z
 		"Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment's configured key. Rows written before this flag existed match neither",
 	);
 
+/**
+ * Filter logs by span type: llm, agent, mcp, or batch
+ */
 export const uiViewSpendLogsSpendLogsV2GetQuerySpanTypeSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by span type: llm, agent, mcp, or batch");
 
+/**
+ * Filter logs by model
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryModelSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by model");
 
+/**
+ * Filter logs by model ID (litellm model deployment id)
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryModelIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by model ID (litellm model deployment id)");
 
+/**
+ * Filter logs by model group
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryModelGroupSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by model group");
 
+/**
+ * Filter logs by key alias
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryKeyAliasSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by key alias");
 
+/**
+ * Filter logs by end user
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryEndUserSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by end user");
 
+/**
+ * Filter logs by error code (e.g., '404', '500')
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryErrorCodeSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by error code (e.g., '404', '500')");
 
+/**
+ * Filter logs by error message (partial string match)
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryErrorMessageSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs by error message (partial string match)");
 
+/**
+ * Sort logs by field: spend, total_tokens, startTime, endTime, request_duration_ms, model, or ttft_ms
+ */
 export const uiViewSpendLogsSpendLogsV2GetQuerySortBySchema = z
 	.string()
 	.optional()
@@ -27166,18 +29133,27 @@ export const uiViewSpendLogsSpendLogsV2GetQuerySortBySchema = z
 		"Sort logs by field: spend, total_tokens, startTime, endTime, request_duration_ms, model, or ttft_ms",
 	);
 
+/**
+ * Sort order: asc or desc
+ */
 export const uiViewSpendLogsSpendLogsV2GetQuerySortOrderSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.default("desc")
 	.describe("Sort order: asc or desc");
 
+/**
+ * Exclude LiteLLM internal health check requests from results
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryExcludeInternalHealthChecksSchema = z
 	.boolean()
 	.optional()
 	.default(false)
 	.describe("Exclude LiteLLM internal health check requests from results");
 
+/**
+ * Paginate over sessions instead of raw logs: one representative row per session, total counts sessions
+ */
 export const uiViewSpendLogsSpendLogsV2GetQueryGroupBySessionSchema = z
 	.boolean()
 	.optional()
@@ -27186,6 +29162,9 @@ export const uiViewSpendLogsSpendLogsV2GetQueryGroupBySessionSchema = z
 		"Paginate over sessions instead of raw logs: one representative row per session, total counts sessions",
 	);
 
+/**
+ * Keyset cursor '<last_activity>|<api_key>|<session_key>' from a previous group_by_session page. UI route only, honored when sorting by startTime
+ */
 export const uiViewSpendLogsSpendLogsV2GetQuerySessionCursorSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27193,6 +29172,9 @@ export const uiViewSpendLogsSpendLogsV2GetQuerySessionCursorSchema = z
 		"Keyset cursor '<last_activity>|<api_key>|<session_key>' from a previous group_by_session page. UI route only, honored when sorting by startTime",
 	);
 
+/**
+ * Match a log whose request_id, litellm_call_id, api_key (hash), team_id, user, end_user, session_id, or model_id equals this value. request_id matches across all time; the other columns match inside start_date/end_date, which stay required
+ */
 export const uiViewSpendLogsSpendLogsV2GetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27211,137 +29193,56 @@ export const uiViewSpendLogsSpendLogsV2GetErrorSchema =
 	uiViewSpendLogsSpendLogsV2GetStatus422Schema;
 
 export const uiViewSpendLogsSpendLogsV2GetQuerySchema = z.object({
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Get spend logs based on api key"),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Get spend logs based on user_id"),
-	request_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("request_id to get spend logs for specific request_id"),
-	session_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter spend logs by session_id (partial string match)"),
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter spend logs by team_id"),
-	min_spend: z
-		.union([z.number(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs with spend greater than or equal to this value"),
-	max_spend: z
-		.union([z.number(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs with spend less than or equal to this value"),
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing key spend"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view key spend"),
-	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
-	page_size: z.int().min(1).max(1000).optional().default(50).describe("Number of items per page"),
-	status_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by status (e.g., success, failure)"),
-	cache_hit_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter logs by cache state: 'hit' or 'miss'. Miss includes legacy rows with a null/unknown cache state",
-		),
-	used_client_oauth_token: z
-		.union([z.boolean(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment's configured key. Rows written before this flag existed match neither",
-		),
-	span_type: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by span type: llm, agent, mcp, or batch"),
-	model: z.union([z.string(), z.null().nullable()]).optional().describe("Filter logs by model"),
-	model_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by model ID (litellm model deployment id)"),
-	model_group: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by model group"),
-	key_alias: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by key alias"),
-	end_user: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by end user"),
-	error_code: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by error code (e.g., '404', '500')"),
-	error_message: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs by error message (partial string match)"),
-	sort_by: z
-		.string()
-		.optional()
-		.default("startTime")
-		.describe(
-			"Sort logs by field: spend, total_tokens, startTime, endTime, request_duration_ms, model, or ttft_ms",
-		),
-	sort_order: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.default("desc")
-		.describe("Sort order: asc or desc"),
-	exclude_internal_health_checks: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe("Exclude LiteLLM internal health check requests from results"),
-	group_by_session: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"Paginate over sessions instead of raw logs: one representative row per session, total counts sessions",
-		),
-	session_cursor: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Keyset cursor '<last_activity>|<api_key>|<session_key>' from a previous group_by_session page. UI route only, honored when sorting by startTime",
-		),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Match a log whose request_id, litellm_call_id, api_key (hash), team_id, user, end_user, session_id, or model_id equals this value. request_id matches across all time; the other columns match inside start_date/end_date, which stay required",
-		),
+	api_key: uiViewSpendLogsSpendLogsV2GetQueryApiKeySchema,
+	user_id: uiViewSpendLogsSpendLogsV2GetQueryUserIdSchema,
+	request_id: uiViewSpendLogsSpendLogsV2GetQueryRequestIdSchema,
+	session_id: uiViewSpendLogsSpendLogsV2GetQuerySessionIdSchema,
+	team_id: uiViewSpendLogsSpendLogsV2GetQueryTeamIdSchema,
+	min_spend: uiViewSpendLogsSpendLogsV2GetQueryMinSpendSchema,
+	max_spend: uiViewSpendLogsSpendLogsV2GetQueryMaxSpendSchema,
+	start_date: uiViewSpendLogsSpendLogsV2GetQueryStartDateSchema,
+	end_date: uiViewSpendLogsSpendLogsV2GetQueryEndDateSchema,
+	page: uiViewSpendLogsSpendLogsV2GetQueryPageSchema,
+	page_size: uiViewSpendLogsSpendLogsV2GetQueryPageSizeSchema,
+	status_filter: uiViewSpendLogsSpendLogsV2GetQueryStatusFilterSchema,
+	cache_hit_filter: uiViewSpendLogsSpendLogsV2GetQueryCacheHitFilterSchema,
+	used_client_oauth_token: uiViewSpendLogsSpendLogsV2GetQueryUsedClientOauthTokenSchema,
+	span_type: uiViewSpendLogsSpendLogsV2GetQuerySpanTypeSchema,
+	model: uiViewSpendLogsSpendLogsV2GetQueryModelSchema,
+	model_id: uiViewSpendLogsSpendLogsV2GetQueryModelIdSchema,
+	model_group: uiViewSpendLogsSpendLogsV2GetQueryModelGroupSchema,
+	key_alias: uiViewSpendLogsSpendLogsV2GetQueryKeyAliasSchema,
+	end_user: uiViewSpendLogsSpendLogsV2GetQueryEndUserSchema,
+	error_code: uiViewSpendLogsSpendLogsV2GetQueryErrorCodeSchema,
+	error_message: uiViewSpendLogsSpendLogsV2GetQueryErrorMessageSchema,
+	sort_by: uiViewSpendLogsSpendLogsV2GetQuerySortBySchema,
+	sort_order: uiViewSpendLogsSpendLogsV2GetQuerySortOrderSchema,
+	exclude_internal_health_checks:
+		uiViewSpendLogsSpendLogsV2GetQueryExcludeInternalHealthChecksSchema,
+	group_by_session: uiViewSpendLogsSpendLogsV2GetQueryGroupBySessionSchema,
+	session_cursor: uiViewSpendLogsSpendLogsV2GetQuerySessionCursorSchema,
+	search: uiViewSpendLogsSpendLogsV2GetQuerySearchSchema,
 });
 
+/**
+ * Get spend logs based on api key
+ */
 export const viewSpendLogsSpendLogsGetQueryApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Get spend logs based on api key");
 
+/**
+ * Get spend logs based on user_id
+ */
 export const viewSpendLogsSpendLogsGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Get spend logs based on user_id");
 
+/**
+ * request_id to get spend logs for specific request_id. If none passed then pass spend logs for all requests
+ */
 export const viewSpendLogsSpendLogsGetQueryRequestIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27349,16 +29250,25 @@ export const viewSpendLogsSpendLogsGetQueryRequestIdSchema = z
 		"request_id to get spend logs for specific request_id. If none passed then pass spend logs for all requests",
 	);
 
+/**
+ * Time from which to start viewing key spend
+ */
 export const viewSpendLogsSpendLogsGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time from which to start viewing key spend");
 
+/**
+ * Time till which to view key spend
+ */
 export const viewSpendLogsSpendLogsGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Time till which to view key spend");
 
+/**
+ * When start_date and end_date are provided, summarize=true returns aggregated data by date (legacy behavior), summarize=false returns filtered individual logs
+ */
 export const viewSpendLogsSpendLogsGetQuerySummarizeSchema = z
 	.boolean()
 	.optional()
@@ -27376,35 +29286,12 @@ export const viewSpendLogsSpendLogsGetResponseSchema = viewSpendLogsSpendLogsGet
 export const viewSpendLogsSpendLogsGetErrorSchema = viewSpendLogsSpendLogsGetStatus422Schema;
 
 export const viewSpendLogsSpendLogsGetQuerySchema = z.object({
-	api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Get spend logs based on api key"),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Get spend logs based on user_id"),
-	request_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"request_id to get spend logs for specific request_id. If none passed then pass spend logs for all requests",
-		),
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time from which to start viewing key spend"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Time till which to view key spend"),
-	summarize: z
-		.boolean()
-		.optional()
-		.default(true)
-		.describe(
-			"When start_date and end_date are provided, summarize=true returns aggregated data by date (legacy behavior), summarize=false returns filtered individual logs",
-		),
+	api_key: viewSpendLogsSpendLogsGetQueryApiKeySchema,
+	user_id: viewSpendLogsSpendLogsGetQueryUserIdSchema,
+	request_id: viewSpendLogsSpendLogsGetQueryRequestIdSchema,
+	start_date: viewSpendLogsSpendLogsGetQueryStartDateSchema,
+	end_date: viewSpendLogsSpendLogsGetQueryEndDateSchema,
+	summarize: viewSpendLogsSpendLogsGetQuerySummarizeSchema,
 });
 
 export const globalSpendResetGlobalSpendResetPostStatus200Schema = z.looseObject({});
@@ -27770,11 +29657,14 @@ export const getTeamCallbacksTeamTeamIdCallbackGetErrorSchema =
 	getTeamCallbacksTeamTeamIdCallbackGetStatus422Schema;
 
 export const getTeamCallbacksTeamTeamIdCallbackGetPathSchema = z.object({
-	team_id: z.string(),
+	team_id: getTeamCallbacksTeamTeamIdCallbackGetPathTeamIdSchema,
 });
 
 export const addTeamCallbacksTeamTeamIdCallbackPostPathTeamIdSchema = z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const addTeamCallbacksTeamTeamIdCallbackPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27795,16 +29685,11 @@ export const addTeamCallbacksTeamTeamIdCallbackPostErrorSchema =
 export const addTeamCallbacksTeamTeamIdCallbackPostBodySchema = addTeamCallbackSchema;
 
 export const addTeamCallbacksTeamTeamIdCallbackPostPathSchema = z.object({
-	team_id: z.string(),
+	team_id: addTeamCallbacksTeamTeamIdCallbackPostPathTeamIdSchema,
 });
 
 export const addTeamCallbacksTeamTeamIdCallbackPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": addTeamCallbacksTeamTeamIdCallbackPostHeaderLitellmChangedBySchema,
 });
 
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathTeamIdSchema = z.string();
@@ -27812,6 +29697,9 @@ export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathTeamIdSch
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathCallbackNameSchema =
 	z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27832,21 +29720,20 @@ export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteErrorSchema =
 	deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteStatus422Schema;
 
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathSchema = z.object({
-	team_id: z.string(),
-	callback_name: z.string(),
+	team_id: deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathTeamIdSchema,
+	callback_name: deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePathCallbackNameSchema,
 });
 
 export const deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by":
+		deleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteHeaderLitellmChangedBySchema,
 });
 
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostPathTeamIdSchema = z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27866,16 +29753,11 @@ export const disableTeamLoggingTeamTeamIdDisableLoggingPostErrorSchema =
 	disableTeamLoggingTeamTeamIdDisableLoggingPostStatus422Schema;
 
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostPathSchema = z.object({
-	team_id: z.string(),
+	team_id: disableTeamLoggingTeamTeamIdDisableLoggingPostPathTeamIdSchema,
 });
 
 export const disableTeamLoggingTeamTeamIdDisableLoggingPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": disableTeamLoggingTeamTeamIdDisableLoggingPostHeaderLitellmChangedBySchema,
 });
 
 export const newBudgetBudgetNewPostStatus200Schema = z.looseObject({});
@@ -27922,7 +29804,7 @@ export const budgetSettingsBudgetSettingsGetErrorSchema =
 	budgetSettingsBudgetSettingsGetStatus422Schema;
 
 export const budgetSettingsBudgetSettingsGetQuerySchema = z.object({
-	budget_id: z.string(),
+	budget_id: budgetSettingsBudgetSettingsGetQueryBudgetIdSchema,
 });
 
 export const listBudgetBudgetListGetStatus200Schema = z.looseObject({});
@@ -27955,7 +29837,7 @@ export const getKubernetesPodsModelModelIdKubernetesPodsGetErrorSchema =
 	getKubernetesPodsModelModelIdKubernetesPodsGetStatus422Schema;
 
 export const getKubernetesPodsModelModelIdKubernetesPodsGetPathSchema = z.object({
-	model_id: z.string(),
+	model_id: getKubernetesPodsModelModelIdKubernetesPodsGetPathModelIdSchema,
 });
 
 export const patchModelModelModelIdUpdatePatchPathModelIdSchema = z.string();
@@ -27973,9 +29855,12 @@ export const patchModelModelModelIdUpdatePatchErrorSchema =
 export const patchModelModelModelIdUpdatePatchBodySchema = patchModelRequestSchema;
 
 export const patchModelModelModelIdUpdatePatchPathSchema = z.object({
-	model_id: z.string(),
+	model_id: patchModelModelModelIdUpdatePatchPathModelIdSchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const blockModelModelBlockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -27997,14 +29882,12 @@ export const blockModelModelBlockPostErrorSchema = blockModelModelBlockPostStatu
 export const blockModelModelBlockPostBodySchema = blockModelRequestSchema;
 
 export const blockModelModelBlockPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": blockModelModelBlockPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const unblockModelModelUnblockPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -28027,12 +29910,7 @@ export const unblockModelModelUnblockPostErrorSchema = unblockModelModelUnblockP
 export const unblockModelModelUnblockPostBodySchema = blockModelRequestSchema;
 
 export const unblockModelModelUnblockPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": unblockModelModelUnblockPostHeaderLitellmChangedBySchema,
 });
 
 export const deleteModelModelDeletePostStatus200Schema = z.looseObject({});
@@ -28118,9 +29996,12 @@ export const getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultProm
 
 export const getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetQuerySchema =
 	z.object({
-		context_window_size: z.int().optional().default(3),
-		tier_labels: z.union([z.string(), z.null().nullable()]).optional(),
-		classification_rubric: z.union([classificationRubricSchema, z.null().nullable()]).optional(),
+		context_window_size:
+			getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetQueryContextWindowSizeSchema,
+		tier_labels:
+			getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetQueryTierLabelsSchema,
+		classification_rubric:
+			getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetQueryClassificationRubricSchema,
 	});
 
 export const previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200Schema =
@@ -28173,7 +30054,7 @@ export const getAccessGroupInfoAccessGroupAccessGroupInfoGetErrorSchema =
 	getAccessGroupInfoAccessGroupAccessGroupInfoGetStatus422Schema;
 
 export const getAccessGroupInfoAccessGroupAccessGroupInfoGetPathSchema = z.object({
-	access_group: z.string(),
+	access_group: getAccessGroupInfoAccessGroupAccessGroupInfoGetPathAccessGroupSchema,
 });
 
 export const updateAccessGroupAccessGroupAccessGroupUpdatePutPathAccessGroupSchema = z.string();
@@ -28194,7 +30075,7 @@ export const updateAccessGroupAccessGroupAccessGroupUpdatePutBodySchema =
 	updateModelGroupRequestSchema;
 
 export const updateAccessGroupAccessGroupAccessGroupUpdatePutPathSchema = z.object({
-	access_group: z.string(),
+	access_group: updateAccessGroupAccessGroupAccessGroupUpdatePutPathAccessGroupSchema,
 });
 
 export const deleteAccessGroupAccessGroupAccessGroupDeleteDeletePathAccessGroupSchema = z.string();
@@ -28212,7 +30093,7 @@ export const deleteAccessGroupAccessGroupAccessGroupDeleteDeleteErrorSchema =
 	deleteAccessGroupAccessGroupAccessGroupDeleteDeleteStatus422Schema;
 
 export const deleteAccessGroupAccessGroupAccessGroupDeleteDeletePathSchema = z.object({
-	access_group: z.string(),
+	access_group: deleteAccessGroupAccessGroupAccessGroupDeleteDeletePathAccessGroupSchema,
 });
 
 export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetPathAccessGroupSchema = z.string();
@@ -28230,7 +30111,7 @@ export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetErrorSchema =
 	getAccessGroupBudgetAccessGroupAccessGroupBudgetGetStatus422Schema;
 
 export const getAccessGroupBudgetAccessGroupAccessGroupBudgetGetPathSchema = z.object({
-	access_group: z.string(),
+	access_group: getAccessGroupBudgetAccessGroupAccessGroupBudgetGetPathAccessGroupSchema,
 });
 
 export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutPathAccessGroupSchema = z.string();
@@ -28251,7 +30132,7 @@ export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutBodySchema =
 	accessGroupBudgetRequestSchema;
 
 export const setAccessGroupBudgetAccessGroupAccessGroupBudgetPutPathSchema = z.object({
-	access_group: z.string(),
+	access_group: setAccessGroupBudgetAccessGroupAccessGroupBudgetPutPathAccessGroupSchema,
 });
 
 export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeletePathAccessGroupSchema =
@@ -28270,7 +30151,7 @@ export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeleteErrorSchem
 	deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeleteStatus422Schema;
 
 export const deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeletePathSchema = z.object({
-	access_group: z.string(),
+	access_group: deleteAccessGroupBudgetAccessGroupAccessGroupBudgetDeletePathAccessGroupSchema,
 });
 
 export const validateComplexityRouterConfigAutoRouterValidateComplexityRouterConfigPostStatus200Schema =
@@ -28322,21 +30203,33 @@ export const previewAutoRouterRoutingAutoRouterTestRoutingPostBodySchema =
 		"A single request to classify against a complexity-router config that need not be saved yet.\n\nCarries the same fields the serving path carries, so a dry run classifies what a real turn\nwould classify. `messages`, `system` and `tools` are forwarded to the routing hook untranslated,\nwhich is why they are typed loosely: the hook reads whatever dialect the surface produced, and\nvalidating them against one surface's schema would reject the others.",
 	);
 
+/**
+ * YYYY-MM-DD UTC, inclusive (defaults to 30 days before end_date)
+ */
 export const getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD UTC, inclusive (defaults to 30 days before end_date)");
 
+/**
+ * YYYY-MM-DD UTC, inclusive (defaults to today)
+ */
 export const getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD UTC, inclusive (defaults to today)");
 
+/**
+ * Filter to one virtual key token hash
+ */
 export const getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryApiKeySchema = z
 	.union([z.string().min(1), z.null().nullable()])
 	.optional()
 	.describe("Filter to one virtual key token hash");
 
+/**
+ * Filter to one canonical internal user recorded on each turn
+ */
 export const getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryUserIdSchema = z
 	.union([z.string().min(1), z.null().nullable()])
 	.optional()
@@ -28357,24 +30250,15 @@ export const getAutoRouterBenchmarksAutoRouterBenchmarksGetErrorSchema =
 	getAutoRouterBenchmarksAutoRouterBenchmarksGetStatus422Schema;
 
 export const getAutoRouterBenchmarksAutoRouterBenchmarksGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD UTC, inclusive (defaults to 30 days before end_date)"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD UTC, inclusive (defaults to today)"),
-	api_key: z
-		.union([z.string().min(1), z.null().nullable()])
-		.optional()
-		.describe("Filter to one virtual key token hash"),
-	user_id: z
-		.union([z.string().min(1), z.null().nullable()])
-		.optional()
-		.describe("Filter to one canonical internal user recorded on each turn"),
+	start_date: getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryStartDateSchema,
+	end_date: getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryEndDateSchema,
+	api_key: getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryApiKeySchema,
+	user_id: getAutoRouterBenchmarksAutoRouterBenchmarksGetQueryUserIdSchema,
 });
 
+/**
+ * The client session id (x-*-session-id header) the turns were sent under
+ */
 export const getAutoRouterSessionAutoRouterSessionGetQuerySessionIdSchema = z
 	.string()
 	.describe("The client session id (x-*-session-id header) the turns were sent under");
@@ -28393,9 +30277,7 @@ export const getAutoRouterSessionAutoRouterSessionGetErrorSchema =
 	getAutoRouterSessionAutoRouterSessionGetStatus422Schema;
 
 export const getAutoRouterSessionAutoRouterSessionGetQuerySchema = z.object({
-	session_id: z
-		.string()
-		.describe("The client session id (x-*-session-id header) the turns were sent under"),
+	session_id: getAutoRouterSessionAutoRouterSessionGetQuerySessionIdSchema,
 });
 
 export const startShadowEvalAutoRouterShadowEvalStartPostStatus201Schema =
@@ -28417,16 +30299,25 @@ export const startShadowEvalAutoRouterShadowEvalStartPostBodySchema =
 		"Start duplicating one or more targets' traffic for blind comparison against an auto-router.\n\nA target is a virtual key, a team, or a user; each becomes its own leg with its own\nbudget and stop state. Team and user targets match on the identity every request\ncarries after auth (user_api_key_team_id / user_api_key_user_id), so they cover\nJWT-authenticated traffic, which presents no virtual key at all.",
 	);
 
+/**
+ * Kind of target to filter on; requires target_id
+ */
 export const listShadowEvalJobsAutoRouterShadowEvalGetQueryTargetTypeSchema = z
 	.union([z.enum(["key", "team", "user"]), z.null().nullable()])
 	.optional()
 	.describe("Kind of target to filter on; requires target_id");
 
+/**
+ * Filter to jobs that shadow this target, alone or alongside others
+ */
 export const listShadowEvalJobsAutoRouterShadowEvalGetQueryTargetIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter to jobs that shadow this target, alone or alongside others");
 
+/**
+ * Newest jobs to return
+ */
 export const listShadowEvalJobsAutoRouterShadowEvalGetQueryLimitSchema = z
 	.int()
 	.min(1)
@@ -28448,15 +30339,9 @@ export const listShadowEvalJobsAutoRouterShadowEvalGetErrorSchema =
 	listShadowEvalJobsAutoRouterShadowEvalGetStatus422Schema;
 
 export const listShadowEvalJobsAutoRouterShadowEvalGetQuerySchema = z.object({
-	target_type: z
-		.union([z.enum(["key", "team", "user"]), z.null().nullable()])
-		.optional()
-		.describe("Kind of target to filter on; requires target_id"),
-	target_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter to jobs that shadow this target, alone or alongside others"),
-	limit: z.int().min(1).max(200).optional().default(50).describe("Newest jobs to return"),
+	target_type: listShadowEvalJobsAutoRouterShadowEvalGetQueryTargetTypeSchema,
+	target_id: listShadowEvalJobsAutoRouterShadowEvalGetQueryTargetIdSchema,
+	limit: listShadowEvalJobsAutoRouterShadowEvalGetQueryLimitSchema,
 });
 
 export const getShadowEvalJobAutoRouterShadowEvalJobIdGetPathJobIdSchema = z.string();
@@ -28476,7 +30361,7 @@ export const getShadowEvalJobAutoRouterShadowEvalJobIdGetErrorSchema =
 	getShadowEvalJobAutoRouterShadowEvalJobIdGetStatus422Schema;
 
 export const getShadowEvalJobAutoRouterShadowEvalJobIdGetPathSchema = z.object({
-	job_id: z.string(),
+	job_id: getShadowEvalJobAutoRouterShadowEvalJobIdGetPathJobIdSchema,
 });
 
 export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPathJobIdSchema = z.string();
@@ -28496,7 +30381,7 @@ export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostErrorSchema =
 	stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostStatus422Schema;
 
 export const stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPathSchema = z.object({
-	job_id: z.string(),
+	job_id: stopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPathJobIdSchema,
 });
 
 export const newTagTagNewPostStatus200Schema = z.looseObject({});
@@ -28529,6 +30414,9 @@ export const infoTagTagInfoPostErrorSchema = infoTagTagInfoPostStatus422Schema;
 
 export const infoTagTagInfoPostBodySchema = tagInfoRequestSchema;
 
+/**
+ * Optional start date (YYYY-MM-DD). When provided together with end_date, dynamic tags are limited to those active in the window. Stored tags are always returned.
+ */
 export const listTagsTagListGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -28536,6 +30424,9 @@ export const listTagsTagListGetQueryStartDateSchema = z
 		"Optional start date (YYYY-MM-DD). When provided together with end_date, dynamic tags are limited to those active in the window. Stored tags are always returned.",
 	);
 
+/**
+ * Optional end date (YYYY-MM-DD). Must be given with start_date.
+ */
 export const listTagsTagListGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -28550,16 +30441,8 @@ export const listTagsTagListGetResponseSchema = listTagsTagListGetStatus200Schem
 export const listTagsTagListGetErrorSchema = listTagsTagListGetStatus422Schema;
 
 export const listTagsTagListGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Optional start date (YYYY-MM-DD). When provided together with end_date, dynamic tags are limited to those active in the window. Stored tags are always returned.",
-		),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Optional end date (YYYY-MM-DD). Must be given with start_date."),
+	start_date: listTagsTagListGetQueryStartDateSchema,
+	end_date: listTagsTagListGetQueryEndDateSchema,
 });
 
 export const deleteTagTagDeletePostStatus200Schema = z.looseObject({});
@@ -28611,13 +30494,13 @@ export const getTagDailyActivityTagDailyActivityGetErrorSchema =
 	getTagDailyActivityTagDailyActivityGetStatus422Schema;
 
 export const getTagDailyActivityTagDailyActivityGetQuerySchema = z.object({
-	tags: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(10),
+	tags: getTagDailyActivityTagDailyActivityGetQueryTagsSchema,
+	start_date: getTagDailyActivityTagDailyActivityGetQueryStartDateSchema,
+	end_date: getTagDailyActivityTagDailyActivityGetQueryEndDateSchema,
+	model: getTagDailyActivityTagDailyActivityGetQueryModelSchema,
+	api_key: getTagDailyActivityTagDailyActivityGetQueryApiKeySchema,
+	page: getTagDailyActivityTagDailyActivityGetQueryPageSchema,
+	page_size: getTagDailyActivityTagDailyActivityGetQueryPageSizeSchema,
 });
 
 export const listWorkflowRunsV1WorkflowsRunsGetQueryWorkflowTypeSchema = z
@@ -28646,9 +30529,9 @@ export const listWorkflowRunsV1WorkflowsRunsGetErrorSchema =
 	listWorkflowRunsV1WorkflowsRunsGetStatus422Schema;
 
 export const listWorkflowRunsV1WorkflowsRunsGetQuerySchema = z.object({
-	workflow_type: z.union([z.string(), z.null().nullable()]).optional(),
-	status: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.int().min(1).max(250).optional().default(50),
+	workflow_type: listWorkflowRunsV1WorkflowsRunsGetQueryWorkflowTypeSchema,
+	status: listWorkflowRunsV1WorkflowsRunsGetQueryStatusSchema,
+	limit: listWorkflowRunsV1WorkflowsRunsGetQueryLimitSchema,
 });
 
 export const createWorkflowRunV1WorkflowsRunsPostStatus200Schema = z.looseObject({});
@@ -28676,7 +30559,7 @@ export const getWorkflowRunV1WorkflowsRunsRunIdGetErrorSchema =
 	getWorkflowRunV1WorkflowsRunsRunIdGetStatus422Schema;
 
 export const getWorkflowRunV1WorkflowsRunsRunIdGetPathSchema = z.object({
-	run_id: z.string(),
+	run_id: getWorkflowRunV1WorkflowsRunsRunIdGetPathRunIdSchema,
 });
 
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchPathRunIdSchema = z.string();
@@ -28694,7 +30577,7 @@ export const updateWorkflowRunV1WorkflowsRunsRunIdPatchErrorSchema =
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchBodySchema = workflowRunUpdateRequestSchema;
 
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchPathSchema = z.object({
-	run_id: z.string(),
+	run_id: updateWorkflowRunV1WorkflowsRunsRunIdPatchPathRunIdSchema,
 });
 
 export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetPathRunIdSchema = z.string();
@@ -28718,11 +30601,11 @@ export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetErrorSchema =
 	listWorkflowEventsV1WorkflowsRunsRunIdEventsGetStatus422Schema;
 
 export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetPathSchema = z.object({
-	run_id: z.string(),
+	run_id: listWorkflowEventsV1WorkflowsRunsRunIdEventsGetPathRunIdSchema,
 });
 
 export const listWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuerySchema = z.object({
-	limit: z.int().min(1).max(500).optional().default(100),
+	limit: listWorkflowEventsV1WorkflowsRunsRunIdEventsGetQueryLimitSchema,
 });
 
 export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostPathRunIdSchema = z.string();
@@ -28742,7 +30625,7 @@ export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostBodySchema =
 	workflowEventCreateRequestSchema;
 
 export const appendWorkflowEventV1WorkflowsRunsRunIdEventsPostPathSchema = z.object({
-	run_id: z.string(),
+	run_id: appendWorkflowEventV1WorkflowsRunsRunIdEventsPostPathRunIdSchema,
 });
 
 export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPathRunIdSchema = z.string();
@@ -28766,11 +30649,11 @@ export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetErrorSchema =
 	listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetStatus422Schema;
 
 export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPathSchema = z.object({
-	run_id: z.string(),
+	run_id: listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPathRunIdSchema,
 });
 
 export const listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuerySchema = z.object({
-	limit: z.int().min(1).max(500).optional().default(100),
+	limit: listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQueryLimitSchema,
 });
 
 export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPathRunIdSchema = z.string();
@@ -28792,14 +30675,20 @@ export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostBodySchema =
 	workflowMessageCreateRequestSchema;
 
 export const appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPathSchema = z.object({
-	run_id: z.string(),
+	run_id: appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPathRunIdSchema,
 });
 
+/**
+ * Filter by exact key match.
+ */
 export const listMemoryV1MemoryGetQueryKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by exact key match.");
 
+/**
+ * Filter by key prefix (Redis-style namespace scan). Mutually exclusive with `key`; if both are provided, `key_prefix` wins.
+ */
 export const listMemoryV1MemoryGetQueryKeyPrefixSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -28807,6 +30696,9 @@ export const listMemoryV1MemoryGetQueryKeyPrefixSchema = z
 		"Filter by key prefix (Redis-style namespace scan). Mutually exclusive with `key`; if both are provided, `key_prefix` wins.",
 	);
 
+/**
+ * Match entries whose key starts with this value or whose memory_id equals it. Takes precedence over `key_prefix` and `key` when provided.
+ */
 export const listMemoryV1MemoryGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -28832,21 +30724,11 @@ export const listMemoryV1MemoryGetResponseSchema = listMemoryV1MemoryGetStatus20
 export const listMemoryV1MemoryGetErrorSchema = listMemoryV1MemoryGetStatus422Schema;
 
 export const listMemoryV1MemoryGetQuerySchema = z.object({
-	key: z.union([z.string(), z.null().nullable()]).optional().describe("Filter by exact key match."),
-	key_prefix: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by key prefix (Redis-style namespace scan). Mutually exclusive with `key`; if both are provided, `key_prefix` wins.",
-		),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Match entries whose key starts with this value or whose memory_id equals it. Takes precedence over `key_prefix` and `key` when provided.",
-		),
-	page: z.int().min(1).optional().default(1),
-	page_size: z.int().min(1).max(500).optional().default(50),
+	key: listMemoryV1MemoryGetQueryKeySchema,
+	key_prefix: listMemoryV1MemoryGetQueryKeyPrefixSchema,
+	search: listMemoryV1MemoryGetQuerySearchSchema,
+	page: listMemoryV1MemoryGetQueryPageSchema,
+	page_size: listMemoryV1MemoryGetQueryPageSizeSchema,
 });
 
 export const createMemoryV1MemoryPostStatus200Schema = liteLLMMemoryRowSchema;
@@ -28870,7 +30752,7 @@ export const getMemoryV1MemoryKeyGetResponseSchema = getMemoryV1MemoryKeyGetStat
 export const getMemoryV1MemoryKeyGetErrorSchema = getMemoryV1MemoryKeyGetStatus422Schema;
 
 export const getMemoryV1MemoryKeyGetPathSchema = z.object({
-	key: z.string(),
+	key: getMemoryV1MemoryKeyGetPathKeySchema,
 });
 
 export const upsertMemoryV1MemoryKeyPutPathKeySchema = z.string();
@@ -28886,7 +30768,7 @@ export const upsertMemoryV1MemoryKeyPutErrorSchema = upsertMemoryV1MemoryKeyPutS
 export const upsertMemoryV1MemoryKeyPutBodySchema = memoryUpdateRequestSchema;
 
 export const upsertMemoryV1MemoryKeyPutPathSchema = z.object({
-	key: z.string(),
+	key: upsertMemoryV1MemoryKeyPutPathKeySchema,
 });
 
 export const deleteMemoryV1MemoryKeyDeletePathKeySchema = z.string();
@@ -28902,7 +30784,7 @@ export const deleteMemoryV1MemoryKeyDeleteErrorSchema =
 	deleteMemoryV1MemoryKeyDeleteStatus422Schema;
 
 export const deleteMemoryV1MemoryKeyDeletePathSchema = z.object({
-	key: z.string(),
+	key: deleteMemoryV1MemoryKeyDeletePathKeySchema,
 });
 
 export const serviceConnectionLensServiceGetStatus200Schema = serviceConnectionSchema;
@@ -28921,7 +30803,7 @@ export const lensRequestLensPathGetResponseSchema = lensRequestLensPathGetStatus
 export const lensRequestLensPathGetErrorSchema = lensRequestLensPathGetStatus422Schema;
 
 export const lensRequestLensPathGetPathSchema = z.object({
-	path: z.string(),
+	path: lensRequestLensPathGetPathPathSchema,
 });
 
 export const lensRequestLensPathPutPathPathSchema = z.string();
@@ -28935,7 +30817,7 @@ export const lensRequestLensPathPutResponseSchema = lensRequestLensPathPutStatus
 export const lensRequestLensPathPutErrorSchema = lensRequestLensPathPutStatus422Schema;
 
 export const lensRequestLensPathPutPathSchema = z.object({
-	path: z.string(),
+	path: lensRequestLensPathPutPathPathSchema,
 });
 
 export const lensRequestLensPathPostPathPathSchema = z.string();
@@ -28949,7 +30831,7 @@ export const lensRequestLensPathPostResponseSchema = lensRequestLensPathPostStat
 export const lensRequestLensPathPostErrorSchema = lensRequestLensPathPostStatus422Schema;
 
 export const lensRequestLensPathPostPathSchema = z.object({
-	path: z.string(),
+	path: lensRequestLensPathPostPathPathSchema,
 });
 
 export const lensRequestLensPathPatchPathPathSchema = z.string();
@@ -28963,7 +30845,7 @@ export const lensRequestLensPathPatchResponseSchema = lensRequestLensPathPatchSt
 export const lensRequestLensPathPatchErrorSchema = lensRequestLensPathPatchStatus422Schema;
 
 export const lensRequestLensPathPatchPathSchema = z.object({
-	path: z.string(),
+	path: lensRequestLensPathPatchPathPathSchema,
 });
 
 export const lensRequestLensPathDeletePathPathSchema = z.string();
@@ -28977,7 +30859,7 @@ export const lensRequestLensPathDeleteResponseSchema = lensRequestLensPathDelete
 export const lensRequestLensPathDeleteErrorSchema = lensRequestLensPathDeleteStatus422Schema;
 
 export const lensRequestLensPathDeletePathSchema = z.object({
-	path: z.string(),
+	path: lensRequestLensPathDeletePathPathSchema,
 });
 
 export const lensRequestLensGetQueryPathSchema = z.string().optional().default("");
@@ -28991,7 +30873,7 @@ export const lensRequestLensGetResponseSchema = lensRequestLensGetStatus200Schem
 export const lensRequestLensGetErrorSchema = lensRequestLensGetStatus422Schema;
 
 export const lensRequestLensGetQuerySchema = z.object({
-	path: z.string().optional().default(""),
+	path: lensRequestLensGetQueryPathSchema,
 });
 
 export const lensRequestLensPutQueryPathSchema = z.string().optional().default("");
@@ -29005,7 +30887,7 @@ export const lensRequestLensPutResponseSchema = lensRequestLensPutStatus200Schem
 export const lensRequestLensPutErrorSchema = lensRequestLensPutStatus422Schema;
 
 export const lensRequestLensPutQuerySchema = z.object({
-	path: z.string().optional().default(""),
+	path: lensRequestLensPutQueryPathSchema,
 });
 
 export const lensRequestLensPostQueryPathSchema = z.string().optional().default("");
@@ -29019,7 +30901,7 @@ export const lensRequestLensPostResponseSchema = lensRequestLensPostStatus200Sch
 export const lensRequestLensPostErrorSchema = lensRequestLensPostStatus422Schema;
 
 export const lensRequestLensPostQuerySchema = z.object({
-	path: z.string().optional().default(""),
+	path: lensRequestLensPostQueryPathSchema,
 });
 
 export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
@@ -29033,7 +30915,7 @@ export const lensRequestLensPatchResponseSchema = lensRequestLensPatchStatus200S
 export const lensRequestLensPatchErrorSchema = lensRequestLensPatchStatus422Schema;
 
 export const lensRequestLensPatchQuerySchema = z.object({
-	path: z.string().optional().default(""),
+	path: lensRequestLensPatchQueryPathSchema,
 });
 
 export const lensRequestLensDeleteQueryPathSchema = z.string().optional().default("");
@@ -29047,7 +30929,7 @@ export const lensRequestLensDeleteResponseSchema = lensRequestLensDeleteStatus20
 export const lensRequestLensDeleteErrorSchema = lensRequestLensDeleteStatus422Schema;
 
 export const lensRequestLensDeleteQuerySchema = z.object({
-	path: z.string().optional().default(""),
+	path: lensRequestLensDeleteQueryPathSchema,
 });
 
 export const listPluginsApiPluginsGetStatus200Schema = z.array(z.record(z.string(), z.string()));
@@ -29070,7 +30952,7 @@ export const pluginAuthTokenApiPluginsAuthTokenGetErrorSchema =
 	pluginAuthTokenApiPluginsAuthTokenGetStatus422Schema;
 
 export const pluginAuthTokenApiPluginsAuthTokenGetQuerySchema = z.object({
-	plugin_name: z.string().optional().default("litellm-platform-plugin"),
+	plugin_name: pluginAuthTokenApiPluginsAuthTokenGetQueryPluginNameSchema,
 });
 
 export const predictCacheCostCostPredictCachePostStatus200Schema = cachePredictionResponseSchema;
@@ -29165,10 +31047,16 @@ export const estimateCostCostEstimatePostBodySchema = costEstimateRequestSchema.
 	"Request body for /cost/estimate endpoint.",
 );
 
+/**
+ * First day of the Usage page filter, YYYY-MM-DD
+ */
 export const getSubscriptionUsageSubscriptionAccountsUsageGetQueryStartDateSchema = z
 	.string()
 	.describe("First day of the Usage page filter, YYYY-MM-DD");
 
+/**
+ * Last day of the Usage page filter, YYYY-MM-DD
+ */
 export const getSubscriptionUsageSubscriptionAccountsUsageGetQueryEndDateSchema = z
 	.string()
 	.describe("Last day of the Usage page filter, YYYY-MM-DD");
@@ -29186,8 +31074,8 @@ export const getSubscriptionUsageSubscriptionAccountsUsageGetErrorSchema =
 	getSubscriptionUsageSubscriptionAccountsUsageGetStatus422Schema;
 
 export const getSubscriptionUsageSubscriptionAccountsUsageGetQuerySchema = z.object({
-	start_date: z.string().describe("First day of the Usage page filter, YYYY-MM-DD"),
-	end_date: z.string().describe("Last day of the Usage page filter, YYYY-MM-DD"),
+	start_date: getSubscriptionUsageSubscriptionAccountsUsageGetQueryStartDateSchema,
+	end_date: getSubscriptionUsageSubscriptionAccountsUsageGetQueryEndDateSchema,
 });
 
 export const newSubscriptionAccountSubscriptionAccountsNewPostStatus200Schema =
@@ -29273,12 +31161,15 @@ export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetErr
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuerySchema = z.object(
 	{
-		start_date: z.iso.datetime({ offset: true }),
-		end_date: z.iso.datetime({ offset: true }),
-		page_size: z.int().min(1).max(100).optional().default(50),
-		filter: z.enum(["all", "injected", "hits"]).optional().default("all"),
-		cursor_start_time: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
-		cursor_request_id: z.union([z.string().min(1), z.null().nullable()]).optional(),
+		start_date:
+			getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryStartDateSchema,
+		end_date: getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryEndDateSchema,
+		page_size: getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryPageSizeSchema,
+		filter: getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryFilterSchema,
+		cursor_start_time:
+			getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryCursorStartTimeSchema,
+		cursor_request_id:
+			getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryCursorRequestIdSchema,
 	},
 );
 
@@ -29324,14 +31215,11 @@ export const getFallbackFallbackModelGetResponseSchema = getFallbackFallbackMode
 export const getFallbackFallbackModelGetErrorSchema = getFallbackFallbackModelGetStatus422Schema;
 
 export const getFallbackFallbackModelGetPathSchema = z.object({
-	model: z.string(),
+	model: getFallbackFallbackModelGetPathModelSchema,
 });
 
 export const getFallbackFallbackModelGetQuerySchema = z.object({
-	fallback_type: z
-		.enum(["general", "context_window", "content_policy"])
-		.optional()
-		.default("general"),
+	fallback_type: getFallbackFallbackModelGetQueryFallbackTypeSchema,
 });
 
 export const deleteFallbackFallbackModelDeletePathModelSchema = z.string();
@@ -29353,14 +31241,11 @@ export const deleteFallbackFallbackModelDeleteErrorSchema =
 	deleteFallbackFallbackModelDeleteStatus422Schema;
 
 export const deleteFallbackFallbackModelDeletePathSchema = z.object({
-	model: z.string(),
+	model: deleteFallbackFallbackModelDeletePathModelSchema,
 });
 
 export const deleteFallbackFallbackModelDeleteQuerySchema = z.object({
-	fallback_type: z
-		.enum(["general", "context_window", "content_policy"])
-		.optional()
-		.default("general"),
+	fallback_type: deleteFallbackFallbackModelDeleteQueryFallbackTypeSchema,
 });
 
 export const getCacheSettingsCacheSettingsGetStatus200Schema = cacheSettingsResponseSchema;
@@ -29368,6 +31253,9 @@ export const getCacheSettingsCacheSettingsGetStatus200Schema = cacheSettingsResp
 export const getCacheSettingsCacheSettingsGetResponseSchema =
 	getCacheSettingsCacheSettingsGetStatus200Schema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const updateCacheSettingsCacheSettingsPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -29388,12 +31276,7 @@ export const updateCacheSettingsCacheSettingsPostErrorSchema =
 export const updateCacheSettingsCacheSettingsPostBodySchema = cacheSettingsUpdateRequestSchema;
 
 export const updateCacheSettingsCacheSettingsPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": updateCacheSettingsCacheSettingsPostHeaderLitellmChangedBySchema,
 });
 
 export const testCacheConnectionCacheSettingsTestPostStatus200Schema = cacheTestResponseSchema;
@@ -29429,8 +31312,9 @@ export const getDeprecationAlertStateAlertingModelDeprecationsStateGetErrorSchem
 	getDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422Schema;
 
 export const getDeprecationAlertStateAlertingModelDeprecationsStateGetQuerySchema = z.object({
-	model: z.string().min(1).max(1024),
-	deprecation_date: z.iso.date(),
+	model: getDeprecationAlertStateAlertingModelDeprecationsStateGetQueryModelSchema,
+	deprecation_date:
+		getDeprecationAlertStateAlertingModelDeprecationsStateGetQueryDeprecationDateSchema,
 });
 
 export const updateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus200Schema =
@@ -29477,10 +31361,10 @@ export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetErrorSchema 
 	getDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422Schema;
 
 export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuerySchema = z.object({
-	model: z.string().min(1).max(1024),
-	api_keys: z.array(z.string()).min(1).max(100),
-	start_date: z.iso.date(),
-	end_date: z.iso.date(),
+	model: getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryModelSchema,
+	api_keys: getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryApiKeysSchema,
+	start_date: getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryStartDateSchema,
+	end_date: getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryEndDateSchema,
 });
 
 export const getCoordinationRedisSettingsCoordinationRedisSettingsGetStatus200Schema =
@@ -29489,6 +31373,9 @@ export const getCoordinationRedisSettingsCoordinationRedisSettingsGetStatus200Sc
 export const getCoordinationRedisSettingsCoordinationRedisSettingsGetResponseSchema =
 	getCoordinationRedisSettingsCoordinationRedisSettingsGetStatus200Schema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const updateCoordinationRedisSettingsCoordinationRedisSettingsPostHeaderLitellmChangedBySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -29513,12 +31400,8 @@ export const updateCoordinationRedisSettingsCoordinationRedisSettingsPostBodySch
 	coordinationRedisSettingsRequestSchema;
 
 export const updateCoordinationRedisSettingsCoordinationRedisSettingsPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by":
+		updateCoordinationRedisSettingsCoordinationRedisSettingsPostHeaderLitellmChangedBySchema,
 });
 
 export const checkCoordinationRedisConnectionCoordinationRedisSettingsTestPostStatus200Schema =
@@ -29542,11 +31425,17 @@ export const getDistinctUserAgentTagsTagDistinctGetStatus200Schema =
 export const getDistinctUserAgentTagsTagDistinctGetResponseSchema =
 	getDistinctUserAgentTagsTagDistinctGetStatus200Schema;
 
+/**
+ * Filter by specific tag (optional)
+ */
 export const getDailyActiveUsersTagDauGetQueryTagFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific tag (optional)");
 
+/**
+ * Filter by multiple specific tags (optional, takes precedence over tag_filter)
+ */
 export const getDailyActiveUsersTagDauGetQueryTagFiltersSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
@@ -29563,21 +31452,21 @@ export const getDailyActiveUsersTagDauGetResponseSchema =
 export const getDailyActiveUsersTagDauGetErrorSchema = getDailyActiveUsersTagDauGetStatus422Schema;
 
 export const getDailyActiveUsersTagDauGetQuerySchema = z.object({
-	tag_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by specific tag (optional)"),
-	tag_filters: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+	tag_filter: getDailyActiveUsersTagDauGetQueryTagFilterSchema,
+	tag_filters: getDailyActiveUsersTagDauGetQueryTagFiltersSchema,
 });
 
+/**
+ * Filter by specific tag (optional)
+ */
 export const getWeeklyActiveUsersTagWauGetQueryTagFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific tag (optional)");
 
+/**
+ * Filter by multiple specific tags (optional, takes precedence over tag_filter)
+ */
 export const getWeeklyActiveUsersTagWauGetQueryTagFiltersSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
@@ -29595,21 +31484,21 @@ export const getWeeklyActiveUsersTagWauGetErrorSchema =
 	getWeeklyActiveUsersTagWauGetStatus422Schema;
 
 export const getWeeklyActiveUsersTagWauGetQuerySchema = z.object({
-	tag_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by specific tag (optional)"),
-	tag_filters: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+	tag_filter: getWeeklyActiveUsersTagWauGetQueryTagFilterSchema,
+	tag_filters: getWeeklyActiveUsersTagWauGetQueryTagFiltersSchema,
 });
 
+/**
+ * Filter by specific tag (optional)
+ */
 export const getMonthlyActiveUsersTagMauGetQueryTagFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific tag (optional)");
 
+/**
+ * Filter by multiple specific tags (optional, takes precedence over tag_filter)
+ */
 export const getMonthlyActiveUsersTagMauGetQueryTagFiltersSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
@@ -29627,29 +31516,35 @@ export const getMonthlyActiveUsersTagMauGetErrorSchema =
 	getMonthlyActiveUsersTagMauGetStatus422Schema;
 
 export const getMonthlyActiveUsersTagMauGetQuerySchema = z.object({
-	tag_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by specific tag (optional)"),
-	tag_filters: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+	tag_filter: getMonthlyActiveUsersTagMauGetQueryTagFilterSchema,
+	tag_filters: getMonthlyActiveUsersTagMauGetQueryTagFiltersSchema,
 });
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getTagSummaryTagSummaryGetQueryStartDateSchema = z
 	.string()
 	.describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getTagSummaryTagSummaryGetQueryEndDateSchema = z
 	.string()
 	.describe("End date in YYYY-MM-DD format");
 
+/**
+ * Filter by specific tag (optional)
+ */
 export const getTagSummaryTagSummaryGetQueryTagFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific tag (optional)");
 
+/**
+ * Filter by multiple specific tags (optional, takes precedence over tag_filter)
+ */
 export const getTagSummaryTagSummaryGetQueryTagFiltersSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
@@ -29666,28 +31561,31 @@ export const getTagSummaryTagSummaryGetResponseSchema = getTagSummaryTagSummaryG
 export const getTagSummaryTagSummaryGetErrorSchema = getTagSummaryTagSummaryGetStatus422Schema;
 
 export const getTagSummaryTagSummaryGetQuerySchema = z.object({
-	start_date: z.string().describe("Start date in YYYY-MM-DD format"),
-	end_date: z.string().describe("End date in YYYY-MM-DD format"),
-	tag_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by specific tag (optional)"),
-	tag_filters: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
+	start_date: getTagSummaryTagSummaryGetQueryStartDateSchema,
+	end_date: getTagSummaryTagSummaryGetQueryEndDateSchema,
+	tag_filter: getTagSummaryTagSummaryGetQueryTagFilterSchema,
+	tag_filters: getTagSummaryTagSummaryGetQueryTagFiltersSchema,
 });
 
+/**
+ * Filter by specific tag (optional)
+ */
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryTagFilterSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by specific tag (optional)");
 
+/**
+ * Filter by multiple specific tags (optional, takes precedence over tag_filter)
+ */
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryTagFiltersSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
 	.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)");
 
+/**
+ * Page number for pagination
+ */
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -29695,6 +31593,9 @@ export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryPageSchema =
 	.default(1)
 	.describe("Page number for pagination");
 
+/**
+ * Items per page
+ */
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryPageSizeSchema = z
 	.int()
 	.min(1)
@@ -29716,23 +31617,23 @@ export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetErrorSchema =
 	getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetStatus422Schema;
 
 export const getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQuerySchema = z.object({
-	tag_filter: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by specific tag (optional)"),
-	tag_filters: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Filter by multiple specific tags (optional, takes precedence over tag_filter)"),
-	page: z.int().min(1).optional().default(1).describe("Page number for pagination"),
-	page_size: z.int().min(1).max(1000).optional().default(50).describe("Items per page"),
+	tag_filter: getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryTagFilterSchema,
+	tag_filters: getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryTagFiltersSchema,
+	page: getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryPageSchema,
+	page_size: getPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQueryPageSizeSchema,
 });
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getGatewayDailyActivityGatewayDailyActivityGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getGatewayDailyActivityGatewayDailyActivityGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -29751,21 +31652,21 @@ export const getGatewayDailyActivityGatewayDailyActivityGetErrorSchema =
 	getGatewayDailyActivityGatewayDailyActivityGetStatus422Schema;
 
 export const getGatewayDailyActivityGatewayDailyActivityGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Start date in YYYY-MM-DD format"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("End date in YYYY-MM-DD format"),
+	start_date: getGatewayDailyActivityGatewayDailyActivityGetQueryStartDateSchema,
+	end_date: getGatewayDailyActivityGatewayDailyActivityGetQueryEndDateSchema,
 });
 
+/**
+ * Start date in YYYY-MM-DD format
+ */
 export const getRequestErrorActivityGatewayErrorsActivityGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Start date in YYYY-MM-DD format");
 
+/**
+ * End date in YYYY-MM-DD format
+ */
 export const getRequestErrorActivityGatewayErrorsActivityGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -29784,14 +31685,8 @@ export const getRequestErrorActivityGatewayErrorsActivityGetErrorSchema =
 	getRequestErrorActivityGatewayErrorsActivityGetStatus422Schema;
 
 export const getRequestErrorActivityGatewayErrorsActivityGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Start date in YYYY-MM-DD format"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("End date in YYYY-MM-DD format"),
+	start_date: getRequestErrorActivityGatewayErrorsActivityGetQueryStartDateSchema,
+	end_date: getRequestErrorActivityGatewayErrorsActivityGetQueryEndDateSchema,
 });
 
 export const recordUiEventTelemetryUiEventsPostStatus200Schema = UIEventAcceptedSchema;
@@ -29806,12 +31701,18 @@ export const recordUiEventTelemetryUiEventsPostErrorSchema =
 
 export const recordUiEventTelemetryUiEventsPostBodySchema = UIEventBodySchema;
 
+/**
+ * window_end of the last report already exported
+ */
 export const exportTelemetryReportsTelemetryReportsGetQueryAfterSchema = z
 	.number()
 	.optional()
 	.default(0)
 	.describe("window_end of the last report already exported");
 
+/**
+ * id of the last report already exported
+ */
 export const exportTelemetryReportsTelemetryReportsGetQueryAfterIdSchema = z
 	.string()
 	.optional()
@@ -29837,13 +31738,9 @@ export const exportTelemetryReportsTelemetryReportsGetErrorSchema =
 	exportTelemetryReportsTelemetryReportsGetStatus422Schema;
 
 export const exportTelemetryReportsTelemetryReportsGetQuerySchema = z.object({
-	after: z
-		.number()
-		.optional()
-		.default(0)
-		.describe("window_end of the last report already exported"),
-	after_id: z.string().optional().default("").describe("id of the last report already exported"),
-	limit: z.int().min(1).max(5000).optional().default(500),
+	after: exportTelemetryReportsTelemetryReportsGetQueryAfterSchema,
+	after_id: exportTelemetryReportsTelemetryReportsGetQueryAfterIdSchema,
+	limit: exportTelemetryReportsTelemetryReportsGetQueryLimitSchema,
 });
 
 export const getTelemetrySettingsTelemetrySettingsGetStatus200Schema =
@@ -29904,46 +31801,73 @@ export const getAuditLogsAuditGetQueryPageSizeSchema = z
 	.optional()
 	.default(10);
 
+/**
+ * Filter by user or system that performed the action
+ */
 export const getAuditLogsAuditGetQueryChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by user or system that performed the action");
 
+/**
+ * Filter by API key hash that performed the action
+ */
 export const getAuditLogsAuditGetQueryChangedByApiKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by API key hash that performed the action");
 
+/**
+ * Filter by action type (create, update, delete)
+ */
 export const getAuditLogsAuditGetQueryActionSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by action type (create, update, delete)");
 
+/**
+ * Filter by table name that was modified
+ */
 export const getAuditLogsAuditGetQueryTableNameSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by table name that was modified");
 
+/**
+ * Filter by ID of the object that was modified
+ */
 export const getAuditLogsAuditGetQueryObjectIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by ID of the object that was modified");
 
+/**
+ * Filter logs after this date
+ */
 export const getAuditLogsAuditGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs after this date");
 
+/**
+ * Filter logs before this date
+ */
 export const getAuditLogsAuditGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter logs before this date");
 
+/**
+ * Filter by team_id present in before_value or updated_values JSON (PostgreSQL only)
+ */
 export const getAuditLogsAuditGetQueryObjectTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter by team_id present in before_value or updated_values JSON (PostgreSQL only)");
 
+/**
+ * Filter by token (key hash) present in before_value or updated_values JSON (PostgreSQL only)
+ */
 export const getAuditLogsAuditGetQueryObjectKeyHashSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -29951,16 +31875,25 @@ export const getAuditLogsAuditGetQueryObjectKeyHashSchema = z
 		"Filter by token (key hash) present in before_value or updated_values JSON (PostgreSQL only)",
 	);
 
+/**
+ * Match a row whose id, object_id, changed_by, or changed_by_api_key equals this value
+ */
 export const getAuditLogsAuditGetQuerySearchSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Match a row whose id, object_id, changed_by, or changed_by_api_key equals this value");
 
+/**
+ * Column to sort by (e.g. 'updated_at', 'action', 'table_name')
+ */
 export const getAuditLogsAuditGetQuerySortBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Column to sort by (e.g. 'updated_at', 'action', 'table_name')");
 
+/**
+ * Sort order ('asc' or 'desc')
+ */
 export const getAuditLogsAuditGetQuerySortOrderSchema = z
 	.string()
 	.optional()
@@ -29978,57 +31911,20 @@ export const getAuditLogsAuditGetResponseSchema = getAuditLogsAuditGetStatus200S
 export const getAuditLogsAuditGetErrorSchema = getAuditLogsAuditGetStatus422Schema;
 
 export const getAuditLogsAuditGetQuerySchema = z.object({
-	page: z.int().min(1).optional().default(1),
-	page_size: z.int().min(1).max(100).optional().default(10),
-	changed_by: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by user or system that performed the action"),
-	changed_by_api_key: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by API key hash that performed the action"),
-	action: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by action type (create, update, delete)"),
-	table_name: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by table name that was modified"),
-	object_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by ID of the object that was modified"),
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs after this date"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter logs before this date"),
-	object_team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter by team_id present in before_value or updated_values JSON (PostgreSQL only)"),
-	object_key_hash: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter by token (key hash) present in before_value or updated_values JSON (PostgreSQL only)",
-		),
-	search: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Match a row whose id, object_id, changed_by, or changed_by_api_key equals this value",
-		),
-	sort_by: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Column to sort by (e.g. 'updated_at', 'action', 'table_name')"),
-	sort_order: z.string().optional().default("desc").describe("Sort order ('asc' or 'desc')"),
+	page: getAuditLogsAuditGetQueryPageSchema,
+	page_size: getAuditLogsAuditGetQueryPageSizeSchema,
+	changed_by: getAuditLogsAuditGetQueryChangedBySchema,
+	changed_by_api_key: getAuditLogsAuditGetQueryChangedByApiKeySchema,
+	action: getAuditLogsAuditGetQueryActionSchema,
+	table_name: getAuditLogsAuditGetQueryTableNameSchema,
+	object_id: getAuditLogsAuditGetQueryObjectIdSchema,
+	start_date: getAuditLogsAuditGetQueryStartDateSchema,
+	end_date: getAuditLogsAuditGetQueryEndDateSchema,
+	object_team_id: getAuditLogsAuditGetQueryObjectTeamIdSchema,
+	object_key_hash: getAuditLogsAuditGetQueryObjectKeyHashSchema,
+	search: getAuditLogsAuditGetQuerySearchSchema,
+	sort_by: getAuditLogsAuditGetQuerySortBySchema,
+	sort_order: getAuditLogsAuditGetQuerySortOrderSchema,
 });
 
 export const getAuditLogByIdAuditIdGetPathIdSchema = z.string();
@@ -30052,7 +31948,7 @@ export const getAuditLogByIdAuditIdGetErrorSchema = z.union([
 ]);
 
 export const getAuditLogByIdAuditIdGetPathSchema = z.object({
-	id: z.string(),
+	id: getAuditLogByIdAuditIdGetPathIdSchema,
 });
 
 export const availableEnterpriseUsersUserAvailableUsersGetStatus200Schema = z.looseObject({});
@@ -30117,7 +32013,7 @@ export const projectInfoProjectInfoGetResponseSchema = projectInfoProjectInfoGet
 export const projectInfoProjectInfoGetErrorSchema = projectInfoProjectInfoGetStatus422Schema;
 
 export const projectInfoProjectInfoGetQuerySchema = z.object({
-	project_id: z.string(),
+	project_id: projectInfoProjectInfoGetQueryProjectIdSchema,
 });
 
 export const listProjectsProjectListGetStatus200Schema = z.array(liteLLMProjectTableSchema);
@@ -30158,7 +32054,7 @@ export const agentSkillsArchiveV1SkillsSkillIdArchiveGetErrorSchema =
 	agentSkillsArchiveV1SkillsSkillIdArchiveGetStatus422Schema;
 
 export const agentSkillsArchiveV1SkillsSkillIdArchiveGetPathSchema = z.object({
-	skill_id: z.string(),
+	skill_id: agentSkillsArchiveV1SkillsSkillIdArchiveGetPathSkillIdSchema,
 });
 
 export const googleGenerateContentModelsModelNameGenerateContentPostPathModelNameSchema =
@@ -30178,7 +32074,7 @@ export const googleGenerateContentModelsModelNameGenerateContentPostErrorSchema 
 	googleGenerateContentModelsModelNameGenerateContentPostStatus422Schema;
 
 export const googleGenerateContentModelsModelNameGenerateContentPostPathSchema = z.object({
-	model_name: z.string(),
+	model_name: googleGenerateContentModelsModelNameGenerateContentPostPathModelNameSchema,
 });
 
 export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostPathModelNameSchema =
@@ -30197,7 +32093,7 @@ export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostErrorS
 	googleGenerateContentV1BetaModelsModelNameGenerateContentPostStatus422Schema;
 
 export const googleGenerateContentV1BetaModelsModelNameGenerateContentPostPathSchema = z.object({
-	model_name: z.string(),
+	model_name: googleGenerateContentV1BetaModelsModelNameGenerateContentPostPathModelNameSchema,
 });
 
 export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPostPathModelNameSchema =
@@ -30217,7 +32113,8 @@ export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPost
 
 export const googleStreamGenerateContentModelsModelNameStreamGenerateContentPostPathSchema =
 	z.object({
-		model_name: z.string(),
+		model_name:
+			googleStreamGenerateContentModelsModelNameStreamGenerateContentPostPathModelNameSchema,
 	});
 
 export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostPathModelNameSchema =
@@ -30237,7 +32134,8 @@ export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateConte
 
 export const googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostPathSchema =
 	z.object({
-		model_name: z.string(),
+		model_name:
+			googleStreamGenerateContentV1BetaModelsModelNameStreamGenerateContentPostPathModelNameSchema,
 	});
 
 export const googleCountTokensModelsModelNameCountTokensPostPathModelNameSchema = z.string();
@@ -30257,7 +32155,7 @@ export const googleCountTokensModelsModelNameCountTokensPostErrorSchema =
 	googleCountTokensModelsModelNameCountTokensPostStatus422Schema;
 
 export const googleCountTokensModelsModelNameCountTokensPostPathSchema = z.object({
-	model_name: z.string(),
+	model_name: googleCountTokensModelsModelNameCountTokensPostPathModelNameSchema,
 });
 
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostPathModelNameSchema = z.string();
@@ -30277,7 +32175,7 @@ export const googleCountTokensV1BetaModelsModelNameCountTokensPostErrorSchema =
 	googleCountTokensV1BetaModelsModelNameCountTokensPostStatus422Schema;
 
 export const googleCountTokensV1BetaModelsModelNameCountTokensPostPathSchema = z.object({
-	model_name: z.string(),
+	model_name: googleCountTokensV1BetaModelsModelNameCountTokensPostPathModelNameSchema,
 });
 
 export const createInteractionInteractionsPostStatus200Schema = z.looseObject({});
@@ -30303,7 +32201,7 @@ export const getInteractionInteractionsInteractionIdGetErrorSchema =
 	getInteractionInteractionsInteractionIdGetStatus422Schema;
 
 export const getInteractionInteractionsInteractionIdGetPathSchema = z.object({
-	interaction_id: z.string(),
+	interaction_id: getInteractionInteractionsInteractionIdGetPathInteractionIdSchema,
 });
 
 export const deleteInteractionInteractionsInteractionIdDeletePathInteractionIdSchema = z.string();
@@ -30320,7 +32218,7 @@ export const deleteInteractionInteractionsInteractionIdDeleteErrorSchema =
 	deleteInteractionInteractionsInteractionIdDeleteStatus422Schema;
 
 export const deleteInteractionInteractionsInteractionIdDeletePathSchema = z.object({
-	interaction_id: z.string(),
+	interaction_id: deleteInteractionInteractionsInteractionIdDeletePathInteractionIdSchema,
 });
 
 export const getInteractionV1BetaInteractionsInteractionIdGetPathInteractionIdSchema = z.string();
@@ -30337,7 +32235,7 @@ export const getInteractionV1BetaInteractionsInteractionIdGetErrorSchema =
 	getInteractionV1BetaInteractionsInteractionIdGetStatus422Schema;
 
 export const getInteractionV1BetaInteractionsInteractionIdGetPathSchema = z.object({
-	interaction_id: z.string(),
+	interaction_id: getInteractionV1BetaInteractionsInteractionIdGetPathInteractionIdSchema,
 });
 
 export const deleteInteractionV1BetaInteractionsInteractionIdDeletePathInteractionIdSchema =
@@ -30357,7 +32255,7 @@ export const deleteInteractionV1BetaInteractionsInteractionIdDeleteErrorSchema =
 	deleteInteractionV1BetaInteractionsInteractionIdDeleteStatus422Schema;
 
 export const deleteInteractionV1BetaInteractionsInteractionIdDeletePathSchema = z.object({
-	interaction_id: z.string(),
+	interaction_id: deleteInteractionV1BetaInteractionsInteractionIdDeletePathInteractionIdSchema,
 });
 
 export const cancelInteractionInteractionsInteractionIdCancelPostPathInteractionIdSchema =
@@ -30377,7 +32275,7 @@ export const cancelInteractionInteractionsInteractionIdCancelPostErrorSchema =
 	cancelInteractionInteractionsInteractionIdCancelPostStatus422Schema;
 
 export const cancelInteractionInteractionsInteractionIdCancelPostPathSchema = z.object({
-	interaction_id: z.string(),
+	interaction_id: cancelInteractionInteractionsInteractionIdCancelPostPathInteractionIdSchema,
 });
 
 export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostPathInteractionIdSchema =
@@ -30396,7 +32294,7 @@ export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostErrorSche
 	cancelInteractionV1BetaInteractionsInteractionIdCancelPostStatus422Schema;
 
 export const cancelInteractionV1BetaInteractionsInteractionIdCancelPostPathSchema = z.object({
-	interaction_id: z.string(),
+	interaction_id: cancelInteractionV1BetaInteractionsInteractionIdCancelPostPathInteractionIdSchema,
 });
 
 export const proxyMcpRouteMcpProxyGetStatus200Schema = z.looseObject({});
@@ -30469,7 +32367,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema,
 });
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPutPathToolsetNameSchema = z.string();
@@ -30485,7 +32383,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPutErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpPutPathToolsetNameSchema,
 });
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
@@ -30501,7 +32399,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema,
 });
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
@@ -30517,7 +32415,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema,
 });
 
 export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
@@ -30533,7 +32431,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema,
 });
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
@@ -30549,7 +32447,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema,
 });
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathToolsetNameSchema = z.string();
@@ -30565,7 +32463,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
-	toolset_name: z.string(),
+	toolset_name: toolsetMcpRouteToolsetToolsetNameMcpOptionsPathToolsetNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
@@ -30581,7 +32479,7 @@ export const dynamicMcpRouteMcpServerNameMcpGetErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpGetStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpGetPathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
@@ -30597,7 +32495,7 @@ export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
@@ -30613,7 +32511,7 @@ export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
@@ -30629,7 +32527,7 @@ export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
@@ -30645,7 +32543,7 @@ export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
@@ -30661,7 +32559,7 @@ export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema,
 });
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsPathMcpServerNameSchema = z.string();
@@ -30677,7 +32575,7 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpOptionsStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
-	mcp_server_name: z.string(),
+	mcp_server_name: dynamicMcpRouteMcpServerNameMcpOptionsPathMcpServerNameSchema,
 });
 
 export const websocketVertexAiLivePassthroughEndpointStatus101Schema = z.unknown();
@@ -30833,9 +32731,9 @@ export const listGuardrailSubmissionsGuardrailsSubmissionsGetErrorSchema =
 	listGuardrailSubmissionsGuardrailsSubmissionsGetStatus422Schema;
 
 export const listGuardrailSubmissionsGuardrailsSubmissionsGetQuerySchema = z.object({
-	status: z.union([z.string(), z.null().nullable()]).optional(),
-	team_id: z.union([z.string(), z.null().nullable()]).optional(),
-	search: z.union([z.string(), z.null().nullable()]).optional(),
+	status: listGuardrailSubmissionsGuardrailsSubmissionsGetQueryStatusSchema,
+	team_id: listGuardrailSubmissionsGuardrailsSubmissionsGetQueryTeamIdSchema,
+	search: listGuardrailSubmissionsGuardrailsSubmissionsGetQuerySearchSchema,
 });
 
 export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetPathGuardrailIdSchema =
@@ -30854,7 +32752,7 @@ export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetErrorSchem
 	getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetStatus422Schema;
 
 export const getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetPathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: getGuardrailSubmissionGuardrailsSubmissionsGuardrailIdGetPathGuardrailIdSchema,
 });
 
 export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostPathGuardrailIdSchema =
@@ -30874,7 +32772,8 @@ export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePo
 
 export const approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostPathSchema =
 	z.object({
-		guardrail_id: z.string(),
+		guardrail_id:
+			approveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostPathGuardrailIdSchema,
 	});
 
 export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPathGuardrailIdSchema =
@@ -30894,7 +32793,8 @@ export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPost
 
 export const rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPathSchema =
 	z.object({
-		guardrail_id: z.string(),
+		guardrail_id:
+			rejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPathGuardrailIdSchema,
 	});
 
 export const testCustomCodeGuardrailGuardrailsTestCustomCodePostStatus200Schema =
@@ -30939,7 +32839,7 @@ export const getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetErrorSchema =
 	getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetStatus422Schema;
 
 export const getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetPathSchema = z.object({
-	category_name: z.string(),
+	category_name: getCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetPathCategoryNameSchema,
 });
 
 export const getMajorAirlinesGuardrailsUiMajorAirlinesGetStatus200Schema = z.looseObject({});
@@ -30977,12 +32877,12 @@ export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetErrorSchema
 	guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetStatus422Schema;
 
 export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetPathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetPathGuardrailIdSchema,
 });
 
 export const guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetQuerySchema = z.object({
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
+	start_date: guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetQueryStartDateSchema,
+	end_date: guardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetQueryEndDateSchema,
 });
 
 export const guardrailsUsageLogsGuardrailsUsageLogsGetQueryGuardrailIdSchema = z
@@ -31029,20 +32929,26 @@ export const guardrailsUsageLogsGuardrailsUsageLogsGetErrorSchema =
 	guardrailsUsageLogsGuardrailsUsageLogsGetStatus422Schema;
 
 export const guardrailsUsageLogsGuardrailsUsageLogsGetQuerySchema = z.object({
-	guardrail_id: z.union([z.string(), z.null().nullable()]).optional(),
-	policy_id: z.union([z.string(), z.null().nullable()]).optional(),
-	page: z.int().min(1).optional().default(1),
-	page_size: z.int().min(1).max(100).optional().default(50),
-	action: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
+	guardrail_id: guardrailsUsageLogsGuardrailsUsageLogsGetQueryGuardrailIdSchema,
+	policy_id: guardrailsUsageLogsGuardrailsUsageLogsGetQueryPolicyIdSchema,
+	page: guardrailsUsageLogsGuardrailsUsageLogsGetQueryPageSchema,
+	page_size: guardrailsUsageLogsGuardrailsUsageLogsGetQueryPageSizeSchema,
+	action: guardrailsUsageLogsGuardrailsUsageLogsGetQueryActionSchema,
+	start_date: guardrailsUsageLogsGuardrailsUsageLogsGetQueryStartDateSchema,
+	end_date: guardrailsUsageLogsGuardrailsUsageLogsGetQueryEndDateSchema,
 });
 
+/**
+ * YYYY-MM-DD
+ */
 export const guardrailsUsageOverviewGuardrailsUsageOverviewGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD");
 
+/**
+ * YYYY-MM-DD
+ */
 export const guardrailsUsageOverviewGuardrailsUsageOverviewGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -31061,8 +32967,8 @@ export const guardrailsUsageOverviewGuardrailsUsageOverviewGetErrorSchema =
 	guardrailsUsageOverviewGuardrailsUsageOverviewGetStatus422Schema;
 
 export const guardrailsUsageOverviewGuardrailsUsageOverviewGetQuerySchema = z.object({
-	start_date: z.union([z.string(), z.null().nullable()]).optional().describe("YYYY-MM-DD"),
-	end_date: z.union([z.string(), z.null().nullable()]).optional().describe("YYYY-MM-DD"),
+	start_date: guardrailsUsageOverviewGuardrailsUsageOverviewGetQueryStartDateSchema,
+	end_date: guardrailsUsageOverviewGuardrailsUsageOverviewGetQueryEndDateSchema,
 });
 
 export const validateBlockedWordsFileGuardrailsValidateBlockedWordsFilePostStatus200Schema =
@@ -31095,7 +33001,7 @@ export const getGuardrailInfoGuardrailsGuardrailIdGetErrorSchema =
 	getGuardrailInfoGuardrailsGuardrailIdGetStatus422Schema;
 
 export const getGuardrailInfoGuardrailsGuardrailIdGetPathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: getGuardrailInfoGuardrailsGuardrailIdGetPathGuardrailIdSchema,
 });
 
 export const updateGuardrailGuardrailsGuardrailIdPutPathGuardrailIdSchema = z.string();
@@ -31113,7 +33019,7 @@ export const updateGuardrailGuardrailsGuardrailIdPutErrorSchema =
 export const updateGuardrailGuardrailsGuardrailIdPutBodySchema = updateGuardrailRequestSchema;
 
 export const updateGuardrailGuardrailsGuardrailIdPutPathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: updateGuardrailGuardrailsGuardrailIdPutPathGuardrailIdSchema,
 });
 
 export const patchGuardrailGuardrailsGuardrailIdPatchPathGuardrailIdSchema = z.string();
@@ -31131,7 +33037,7 @@ export const patchGuardrailGuardrailsGuardrailIdPatchErrorSchema =
 export const patchGuardrailGuardrailsGuardrailIdPatchBodySchema = patchGuardrailRequestSchema;
 
 export const patchGuardrailGuardrailsGuardrailIdPatchPathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: patchGuardrailGuardrailsGuardrailIdPatchPathGuardrailIdSchema,
 });
 
 export const deleteGuardrailGuardrailsGuardrailIdDeletePathGuardrailIdSchema = z.string();
@@ -31147,7 +33053,7 @@ export const deleteGuardrailGuardrailsGuardrailIdDeleteErrorSchema =
 	deleteGuardrailGuardrailsGuardrailIdDeleteStatus422Schema;
 
 export const deleteGuardrailGuardrailsGuardrailIdDeletePathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: deleteGuardrailGuardrailsGuardrailIdDeletePathGuardrailIdSchema,
 });
 
 export const getGuardrailInfoGuardrailsGuardrailIdInfoGetPathGuardrailIdSchema = z.string();
@@ -31164,14 +33070,20 @@ export const getGuardrailInfoGuardrailsGuardrailIdInfoGetErrorSchema =
 	getGuardrailInfoGuardrailsGuardrailIdInfoGetStatus422Schema;
 
 export const getGuardrailInfoGuardrailsGuardrailIdInfoGetPathSchema = z.object({
-	guardrail_id: z.string(),
+	guardrail_id: getGuardrailInfoGuardrailsGuardrailIdInfoGetPathGuardrailIdSchema,
 });
 
+/**
+ * YYYY-MM-DD
+ */
 export const policiesUsageOverviewPoliciesUsageOverviewGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD");
 
+/**
+ * YYYY-MM-DD
+ */
 export const policiesUsageOverviewPoliciesUsageOverviewGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -31190,8 +33102,8 @@ export const policiesUsageOverviewPoliciesUsageOverviewGetErrorSchema =
 	policiesUsageOverviewPoliciesUsageOverviewGetStatus422Schema;
 
 export const policiesUsageOverviewPoliciesUsageOverviewGetQuerySchema = z.object({
-	start_date: z.union([z.string(), z.null().nullable()]).optional().describe("YYYY-MM-DD"),
-	end_date: z.union([z.string(), z.null().nullable()]).optional().describe("YYYY-MM-DD"),
+	start_date: policiesUsageOverviewPoliciesUsageOverviewGetQueryStartDateSchema,
+	end_date: policiesUsageOverviewPoliciesUsageOverviewGetQueryEndDateSchema,
 });
 
 export const listGuardrailsV2V2GuardrailsListGetStatus200Schema = listGuardrailsResponseSchema;
@@ -31213,7 +33125,7 @@ export const getPolicyInfoPolicyInfoPolicyNameGetErrorSchema =
 	getPolicyInfoPolicyInfoPolicyNameGetStatus422Schema;
 
 export const getPolicyInfoPolicyInfoPolicyNameGetPathSchema = z.object({
-	policy_name: z.string(),
+	policy_name: getPolicyInfoPolicyInfoPolicyNameGetPathPolicyNameSchema,
 });
 
 export const listPoliciesPolicyListGetStatus200Schema = policyListResponseSchema.describe(
@@ -31400,7 +33312,7 @@ export const getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetErrorSchema =
 	getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetStatus422Schema;
 
 export const getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPathSchema = z.object({
-	attachment_id: z.string(),
+	attachment_id: getPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPathAttachmentIdSchema,
 });
 
 export const deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePathAttachmentIdSchema =
@@ -31419,7 +33331,7 @@ export const deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteErrorSch
 	deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus422Schema;
 
 export const deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePathSchema = z.object({
-	attachment_id: z.string(),
+	attachment_id: deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePathAttachmentIdSchema,
 });
 
 export const comparePolicyVersionsPoliciesCompareGetQueryVersionASchema = z.string();
@@ -31438,8 +33350,8 @@ export const comparePolicyVersionsPoliciesCompareGetErrorSchema =
 	comparePolicyVersionsPoliciesCompareGetStatus422Schema;
 
 export const comparePolicyVersionsPoliciesCompareGetQuerySchema = z.object({
-	version_a: z.string(),
-	version_b: z.string(),
+	version_a: comparePolicyVersionsPoliciesCompareGetQueryVersionASchema,
+	version_b: comparePolicyVersionsPoliciesCompareGetQueryVersionBSchema,
 });
 
 export const listPoliciesPoliciesListGetQueryVersionStatusSchema = z
@@ -31457,7 +33369,7 @@ export const listPoliciesPoliciesListGetResponseSchema = listPoliciesPoliciesLis
 export const listPoliciesPoliciesListGetErrorSchema = listPoliciesPoliciesListGetStatus422Schema;
 
 export const listPoliciesPoliciesListGetQuerySchema = z.object({
-	version_status: z.union([z.string(), z.null().nullable()]).optional(),
+	version_status: listPoliciesPoliciesListGetQueryVersionStatusSchema,
 });
 
 export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeletePathPolicyNameSchema =
@@ -31476,7 +33388,7 @@ export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeleteError
 	deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeleteStatus422Schema;
 
 export const deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeletePathSchema = z.object({
-	policy_name: z.string(),
+	policy_name: deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDeletePathPolicyNameSchema,
 });
 
 export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetPathPolicyNameSchema = z.string();
@@ -31494,7 +33406,7 @@ export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetErrorSchema =
 	listPolicyVersionsPoliciesNamePolicyNameVersionsGetStatus422Schema;
 
 export const listPolicyVersionsPoliciesNamePolicyNameVersionsGetPathSchema = z.object({
-	policy_name: z.string(),
+	policy_name: listPolicyVersionsPoliciesNamePolicyNameVersionsGetPathPolicyNameSchema,
 });
 
 export const createPolicyVersionPoliciesNamePolicyNameVersionsPostPathPolicyNameSchema = z.string();
@@ -31517,9 +33429,12 @@ export const createPolicyVersionPoliciesNamePolicyNameVersionsPostBodySchema =
 	);
 
 export const createPolicyVersionPoliciesNamePolicyNameVersionsPostPathSchema = z.object({
-	policy_name: z.string(),
+	policy_name: createPolicyVersionPoliciesNamePolicyNameVersionsPostPathPolicyNameSchema,
 });
 
+/**
+ * Force a DB sync before resolving. Default uses in-memory cache.
+ */
 export const resolvePoliciesForContextPoliciesResolvePostQueryForceSyncSchema = z
 	.boolean()
 	.optional()
@@ -31546,11 +33461,7 @@ export const resolvePoliciesForContextPoliciesResolvePostBodySchema =
 	);
 
 export const resolvePoliciesForContextPoliciesResolvePostQuerySchema = z.object({
-	force_sync: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe("Force a DB sync before resolving. Default uses in-memory cache."),
+	force_sync: resolvePoliciesForContextPoliciesResolvePostQueryForceSyncSchema,
 });
 
 export const testPipelinePoliciesTestPipelinePostStatus200Schema = z.looseObject({});
@@ -31581,7 +33492,7 @@ export const getPolicyPoliciesPolicyIdGetResponseSchema =
 export const getPolicyPoliciesPolicyIdGetErrorSchema = getPolicyPoliciesPolicyIdGetStatus422Schema;
 
 export const getPolicyPoliciesPolicyIdGetPathSchema = z.object({
-	policy_id: z.string(),
+	policy_id: getPolicyPoliciesPolicyIdGetPathPolicyIdSchema,
 });
 
 export const updatePolicyPoliciesPolicyIdPutPathPolicyIdSchema = z.string();
@@ -31603,7 +33514,7 @@ export const updatePolicyPoliciesPolicyIdPutBodySchema = policyUpdateRequestSche
 );
 
 export const updatePolicyPoliciesPolicyIdPutPathSchema = z.object({
-	policy_id: z.string(),
+	policy_id: updatePolicyPoliciesPolicyIdPutPathPolicyIdSchema,
 });
 
 export const deletePolicyPoliciesPolicyIdDeletePathPolicyIdSchema = z.string();
@@ -31619,7 +33530,7 @@ export const deletePolicyPoliciesPolicyIdDeleteErrorSchema =
 	deletePolicyPoliciesPolicyIdDeleteStatus422Schema;
 
 export const deletePolicyPoliciesPolicyIdDeletePathSchema = z.object({
-	policy_id: z.string(),
+	policy_id: deletePolicyPoliciesPolicyIdDeletePathPolicyIdSchema,
 });
 
 export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPathPolicyIdSchema =
@@ -31638,7 +33549,7 @@ export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetErrorSche
 	getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetStatus422Schema;
 
 export const getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPathSchema = z.object({
-	policy_id: z.string(),
+	policy_id: getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPathPolicyIdSchema,
 });
 
 export const updatePolicyVersionStatusPoliciesPolicyIdStatusPutPathPolicyIdSchema = z.string();
@@ -31661,7 +33572,7 @@ export const updatePolicyVersionStatusPoliciesPolicyIdStatusPutBodySchema =
 	);
 
 export const updatePolicyVersionStatusPoliciesPolicyIdStatusPutPathSchema = z.object({
-	policy_id: z.string(),
+	policy_id: updatePolicyVersionStatusPoliciesPolicyIdStatusPutPathPolicyIdSchema,
 });
 
 export const getAgentDailyActivityAgentDailyActivityGetQueryAgentIdsSchema = z
@@ -31710,16 +33621,19 @@ export const getAgentDailyActivityAgentDailyActivityGetErrorSchema =
 	getAgentDailyActivityAgentDailyActivityGetStatus422Schema;
 
 export const getAgentDailyActivityAgentDailyActivityGetQuerySchema = z.object({
-	agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
-	start_date: z.union([z.string(), z.null().nullable()]).optional(),
-	end_date: z.union([z.string(), z.null().nullable()]).optional(),
-	model: z.union([z.string(), z.null().nullable()]).optional(),
-	api_key: z.union([z.string(), z.null().nullable()]).optional(),
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(10),
-	exclude_agent_ids: z.union([z.string(), z.null().nullable()]).optional(),
+	agent_ids: getAgentDailyActivityAgentDailyActivityGetQueryAgentIdsSchema,
+	start_date: getAgentDailyActivityAgentDailyActivityGetQueryStartDateSchema,
+	end_date: getAgentDailyActivityAgentDailyActivityGetQueryEndDateSchema,
+	model: getAgentDailyActivityAgentDailyActivityGetQueryModelSchema,
+	api_key: getAgentDailyActivityAgentDailyActivityGetQueryApiKeySchema,
+	page: getAgentDailyActivityAgentDailyActivityGetQueryPageSchema,
+	page_size: getAgentDailyActivityAgentDailyActivityGetQueryPageSizeSchema,
+	exclude_agent_ids: getAgentDailyActivityAgentDailyActivityGetQueryExcludeAgentIdsSchema,
 });
 
+/**
+ * When true, performs a GET request to each agent's URL. Agents with reachable URLs (HTTP status < 500) and agents without a URL are returned; unreachable agents are filtered out.
+ */
 export const getAgentsV1AgentsGetQueryHealthCheckSchema = z
 	.boolean()
 	.optional()
@@ -31728,6 +33642,9 @@ export const getAgentsV1AgentsGetQueryHealthCheckSchema = z
 		"When true, performs a GET request to each agent's URL. Agents with reachable URLs (HTTP status < 500) and agents without a URL are returned; unreachable agents are filtered out.",
 	);
 
+/**
+ * Describe the task in natural language to rank the agents you can reach by semantic similarity over their name, description, and skills. Each result carries a search_score. Requires litellm_settings.agent_search_embedding_model.
+ */
 export const getAgentsV1AgentsGetQueryQuerySchema = z
 	.union([z.string().min(1), z.null().nullable()])
 	.optional()
@@ -31735,6 +33652,9 @@ export const getAgentsV1AgentsGetQueryQuerySchema = z
 		"Describe the task in natural language to rank the agents you can reach by semantic similarity over their name, description, and skills. Each result carries a search_score. Requires litellm_settings.agent_search_embedding_model.",
 	);
 
+/**
+ * With query: the maximum number of ranked agents to return.
+ */
 export const getAgentsV1AgentsGetQueryTopKSchema = z
 	.int()
 	.min(1)
@@ -31752,26 +33672,9 @@ export const getAgentsV1AgentsGetResponseSchema = getAgentsV1AgentsGetStatus200S
 export const getAgentsV1AgentsGetErrorSchema = getAgentsV1AgentsGetStatus422Schema;
 
 export const getAgentsV1AgentsGetQuerySchema = z.object({
-	health_check: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"When true, performs a GET request to each agent's URL. Agents with reachable URLs (HTTP status < 500) and agents without a URL are returned; unreachable agents are filtered out.",
-		),
-	query: z
-		.union([z.string().min(1), z.null().nullable()])
-		.optional()
-		.describe(
-			"Describe the task in natural language to rank the agents you can reach by semantic similarity over their name, description, and skills. Each result carries a search_score. Requires litellm_settings.agent_search_embedding_model.",
-		),
-	top_k: z
-		.int()
-		.min(1)
-		.max(100)
-		.optional()
-		.default(5)
-		.describe("With query: the maximum number of ranked agents to return."),
+	health_check: getAgentsV1AgentsGetQueryHealthCheckSchema,
+	query: getAgentsV1AgentsGetQueryQuerySchema,
+	top_k: getAgentsV1AgentsGetQueryTopKSchema,
 });
 
 export const createAgentV1AgentsPostStatus200Schema = agentResponseSchema;
@@ -31816,7 +33719,7 @@ export const getAgentByIdV1AgentsAgentIdGetErrorSchema =
 	getAgentByIdV1AgentsAgentIdGetStatus422Schema;
 
 export const getAgentByIdV1AgentsAgentIdGetPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: getAgentByIdV1AgentsAgentIdGetPathAgentIdSchema,
 });
 
 export const updateAgentV1AgentsAgentIdPutPathAgentIdSchema = z.string();
@@ -31834,7 +33737,7 @@ export const updateAgentV1AgentsAgentIdPutErrorSchema =
 export const updateAgentV1AgentsAgentIdPutBodySchema = agentConfigSchema;
 
 export const updateAgentV1AgentsAgentIdPutPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: updateAgentV1AgentsAgentIdPutPathAgentIdSchema,
 });
 
 export const patchAgentV1AgentsAgentIdPatchPathAgentIdSchema = z.string();
@@ -31852,7 +33755,7 @@ export const patchAgentV1AgentsAgentIdPatchErrorSchema =
 export const patchAgentV1AgentsAgentIdPatchBodySchema = patchAgentRequestSchema;
 
 export const patchAgentV1AgentsAgentIdPatchPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: patchAgentV1AgentsAgentIdPatchPathAgentIdSchema,
 });
 
 export const deleteAgentV1AgentsAgentIdDeletePathAgentIdSchema = z.string();
@@ -31868,7 +33771,7 @@ export const deleteAgentV1AgentsAgentIdDeleteErrorSchema =
 	deleteAgentV1AgentsAgentIdDeleteStatus422Schema;
 
 export const deleteAgentV1AgentsAgentIdDeletePathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: deleteAgentV1AgentsAgentIdDeletePathAgentIdSchema,
 });
 
 export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetPathAgentIdSchema = z.string();
@@ -31886,7 +33789,7 @@ export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetErrorSchema =
 	getAgentIdentityStatusV1AgentsAgentIdIdentityGetStatus422Schema;
 
 export const getAgentIdentityStatusV1AgentsAgentIdIdentityGetPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: getAgentIdentityStatusV1AgentsAgentIdIdentityGetPathAgentIdSchema,
 });
 
 export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostPathAgentIdSchema = z.string();
@@ -31904,7 +33807,7 @@ export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostErrorSchema =
 	triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostStatus422Schema;
 
 export const triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostPathAgentIdSchema,
 });
 
 export const makeAgentPublicV1AgentsAgentIdMakePublicPostPathAgentIdSchema = z.string();
@@ -31922,7 +33825,7 @@ export const makeAgentPublicV1AgentsAgentIdMakePublicPostErrorSchema =
 	makeAgentPublicV1AgentsAgentIdMakePublicPostStatus422Schema;
 
 export const makeAgentPublicV1AgentsAgentIdMakePublicPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: makeAgentPublicV1AgentsAgentIdMakePublicPostPathAgentIdSchema,
 });
 
 export const listGeminiAgentsV1BetaAgentsGetStatus200Schema = z.looseObject({});
@@ -31948,7 +33851,7 @@ export const getGeminiAgentV1BetaAgentsNameGetErrorSchema =
 	getGeminiAgentV1BetaAgentsNameGetStatus422Schema;
 
 export const getGeminiAgentV1BetaAgentsNameGetPathSchema = z.object({
-	name: z.string(),
+	name: getGeminiAgentV1BetaAgentsNameGetPathNameSchema,
 });
 
 export const deleteGeminiAgentV1BetaAgentsNameDeletePathNameSchema = z.string();
@@ -31964,7 +33867,7 @@ export const deleteGeminiAgentV1BetaAgentsNameDeleteErrorSchema =
 	deleteGeminiAgentV1BetaAgentsNameDeleteStatus422Schema;
 
 export const deleteGeminiAgentV1BetaAgentsNameDeletePathSchema = z.object({
-	name: z.string(),
+	name: deleteGeminiAgentV1BetaAgentsNameDeletePathNameSchema,
 });
 
 export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetPathNameSchema = z.string();
@@ -31981,7 +33884,7 @@ export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetErrorSchema =
 	listGeminiAgentVersionsV1BetaAgentsNameVersionsGetStatus422Schema;
 
 export const listGeminiAgentVersionsV1BetaAgentsNameVersionsGetPathSchema = z.object({
-	name: z.string(),
+	name: listGeminiAgentVersionsV1BetaAgentsNameVersionsGetPathNameSchema,
 });
 
 export const invokeAgentA2AA2AAgentIdPostPathAgentIdSchema = z.string();
@@ -31996,7 +33899,7 @@ export const invokeAgentA2AA2AAgentIdPostResponseSchema =
 export const invokeAgentA2AA2AAgentIdPostErrorSchema = invokeAgentA2AA2AAgentIdPostStatus422Schema;
 
 export const invokeAgentA2AA2AAgentIdPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: invokeAgentA2AA2AAgentIdPostPathAgentIdSchema,
 });
 
 export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetPathAgentIdSchema = z.string();
@@ -32013,7 +33916,7 @@ export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetErrorSchema =
 	getAgentCardA2AAgentIdWellKnownAgentCardJsonGetStatus422Schema;
 
 export const getAgentCardA2AAgentIdWellKnownAgentCardJsonGetPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: getAgentCardA2AAgentIdWellKnownAgentCardJsonGetPathAgentIdSchema,
 });
 
 export const getAgentCardA2AAgentIdWellKnownAgentJsonGetPathAgentIdSchema = z.string();
@@ -32029,7 +33932,7 @@ export const getAgentCardA2AAgentIdWellKnownAgentJsonGetErrorSchema =
 	getAgentCardA2AAgentIdWellKnownAgentJsonGetStatus422Schema;
 
 export const getAgentCardA2AAgentIdWellKnownAgentJsonGetPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: getAgentCardA2AAgentIdWellKnownAgentJsonGetPathAgentIdSchema,
 });
 
 export const invokeAgentA2AA2AAgentIdMessageSendPostPathAgentIdSchema = z.string();
@@ -32045,7 +33948,7 @@ export const invokeAgentA2AA2AAgentIdMessageSendPostErrorSchema =
 	invokeAgentA2AA2AAgentIdMessageSendPostStatus422Schema;
 
 export const invokeAgentA2AA2AAgentIdMessageSendPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: invokeAgentA2AA2AAgentIdMessageSendPostPathAgentIdSchema,
 });
 
 export const invokeAgentA2AA2AAgentIdMessageStreamPostPathAgentIdSchema = z.string();
@@ -32068,7 +33971,7 @@ export const invokeAgentA2AA2AAgentIdMessageStreamPostBodySchema = z.looseObject
 });
 
 export const invokeAgentA2AA2AAgentIdMessageStreamPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: invokeAgentA2AA2AAgentIdMessageStreamPostPathAgentIdSchema,
 });
 
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostPathAgentIdSchema = z.string();
@@ -32084,7 +33987,7 @@ export const invokeAgentA2AV1A2AAgentIdMessageSendPostErrorSchema =
 	invokeAgentA2AV1A2AAgentIdMessageSendPostStatus422Schema;
 
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: invokeAgentA2AV1A2AAgentIdMessageSendPostPathAgentIdSchema,
 });
 
 export const invokeAgentA2AV1A2AAgentIdMessageStreamPostPathAgentIdSchema = z.string();
@@ -32107,7 +34010,7 @@ export const invokeAgentA2AV1A2AAgentIdMessageStreamPostBodySchema = z.looseObje
 });
 
 export const invokeAgentA2AV1A2AAgentIdMessageStreamPostPathSchema = z.object({
-	agent_id: z.string(),
+	agent_id: invokeAgentA2AV1A2AAgentIdMessageStreamPostPathAgentIdSchema,
 });
 
 export const discoverAgentCardV1A2ADiscoverPostStatus200Schema = discoverAgentResponseSchema;
@@ -32165,10 +34068,10 @@ export const vectorStoreListV1VectorStoresGetErrorSchema =
 	vectorStoreListV1VectorStoresGetStatus422Schema;
 
 export const vectorStoreListV1VectorStoresGetQuerySchema = z.object({
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	before: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional().default(20),
-	order: z.union([z.string(), z.null().nullable()]).optional().default("desc"),
+	after: vectorStoreListV1VectorStoresGetQueryAfterSchema,
+	before: vectorStoreListV1VectorStoresGetQueryBeforeSchema,
+	limit: vectorStoreListV1VectorStoresGetQueryLimitSchema,
+	order: vectorStoreListV1VectorStoresGetQueryOrderSchema,
 });
 
 export const vectorStoreCreateV1VectorStoresPostStatus200Schema = z.looseObject({});
@@ -32190,7 +34093,7 @@ export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetErrorSchema =
 	vectorStoreRetrieveV1VectorStoresVectorStoreIdGetStatus422Schema;
 
 export const vectorStoreRetrieveV1VectorStoresVectorStoreIdGetPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreRetrieveV1VectorStoresVectorStoreIdGetPathVectorStoreIdSchema,
 });
 
 export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostPathVectorStoreIdSchema = z.string();
@@ -32207,7 +34110,7 @@ export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostErrorSchema =
 	vectorStoreUpdateV1VectorStoresVectorStoreIdPostStatus422Schema;
 
 export const vectorStoreUpdateV1VectorStoresVectorStoreIdPostPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreUpdateV1VectorStoresVectorStoreIdPostPathVectorStoreIdSchema,
 });
 
 export const vectorStoreDeleteV1VectorStoresVectorStoreIdDeletePathVectorStoreIdSchema = z.string();
@@ -32224,7 +34127,7 @@ export const vectorStoreDeleteV1VectorStoresVectorStoreIdDeleteErrorSchema =
 	vectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422Schema;
 
 export const vectorStoreDeleteV1VectorStoresVectorStoreIdDeletePathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreDeleteV1VectorStoresVectorStoreIdDeletePathVectorStoreIdSchema,
 });
 
 export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetPathVectorStoreIdSchema =
@@ -32244,7 +34147,7 @@ export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetErrorSchema =
 	vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetStatus422Schema;
 
 export const vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreFileListV1VectorStoresVectorStoreIdFilesGetPathVectorStoreIdSchema,
 });
 
 export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostPathVectorStoreIdSchema =
@@ -32263,7 +34166,7 @@ export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostErrorSchem
 	vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostStatus422Schema;
 
 export const vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostPathVectorStoreIdSchema,
 });
 
 export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPathVectorStoreIdSchema =
@@ -32285,8 +34188,9 @@ export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetErr
 	vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetStatus422Schema;
 
 export const vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPathSchema = z.object({
-	vector_store_id: z.string(),
-	file_id: z.string(),
+	vector_store_id:
+		vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPathVectorStoreIdSchema,
+	file_id: vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPathFileIdSchema,
 });
 
 export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPathVectorStoreIdSchema =
@@ -32308,8 +34212,9 @@ export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostErro
 	vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostStatus422Schema;
 
 export const vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPathSchema = z.object({
-	vector_store_id: z.string(),
-	file_id: z.string(),
+	vector_store_id:
+		vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPathVectorStoreIdSchema,
+	file_id: vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPathFileIdSchema,
 });
 
 export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePathVectorStoreIdSchema =
@@ -32332,8 +34237,9 @@ export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteEr
 
 export const vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePathSchema = z.object(
 	{
-		vector_store_id: z.string(),
-		file_id: z.string(),
+		vector_store_id:
+			vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePathVectorStoreIdSchema,
+		file_id: vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePathFileIdSchema,
 	},
 );
 
@@ -32357,8 +34263,9 @@ export const vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContent
 
 export const vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetPathSchema =
 	z.object({
-		vector_store_id: z.string(),
-		file_id: z.string(),
+		vector_store_id:
+			vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetPathVectorStoreIdSchema,
+		file_id: vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetPathFileIdSchema,
 	});
 
 export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostPathVectorStoreIdSchema =
@@ -32378,7 +34285,7 @@ export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostErrorSchema =
 	vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostStatus422Schema;
 
 export const vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreSearchV1VectorStoresVectorStoreIdSearchPostPathVectorStoreIdSchema,
 });
 
 export const vectorStoreListVectorStoresGetQueryAfterSchema = z
@@ -32410,10 +34317,10 @@ export const vectorStoreListVectorStoresGetErrorSchema =
 	vectorStoreListVectorStoresGetStatus422Schema;
 
 export const vectorStoreListVectorStoresGetQuerySchema = z.object({
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	before: z.union([z.string(), z.null().nullable()]).optional(),
-	limit: z.union([z.int(), z.null().nullable()]).optional().default(20),
-	order: z.union([z.string(), z.null().nullable()]).optional().default("desc"),
+	after: vectorStoreListVectorStoresGetQueryAfterSchema,
+	before: vectorStoreListVectorStoresGetQueryBeforeSchema,
+	limit: vectorStoreListVectorStoresGetQueryLimitSchema,
+	order: vectorStoreListVectorStoresGetQueryOrderSchema,
 });
 
 export const vectorStoreCreateVectorStoresPostStatus200Schema = z.looseObject({});
@@ -32435,7 +34342,7 @@ export const vectorStoreRetrieveVectorStoresVectorStoreIdGetErrorSchema =
 	vectorStoreRetrieveVectorStoresVectorStoreIdGetStatus422Schema;
 
 export const vectorStoreRetrieveVectorStoresVectorStoreIdGetPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreRetrieveVectorStoresVectorStoreIdGetPathVectorStoreIdSchema,
 });
 
 export const vectorStoreUpdateVectorStoresVectorStoreIdPostPathVectorStoreIdSchema = z.string();
@@ -32452,7 +34359,7 @@ export const vectorStoreUpdateVectorStoresVectorStoreIdPostErrorSchema =
 	vectorStoreUpdateVectorStoresVectorStoreIdPostStatus422Schema;
 
 export const vectorStoreUpdateVectorStoresVectorStoreIdPostPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreUpdateVectorStoresVectorStoreIdPostPathVectorStoreIdSchema,
 });
 
 export const vectorStoreDeleteVectorStoresVectorStoreIdDeletePathVectorStoreIdSchema = z.string();
@@ -32469,7 +34376,7 @@ export const vectorStoreDeleteVectorStoresVectorStoreIdDeleteErrorSchema =
 	vectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422Schema;
 
 export const vectorStoreDeleteVectorStoresVectorStoreIdDeletePathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreDeleteVectorStoresVectorStoreIdDeletePathVectorStoreIdSchema,
 });
 
 export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetPathVectorStoreIdSchema =
@@ -32489,7 +34396,7 @@ export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetErrorSchema =
 	vectorStoreFileListVectorStoresVectorStoreIdFilesGetStatus422Schema;
 
 export const vectorStoreFileListVectorStoresVectorStoreIdFilesGetPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreFileListVectorStoresVectorStoreIdFilesGetPathVectorStoreIdSchema,
 });
 
 export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostPathVectorStoreIdSchema =
@@ -32509,7 +34416,7 @@ export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostErrorSchema 
 	vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostStatus422Schema;
 
 export const vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreFileCreateVectorStoresVectorStoreIdFilesPostPathVectorStoreIdSchema,
 });
 
 export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPathVectorStoreIdSchema =
@@ -32531,8 +34438,9 @@ export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetError
 	vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetStatus422Schema;
 
 export const vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPathSchema = z.object({
-	vector_store_id: z.string(),
-	file_id: z.string(),
+	vector_store_id:
+		vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPathVectorStoreIdSchema,
+	file_id: vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPathFileIdSchema,
 });
 
 export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPathVectorStoreIdSchema =
@@ -32554,8 +34462,9 @@ export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostErrorS
 	vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostStatus422Schema;
 
 export const vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPathSchema = z.object({
-	vector_store_id: z.string(),
-	file_id: z.string(),
+	vector_store_id:
+		vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPathVectorStoreIdSchema,
+	file_id: vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPathFileIdSchema,
 });
 
 export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePathVectorStoreIdSchema =
@@ -32577,8 +34486,9 @@ export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteErro
 	vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422Schema;
 
 export const vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePathSchema = z.object({
-	vector_store_id: z.string(),
-	file_id: z.string(),
+	vector_store_id:
+		vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePathVectorStoreIdSchema,
+	file_id: vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePathFileIdSchema,
 });
 
 export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPathVectorStoreIdSchema =
@@ -32601,8 +34511,9 @@ export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGe
 
 export const vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPathSchema =
 	z.object({
-		vector_store_id: z.string(),
-		file_id: z.string(),
+		vector_store_id:
+			vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPathVectorStoreIdSchema,
+		file_id: vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPathFileIdSchema,
 	});
 
 export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostPathVectorStoreIdSchema =
@@ -32622,7 +34533,7 @@ export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostErrorSchema =
 	vectorStoreSearchVectorStoresVectorStoreIdSearchPostStatus422Schema;
 
 export const vectorStoreSearchVectorStoresVectorStoreIdSearchPostPathSchema = z.object({
-	vector_store_id: z.string(),
+	vector_store_id: vectorStoreSearchVectorStoresVectorStoreIdSearchPostPathVectorStoreIdSchema,
 });
 
 export const listVectorStoresV1VectorStoreListGetQueryPageSchema = z.int().optional().default(1);
@@ -32644,8 +34555,8 @@ export const listVectorStoresV1VectorStoreListGetErrorSchema =
 	listVectorStoresV1VectorStoreListGetStatus422Schema;
 
 export const listVectorStoresV1VectorStoreListGetQuerySchema = z.object({
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(100),
+	page: listVectorStoresV1VectorStoreListGetQueryPageSchema,
+	page_size: listVectorStoresV1VectorStoreListGetQueryPageSizeSchema,
 });
 
 export const deleteVectorStoreVectorStoreDeletePostStatus200Schema = z.looseObject({});
@@ -32692,8 +34603,8 @@ export const listVectorStoresVectorStoreListGetErrorSchema =
 	listVectorStoresVectorStoreListGetStatus422Schema;
 
 export const listVectorStoresVectorStoreListGetQuerySchema = z.object({
-	page: z.int().optional().default(1),
-	page_size: z.int().optional().default(100),
+	page: listVectorStoresVectorStoreListGetQueryPageSchema,
+	page_size: listVectorStoresVectorStoreListGetQueryPageSizeSchema,
 });
 
 export const newVectorStoreVectorStoreNewPostStatus200Schema = z.looseObject({});
@@ -32735,9 +34646,7 @@ export const listToolsV1ToolListGetResponseSchema = listToolsV1ToolListGetStatus
 export const listToolsV1ToolListGetErrorSchema = listToolsV1ToolListGetStatus422Schema;
 
 export const listToolsV1ToolListGetQuerySchema = z.object({
-	input_policy: z
-		.union([z.enum(["trusted", "untrusted", "blocked"]), z.null().nullable()])
-		.optional(),
+	input_policy: listToolsV1ToolListGetQueryInputPolicySchema,
 });
 
 export const updateToolPolicyV1ToolPolicyPostStatus200Schema = toolPolicyUpdateResponseSchema;
@@ -32758,11 +34667,17 @@ export const getToolPolicyOptionsV1ToolPolicyOptionsGetStatus200Schema =
 export const getToolPolicyOptionsV1ToolPolicyOptionsGetResponseSchema =
 	getToolPolicyOptionsV1ToolPolicyOptionsGetStatus200Schema;
 
+/**
+ * YYYY-MM-DD (defaults to 30 days ago)
+ */
 export const getToolSpendV1ToolSpendGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD (defaults to 30 days ago)");
 
+/**
+ * YYYY-MM-DD (defaults to today)
+ */
 export const getToolSpendV1ToolSpendGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -32777,14 +34692,8 @@ export const getToolSpendV1ToolSpendGetResponseSchema = getToolSpendV1ToolSpendG
 export const getToolSpendV1ToolSpendGetErrorSchema = getToolSpendV1ToolSpendGetStatus422Schema;
 
 export const getToolSpendV1ToolSpendGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD (defaults to 30 days ago)"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD (defaults to today)"),
+	start_date: getToolSpendV1ToolSpendGetQueryStartDateSchema,
+	end_date: getToolSpendV1ToolSpendGetQueryEndDateSchema,
 });
 
 export const getToolV1ToolToolNameGetPathToolNameSchema = z.string();
@@ -32798,7 +34707,7 @@ export const getToolV1ToolToolNameGetResponseSchema = getToolV1ToolToolNameGetSt
 export const getToolV1ToolToolNameGetErrorSchema = getToolV1ToolToolNameGetStatus422Schema;
 
 export const getToolV1ToolToolNameGetPathSchema = z.object({
-	tool_name: z.string(),
+	tool_name: getToolV1ToolToolNameGetPathToolNameSchema,
 });
 
 export const getToolDetailV1ToolToolNameDetailGetPathToolNameSchema = z.string();
@@ -32814,7 +34723,7 @@ export const getToolDetailV1ToolToolNameDetailGetErrorSchema =
 	getToolDetailV1ToolToolNameDetailGetStatus422Schema;
 
 export const getToolDetailV1ToolToolNameDetailGetPathSchema = z.object({
-	tool_name: z.string(),
+	tool_name: getToolDetailV1ToolToolNameDetailGetPathToolNameSchema,
 });
 
 export const getToolUsageLogsV1ToolToolNameLogsGetPathToolNameSchema = z.string();
@@ -32832,11 +34741,17 @@ export const getToolUsageLogsV1ToolToolNameLogsGetQueryPageSizeSchema = z
 	.optional()
 	.default(50);
 
+/**
+ * YYYY-MM-DD
+ */
 export const getToolUsageLogsV1ToolToolNameLogsGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD");
 
+/**
+ * YYYY-MM-DD
+ */
 export const getToolUsageLogsV1ToolToolNameLogsGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -32853,23 +34768,29 @@ export const getToolUsageLogsV1ToolToolNameLogsGetErrorSchema =
 	getToolUsageLogsV1ToolToolNameLogsGetStatus422Schema;
 
 export const getToolUsageLogsV1ToolToolNameLogsGetPathSchema = z.object({
-	tool_name: z.string(),
+	tool_name: getToolUsageLogsV1ToolToolNameLogsGetPathToolNameSchema,
 });
 
 export const getToolUsageLogsV1ToolToolNameLogsGetQuerySchema = z.object({
-	page: z.int().min(1).optional().default(1),
-	page_size: z.int().min(1).max(100).optional().default(50),
-	start_date: z.union([z.string(), z.null().nullable()]).optional().describe("YYYY-MM-DD"),
-	end_date: z.union([z.string(), z.null().nullable()]).optional().describe("YYYY-MM-DD"),
+	page: getToolUsageLogsV1ToolToolNameLogsGetQueryPageSchema,
+	page_size: getToolUsageLogsV1ToolToolNameLogsGetQueryPageSizeSchema,
+	start_date: getToolUsageLogsV1ToolToolNameLogsGetQueryStartDateSchema,
+	end_date: getToolUsageLogsV1ToolToolNameLogsGetQueryEndDateSchema,
 });
 
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeletePathToolNameSchema = z.string();
 
+/**
+ * Team ID of the override to remove
+ */
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Team ID of the override to remove");
 
+/**
+ * Key hash of the override to remove
+ */
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQueryKeyHashSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -32889,30 +34810,33 @@ export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteErrorSchema =
 	deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteStatus422Schema;
 
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeletePathSchema = z.object({
-	tool_name: z.string(),
+	tool_name: deleteToolPolicyOverrideV1ToolToolNameOverridesDeletePathToolNameSchema,
 });
 
 export const deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQuerySchema = z.object({
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Team ID of the override to remove"),
-	key_hash: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Key hash of the override to remove"),
+	team_id: deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQueryTeamIdSchema,
+	key_hash: deleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQueryKeyHashSchema,
 });
 
+/**
+ * YYYY-MM-DD, defaults to 365 days ago
+ */
 export const getModelInsightsModelInsightsGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD, defaults to 365 days ago");
 
+/**
+ * YYYY-MM-DD, defaults to today
+ */
 export const getModelInsightsModelInsightsGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD, defaults to today");
 
+/**
+ * Metric the top models are ranked by
+ */
 export const getModelInsightsModelInsightsGetQueryMetricSchema = z
 	.enum(["requests", "spend", "tokens"])
 	.optional()
@@ -32930,31 +34854,30 @@ export const getModelInsightsModelInsightsGetErrorSchema =
 	getModelInsightsModelInsightsGetStatus422Schema;
 
 export const getModelInsightsModelInsightsGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD, defaults to 365 days ago"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD, defaults to today"),
-	metric: z
-		.enum(["requests", "spend", "tokens"])
-		.optional()
-		.default("tokens")
-		.describe("Metric the top models are ranked by"),
+	start_date: getModelInsightsModelInsightsGetQueryStartDateSchema,
+	end_date: getModelInsightsModelInsightsGetQueryEndDateSchema,
+	metric: getModelInsightsModelInsightsGetQueryMetricSchema,
 });
 
+/**
+ * YYYY-MM-DD, defaults to 365 days ago
+ */
 export const getModelInsightTasksModelInsightsTasksGetQueryStartDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD, defaults to 365 days ago");
 
+/**
+ * YYYY-MM-DD, defaults to today
+ */
 export const getModelInsightTasksModelInsightsTasksGetQueryEndDateSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("YYYY-MM-DD, defaults to today");
 
+/**
+ * Metric task shares are computed from
+ */
 export const getModelInsightTasksModelInsightsTasksGetQueryMetricSchema = z
 	.enum(["requests", "spend", "tokens"])
 	.optional()
@@ -32973,19 +34896,9 @@ export const getModelInsightTasksModelInsightsTasksGetErrorSchema =
 	getModelInsightTasksModelInsightsTasksGetStatus422Schema;
 
 export const getModelInsightTasksModelInsightsTasksGetQuerySchema = z.object({
-	start_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD, defaults to 365 days ago"),
-	end_date: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("YYYY-MM-DD, defaults to today"),
-	metric: z
-		.enum(["requests", "spend", "tokens"])
-		.optional()
-		.default("spend")
-		.describe("Metric task shares are computed from"),
+	start_date: getModelInsightTasksModelInsightsTasksGetQueryStartDateSchema,
+	end_date: getModelInsightTasksModelInsightsTasksGetQueryEndDateSchema,
+	metric: getModelInsightTasksModelInsightsTasksGetQueryMetricSchema,
 });
 
 export const createSearchToolSearchToolsPostStatus200Schema = z.looseObject({});
@@ -33041,7 +34954,7 @@ export const getSearchToolInfoSearchToolsSearchToolIdGetErrorSchema =
 	getSearchToolInfoSearchToolsSearchToolIdGetStatus422Schema;
 
 export const getSearchToolInfoSearchToolsSearchToolIdGetPathSchema = z.object({
-	search_tool_id: z.string(),
+	search_tool_id: getSearchToolInfoSearchToolsSearchToolIdGetPathSearchToolIdSchema,
 });
 
 export const updateSearchToolSearchToolsSearchToolIdPutPathSearchToolIdSchema = z.string();
@@ -33059,7 +34972,7 @@ export const updateSearchToolSearchToolsSearchToolIdPutErrorSchema =
 export const updateSearchToolSearchToolsSearchToolIdPutBodySchema = updateSearchToolRequestSchema;
 
 export const updateSearchToolSearchToolsSearchToolIdPutPathSchema = z.object({
-	search_tool_id: z.string(),
+	search_tool_id: updateSearchToolSearchToolsSearchToolIdPutPathSearchToolIdSchema,
 });
 
 export const deleteSearchToolSearchToolsSearchToolIdDeletePathSearchToolIdSchema = z.string();
@@ -33076,7 +34989,7 @@ export const deleteSearchToolSearchToolsSearchToolIdDeleteErrorSchema =
 	deleteSearchToolSearchToolsSearchToolIdDeleteStatus422Schema;
 
 export const deleteSearchToolSearchToolsSearchToolIdDeletePathSchema = z.object({
-	search_tool_id: z.string(),
+	search_tool_id: deleteSearchToolSearchToolsSearchToolIdDeletePathSearchToolIdSchema,
 });
 
 export const getMcpAccessGroupsV1McpAccessGroupsGetStatus200Schema = z.looseObject({});
@@ -33084,11 +34997,17 @@ export const getMcpAccessGroupsV1McpAccessGroupsGetStatus200Schema = z.looseObje
 export const getMcpAccessGroupsV1McpAccessGroupsGetResponseSchema =
 	getMcpAccessGroupsV1McpAccessGroupsGetStatus200Schema;
 
+/**
+ * Search filter for server names and descriptions
+ */
 export const discoverMcpServersV1McpDiscoverGetQueryQuerySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Search filter for server names and descriptions");
 
+/**
+ * Filter by category
+ */
 export const discoverMcpServersV1McpDiscoverGetQueryCategorySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33105,11 +35024,8 @@ export const discoverMcpServersV1McpDiscoverGetErrorSchema =
 	discoverMcpServersV1McpDiscoverGetStatus422Schema;
 
 export const discoverMcpServersV1McpDiscoverGetQuerySchema = z.object({
-	query: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Search filter for server names and descriptions"),
-	category: z.union([z.string(), z.null().nullable()]).optional().describe("Filter by category"),
+	query: discoverMcpServersV1McpDiscoverGetQueryQuerySchema,
+	category: discoverMcpServersV1McpDiscoverGetQueryCategorySchema,
 });
 
 export const makeMcpServersPublicV1McpMakePublicPostStatus202Schema = z.looseObject({});
@@ -33139,6 +35055,9 @@ export const getMcpRegistryV1McpRegistryJsonGetStatus200Schema = z.looseObject({
 export const getMcpRegistryV1McpRegistryJsonGetResponseSchema =
 	getMcpRegistryV1McpRegistryJsonGetStatus200Schema;
 
+/**
+ * Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.
+ */
 export const fetchAllMcpServersV1McpServerGetQueryTeamIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33146,6 +35065,9 @@ export const fetchAllMcpServersV1McpServerGetQueryTeamIdSchema = z
 		"Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.",
 	);
 
+/**
+ * Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.
+ */
 export const fetchAllMcpServersV1McpServerGetQueryUserIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33153,6 +35075,9 @@ export const fetchAllMcpServersV1McpServerGetQueryUserIdSchema = z
 		"Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.",
 	);
 
+/**
+ * Annotate each returned server with connected_app_reachable: whether a connected app authorized by the calling user (a gateway OAuth session) is served this server on the aggregate MCP endpoint.
+ */
 export const fetchAllMcpServersV1McpServerGetQueryConnectedAppViewSchema = z
 	.boolean()
 	.optional()
@@ -33172,27 +35097,14 @@ export const fetchAllMcpServersV1McpServerGetErrorSchema =
 	fetchAllMcpServersV1McpServerGetStatus422Schema;
 
 export const fetchAllMcpServersV1McpServerGetQuerySchema = z.object({
-	team_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.",
-		),
-	user_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.",
-		),
-	connected_app_view: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"Annotate each returned server with connected_app_reachable: whether a connected app authorized by the calling user (a gateway OAuth session) is served this server on the aggregate MCP endpoint.",
-		),
+	team_id: fetchAllMcpServersV1McpServerGetQueryTeamIdSchema,
+	user_id: fetchAllMcpServersV1McpServerGetQueryUserIdSchema,
+	connected_app_view: fetchAllMcpServersV1McpServerGetQueryConnectedAppViewSchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const editMcpServerV1McpServerPutHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33213,14 +35125,12 @@ export const editMcpServerV1McpServerPutErrorSchema = editMcpServerV1McpServerPu
 export const editMcpServerV1McpServerPutBodySchema = updateMCPServerRequestSchema;
 
 export const editMcpServerV1McpServerPutHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": editMcpServerV1McpServerPutHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const addMcpServerV1McpServerPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33241,19 +35151,20 @@ export const addMcpServerV1McpServerPostErrorSchema = addMcpServerV1McpServerPos
 export const addMcpServerV1McpServerPostBodySchema = newMCPServerRequestSchema;
 
 export const addMcpServerV1McpServerPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": addMcpServerV1McpServerPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * Server IDs to check. If not provided, checks all accessible servers.
+ */
 export const healthCheckServersV1McpServerHealthGetQueryServerIdsSchema = z
 	.union([z.array(z.string()), z.null().nullable()])
 	.optional()
 	.describe("Server IDs to check. If not provided, checks all accessible servers.");
 
+/**
+ * Allow the 'reachable' status for responding servers whose authentication is unchecked.
+ */
 export const healthCheckServersV1McpServerHealthGetQueryIncludeReachabilitySchema = z
 	.boolean()
 	.optional()
@@ -33273,17 +35184,8 @@ export const healthCheckServersV1McpServerHealthGetErrorSchema =
 	healthCheckServersV1McpServerHealthGetStatus422Schema;
 
 export const healthCheckServersV1McpServerHealthGetQuerySchema = z.object({
-	server_ids: z
-		.union([z.array(z.string()), z.null().nullable()])
-		.optional()
-		.describe("Server IDs to check. If not provided, checks all accessible servers."),
-	include_reachability: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"Allow the 'reachable' status for responding servers whose authentication is unchecked.",
-		),
+	server_ids: healthCheckServersV1McpServerHealthGetQueryServerIdsSchema,
+	include_reachability: healthCheckServersV1McpServerHealthGetQueryIncludeReachabilitySchema,
 });
 
 export const importMcpServersV1McpServerImportPostStatus200Schema =
@@ -33299,6 +35201,9 @@ export const importMcpServersV1McpServerImportPostErrorSchema =
 
 export const importMcpServersV1McpServerImportPostBodySchema = MCPConnectorImportRequestSchema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const addSessionMcpServerV1McpServerOauthSessionPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33320,12 +35225,7 @@ export const addSessionMcpServerV1McpServerOauthSessionPostErrorSchema =
 export const addSessionMcpServerV1McpServerOauthSessionPostBodySchema = newMCPServerRequestSchema;
 
 export const addSessionMcpServerV1McpServerOauthSessionPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": addSessionMcpServerV1McpServerOauthSessionPostHeaderLitellmChangedBySchema,
 });
 
 export const registerMcpServerV1McpServerRegisterPostStatus201Schema =
@@ -33349,6 +35249,9 @@ export const getMcpServerSubmissionsV1McpServerSubmissionsGetResponseSchema =
 
 export const fetchMcpServerV1McpServerServerIdGetPathServerIdSchema = z.string();
 
+/**
+ * Allow the 'reachable' status for responding servers whose authentication is unchecked.
+ */
 export const fetchMcpServerV1McpServerServerIdGetQueryIncludeReachabilitySchema = z
 	.boolean()
 	.optional()
@@ -33369,21 +35272,18 @@ export const fetchMcpServerV1McpServerServerIdGetErrorSchema =
 	fetchMcpServerV1McpServerServerIdGetStatus422Schema;
 
 export const fetchMcpServerV1McpServerServerIdGetPathSchema = z.object({
-	server_id: z.string(),
+	server_id: fetchMcpServerV1McpServerServerIdGetPathServerIdSchema,
 });
 
 export const fetchMcpServerV1McpServerServerIdGetQuerySchema = z.object({
-	include_reachability: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"Allow the 'reachable' status for responding servers whose authentication is unchecked.",
-		),
+	include_reachability: fetchMcpServerV1McpServerServerIdGetQueryIncludeReachabilitySchema,
 });
 
 export const removeMcpServerV1McpServerServerIdDeletePathServerIdSchema = z.string();
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const removeMcpServerV1McpServerServerIdDeleteHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -33402,16 +35302,11 @@ export const removeMcpServerV1McpServerServerIdDeleteErrorSchema =
 	removeMcpServerV1McpServerServerIdDeleteStatus422Schema;
 
 export const removeMcpServerV1McpServerServerIdDeletePathSchema = z.object({
-	server_id: z.string(),
+	server_id: removeMcpServerV1McpServerServerIdDeletePathServerIdSchema,
 });
 
 export const removeMcpServerV1McpServerServerIdDeleteHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": removeMcpServerV1McpServerServerIdDeleteHeaderLitellmChangedBySchema,
 });
 
 export const approveMcpServerSubmissionV1McpServerServerIdApprovePutPathServerIdSchema = z.string();
@@ -33429,7 +35324,7 @@ export const approveMcpServerSubmissionV1McpServerServerIdApprovePutErrorSchema 
 	approveMcpServerSubmissionV1McpServerServerIdApprovePutStatus422Schema;
 
 export const approveMcpServerSubmissionV1McpServerServerIdApprovePutPathSchema = z.object({
-	server_id: z.string(),
+	server_id: approveMcpServerSubmissionV1McpServerServerIdApprovePutPathServerIdSchema,
 });
 
 export const storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostPathServerIdSchema =
@@ -33456,7 +35351,8 @@ export const storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPo
 
 export const storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostPathSchema =
 	z.object({
-		server_id: z.string(),
+		server_id:
+			storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostPathServerIdSchema,
 	});
 
 export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePathServerIdSchema =
@@ -33481,12 +35377,14 @@ export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialD
 
 export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePathSchema =
 	z.object({
-		server_id: z.string(),
+		server_id:
+			deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePathServerIdSchema,
 	});
 
 export const deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuerySchema =
 	z.object({
-		user_id: z.union([z.string().min(1), z.null().nullable()]).optional(),
+		user_id:
+			deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQueryUserIdSchema,
 	});
 
 export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetPathServerIdSchema =
@@ -33508,7 +35406,8 @@ export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredenti
 
 export const getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetPathSchema =
 	z.object({
-		server_id: z.string(),
+		server_id:
+			getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetPathServerIdSchema,
 	});
 
 export const pinMcpServerToolsV1McpServerServerIdPinPostPathServerIdSchema = z.string();
@@ -33527,7 +35426,7 @@ export const pinMcpServerToolsV1McpServerServerIdPinPostErrorSchema =
 	pinMcpServerToolsV1McpServerServerIdPinPostStatus422Schema;
 
 export const pinMcpServerToolsV1McpServerServerIdPinPostPathSchema = z.object({
-	server_id: z.string(),
+	server_id: pinMcpServerToolsV1McpServerServerIdPinPostPathServerIdSchema,
 });
 
 export const unpinMcpServerToolsV1McpServerServerIdPinDeletePathServerIdSchema = z.string();
@@ -33547,7 +35446,7 @@ export const unpinMcpServerToolsV1McpServerServerIdPinDeleteErrorSchema =
 	unpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422Schema;
 
 export const unpinMcpServerToolsV1McpServerServerIdPinDeletePathSchema = z.object({
-	server_id: z.string(),
+	server_id: unpinMcpServerToolsV1McpServerServerIdPinDeletePathServerIdSchema,
 });
 
 export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutPathServerIdSchema = z.string();
@@ -33568,7 +35467,7 @@ export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutBodySchema =
 	rejectMCPServerRequestSchema;
 
 export const rejectMcpServerSubmissionV1McpServerServerIdRejectPutPathSchema = z.object({
-	server_id: z.string(),
+	server_id: rejectMcpServerSubmissionV1McpServerServerIdRejectPutPathServerIdSchema,
 });
 
 export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostPathServerIdSchema =
@@ -33590,7 +35489,7 @@ export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostBodySche
 	MCPUserCredentialRequestSchema;
 
 export const storeMcpUserCredentialV1McpServerServerIdUserCredentialPostPathSchema = z.object({
-	server_id: z.string(),
+	server_id: storeMcpUserCredentialV1McpServerServerIdUserCredentialPostPathServerIdSchema,
 });
 
 export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePathServerIdSchema =
@@ -33613,11 +35512,11 @@ export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteError
 	deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteStatus422Schema;
 
 export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePathSchema = z.object({
-	server_id: z.string(),
+	server_id: deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePathServerIdSchema,
 });
 
 export const deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuerySchema = z.object({
-	user_id: z.union([z.string().min(1), z.null().nullable()]).optional(),
+	user_id: deleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQueryUserIdSchema,
 });
 
 export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPathServerIdSchema =
@@ -33637,7 +35536,7 @@ export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetEr
 
 export const listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPathSchema = z.object(
 	{
-		server_id: z.string(),
+		server_id: listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPathServerIdSchema,
 	},
 );
 
@@ -33656,7 +35555,7 @@ export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetErrorSchema =
 	getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetStatus422Schema;
 
 export const getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetPathSchema = z.object({
-	server_id: z.string(),
+	server_id: getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetPathServerIdSchema,
 });
 
 export const storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostPathServerIdSchema = z.string();
@@ -33679,7 +35578,7 @@ export const storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostBodySchema =
 	);
 
 export const storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostPathSchema = z.object({
-	server_id: z.string(),
+	server_id: storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostPathServerIdSchema,
 });
 
 export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePathServerIdSchema = z.string();
@@ -33697,7 +35596,7 @@ export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteErrorSchema 
 	clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422Schema;
 
 export const clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePathSchema = z.object({
-	server_id: z.string(),
+	server_id: clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePathServerIdSchema,
 });
 
 export const getMcpGatewaySessionsV1McpSessionsGetStatus200Schema =
@@ -33728,8 +35627,8 @@ export const deleteMcpGatewaySessionsV1McpSessionsDeleteErrorSchema =
 	deleteMcpGatewaySessionsV1McpSessionsDeleteStatus422Schema;
 
 export const deleteMcpGatewaySessionsV1McpSessionsDeleteQuerySchema = z.object({
-	session_id_prefix: z.union([z.string().min(8), z.null().nullable()]).optional(),
-	user_id: z.union([z.string().min(1), z.null().nullable()]).optional(),
+	session_id_prefix: deleteMcpGatewaySessionsV1McpSessionsDeleteQuerySessionIdPrefixSchema,
+	user_id: deleteMcpGatewaySessionsV1McpSessionsDeleteQueryUserIdSchema,
 });
 
 export const getMcpToolsV1McpToolsGetStatus200Schema = z.looseObject({});
@@ -33758,7 +35657,7 @@ export const editMcpToolsetV1McpToolsetPutErrorSchema =
 export const editMcpToolsetV1McpToolsetPutBodySchema = updateMCPToolsetRequestSchema;
 
 export const editMcpToolsetV1McpToolsetPutHeadersSchema = z.object({
-	"litellm-changed-by": z.union([z.string(), z.null().nullable()]).optional(),
+	"litellm-changed-by": editMcpToolsetV1McpToolsetPutHeaderLitellmChangedBySchema,
 });
 
 export const addMcpToolsetV1McpToolsetPostHeaderLitellmChangedBySchema = z
@@ -33778,7 +35677,7 @@ export const addMcpToolsetV1McpToolsetPostErrorSchema =
 export const addMcpToolsetV1McpToolsetPostBodySchema = newMCPToolsetRequestSchema;
 
 export const addMcpToolsetV1McpToolsetPostHeadersSchema = z.object({
-	"litellm-changed-by": z.union([z.string(), z.null().nullable()]).optional(),
+	"litellm-changed-by": addMcpToolsetV1McpToolsetPostHeaderLitellmChangedBySchema,
 });
 
 export const fetchMcpToolsetV1McpToolsetToolsetIdGetPathToolsetIdSchema = z.string();
@@ -33794,7 +35693,7 @@ export const fetchMcpToolsetV1McpToolsetToolsetIdGetErrorSchema =
 	fetchMcpToolsetV1McpToolsetToolsetIdGetStatus422Schema;
 
 export const fetchMcpToolsetV1McpToolsetToolsetIdGetPathSchema = z.object({
-	toolset_id: z.string(),
+	toolset_id: fetchMcpToolsetV1McpToolsetToolsetIdGetPathToolsetIdSchema,
 });
 
 export const removeMcpToolsetV1McpToolsetToolsetIdDeletePathToolsetIdSchema = z.string();
@@ -33814,11 +35713,11 @@ export const removeMcpToolsetV1McpToolsetToolsetIdDeleteErrorSchema =
 	removeMcpToolsetV1McpToolsetToolsetIdDeleteStatus422Schema;
 
 export const removeMcpToolsetV1McpToolsetToolsetIdDeletePathSchema = z.object({
-	toolset_id: z.string(),
+	toolset_id: removeMcpToolsetV1McpToolsetToolsetIdDeletePathToolsetIdSchema,
 });
 
 export const removeMcpToolsetV1McpToolsetToolsetIdDeleteHeadersSchema = z.object({
-	"litellm-changed-by": z.union([z.string(), z.null().nullable()]).optional(),
+	"litellm-changed-by": removeMcpToolsetV1McpToolsetToolsetIdDeleteHeaderLitellmChangedBySchema,
 });
 
 export const listMcpUserCredentialsV1McpUserCredentialsGetStatus200Schema = z.array(
@@ -33861,7 +35760,8 @@ export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetErro
 	oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetStatus422Schema;
 
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetQuerySchema = z.object({
-	mcp_server_name: z.union([z.string(), z.null().nullable()]).optional(),
+	mcp_server_name:
+		oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetQueryMcpServerNameSchema,
 });
 
 export const oauthAuthorizationServerAggregateWellKnownOauthAuthorizationServerMcpGetStatus200Schema =
@@ -33887,7 +35787,8 @@ export const oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServe
 
 export const oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGetPathSchema =
 	z.object({
-		mcp_server_name: z.string(),
+		mcp_server_name:
+			oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGetPathMcpServerNameSchema,
 	});
 
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetPathMcpServerNameSchema =
@@ -33907,7 +35808,8 @@ export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServ
 
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetPathSchema =
 	z.object({
-		mcp_server_name: z.union([z.string(), z.null().nullable()]),
+		mcp_server_name:
+			oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetPathMcpServerNameSchema,
 	});
 
 export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetPathMcpServerNameSchema =
@@ -33927,7 +35829,8 @@ export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpS
 
 export const oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetPathSchema =
 	z.object({
-		mcp_server_name: z.string(),
+		mcp_server_name:
+			oauthAuthorizationServerLegacyWellKnownOauthAuthorizationServerMcpServerNameMcpGetPathMcpServerNameSchema,
 	});
 
 export const oauthProtectedResourceRootWellKnownOauthProtectedResourceGetStatus200Schema = z.record(
@@ -33961,7 +35864,8 @@ export const oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcp
 
 export const oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGetPathSchema =
 	z.object({
-		mcp_server_name: z.string(),
+		mcp_server_name:
+			oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGetPathMcpServerNameSchema,
 	});
 
 export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetPathMcpServerNameSchema =
@@ -33981,7 +35885,8 @@ export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNa
 
 export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetPathSchema =
 	z.object({
-		mcp_server_name: z.union([z.string(), z.null().nullable()]),
+		mcp_server_name:
+			oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetPathMcpServerNameSchema,
 	});
 
 export const openidConfigurationWellKnownOpenidConfigurationGetStatus200Schema = z.looseObject({});
@@ -34030,15 +35935,15 @@ export const authorizeAuthorizeGetResponseSchema = authorizeAuthorizeGetStatus20
 export const authorizeAuthorizeGetErrorSchema = authorizeAuthorizeGetStatus422Schema;
 
 export const authorizeAuthorizeGetQuerySchema = z.object({
-	redirect_uri: z.string(),
-	client_id: z.union([z.string(), z.null().nullable()]).optional(),
-	state: z.string().optional().default(""),
-	mcp_server_name: z.union([z.string(), z.null().nullable()]).optional(),
-	code_challenge: z.union([z.string(), z.null().nullable()]).optional(),
-	code_challenge_method: z.union([z.string(), z.null().nullable()]).optional(),
-	response_type: z.union([z.string(), z.null().nullable()]).optional(),
-	scope: z.union([z.string(), z.null().nullable()]).optional(),
-	resource: z.union([z.string(), z.null().nullable()]).optional(),
+	redirect_uri: authorizeAuthorizeGetQueryRedirectUriSchema,
+	client_id: authorizeAuthorizeGetQueryClientIdSchema,
+	state: authorizeAuthorizeGetQueryStateSchema,
+	mcp_server_name: authorizeAuthorizeGetQueryMcpServerNameSchema,
+	code_challenge: authorizeAuthorizeGetQueryCodeChallengeSchema,
+	code_challenge_method: authorizeAuthorizeGetQueryCodeChallengeMethodSchema,
+	response_type: authorizeAuthorizeGetQueryResponseTypeSchema,
+	scope: authorizeAuthorizeGetQueryScopeSchema,
+	resource: authorizeAuthorizeGetQueryResourceSchema,
 });
 
 export const authorizeCompleteAuthorizeCompletePostStatus200Schema = z.looseObject({});
@@ -34067,7 +35972,7 @@ export const authorizeFlowAuthorizeFlowGetErrorSchema =
 	authorizeFlowAuthorizeFlowGetStatus422Schema;
 
 export const authorizeFlowAuthorizeFlowGetQuerySchema = z.object({
-	flow: z.string(),
+	flow: authorizeFlowAuthorizeFlowGetQueryFlowSchema,
 });
 
 export const authorizeMcpSessionAuthorizeMcpSessionGetQueryRedirectUriSchema = z.string();
@@ -34110,14 +36015,14 @@ export const authorizeMcpSessionAuthorizeMcpSessionGetErrorSchema =
 	authorizeMcpSessionAuthorizeMcpSessionGetStatus422Schema;
 
 export const authorizeMcpSessionAuthorizeMcpSessionGetQuerySchema = z.object({
-	redirect_uri: z.string(),
-	client_id: z.string(),
-	state: z.string().optional().default(""),
-	code_challenge: z.union([z.string(), z.null().nullable()]).optional(),
-	code_challenge_method: z.union([z.string(), z.null().nullable()]).optional(),
-	response_type: z.union([z.string(), z.null().nullable()]).optional(),
-	resource: z.union([z.string(), z.null().nullable()]).optional(),
-	scope: z.union([z.string(), z.null().nullable()]).optional(),
+	redirect_uri: authorizeMcpSessionAuthorizeMcpSessionGetQueryRedirectUriSchema,
+	client_id: authorizeMcpSessionAuthorizeMcpSessionGetQueryClientIdSchema,
+	state: authorizeMcpSessionAuthorizeMcpSessionGetQueryStateSchema,
+	code_challenge: authorizeMcpSessionAuthorizeMcpSessionGetQueryCodeChallengeSchema,
+	code_challenge_method: authorizeMcpSessionAuthorizeMcpSessionGetQueryCodeChallengeMethodSchema,
+	response_type: authorizeMcpSessionAuthorizeMcpSessionGetQueryResponseTypeSchema,
+	resource: authorizeMcpSessionAuthorizeMcpSessionGetQueryResourceSchema,
+	scope: authorizeMcpSessionAuthorizeMcpSessionGetQueryScopeSchema,
 });
 
 export const callbackCallbackGetQueryCodeSchema = z
@@ -34153,12 +36058,12 @@ export const callbackCallbackGetResponseSchema = callbackCallbackGetStatus200Sch
 export const callbackCallbackGetErrorSchema = callbackCallbackGetStatus422Schema;
 
 export const callbackCallbackGetQuerySchema = z.object({
-	code: z.union([z.string(), z.null().nullable()]).optional(),
-	state: z.union([z.string(), z.null().nullable()]).optional(),
-	iss: z.union([z.string(), z.null().nullable()]).optional(),
-	error: z.union([z.string(), z.null().nullable()]).optional(),
-	error_description: z.union([z.string(), z.null().nullable()]).optional(),
-	error_uri: z.union([z.string(), z.null().nullable()]).optional(),
+	code: callbackCallbackGetQueryCodeSchema,
+	state: callbackCallbackGetQueryStateSchema,
+	iss: callbackCallbackGetQueryIssSchema,
+	error: callbackCallbackGetQueryErrorSchema,
+	error_description: callbackCallbackGetQueryErrorDescriptionSchema,
+	error_uri: callbackCallbackGetQueryErrorUriSchema,
 });
 
 export const introspectEndpointIntrospectPostStatus200Schema = z.looseObject({});
@@ -34187,7 +36092,7 @@ export const registerClientRegisterPostResponseSchema = registerClientRegisterPo
 export const registerClientRegisterPostErrorSchema = registerClientRegisterPostStatus422Schema;
 
 export const registerClientRegisterPostQuerySchema = z.object({
-	mcp_server_name: z.union([z.string(), z.null().nullable()]).optional(),
+	mcp_server_name: registerClientRegisterPostQueryMcpServerNameSchema,
 });
 
 export const revokeEndpointRevokePostStatus200Schema = z.looseObject({});
@@ -34215,7 +36120,7 @@ export const tokenEndpointTokenPostErrorSchema = tokenEndpointTokenPostStatus422
 export const tokenEndpointTokenPostBodySchema = bodyTokenEndpointTokenPostSchema;
 
 export const tokenEndpointTokenPostQuerySchema = z.object({
-	mcp_server_name: z.union([z.string(), z.null().nullable()]).optional(),
+	mcp_server_name: tokenEndpointTokenPostQueryMcpServerNameSchema,
 });
 
 export const authorizeMcpServerNameAuthorizeGetPathMcpServerNameSchema = z.union([
@@ -34262,18 +36167,18 @@ export const authorizeMcpServerNameAuthorizeGetErrorSchema =
 	authorizeMcpServerNameAuthorizeGetStatus422Schema;
 
 export const authorizeMcpServerNameAuthorizeGetPathSchema = z.object({
-	mcp_server_name: z.union([z.string(), z.null().nullable()]),
+	mcp_server_name: authorizeMcpServerNameAuthorizeGetPathMcpServerNameSchema,
 });
 
 export const authorizeMcpServerNameAuthorizeGetQuerySchema = z.object({
-	redirect_uri: z.string(),
-	client_id: z.union([z.string(), z.null().nullable()]).optional(),
-	state: z.string().optional().default(""),
-	code_challenge: z.union([z.string(), z.null().nullable()]).optional(),
-	code_challenge_method: z.union([z.string(), z.null().nullable()]).optional(),
-	response_type: z.union([z.string(), z.null().nullable()]).optional(),
-	scope: z.union([z.string(), z.null().nullable()]).optional(),
-	resource: z.union([z.string(), z.null().nullable()]).optional(),
+	redirect_uri: authorizeMcpServerNameAuthorizeGetQueryRedirectUriSchema,
+	client_id: authorizeMcpServerNameAuthorizeGetQueryClientIdSchema,
+	state: authorizeMcpServerNameAuthorizeGetQueryStateSchema,
+	code_challenge: authorizeMcpServerNameAuthorizeGetQueryCodeChallengeSchema,
+	code_challenge_method: authorizeMcpServerNameAuthorizeGetQueryCodeChallengeMethodSchema,
+	response_type: authorizeMcpServerNameAuthorizeGetQueryResponseTypeSchema,
+	scope: authorizeMcpServerNameAuthorizeGetQueryScopeSchema,
+	resource: authorizeMcpServerNameAuthorizeGetQueryResourceSchema,
 });
 
 export const registerClientMcpServerNameRegisterPostPathMcpServerNameSchema = z.union([
@@ -34292,7 +36197,7 @@ export const registerClientMcpServerNameRegisterPostErrorSchema =
 	registerClientMcpServerNameRegisterPostStatus422Schema;
 
 export const registerClientMcpServerNameRegisterPostPathSchema = z.object({
-	mcp_server_name: z.union([z.string(), z.null().nullable()]),
+	mcp_server_name: registerClientMcpServerNameRegisterPostPathMcpServerNameSchema,
 });
 
 export const tokenEndpointMcpServerNameTokenPostPathMcpServerNameSchema = z.union([
@@ -34314,7 +36219,7 @@ export const tokenEndpointMcpServerNameTokenPostBodySchema =
 	bodyTokenEndpointMcpServerNameTokenPostSchema;
 
 export const tokenEndpointMcpServerNameTokenPostPathSchema = z.object({
-	mcp_server_name: z.union([z.string(), z.null().nullable()]),
+	mcp_server_name: tokenEndpointMcpServerNameTokenPostPathMcpServerNameSchema,
 });
 
 export const testConnectionMcpRestTestConnectionPostStatus200Schema = z.looseObject({});
@@ -34346,21 +36251,33 @@ export const callToolRestApiMcpRestToolsCallPostStatus200Schema = z.looseObject(
 export const callToolRestApiMcpRestToolsCallPostResponseSchema =
 	callToolRestApiMcpRestToolsCallPostStatus200Schema;
 
+/**
+ * The server id to list tools for
+ */
 export const listToolRestApiMcpRestToolsListGetQueryServerIdSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("The server id to list tools for");
 
+/**
+ * Filter tools to a single MCP server by name or alias
+ */
 export const listToolRestApiMcpRestToolsListGetQueryMcpServerNameSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter tools to a single MCP server by name or alias");
 
+/**
+ * Filter tools to a single toolset by name
+ */
 export const listToolRestApiMcpRestToolsListGetQueryToolsetNameSchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
 	.describe("Filter tools to a single toolset by name");
 
+/**
+ * Admin only. Return the full server tool catalog without the allowed_tools filter or per-key tool permissions, so the MCP settings UI can configure the allowlist. Ignored for non-admins.
+ */
 export const listToolRestApiMcpRestToolsListGetQueryIncludeDisabledToolsSchema = z
 	.boolean()
 	.optional()
@@ -34380,25 +36297,10 @@ export const listToolRestApiMcpRestToolsListGetErrorSchema =
 	listToolRestApiMcpRestToolsListGetStatus422Schema;
 
 export const listToolRestApiMcpRestToolsListGetQuerySchema = z.object({
-	server_id: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("The server id to list tools for"),
-	mcp_server_name: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter tools to a single MCP server by name or alias"),
-	toolset_name: z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe("Filter tools to a single toolset by name"),
-	include_disabled_tools: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"Admin only. Return the full server tool catalog without the allowed_tools filter or per-key tool permissions, so the MCP settings UI can configure the allowlist. Ignored for non-admins.",
-		),
+	server_id: listToolRestApiMcpRestToolsListGetQueryServerIdSchema,
+	mcp_server_name: listToolRestApiMcpRestToolsListGetQueryMcpServerNameSchema,
+	toolset_name: listToolRestApiMcpRestToolsListGetQueryToolsetNameSchema,
+	include_disabled_tools: listToolRestApiMcpRestToolsListGetQueryIncludeDisabledToolsSchema,
 });
 
 export const getCyberarkConfigConfigOverridesCyberarkGetStatus200Schema =
@@ -34409,6 +36311,9 @@ export const getCyberarkConfigConfigOverridesCyberarkGetStatus200Schema =
 export const getCyberarkConfigConfigOverridesCyberarkGetResponseSchema =
 	getCyberarkConfigConfigOverridesCyberarkGetStatus200Schema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const updateCyberarkConfigConfigOverridesCyberarkPostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -34434,14 +36339,12 @@ export const updateCyberarkConfigConfigOverridesCyberarkPostBodySchema =
 	cyberArkConfigSchema.describe("Configuration for CyberArk Conjur secret manager integration.");
 
 export const updateCyberarkConfigConfigOverridesCyberarkPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by": updateCyberarkConfigConfigOverridesCyberarkPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const deleteCyberarkConfigConfigOverridesCyberarkDeleteHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional()
@@ -34464,12 +36367,8 @@ export const deleteCyberarkConfigConfigOverridesCyberarkDeleteErrorSchema =
 	deleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422Schema;
 
 export const deleteCyberarkConfigConfigOverridesCyberarkDeleteHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by":
+		deleteCyberarkConfigConfigOverridesCyberarkDeleteHeaderLitellmChangedBySchema,
 });
 
 export const testCyberarkConnectionConfigOverridesCyberarkTestConnectionPostStatus200Schema =
@@ -34486,6 +36385,9 @@ export const getHashicorpVaultConfigConfigOverridesHashicorpVaultGetStatus200Sch
 export const getHashicorpVaultConfigConfigOverridesHashicorpVaultGetResponseSchema =
 	getHashicorpVaultConfigConfigOverridesHashicorpVaultGetStatus200Schema;
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const updateHashicorpVaultConfigConfigOverridesHashicorpVaultPostHeaderLitellmChangedBySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -34512,14 +36414,13 @@ export const updateHashicorpVaultConfigConfigOverridesHashicorpVaultPostBodySche
 	);
 
 export const updateHashicorpVaultConfigConfigOverridesHashicorpVaultPostHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by":
+		updateHashicorpVaultConfigConfigOverridesHashicorpVaultPostHeaderLitellmChangedBySchema,
 });
 
+/**
+ * The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+ */
 export const deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaderLitellmChangedBySchema =
 	z
 		.union([z.string(), z.null().nullable()])
@@ -34541,12 +36442,8 @@ export const deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteErrorS
 	deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422Schema;
 
 export const deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeadersSchema = z.object({
-	"litellm-changed-by": z
-		.union([z.string(), z.null().nullable()])
-		.optional()
-		.describe(
-			"The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability",
-		),
+	"litellm-changed-by":
+		deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaderLitellmChangedBySchema,
 });
 
 export const testHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPostStatus200Schema =
@@ -34581,7 +36478,7 @@ export const comprehendMedicalProxyRouteComprehendmedicalOperationPostErrorSchem
 	comprehendMedicalProxyRouteComprehendmedicalOperationPostStatus422Schema;
 
 export const comprehendMedicalProxyRouteComprehendmedicalOperationPostPathSchema = z.object({
-	operation: z.string(),
+	operation: comprehendMedicalProxyRouteComprehendmedicalOperationPostPathOperationSchema,
 });
 
 export const euJevProxyRouteEuJevV1SystemonePostStatus200Schema = euJevDecisionResponseSchema;
@@ -34752,7 +36649,7 @@ export const transcribeProxyRouteTranscribeOperationPostErrorSchema =
 	transcribeProxyRouteTranscribeOperationPostStatus422Schema;
 
 export const transcribeProxyRouteTranscribeOperationPostPathSchema = z.object({
-	operation: z.string(),
+	operation: transcribeProxyRouteTranscribeOperationPostPathOperationSchema,
 });
 
 export const proxyRealtimeCallsRealtimeCallsPostStatus200Schema = z.looseObject({});
@@ -34791,6 +36688,11 @@ export const createRealtimeClientSecretRealtimeTranslationsClientSecretsPostStat
 export const createRealtimeClientSecretRealtimeTranslationsClientSecretsPostResponseSchema =
 	createRealtimeClientSecretRealtimeTranslationsClientSecretsPostStatus200Schema;
 
+/**
+ * Request body for POST /v1/realtime/client_secrets.
+ * LiteLLM also accepts a top-level `model` field for routing when
+ * session.model is absent (LiteLLM extension, not forwarded to OpenAI).
+ */
 export const createRealtimeClientSecretRealtimeTranslationsClientSecretsPostBodySchema = z
 	.object({
 		expires_after: z
@@ -34912,6 +36814,11 @@ export const createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostSt
 export const createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostResponseSchema =
 	createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostStatus200Schema;
 
+/**
+ * Request body for POST /v1/realtime/client_secrets.
+ * LiteLLM also accepts a top-level `model` field for routing when
+ * session.model is absent (LiteLLM extension, not forwarded to OpenAI).
+ */
 export const createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBodySchema = z
 	.object({
 		expires_after: z
@@ -35030,6 +36937,9 @@ export const listSkillsV1SkillsGetQueryCustomLlmProviderSchema = z
 	.optional()
 	.default("anthropic");
 
+/**
+ * Describe what you need in natural language to rank the skills you can access by semantic similarity over their title and description. Each result carries a search_score. Only supported for custom_llm_provider=litellm_proxy. Requires litellm_settings.skill_search_embedding_model.
+ */
 export const listSkillsV1SkillsGetQueryQuerySchema = z
 	.union([z.string().min(1), z.null().nullable()])
 	.optional()
@@ -35037,6 +36947,9 @@ export const listSkillsV1SkillsGetQueryQuerySchema = z
 		"Describe what you need in natural language to rank the skills you can access by semantic similarity over their title and description. Each result carries a search_score. Only supported for custom_llm_provider=litellm_proxy. Requires litellm_settings.skill_search_embedding_model.",
 	);
 
+/**
+ * With query: the maximum number of ranked skills to return.
+ */
 export const listSkillsV1SkillsGetQueryTopKSchema = z
 	.int()
 	.min(1)
@@ -35056,23 +36969,12 @@ export const listSkillsV1SkillsGetResponseSchema = listSkillsV1SkillsGetStatus20
 export const listSkillsV1SkillsGetErrorSchema = listSkillsV1SkillsGetStatus422Schema;
 
 export const listSkillsV1SkillsGetQuerySchema = z.object({
-	limit: z.union([z.int(), z.null().nullable()]).optional().default(10),
-	after_id: z.union([z.string(), z.null().nullable()]).optional(),
-	before_id: z.union([z.string(), z.null().nullable()]).optional(),
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("anthropic"),
-	query: z
-		.union([z.string().min(1), z.null().nullable()])
-		.optional()
-		.describe(
-			"Describe what you need in natural language to rank the skills you can access by semantic similarity over their title and description. Each result carries a search_score. Only supported for custom_llm_provider=litellm_proxy. Requires litellm_settings.skill_search_embedding_model.",
-		),
-	top_k: z
-		.int()
-		.min(1)
-		.max(100)
-		.optional()
-		.default(5)
-		.describe("With query: the maximum number of ranked skills to return."),
+	limit: listSkillsV1SkillsGetQueryLimitSchema,
+	after_id: listSkillsV1SkillsGetQueryAfterIdSchema,
+	before_id: listSkillsV1SkillsGetQueryBeforeIdSchema,
+	custom_llm_provider: listSkillsV1SkillsGetQueryCustomLlmProviderSchema,
+	query: listSkillsV1SkillsGetQueryQuerySchema,
+	top_k: listSkillsV1SkillsGetQueryTopKSchema,
 });
 
 export const createSkillV1SkillsPostQueryCustomLlmProviderSchema = z
@@ -35091,7 +36993,7 @@ export const createSkillV1SkillsPostResponseSchema = createSkillV1SkillsPostStat
 export const createSkillV1SkillsPostErrorSchema = createSkillV1SkillsPostStatus422Schema;
 
 export const createSkillV1SkillsPostQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("anthropic"),
+	custom_llm_provider: createSkillV1SkillsPostQueryCustomLlmProviderSchema,
 });
 
 export const getSkillV1SkillsSkillIdGetPathSkillIdSchema = z.string();
@@ -35112,11 +37014,11 @@ export const getSkillV1SkillsSkillIdGetResponseSchema = getSkillV1SkillsSkillIdG
 export const getSkillV1SkillsSkillIdGetErrorSchema = getSkillV1SkillsSkillIdGetStatus422Schema;
 
 export const getSkillV1SkillsSkillIdGetPathSchema = z.object({
-	skill_id: z.string(),
+	skill_id: getSkillV1SkillsSkillIdGetPathSkillIdSchema,
 });
 
 export const getSkillV1SkillsSkillIdGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("anthropic"),
+	custom_llm_provider: getSkillV1SkillsSkillIdGetQueryCustomLlmProviderSchema,
 });
 
 export const deleteSkillV1SkillsSkillIdDeletePathSkillIdSchema = z.string();
@@ -35139,11 +37041,11 @@ export const deleteSkillV1SkillsSkillIdDeleteErrorSchema =
 	deleteSkillV1SkillsSkillIdDeleteStatus422Schema;
 
 export const deleteSkillV1SkillsSkillIdDeletePathSchema = z.object({
-	skill_id: z.string(),
+	skill_id: deleteSkillV1SkillsSkillIdDeletePathSkillIdSchema,
 });
 
 export const deleteSkillV1SkillsSkillIdDeleteQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("anthropic"),
+	custom_llm_provider: deleteSkillV1SkillsSkillIdDeleteQueryCustomLlmProviderSchema,
 });
 
 export const listEvalsV1EvalsGetQueryLimitSchema = z
@@ -35183,12 +37085,12 @@ export const listEvalsV1EvalsGetResponseSchema = listEvalsV1EvalsGetStatus200Sch
 export const listEvalsV1EvalsGetErrorSchema = listEvalsV1EvalsGetStatus422Schema;
 
 export const listEvalsV1EvalsGetQuerySchema = z.object({
-	limit: z.union([z.int(), z.null().nullable()]).optional().default(20),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	before: z.union([z.string(), z.null().nullable()]).optional(),
-	order: z.union([z.string(), z.null().nullable()]).optional(),
-	order_by: z.union([z.string(), z.null().nullable()]).optional(),
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	limit: listEvalsV1EvalsGetQueryLimitSchema,
+	after: listEvalsV1EvalsGetQueryAfterSchema,
+	before: listEvalsV1EvalsGetQueryBeforeSchema,
+	order: listEvalsV1EvalsGetQueryOrderSchema,
+	order_by: listEvalsV1EvalsGetQueryOrderBySchema,
+	custom_llm_provider: listEvalsV1EvalsGetQueryCustomLlmProviderSchema,
 });
 
 export const createEvalV1EvalsPostQueryCustomLlmProviderSchema = z
@@ -35207,7 +37109,7 @@ export const createEvalV1EvalsPostResponseSchema = createEvalV1EvalsPostStatus20
 export const createEvalV1EvalsPostErrorSchema = createEvalV1EvalsPostStatus422Schema;
 
 export const createEvalV1EvalsPostQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: createEvalV1EvalsPostQueryCustomLlmProviderSchema,
 });
 
 export const getEvalV1EvalsEvalIdGetPathEvalIdSchema = z.string();
@@ -35228,11 +37130,11 @@ export const getEvalV1EvalsEvalIdGetResponseSchema = getEvalV1EvalsEvalIdGetStat
 export const getEvalV1EvalsEvalIdGetErrorSchema = getEvalV1EvalsEvalIdGetStatus422Schema;
 
 export const getEvalV1EvalsEvalIdGetPathSchema = z.object({
-	eval_id: z.string(),
+	eval_id: getEvalV1EvalsEvalIdGetPathEvalIdSchema,
 });
 
 export const getEvalV1EvalsEvalIdGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: getEvalV1EvalsEvalIdGetQueryCustomLlmProviderSchema,
 });
 
 export const updateEvalV1EvalsEvalIdPostPathEvalIdSchema = z.string();
@@ -35253,11 +37155,11 @@ export const updateEvalV1EvalsEvalIdPostResponseSchema = updateEvalV1EvalsEvalId
 export const updateEvalV1EvalsEvalIdPostErrorSchema = updateEvalV1EvalsEvalIdPostStatus422Schema;
 
 export const updateEvalV1EvalsEvalIdPostPathSchema = z.object({
-	eval_id: z.string(),
+	eval_id: updateEvalV1EvalsEvalIdPostPathEvalIdSchema,
 });
 
 export const updateEvalV1EvalsEvalIdPostQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: updateEvalV1EvalsEvalIdPostQueryCustomLlmProviderSchema,
 });
 
 export const deleteEvalV1EvalsEvalIdDeletePathEvalIdSchema = z.string();
@@ -35280,11 +37182,11 @@ export const deleteEvalV1EvalsEvalIdDeleteErrorSchema =
 	deleteEvalV1EvalsEvalIdDeleteStatus422Schema;
 
 export const deleteEvalV1EvalsEvalIdDeletePathSchema = z.object({
-	eval_id: z.string(),
+	eval_id: deleteEvalV1EvalsEvalIdDeletePathEvalIdSchema,
 });
 
 export const deleteEvalV1EvalsEvalIdDeleteQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: deleteEvalV1EvalsEvalIdDeleteQueryCustomLlmProviderSchema,
 });
 
 export const cancelEvalV1EvalsEvalIdCancelPostPathEvalIdSchema = z.string();
@@ -35307,11 +37209,11 @@ export const cancelEvalV1EvalsEvalIdCancelPostErrorSchema =
 	cancelEvalV1EvalsEvalIdCancelPostStatus422Schema;
 
 export const cancelEvalV1EvalsEvalIdCancelPostPathSchema = z.object({
-	eval_id: z.string(),
+	eval_id: cancelEvalV1EvalsEvalIdCancelPostPathEvalIdSchema,
 });
 
 export const cancelEvalV1EvalsEvalIdCancelPostQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: cancelEvalV1EvalsEvalIdCancelPostQueryCustomLlmProviderSchema,
 });
 
 export const listRunsV1EvalsEvalIdRunsGetPathEvalIdSchema = z.string();
@@ -35350,15 +37252,15 @@ export const listRunsV1EvalsEvalIdRunsGetResponseSchema =
 export const listRunsV1EvalsEvalIdRunsGetErrorSchema = listRunsV1EvalsEvalIdRunsGetStatus422Schema;
 
 export const listRunsV1EvalsEvalIdRunsGetPathSchema = z.object({
-	eval_id: z.string(),
+	eval_id: listRunsV1EvalsEvalIdRunsGetPathEvalIdSchema,
 });
 
 export const listRunsV1EvalsEvalIdRunsGetQuerySchema = z.object({
-	limit: z.union([z.int(), z.null().nullable()]).optional().default(20),
-	after: z.union([z.string(), z.null().nullable()]).optional(),
-	before: z.union([z.string(), z.null().nullable()]).optional(),
-	order: z.union([z.string(), z.null().nullable()]).optional(),
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	limit: listRunsV1EvalsEvalIdRunsGetQueryLimitSchema,
+	after: listRunsV1EvalsEvalIdRunsGetQueryAfterSchema,
+	before: listRunsV1EvalsEvalIdRunsGetQueryBeforeSchema,
+	order: listRunsV1EvalsEvalIdRunsGetQueryOrderSchema,
+	custom_llm_provider: listRunsV1EvalsEvalIdRunsGetQueryCustomLlmProviderSchema,
 });
 
 export const createRunV1EvalsEvalIdRunsPostPathEvalIdSchema = z.string();
@@ -35381,11 +37283,11 @@ export const createRunV1EvalsEvalIdRunsPostErrorSchema =
 	createRunV1EvalsEvalIdRunsPostStatus422Schema;
 
 export const createRunV1EvalsEvalIdRunsPostPathSchema = z.object({
-	eval_id: z.string(),
+	eval_id: createRunV1EvalsEvalIdRunsPostPathEvalIdSchema,
 });
 
 export const createRunV1EvalsEvalIdRunsPostQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: createRunV1EvalsEvalIdRunsPostQueryCustomLlmProviderSchema,
 });
 
 export const getRunV1EvalsEvalIdRunsRunIdGetPathEvalIdSchema = z.string();
@@ -35410,12 +37312,12 @@ export const getRunV1EvalsEvalIdRunsRunIdGetErrorSchema =
 	getRunV1EvalsEvalIdRunsRunIdGetStatus422Schema;
 
 export const getRunV1EvalsEvalIdRunsRunIdGetPathSchema = z.object({
-	eval_id: z.string(),
-	run_id: z.string(),
+	eval_id: getRunV1EvalsEvalIdRunsRunIdGetPathEvalIdSchema,
+	run_id: getRunV1EvalsEvalIdRunsRunIdGetPathRunIdSchema,
 });
 
 export const getRunV1EvalsEvalIdRunsRunIdGetQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: getRunV1EvalsEvalIdRunsRunIdGetQueryCustomLlmProviderSchema,
 });
 
 export const cancelRunV1EvalsEvalIdRunsRunIdPostPathEvalIdSchema = z.string();
@@ -35440,12 +37342,12 @@ export const cancelRunV1EvalsEvalIdRunsRunIdPostErrorSchema =
 	cancelRunV1EvalsEvalIdRunsRunIdPostStatus422Schema;
 
 export const cancelRunV1EvalsEvalIdRunsRunIdPostPathSchema = z.object({
-	eval_id: z.string(),
-	run_id: z.string(),
+	eval_id: cancelRunV1EvalsEvalIdRunsRunIdPostPathEvalIdSchema,
+	run_id: cancelRunV1EvalsEvalIdRunsRunIdPostPathRunIdSchema,
 });
 
 export const cancelRunV1EvalsEvalIdRunsRunIdPostQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: cancelRunV1EvalsEvalIdRunsRunIdPostQueryCustomLlmProviderSchema,
 });
 
 export const deleteRunV1EvalsEvalIdRunsRunIdDeletePathEvalIdSchema = z.string();
@@ -35469,12 +37371,12 @@ export const deleteRunV1EvalsEvalIdRunsRunIdDeleteErrorSchema =
 	deleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422Schema;
 
 export const deleteRunV1EvalsEvalIdRunsRunIdDeletePathSchema = z.object({
-	eval_id: z.string(),
-	run_id: z.string(),
+	eval_id: deleteRunV1EvalsEvalIdRunsRunIdDeletePathEvalIdSchema,
+	run_id: deleteRunV1EvalsEvalIdRunsRunIdDeletePathRunIdSchema,
 });
 
 export const deleteRunV1EvalsEvalIdRunsRunIdDeleteQuerySchema = z.object({
-	custom_llm_provider: z.union([z.string(), z.null().nullable()]).optional().default("openai"),
+	custom_llm_provider: deleteRunV1EvalsEvalIdRunsRunIdDeleteQueryCustomLlmProviderSchema,
 });
 
 export const decisionsDecisionsPostStatus200Schema = openAIDecisionResponseSchema;
@@ -36446,25 +38348,13 @@ export const listSkillsSkillHubSkillsGetResponseSchema = listSkillsSkillHubSkill
 export const listSkillsSkillHubSkillsGetErrorSchema = listSkillsSkillHubSkillsGetStatus422Schema;
 
 export const listSkillsSkillHubSkillsGetQuerySchema = z.object({
-	query: z.string().optional().default(""),
-	offset: z.int().min(0).optional().default(0),
-	limit: z.int().min(1).max(100).optional().default(50),
-	tag: z.string().optional().default(""),
-	security_scan_passed: z.union([z.boolean(), z.null().nullable()]).optional(),
-	sort_by: z
-		.enum([
-			"name",
-			"download_count",
-			"updated_at",
-			"created_at",
-			"created_by",
-			"published_by",
-			"approved_by",
-			"security_scan_passed",
-		])
-		.optional()
-		.default("name"),
-	sort_order: z.enum(["asc", "desc"]).optional().default("asc"),
+	query: listSkillsSkillHubSkillsGetQueryQuerySchema,
+	offset: listSkillsSkillHubSkillsGetQueryOffsetSchema,
+	limit: listSkillsSkillHubSkillsGetQueryLimitSchema,
+	tag: listSkillsSkillHubSkillsGetQueryTagSchema,
+	security_scan_passed: listSkillsSkillHubSkillsGetQuerySecurityScanPassedSchema,
+	sort_by: listSkillsSkillHubSkillsGetQuerySortBySchema,
+	sort_order: listSkillsSkillHubSkillsGetQuerySortOrderSchema,
 });
 
 export const importSkillSkillHubSkillsImportPostStatus200Schema = z.union([
@@ -36511,7 +38401,7 @@ export const getSkillSkillHubSkillsNameGetErrorSchema =
 	getSkillSkillHubSkillsNameGetStatus422Schema;
 
 export const getSkillSkillHubSkillsNameGetPathSchema = z.object({
-	name: z.string(),
+	name: getSkillSkillHubSkillsNameGetPathNameSchema,
 });
 
 export const replaceSkillMetadataSkillHubSkillsNamePutPathNameSchema = z.string();
@@ -36532,7 +38422,7 @@ export const replaceSkillMetadataSkillHubSkillsNamePutErrorSchema =
 export const replaceSkillMetadataSkillHubSkillsNamePutBodySchema = skillHubMetadataSchema;
 
 export const replaceSkillMetadataSkillHubSkillsNamePutPathSchema = z.object({
-	name: z.string(),
+	name: replaceSkillMetadataSkillHubSkillsNamePutPathNameSchema,
 });
 
 export const removeSkillSkillHubSkillsNameDeletePathNameSchema = z.string();
@@ -36548,7 +38438,7 @@ export const removeSkillSkillHubSkillsNameDeleteErrorSchema =
 	removeSkillSkillHubSkillsNameDeleteStatus422Schema;
 
 export const removeSkillSkillHubSkillsNameDeletePathSchema = z.object({
-	name: z.string(),
+	name: removeSkillSkillHubSkillsNameDeletePathNameSchema,
 });
 
 export const downloadSkillSkillHubSkillsNameArchiveGetPathNameSchema = z.string();
@@ -36568,11 +38458,11 @@ export const downloadSkillSkillHubSkillsNameArchiveGetErrorSchema =
 	downloadSkillSkillHubSkillsNameArchiveGetStatus422Schema;
 
 export const downloadSkillSkillHubSkillsNameArchiveGetPathSchema = z.object({
-	name: z.string(),
+	name: downloadSkillSkillHubSkillsNameArchiveGetPathNameSchema,
 });
 
 export const downloadSkillSkillHubSkillsNameArchiveGetQuerySchema = z.object({
-	digest: z.union([z.string(), z.null().nullable()]).optional(),
+	digest: downloadSkillSkillHubSkillsNameArchiveGetQueryDigestSchema,
 });
 
 export const skillContentSkillHubSkillsNameContentGetPathNameSchema = z.string();
@@ -36588,7 +38478,7 @@ export const skillContentSkillHubSkillsNameContentGetErrorSchema =
 	skillContentSkillHubSkillsNameContentGetStatus422Schema;
 
 export const skillContentSkillHubSkillsNameContentGetPathSchema = z.object({
-	name: z.string(),
+	name: skillContentSkillHubSkillsNameContentGetPathNameSchema,
 });
 
 export const publishSkillSkillHubSkillsNamePublishPostPathNameSchema = z.string();
@@ -36608,7 +38498,7 @@ export const publishSkillSkillHubSkillsNamePublishPostBodySchema = z
 	.optional();
 
 export const publishSkillSkillHubSkillsNamePublishPostPathSchema = z.object({
-	name: z.string(),
+	name: publishSkillSkillHubSkillsNamePublishPostPathNameSchema,
 });
 
 export const unpublishSkillSkillHubSkillsNameUnpublishPostPathNameSchema = z.string();
@@ -36629,7 +38519,7 @@ export const unpublishSkillSkillHubSkillsNameUnpublishPostBodySchema = z
 	.optional();
 
 export const unpublishSkillSkillHubSkillsNameUnpublishPostPathSchema = z.object({
-	name: z.string(),
+	name: unpublishSkillSkillHubSkillsNameUnpublishPostPathNameSchema,
 });
 
 export const replaceSkillArchiveSkillHubSkillsNameUploadPutPathNameSchema = z.string();
@@ -36652,7 +38542,7 @@ export const replaceSkillArchiveSkillHubSkillsNameUploadPutBodySchema =
 	bodyReplaceSkillArchiveSkillHubSkillsNameUploadPutSchema;
 
 export const replaceSkillArchiveSkillHubSkillsNameUploadPutPathSchema = z.object({
-	name: z.string(),
+	name: replaceSkillArchiveSkillHubSkillsNameUploadPutPathNameSchema,
 });
 
 export const listSkillVersionsSkillHubSkillsNameVersionsGetPathNameSchema = z.string();
@@ -36682,12 +38572,12 @@ export const listSkillVersionsSkillHubSkillsNameVersionsGetErrorSchema =
 	listSkillVersionsSkillHubSkillsNameVersionsGetStatus422Schema;
 
 export const listSkillVersionsSkillHubSkillsNameVersionsGetPathSchema = z.object({
-	name: z.string(),
+	name: listSkillVersionsSkillHubSkillsNameVersionsGetPathNameSchema,
 });
 
 export const listSkillVersionsSkillHubSkillsNameVersionsGetQuerySchema = z.object({
-	limit: z.int().min(1).max(100).optional().default(20),
-	offset: z.int().min(0).optional().default(0),
+	limit: listSkillVersionsSkillHubSkillsNameVersionsGetQueryLimitSchema,
+	offset: listSkillVersionsSkillHubSkillsNameVersionsGetQueryOffsetSchema,
 });
 
 export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathNameSchema = z.string();
@@ -36707,8 +38597,8 @@ export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetErrorSchema =
 	getSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422Schema;
 
 export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathSchema = z.object({
-	name: z.string(),
-	version_id: z.string(),
+	name: getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathNameSchema,
+	version_id: getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathVersionIdSchema,
 });
 
 export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathNameSchema =
@@ -36731,14 +38621,18 @@ export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetEr
 
 export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathSchema = z.object(
 	{
-		name: z.string(),
-		version_id: z.string(),
+		name: downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathNameSchema,
+		version_id:
+			downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathVersionIdSchema,
 	},
 );
 
 export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPathPluginNameSchema =
 	z.string();
 
+/**
+ * Maximum number of download events
+ */
 export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryLimitSchema = z
 	.int()
 	.min(1)
@@ -36747,6 +38641,9 @@ export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryLimitSch
 	.default(25)
 	.describe("Maximum number of download events");
 
+/**
+ * Previous next_cursor
+ */
 export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryCursorSchema = z
 	.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
 	.optional()
@@ -36765,21 +38662,12 @@ export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetErrorSchema =
 	getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422Schema;
 
 export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPathPluginNameSchema,
 });
 
 export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuerySchema = z.object({
-	limit: z
-		.int()
-		.min(1)
-		.max(100)
-		.optional()
-		.default(25)
-		.describe("Maximum number of download events"),
-	cursor: z
-		.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
-		.optional()
-		.describe("Previous next_cursor"),
+	limit: getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryLimitSchema,
+	cursor: getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryCursorSchema,
 });
 
 export const listSubmissionsSkillHubSubmissionsGetQueryStatusSchema = z
@@ -36810,11 +38698,9 @@ export const listSubmissionsSkillHubSubmissionsGetErrorSchema =
 	listSubmissionsSkillHubSubmissionsGetStatus422Schema;
 
 export const listSubmissionsSkillHubSubmissionsGetQuerySchema = z.object({
-	status: z
-		.union([z.enum(["pending_review", "approved", "rejected"]), z.null().nullable()])
-		.optional(),
-	limit: z.int().min(1).max(100).optional().default(20),
-	offset: z.int().min(0).optional().default(0),
+	status: listSubmissionsSkillHubSubmissionsGetQueryStatusSchema,
+	limit: listSubmissionsSkillHubSubmissionsGetQueryLimitSchema,
+	offset: listSubmissionsSkillHubSubmissionsGetQueryOffsetSchema,
 });
 
 export const getSubmissionSkillHubSubmissionsSubmissionIdGetPathSubmissionIdSchema = z.string();
@@ -36832,7 +38718,7 @@ export const getSubmissionSkillHubSubmissionsSubmissionIdGetErrorSchema =
 	getSubmissionSkillHubSubmissionsSubmissionIdGetStatus422Schema;
 
 export const getSubmissionSkillHubSubmissionsSubmissionIdGetPathSchema = z.object({
-	submission_id: z.string(),
+	submission_id: getSubmissionSkillHubSubmissionsSubmissionIdGetPathSubmissionIdSchema,
 });
 
 export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPathSubmissionIdSchema =
@@ -36851,7 +38737,7 @@ export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutErrorSche
 	approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422Schema;
 
 export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPathSchema = z.object({
-	submission_id: z.string(),
+	submission_id: approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPathSubmissionIdSchema,
 });
 
 export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPathSubmissionIdSchema =
@@ -36870,7 +38756,7 @@ export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetErrorSch
 	downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422Schema;
 
 export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPathSchema = z.object({
-	submission_id: z.string(),
+	submission_id: downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPathSubmissionIdSchema,
 });
 
 export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPathSubmissionIdSchema =
@@ -36893,7 +38779,7 @@ export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBodySchema 
 	.optional();
 
 export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPathSchema = z.object({
-	submission_id: z.string(),
+	submission_id: rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPathSubmissionIdSchema,
 });
 
 export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetPathSubmissionIdSchema = z.string();
@@ -36911,7 +38797,7 @@ export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetErrorSchema =
 	getSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422Schema;
 
 export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetPathSchema = z.object({
-	submission_id: z.string(),
+	submission_id: getSkillScanSkillHubSubmissionsSubmissionIdScanGetPathSubmissionIdSchema,
 });
 
 export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostPathSubmissionIdSchema =
@@ -36934,7 +38820,7 @@ export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostBodySchema = z
 	.optional();
 
 export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostPathSchema = z.object({
-	submission_id: z.string(),
+	submission_id: startSkillScanSkillHubSubmissionsSubmissionIdScanPostPathSubmissionIdSchema,
 });
 
 export const getMarketplaceClaudeCodeMarketplaceJsonGetQueryKeySchema = z
@@ -36952,7 +38838,7 @@ export const getMarketplaceClaudeCodeMarketplaceJsonGetErrorSchema =
 	getMarketplaceClaudeCodeMarketplaceJsonGetStatus422Schema;
 
 export const getMarketplaceClaudeCodeMarketplaceJsonGetQuerySchema = z.object({
-	key: z.union([z.string(), z.null().nullable()]).optional(),
+	key: getMarketplaceClaudeCodeMarketplaceJsonGetQueryKeySchema,
 });
 
 export const listPluginsClaudeCodePluginsGetQueryEnabledOnlySchema = z
@@ -36973,7 +38859,7 @@ export const listPluginsClaudeCodePluginsGetErrorSchema =
 	listPluginsClaudeCodePluginsGetStatus422Schema;
 
 export const listPluginsClaudeCodePluginsGetQuerySchema = z.object({
-	enabled_only: z.boolean().optional().default(false),
+	enabled_only: listPluginsClaudeCodePluginsGetQueryEnabledOnlySchema,
 });
 
 export const registerPluginClaudeCodePluginsPostStatus200Schema =
@@ -37018,7 +38904,7 @@ export const getPluginClaudeCodePluginsPluginNameGetErrorSchema =
 	getPluginClaudeCodePluginsPluginNameGetStatus422Schema;
 
 export const getPluginClaudeCodePluginsPluginNameGetPathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: getPluginClaudeCodePluginsPluginNameGetPathPluginNameSchema,
 });
 
 export const updatePluginClaudeCodePluginsPluginNamePutPathPluginNameSchema = z.string();
@@ -37040,7 +38926,7 @@ export const updatePluginClaudeCodePluginsPluginNamePutBodySchema =
 	);
 
 export const updatePluginClaudeCodePluginsPluginNamePutPathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: updatePluginClaudeCodePluginsPluginNamePutPathPluginNameSchema,
 });
 
 export const deletePluginClaudeCodePluginsPluginNameDeletePathPluginNameSchema = z.string();
@@ -37057,7 +38943,7 @@ export const deletePluginClaudeCodePluginsPluginNameDeleteErrorSchema =
 	deletePluginClaudeCodePluginsPluginNameDeleteStatus422Schema;
 
 export const deletePluginClaudeCodePluginsPluginNameDeletePathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: deletePluginClaudeCodePluginsPluginNameDeletePathPluginNameSchema,
 });
 
 export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathPluginNameSchema =
@@ -37080,8 +38966,9 @@ export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGet
 
 export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathSchema =
 	z.object({
-		plugin_name: z.string(),
-		digest: z.string(),
+		plugin_name:
+			downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathPluginNameSchema,
+		digest: downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathDigestSchema,
 	});
 
 export const disablePluginClaudeCodePluginsPluginNameDisablePostPathPluginNameSchema = z.string();
@@ -37098,12 +38985,15 @@ export const disablePluginClaudeCodePluginsPluginNameDisablePostErrorSchema =
 	disablePluginClaudeCodePluginsPluginNameDisablePostStatus422Schema;
 
 export const disablePluginClaudeCodePluginsPluginNameDisablePostPathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: disablePluginClaudeCodePluginsPluginNameDisablePostPathPluginNameSchema,
 });
 
 export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPathPluginNameSchema =
 	z.string();
 
+/**
+ * Maximum number of download events
+ */
 export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryLimitSchema = z
 	.int()
 	.min(1)
@@ -37112,6 +39002,9 @@ export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryLimit
 	.default(25)
 	.describe("Maximum number of download events");
 
+/**
+ * Previous next_cursor
+ */
 export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryCursorSchema = z
 	.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
 	.optional()
@@ -37130,21 +39023,12 @@ export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetErrorSchem
 	getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422Schema;
 
 export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPathPluginNameSchema,
 });
 
 export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuerySchema = z.object({
-	limit: z
-		.int()
-		.min(1)
-		.max(100)
-		.optional()
-		.default(25)
-		.describe("Maximum number of download events"),
-	cursor: z
-		.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
-		.optional()
-		.describe("Previous next_cursor"),
+	limit: getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryLimitSchema,
+	cursor: getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryCursorSchema,
 });
 
 export const enablePluginClaudeCodePluginsPluginNameEnablePostPathPluginNameSchema = z.string();
@@ -37161,7 +39045,7 @@ export const enablePluginClaudeCodePluginsPluginNameEnablePostErrorSchema =
 	enablePluginClaudeCodePluginsPluginNameEnablePostStatus422Schema;
 
 export const enablePluginClaudeCodePluginsPluginNameEnablePostPathSchema = z.object({
-	plugin_name: z.string(),
+	plugin_name: enablePluginClaudeCodePluginsPluginNameEnablePostPathPluginNameSchema,
 });
 
 export const getScimBaseScimV2GetQueryFeatureSchema = z
@@ -37177,7 +39061,7 @@ export const getScimBaseScimV2GetResponseSchema = getScimBaseScimV2GetStatus200S
 export const getScimBaseScimV2GetErrorSchema = getScimBaseScimV2GetStatus422Schema;
 
 export const getScimBaseScimV2GetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getScimBaseScimV2GetQueryFeatureSchema,
 });
 
 export const getGroupsScimV2GroupsGetQueryStartIndexSchema = z.int().min(1).optional().default(1);
@@ -37201,10 +39085,10 @@ export const getGroupsScimV2GroupsGetResponseSchema = getGroupsScimV2GroupsGetSt
 export const getGroupsScimV2GroupsGetErrorSchema = getGroupsScimV2GroupsGetStatus422Schema;
 
 export const getGroupsScimV2GroupsGetQuerySchema = z.object({
-	startIndex: z.int().min(1).optional().default(1),
-	count: z.int().min(0).optional().default(10),
-	filter: z.union([z.string(), z.null().nullable()]).optional(),
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	startIndex: getGroupsScimV2GroupsGetQueryStartIndexSchema,
+	count: getGroupsScimV2GroupsGetQueryCountSchema,
+	filter: getGroupsScimV2GroupsGetQueryFilterSchema,
+	feature: getGroupsScimV2GroupsGetQueryFeatureSchema,
 });
 
 export const createGroupScimV2GroupsPostQueryFeatureSchema = z
@@ -37222,7 +39106,7 @@ export const createGroupScimV2GroupsPostErrorSchema = createGroupScimV2GroupsPos
 export const createGroupScimV2GroupsPostBodySchema = SCIMGroupSchema;
 
 export const createGroupScimV2GroupsPostQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: createGroupScimV2GroupsPostQueryFeatureSchema,
 });
 
 export const getGroupScimV2GroupsGroupIdGetPathGroupIdSchema = z.string();
@@ -37242,11 +39126,11 @@ export const getGroupScimV2GroupsGroupIdGetErrorSchema =
 	getGroupScimV2GroupsGroupIdGetStatus422Schema;
 
 export const getGroupScimV2GroupsGroupIdGetPathSchema = z.object({
-	group_id: z.string(),
+	group_id: getGroupScimV2GroupsGroupIdGetPathGroupIdSchema,
 });
 
 export const getGroupScimV2GroupsGroupIdGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getGroupScimV2GroupsGroupIdGetQueryFeatureSchema,
 });
 
 export const updateGroupScimV2GroupsGroupIdPutPathGroupIdSchema = z.string();
@@ -37268,11 +39152,11 @@ export const updateGroupScimV2GroupsGroupIdPutErrorSchema =
 export const updateGroupScimV2GroupsGroupIdPutBodySchema = SCIMGroupSchema;
 
 export const updateGroupScimV2GroupsGroupIdPutPathSchema = z.object({
-	group_id: z.string(),
+	group_id: updateGroupScimV2GroupsGroupIdPutPathGroupIdSchema,
 });
 
 export const updateGroupScimV2GroupsGroupIdPutQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: updateGroupScimV2GroupsGroupIdPutQueryFeatureSchema,
 });
 
 export const patchGroupScimV2GroupsGroupIdPatchPathGroupIdSchema = z.string();
@@ -37294,11 +39178,11 @@ export const patchGroupScimV2GroupsGroupIdPatchErrorSchema =
 export const patchGroupScimV2GroupsGroupIdPatchBodySchema = SCIMPatchOpSchema;
 
 export const patchGroupScimV2GroupsGroupIdPatchPathSchema = z.object({
-	group_id: z.string(),
+	group_id: patchGroupScimV2GroupsGroupIdPatchPathGroupIdSchema,
 });
 
 export const patchGroupScimV2GroupsGroupIdPatchQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: patchGroupScimV2GroupsGroupIdPatchQueryFeatureSchema,
 });
 
 export const deleteGroupScimV2GroupsGroupIdDeletePathGroupIdSchema = z.string();
@@ -37318,11 +39202,11 @@ export const deleteGroupScimV2GroupsGroupIdDeleteErrorSchema =
 	deleteGroupScimV2GroupsGroupIdDeleteStatus422Schema;
 
 export const deleteGroupScimV2GroupsGroupIdDeletePathSchema = z.object({
-	group_id: z.string(),
+	group_id: deleteGroupScimV2GroupsGroupIdDeletePathGroupIdSchema,
 });
 
 export const deleteGroupScimV2GroupsGroupIdDeleteQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: deleteGroupScimV2GroupsGroupIdDeleteQueryFeatureSchema,
 });
 
 export const getResourceTypesScimV2ResourceTypesGetQueryFeatureSchema = z
@@ -37340,7 +39224,7 @@ export const getResourceTypesScimV2ResourceTypesGetErrorSchema =
 	getResourceTypesScimV2ResourceTypesGetStatus422Schema;
 
 export const getResourceTypesScimV2ResourceTypesGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getResourceTypesScimV2ResourceTypesGetQueryFeatureSchema,
 });
 
 export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetPathResourceTypeIdSchema =
@@ -37362,11 +39246,11 @@ export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetErrorSchema =
 	getResourceTypeScimV2ResourceTypesResourceTypeIdGetStatus422Schema;
 
 export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetPathSchema = z.object({
-	resource_type_id: z.string(),
+	resource_type_id: getResourceTypeScimV2ResourceTypesResourceTypeIdGetPathResourceTypeIdSchema,
 });
 
 export const getResourceTypeScimV2ResourceTypesResourceTypeIdGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getResourceTypeScimV2ResourceTypesResourceTypeIdGetQueryFeatureSchema,
 });
 
 export const getSchemasScimV2SchemasGetQueryFeatureSchema = z
@@ -37382,7 +39266,7 @@ export const getSchemasScimV2SchemasGetResponseSchema = getSchemasScimV2SchemasG
 export const getSchemasScimV2SchemasGetErrorSchema = getSchemasScimV2SchemasGetStatus422Schema;
 
 export const getSchemasScimV2SchemasGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getSchemasScimV2SchemasGetQueryFeatureSchema,
 });
 
 export const getSchemaScimV2SchemasSchemaIdGetPathSchemaIdSchema = z.string();
@@ -37402,11 +39286,11 @@ export const getSchemaScimV2SchemasSchemaIdGetErrorSchema =
 	getSchemaScimV2SchemasSchemaIdGetStatus422Schema;
 
 export const getSchemaScimV2SchemasSchemaIdGetPathSchema = z.object({
-	schema_id: z.string(),
+	schema_id: getSchemaScimV2SchemasSchemaIdGetPathSchemaIdSchema,
 });
 
 export const getSchemaScimV2SchemasSchemaIdGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getSchemaScimV2SchemasSchemaIdGetQueryFeatureSchema,
 });
 
 export const getServiceProviderConfigScimV2ServiceProviderConfigGetQueryFeatureSchema = z
@@ -37426,7 +39310,7 @@ export const getServiceProviderConfigScimV2ServiceProviderConfigGetErrorSchema =
 	getServiceProviderConfigScimV2ServiceProviderConfigGetStatus422Schema;
 
 export const getServiceProviderConfigScimV2ServiceProviderConfigGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getServiceProviderConfigScimV2ServiceProviderConfigGetQueryFeatureSchema,
 });
 
 export const getUsersScimV2UsersGetQueryStartIndexSchema = z.int().min(1).optional().default(1);
@@ -37450,10 +39334,10 @@ export const getUsersScimV2UsersGetResponseSchema = getUsersScimV2UsersGetStatus
 export const getUsersScimV2UsersGetErrorSchema = getUsersScimV2UsersGetStatus422Schema;
 
 export const getUsersScimV2UsersGetQuerySchema = z.object({
-	startIndex: z.int().min(1).optional().default(1),
-	count: z.int().min(0).optional().default(10),
-	filter: z.union([z.string(), z.null().nullable()]).optional(),
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	startIndex: getUsersScimV2UsersGetQueryStartIndexSchema,
+	count: getUsersScimV2UsersGetQueryCountSchema,
+	filter: getUsersScimV2UsersGetQueryFilterSchema,
+	feature: getUsersScimV2UsersGetQueryFeatureSchema,
 });
 
 export const createUserScimV2UsersPostQueryFeatureSchema = z
@@ -37471,7 +39355,7 @@ export const createUserScimV2UsersPostErrorSchema = createUserScimV2UsersPostSta
 export const createUserScimV2UsersPostBodySchema = SCIMUserInputSchema;
 
 export const createUserScimV2UsersPostQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: createUserScimV2UsersPostQueryFeatureSchema,
 });
 
 export const getUserScimV2UsersUserIdGetPathUserIdSchema = z.string();
@@ -37489,11 +39373,11 @@ export const getUserScimV2UsersUserIdGetResponseSchema = getUserScimV2UsersUserI
 export const getUserScimV2UsersUserIdGetErrorSchema = getUserScimV2UsersUserIdGetStatus422Schema;
 
 export const getUserScimV2UsersUserIdGetPathSchema = z.object({
-	user_id: z.string(),
+	user_id: getUserScimV2UsersUserIdGetPathUserIdSchema,
 });
 
 export const getUserScimV2UsersUserIdGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: getUserScimV2UsersUserIdGetQueryFeatureSchema,
 });
 
 export const updateUserScimV2UsersUserIdPutPathUserIdSchema = z.string();
@@ -37515,11 +39399,11 @@ export const updateUserScimV2UsersUserIdPutErrorSchema =
 export const updateUserScimV2UsersUserIdPutBodySchema = SCIMUserInputSchema;
 
 export const updateUserScimV2UsersUserIdPutPathSchema = z.object({
-	user_id: z.string(),
+	user_id: updateUserScimV2UsersUserIdPutPathUserIdSchema,
 });
 
 export const updateUserScimV2UsersUserIdPutQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: updateUserScimV2UsersUserIdPutQueryFeatureSchema,
 });
 
 export const patchUserScimV2UsersUserIdPatchPathUserIdSchema = z.string();
@@ -37541,11 +39425,11 @@ export const patchUserScimV2UsersUserIdPatchErrorSchema =
 export const patchUserScimV2UsersUserIdPatchBodySchema = SCIMPatchOpSchema;
 
 export const patchUserScimV2UsersUserIdPatchPathSchema = z.object({
-	user_id: z.string(),
+	user_id: patchUserScimV2UsersUserIdPatchPathUserIdSchema,
 });
 
 export const patchUserScimV2UsersUserIdPatchQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: patchUserScimV2UsersUserIdPatchQueryFeatureSchema,
 });
 
 export const deleteUserScimV2UsersUserIdDeletePathUserIdSchema = z.string();
@@ -37565,11 +39449,11 @@ export const deleteUserScimV2UsersUserIdDeleteErrorSchema =
 	deleteUserScimV2UsersUserIdDeleteStatus422Schema;
 
 export const deleteUserScimV2UsersUserIdDeletePathSchema = z.object({
-	user_id: z.string(),
+	user_id: deleteUserScimV2UsersUserIdDeletePathUserIdSchema,
 });
 
 export const deleteUserScimV2UsersUserIdDeleteQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: deleteUserScimV2UsersUserIdDeleteQueryFeatureSchema,
 });
 
 export const listPlaceholdersScimV2PlaceholdersGetQueryFeatureSchema = z
@@ -37587,7 +39471,7 @@ export const listPlaceholdersScimV2PlaceholdersGetErrorSchema =
 	listPlaceholdersScimV2PlaceholdersGetStatus422Schema;
 
 export const listPlaceholdersScimV2PlaceholdersGetQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: listPlaceholdersScimV2PlaceholdersGetQueryFeatureSchema,
 });
 
 export const mergePlaceholderScimV2PlaceholdersUserIdMergePostPathUserIdSchema = z.string();
@@ -37609,11 +39493,11 @@ export const mergePlaceholderScimV2PlaceholdersUserIdMergePostErrorSchema =
 	mergePlaceholderScimV2PlaceholdersUserIdMergePostStatus422Schema;
 
 export const mergePlaceholderScimV2PlaceholdersUserIdMergePostPathSchema = z.object({
-	user_id: z.string(),
+	user_id: mergePlaceholderScimV2PlaceholdersUserIdMergePostPathUserIdSchema,
 });
 
 export const mergePlaceholderScimV2PlaceholdersUserIdMergePostQuerySchema = z.object({
-	feature: z.union([z.string(), z.null().nullable()]).optional(),
+	feature: mergePlaceholderScimV2PlaceholdersUserIdMergePostQueryFeatureSchema,
 });
 
 export const deleteCloudzeroSettingsCloudzeroDeleteDeleteStatus200Schema =
@@ -37786,7 +39670,7 @@ export const listPromptsPromptsListGetResponseSchema = listPromptsPromptsListGet
 export const listPromptsPromptsListGetErrorSchema = listPromptsPromptsListGetStatus422Schema;
 
 export const listPromptsPromptsListGetQuerySchema = z.object({
-	environment: z.union([z.string(), z.null().nullable()]).optional(),
+	environment: listPromptsPromptsListGetQueryEnvironmentSchema,
 });
 
 export const testPromptPromptsTestPostStatus200Schema = z.looseObject({});
@@ -37816,11 +39700,11 @@ export const getPromptInfoPromptsPromptIdGetErrorSchema =
 	getPromptInfoPromptsPromptIdGetStatus422Schema;
 
 export const getPromptInfoPromptsPromptIdGetPathSchema = z.object({
-	prompt_id: z.string(),
+	prompt_id: getPromptInfoPromptsPromptIdGetPathPromptIdSchema,
 });
 
 export const getPromptInfoPromptsPromptIdGetQuerySchema = z.object({
-	environment: z.union([z.string(), z.null().nullable()]).optional(),
+	environment: getPromptInfoPromptsPromptIdGetQueryEnvironmentSchema,
 });
 
 export const updatePromptPromptsPromptIdPutPathPromptIdSchema = z.string();
@@ -37838,7 +39722,7 @@ export const updatePromptPromptsPromptIdPutErrorSchema =
 export const updatePromptPromptsPromptIdPutBodySchema = promptSchema;
 
 export const updatePromptPromptsPromptIdPutPathSchema = z.object({
-	prompt_id: z.string(),
+	prompt_id: updatePromptPromptsPromptIdPutPathPromptIdSchema,
 });
 
 export const patchPromptPromptsPromptIdPatchPathPromptIdSchema = z.string();
@@ -37860,11 +39744,11 @@ export const patchPromptPromptsPromptIdPatchErrorSchema =
 export const patchPromptPromptsPromptIdPatchBodySchema = patchPromptRequestSchema;
 
 export const patchPromptPromptsPromptIdPatchPathSchema = z.object({
-	prompt_id: z.string(),
+	prompt_id: patchPromptPromptsPromptIdPatchPathPromptIdSchema,
 });
 
 export const patchPromptPromptsPromptIdPatchQuerySchema = z.object({
-	environment: z.union([z.string(), z.null().nullable()]).optional(),
+	environment: patchPromptPromptsPromptIdPatchQueryEnvironmentSchema,
 });
 
 export const deletePromptPromptsPromptIdDeletePathPromptIdSchema = z.string();
@@ -37884,11 +39768,11 @@ export const deletePromptPromptsPromptIdDeleteErrorSchema =
 	deletePromptPromptsPromptIdDeleteStatus422Schema;
 
 export const deletePromptPromptsPromptIdDeletePathSchema = z.object({
-	prompt_id: z.string(),
+	prompt_id: deletePromptPromptsPromptIdDeletePathPromptIdSchema,
 });
 
 export const deletePromptPromptsPromptIdDeleteQuerySchema = z.object({
-	environment: z.union([z.string(), z.null().nullable()]).optional(),
+	environment: deletePromptPromptsPromptIdDeleteQueryEnvironmentSchema,
 });
 
 export const getPromptInfoPromptsPromptIdInfoGetPathPromptIdSchema = z.string();
@@ -37908,11 +39792,11 @@ export const getPromptInfoPromptsPromptIdInfoGetErrorSchema =
 	getPromptInfoPromptsPromptIdInfoGetStatus422Schema;
 
 export const getPromptInfoPromptsPromptIdInfoGetPathSchema = z.object({
-	prompt_id: z.string(),
+	prompt_id: getPromptInfoPromptsPromptIdInfoGetPathPromptIdSchema,
 });
 
 export const getPromptInfoPromptsPromptIdInfoGetQuerySchema = z.object({
-	environment: z.union([z.string(), z.null().nullable()]).optional(),
+	environment: getPromptInfoPromptsPromptIdInfoGetQueryEnvironmentSchema,
 });
 
 export const getPromptVersionsPromptsPromptIdVersionsGetPathPromptIdSchema = z.string();
@@ -37932,11 +39816,11 @@ export const getPromptVersionsPromptsPromptIdVersionsGetErrorSchema =
 	getPromptVersionsPromptsPromptIdVersionsGetStatus422Schema;
 
 export const getPromptVersionsPromptsPromptIdVersionsGetPathSchema = z.object({
-	prompt_id: z.string(),
+	prompt_id: getPromptVersionsPromptsPromptIdVersionsGetPathPromptIdSchema,
 });
 
 export const getPromptVersionsPromptsPromptIdVersionsGetQuerySchema = z.object({
-	environment: z.union([z.string(), z.null().nullable()]).optional(),
+	environment: getPromptVersionsPromptsPromptIdVersionsGetQueryEnvironmentSchema,
 });
 
 export const convertPromptFileToJsonUtilsDotpromptJsonConverterPostStatus200Schema = z.looseObject(
@@ -37981,9 +39865,12 @@ export const infoJwtKeyMappingJwtKeyMappingInfoGetErrorSchema =
 	infoJwtKeyMappingJwtKeyMappingInfoGetStatus422Schema;
 
 export const infoJwtKeyMappingJwtKeyMappingInfoGetQuerySchema = z.object({
-	id: z.string(),
+	id: infoJwtKeyMappingJwtKeyMappingInfoGetQueryIdSchema,
 });
 
+/**
+ * Page number
+ */
 export const listJwtKeyMappingsJwtKeyMappingListGetQueryPageSchema = z
 	.int()
 	.min(1)
@@ -37991,6 +39878,9 @@ export const listJwtKeyMappingsJwtKeyMappingListGetQueryPageSchema = z
 	.default(1)
 	.describe("Page number");
 
+/**
+ * Page size
+ */
 export const listJwtKeyMappingsJwtKeyMappingListGetQuerySizeSchema = z
 	.int()
 	.min(1)
@@ -38010,8 +39900,8 @@ export const listJwtKeyMappingsJwtKeyMappingListGetErrorSchema =
 	listJwtKeyMappingsJwtKeyMappingListGetStatus422Schema;
 
 export const listJwtKeyMappingsJwtKeyMappingListGetQuerySchema = z.object({
-	page: z.int().min(1).optional().default(1).describe("Page number"),
-	size: z.int().min(1).max(100).optional().default(50).describe("Page size"),
+	page: listJwtKeyMappingsJwtKeyMappingListGetQueryPageSchema,
+	size: listJwtKeyMappingsJwtKeyMappingListGetQuerySizeSchema,
 });
 
 export const createJwtKeyMappingJwtKeyMappingNewPostStatus200Schema = JWTKeyMappingResponseSchema;
@@ -38102,7 +39992,7 @@ export const getAccessGroupV1AccessGroupAccessGroupIdGetErrorSchema =
 	getAccessGroupV1AccessGroupAccessGroupIdGetStatus422Schema;
 
 export const getAccessGroupV1AccessGroupAccessGroupIdGetPathSchema = z.object({
-	access_group_id: z.string(),
+	access_group_id: getAccessGroupV1AccessGroupAccessGroupIdGetPathAccessGroupIdSchema,
 });
 
 export const updateAccessGroupV1AccessGroupAccessGroupIdPutPathAccessGroupIdSchema = z.string();
@@ -38123,7 +40013,7 @@ export const updateAccessGroupV1AccessGroupAccessGroupIdPutBodySchema =
 	accessGroupUpdateRequestSchema;
 
 export const updateAccessGroupV1AccessGroupAccessGroupIdPutPathSchema = z.object({
-	access_group_id: z.string(),
+	access_group_id: updateAccessGroupV1AccessGroupAccessGroupIdPutPathAccessGroupIdSchema,
 });
 
 export const deleteAccessGroupV1AccessGroupAccessGroupIdDeletePathAccessGroupIdSchema = z.string();
@@ -38140,7 +40030,7 @@ export const deleteAccessGroupV1AccessGroupAccessGroupIdDeleteErrorSchema =
 	deleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422Schema;
 
 export const deleteAccessGroupV1AccessGroupAccessGroupIdDeletePathSchema = z.object({
-	access_group_id: z.string(),
+	access_group_id: deleteAccessGroupV1AccessGroupAccessGroupIdDeletePathAccessGroupIdSchema,
 });
 
 export const listAccessGroupsV1UnifiedAccessGroupGetStatus200Schema =
@@ -38176,7 +40066,7 @@ export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetErrorSchema =
 	getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetStatus422Schema;
 
 export const getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetPathSchema = z.object({
-	access_group_id: z.string(),
+	access_group_id: getAccessGroupV1UnifiedAccessGroupAccessGroupIdGetPathAccessGroupIdSchema,
 });
 
 export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutPathAccessGroupIdSchema =
@@ -38198,7 +40088,7 @@ export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutBodySchema =
 	accessGroupUpdateRequestSchema;
 
 export const updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutPathSchema = z.object({
-	access_group_id: z.string(),
+	access_group_id: updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutPathAccessGroupIdSchema,
 });
 
 export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePathAccessGroupIdSchema =
@@ -38216,5 +40106,5 @@ export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteErrorSchema
 	deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422Schema;
 
 export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePathSchema = z.object({
-	access_group_id: z.string(),
+	access_group_id: deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePathAccessGroupIdSchema,
 });
