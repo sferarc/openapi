@@ -1,5 +1,21 @@
 # vercel-api-js
 
+## 2.54.0
+
+### Minor Changes
+
+- ee4d369: [BREAKING] Changed CreateSdkKeyBody.sdkKeyType to accept only the value 'server'.
+- ee4d369: Added the new lookupEdgeConfigToken operation to look up a Global Config token by its value.
+
+### Patch Changes
+
+- ee4d369: Documented that endpoint and header values of a drain connected to a Marketplace store are masked for certain operations.
+- ee4d369: Added the 'overrideLockout' field to PutOrganizationTeamDsyncBody, PutOrganizationDsyncGroupBody, and DeleteOrganizationDsyncGroupQuery to allow changes that would otherwise cause organization lockout.
+- ee4d369: Added possible 409 and 412 error responses to PutOrganizationTeamDsync, and 409 to PutOrganizationDsyncGroup and DeleteOrganizationDsyncGroup.
+- ee4d369: Documented that on update, an empty string removes the OAuth client secret for ConnectConnectorCreateData and ConnectConnectorUpdateData.
+- ee4d369: Added the AcceptProjectTransferRequestStatus402 error code response to AcceptProjectTransferRequest.
+- ee4d369: Added 'contacts' field to GetAccountInfoStatus200 response with integration or account contacts.
+
 ## 2.53.0
 
 ### Minor Changes
