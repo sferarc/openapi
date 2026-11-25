@@ -11,6 +11,10 @@ import type {
 	AddAllowedIpAddAllowedIpPostBody,
 	AddAllowedIpAddAllowedIpPostResponse,
 	AddAllowedIpAddAllowedIpPostStatus422,
+	AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostBody,
+	AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostPath,
+	AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostResponse,
+	AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus422,
 	AddMcpServerV1McpServerPostBody,
 	AddMcpServerV1McpServerPostHeaders,
 	AddMcpServerV1McpServerPostResponse,
@@ -63,12 +67,16 @@ import type {
 	ApplyGuardrailGuardrailsApplyGuardrailPostBody,
 	ApplyGuardrailGuardrailsApplyGuardrailPostResponse,
 	ApplyGuardrailGuardrailsApplyGuardrailPostStatus422,
+	ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutPath,
+	ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutResponse,
+	ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus422,
 	ApproveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostPath,
 	ApproveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostResponse,
 	ApproveGuardrailSubmissionGuardrailsSubmissionsGuardrailIdApprovePostStatus422,
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutPath,
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutResponse,
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutStatus422,
+	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutBody,
 	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath,
 	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponse,
 	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422,
@@ -266,6 +274,10 @@ import type {
 	ComprehendMedicalProxyRouteComprehendmedicalOperationPostResponse,
 	ComprehendMedicalProxyRouteComprehendmedicalOperationPostStatus422,
 	ComprehendMedicalSdkProxyRouteComprehendmedicalPostResponse,
+	ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchBody,
+	ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchPath,
+	ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchResponse,
+	ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus422,
 	ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostBody,
 	ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostResponse,
 	ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostStatus422,
@@ -295,6 +307,15 @@ import type {
 	CreateCredentialCredentialsPostBody,
 	CreateCredentialCredentialsPostResponse,
 	CreateCredentialCredentialsPostStatus422,
+	CreateCustomerMemberManagementV1CustomerMembersPostBody,
+	CreateCustomerMemberManagementV1CustomerMembersPostResponse,
+	CreateCustomerMemberManagementV1CustomerMembersPostStatus422,
+	CreateCustomerOrganizationManagementV1CustomerOrganizationsPostBody,
+	CreateCustomerOrganizationManagementV1CustomerOrganizationsPostResponse,
+	CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus422,
+	CreateCustomerTeamManagementV1CustomerTeamsPostBody,
+	CreateCustomerTeamManagementV1CustomerTeamsPostResponse,
+	CreateCustomerTeamManagementV1CustomerTeamsPostStatus422,
 	CreateEvalV1EvalsPostQuery,
 	CreateEvalV1EvalsPostResponse,
 	CreateEvalV1EvalsPostStatus422,
@@ -386,6 +407,18 @@ import type {
 	CursorChatCompletionsCursorChatCompletionsPostResponse,
 	CursorModelListCursorModelsGetResponse,
 	CursorModelListCursorV1ModelsGetResponse,
+	CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetQuery,
+	CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetResponse,
+	CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus422,
+	CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetQuery,
+	CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetResponse,
+	CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus422,
+	CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetQuery,
+	CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetResponse,
+	CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus422,
+	CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetQuery,
+	CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetResponse,
+	CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus422,
 	DecisionsDecisionsPostBody,
 	DecisionsDecisionsPostResponse,
 	DecisionsV1DecisionsPostBody,
@@ -430,6 +463,20 @@ import type {
 	DeleteCredentialCredentialsCredentialNameDeletePath,
 	DeleteCredentialCredentialsCredentialNameDeleteResponse,
 	DeleteCredentialCredentialsCredentialNameDeleteStatus422,
+	DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeletePath,
+	DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteResponse,
+	DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus422,
+	DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeletePath,
+	DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteResponse,
+	DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus422,
+	DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeletePath,
+	DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteQuery,
+	DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteResponse,
+	DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus422,
+	DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeletePath,
+	DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteQuery,
+	DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteResponse,
+	DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus422,
 	DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders,
 	DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponse,
 	DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422,
@@ -631,6 +678,14 @@ import type {
 	EditMcpToolsetV1McpToolsetPutHeaders,
 	EditMcpToolsetV1McpToolsetPutResponse,
 	EditMcpToolsetV1McpToolsetPutStatus422,
+	EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutBody,
+	EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutPath,
+	EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutResponse,
+	EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus422,
+	EditSubmissionSkillHubSubmissionsSubmissionIdPutBody,
+	EditSubmissionSkillHubSubmissionsSubmissionIdPutPath,
+	EditSubmissionSkillHubSubmissionsSubmissionIdPutResponse,
+	EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus422,
 	EmbeddingsEmbeddingsPostBody,
 	EmbeddingsEmbeddingsPostResponse,
 	EmbeddingsEmbeddingsPostStatus422,
@@ -754,6 +809,9 @@ import type {
 	GetAgentTraceV1TracesTraceIdGetQuery,
 	GetAgentTraceV1TracesTraceIdGetResponse,
 	GetAgentTraceV1TracesTraceIdGetStatus422,
+	GetAlertAlertsAlertIdGetPath,
+	GetAlertAlertsAlertIdGetResponse,
+	GetAlertAlertsAlertIdGetStatus422,
 	GetAssistantsAssistantsGetResponse,
 	GetAssistantsV1AssistantsGetResponse,
 	GetAuditLogByIdAuditIdGetPath,
@@ -779,6 +837,9 @@ import type {
 	GetAvailableSearchProvidersSearchToolsUiAvailableProvidersGetResponse,
 	GetBackgroundChatSettingsGetBackgroundChatSettingsGetResponse,
 	GetBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingGetResponse,
+	GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetPath,
+	GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetResponse,
+	GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus422,
 	GetCacheSettingsCacheSettingsGetResponse,
 	GetCallbackConfigsCallbacksConfigsGetResponse,
 	GetCategoryYamlGuardrailsUiCategoryYamlCategoryNameGetPath,
@@ -818,6 +879,16 @@ import type {
 	GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuery,
 	GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetResponse,
 	GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetStatus422,
+	GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetPath,
+	GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetResponse,
+	GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus422,
+	GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetPath,
+	GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetResponse,
+	GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus422,
+	GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetResponse,
+	GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetPath,
+	GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetResponse,
+	GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus422,
 	GetCyberarkConfigConfigOverridesCyberarkGetResponse,
 	GetDailyActiveUsersTagDauGetQuery,
 	GetDailyActiveUsersTagDauGetResponse,
@@ -939,6 +1010,7 @@ import type {
 	GetModelInsightTasksModelInsightsTasksGetQuery,
 	GetModelInsightTasksModelInsightsTasksGetResponse,
 	GetModelInsightTasksModelInsightsTasksGetStatus422,
+	GetMonitoringAlertsMonitoringGetResponse,
 	GetMonthlyActiveUsersTagMauGetQuery,
 	GetMonthlyActiveUsersTagMauGetResponse,
 	GetMonthlyActiveUsersTagMauGetStatus422,
@@ -1391,6 +1463,7 @@ import type {
 	KeyHealthKeyHealthPostResponse,
 	LatestHealthChecksEndpointHealthLatestGetResponse,
 	LatestReleaseInfoGetLatestReleaseInfoGetResponse,
+	LatestReleaseInfoGetLatestReleaseInfoGetStatus502,
 	LayaProxyRouteLayaV1SystemonePostResponse,
 	LensRequestLensDeleteQuery,
 	LensRequestLensDeleteResponse,
@@ -1428,6 +1501,9 @@ import type {
 	ListAgentTracesV1TracesGetQuery,
 	ListAgentTracesV1TracesGetResponse,
 	ListAgentTracesV1TracesGetStatus422,
+	ListAlertsAlertsGetQuery,
+	ListAlertsAlertsGetResponse,
+	ListAlertsAlertsGetStatus422,
 	ListAvailableTeamsTeamAvailableGetQuery,
 	ListAvailableTeamsTeamAvailableGetResponse,
 	ListAvailableTeamsTeamAvailableGetStatus422,
@@ -1442,6 +1518,9 @@ import type {
 	ListBatchesV1BatchesGetResponse,
 	ListBatchesV1BatchesGetStatus422,
 	ListBudgetBudgetListGetResponse,
+	ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetQuery,
+	ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetResponse,
+	ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus422,
 	ListBudgetsManagementV1BudgetsGetResponse,
 	ListCallbacksCallbacksListGetResponse,
 	ListContainersContainersGetQuery,
@@ -1450,6 +1529,15 @@ import type {
 	ListContainersV1ContainersGetQuery,
 	ListContainersV1ContainersGetResponse,
 	ListContainersV1ContainersGetStatus422,
+	ListCustomerMembersManagementV1CustomerMembersGetQuery,
+	ListCustomerMembersManagementV1CustomerMembersGetResponse,
+	ListCustomerMembersManagementV1CustomerMembersGetStatus422,
+	ListCustomerOrganizationsManagementV1CustomerOrganizationsGetQuery,
+	ListCustomerOrganizationsManagementV1CustomerOrganizationsGetResponse,
+	ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus422,
+	ListCustomerTeamsManagementV1CustomerTeamsGetQuery,
+	ListCustomerTeamsManagementV1CustomerTeamsGetResponse,
+	ListCustomerTeamsManagementV1CustomerTeamsGetStatus422,
 	ListEndUserCustomerListGetQuery,
 	ListEndUserCustomerListGetResponse,
 	ListEndUserCustomerListGetStatus422,
@@ -1819,6 +1907,10 @@ import type {
 	RegisterPluginClaudeCodePluginsPostBody,
 	RegisterPluginClaudeCodePluginsPostResponse,
 	RegisterPluginClaudeCodePluginsPostStatus422,
+	RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutBody,
+	RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutPath,
+	RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutResponse,
+	RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus422,
 	RejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPath,
 	RejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostResponse,
 	RejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostStatus422,
@@ -1849,6 +1941,9 @@ import type {
 	ReplaceSkillMetadataSkillHubSkillsNamePutPath,
 	ReplaceSkillMetadataSkillHubSkillsNamePutResponse,
 	ReplaceSkillMetadataSkillHubSkillsNamePutStatus422,
+	RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostBody,
+	RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostResponse,
+	RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus422,
 	RerankRerankPostResponse,
 	RerankV1RerankPostResponse,
 	RerankV2RerankPostResponse,
@@ -1878,6 +1973,10 @@ import type {
 	ResponsesInputTokensOpenaiV1ResponsesInputTokensPostResponse,
 	ResponsesInputTokensResponsesInputTokensPostResponse,
 	ResponsesInputTokensV1ResponsesInputTokensPostResponse,
+	RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostBody,
+	RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostPath,
+	RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostResponse,
+	RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus422,
 	RetrieveBatchBatchesBatchIdGetPath,
 	RetrieveBatchBatchesBatchIdGetQuery,
 	RetrieveBatchBatchesBatchIdGetResponse,
@@ -2115,6 +2214,10 @@ import type {
 	UpdateAgentV1AgentsAgentIdPutPath,
 	UpdateAgentV1AgentsAgentIdPutResponse,
 	UpdateAgentV1AgentsAgentIdPutStatus422,
+	UpdateAlertAlertsAlertIdPatchBody,
+	UpdateAlertAlertsAlertIdPatchPath,
+	UpdateAlertAlertsAlertIdPatchResponse,
+	UpdateAlertAlertsAlertIdPatchStatus422,
 	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBody,
 	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchResponse,
 	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422,
@@ -2145,6 +2248,22 @@ import type {
 	UpdateCredentialCredentialsCredentialNamePatchPath,
 	UpdateCredentialCredentialsCredentialNamePatchResponse,
 	UpdateCredentialCredentialsCredentialNamePatchStatus422,
+	UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchBody,
+	UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchPath,
+	UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchResponse,
+	UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus422,
+	UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchBody,
+	UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchPath,
+	UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchResponse,
+	UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus422,
+	UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchBody,
+	UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchPath,
+	UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchResponse,
+	UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus422,
+	UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchBody,
+	UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchPath,
+	UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchResponse,
+	UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus422,
 	UpdateCyberarkConfigConfigOverridesCyberarkPostBody,
 	UpdateCyberarkConfigConfigOverridesCyberarkPostHeaders,
 	UpdateCyberarkConfigConfigOverridesCyberarkPostResponse,
@@ -2201,6 +2320,9 @@ import type {
 	UpdateModelModelUpdatePostBody,
 	UpdateModelModelUpdatePostResponse,
 	UpdateModelModelUpdatePostStatus422,
+	UpdateMonitoringAlertsMonitoringPatchBody,
+	UpdateMonitoringAlertsMonitoringPatchResponse,
+	UpdateMonitoringAlertsMonitoringPatchStatus422,
 	UpdateOrganizationOrganizationUpdatePatchResponse,
 	UpdateOrganizationV2V2OrganizationOrganizationIdPatchBody,
 	UpdateOrganizationV2V2OrganizationOrganizationIdPatchPath,
@@ -2297,6 +2419,12 @@ import type {
 	UploadSkillSkillHubSkillsUploadPostBody,
 	UploadSkillSkillHubSkillsUploadPostResponse,
 	UploadSkillSkillHubSkillsUploadPostStatus422,
+	UpsertCustomerMemberManagementV1CustomerMembersUpsertPostBody,
+	UpsertCustomerMemberManagementV1CustomerMembersUpsertPostResponse,
+	UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus422,
+	UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostBody,
+	UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostResponse,
+	UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus422,
 	UpsertMemoryV1MemoryKeyPutBody,
 	UpsertMemoryV1MemoryKeyPutPath,
 	UpsertMemoryV1MemoryKeyPutResponse,
@@ -2450,6 +2578,10 @@ import type {
 	WebsocketRealtimeWebsocketEndpointGet5Response,
 	WebsocketRealtimeWebsocketEndpointGetResponse,
 	WebsocketVertexAiLivePassthroughEndpointResponse,
+	WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutBody,
+	WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutPath,
+	WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutResponse,
+	WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus422,
 } from "./types";
 
 /**
@@ -4016,12 +4148,12 @@ export async function runThreadV1ThreadsThreadIdRunsPost(
 
 /**
  * @summary Token Counter
- * @description Args:
+ * @description Returns:
+ *     TokenCountResponse
+ * Args:
  *     request: TokenCountRequest
  *     call_endpoint: bool - When set to "True" it will call the token counting endpoint - e.g Anthropic or Google AI Studio Token Counting APIs.
  *     litellm_call_id: the x-litellm-call-id header, logged with the count so it joins the inference call's logs
- * Returns:
- *     TokenCountResponse
  * @link /utils/token_counter
  */
 export async function tokenCounterUtilsTokenCounterPost(
@@ -12069,7 +12201,7 @@ export async function updateDeploymentWarningIgnoreHealthDeploymentWarningsWarni
  * - prompts: Optional[List[str]] - List of allowed prompts for the key. If specified, the key will only be able to use these specific prompts.
  * - auto_rotate: Optional[bool] - Whether this key should be automatically rotated (regenerated)
  * - rotation_interval: Optional[str] - How often to auto-rotate this key (e.g., '30s', '30m', '30h', '30d'). Required if auto_rotate=True.
- * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Create index, using `/v1/indexes` endpoint.
+ * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Only a proxy admin can set or change it. Create index, using `/v1/indexes` endpoint.
  * - router_settings: Optional[UpdateRouterConfig] - key-specific router settings. Example - {"model_group_retry_policy": {"gpt-4": {"RateLimitErrorRetries": 5}}}. IF null or {} then no router settings.
  * - access_group_ids: Optional[List[str]] - List of access group IDs to associate with the key. Access groups define which models a key can access. Example - ["access_group_1", "access_group_2"].
  * - budget_limits: Optional[list] - List of concurrent budget windows for the key. Each window specifies a budget_limit, time_period, and optional budget_duration. Example - [{"budget_limit": 10.0, "time_period": "1d"}, {"budget_limit": 50.0, "time_period": "7d"}].
@@ -12168,7 +12300,7 @@ export async function generateKeyFnKeyGeneratePost(
  * - allowed_routes: Optional[list] - List of allowed routes for the key. Store the actual route or store a wildcard pattern for a set of routes. Example - ["/chat/completions", "/embeddings", "/keys/*"]
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - key-specific object permission. Example - {"vector_stores": ["vector_store_1", "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups": ["dev_group"]}. IF null or {} then no object permission.
  * Examples:
- * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Create index, using `/v1/indexes` endpoint.
+ * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Only a proxy admin can set or change it. Create index, using `/v1/indexes` endpoint.
  * 1. Allow users to turn on/off pii masking
  * ```bash
  * curl --location 'http://0.0.0.0:4000/key/generate'         --header "Authorization: Bearer $LITELLM_MASTER_KEY"         --header 'Content-Type: application/json'         --data '{
@@ -12279,7 +12411,7 @@ export async function generateServiceAccountKeyFnKeyServiceAccountGeneratePost(
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - key-specific object permission. Example - {"vector_stores": ["vector_store_1", "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups": ["dev_group"]}. IF null or {} then no object permission.
  * - auto_rotate: Optional[bool] - Whether this key should be automatically rotated
  * - rotation_interval: Optional[str] - How often to rotate this key (e.g., '30d', '90d'). Required if auto_rotate=True
- * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Create index, using `/v1/indexes` endpoint.
+ * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Only a proxy admin can set or change it. Create index, using `/v1/indexes` endpoint.
  * - router_settings: Optional[UpdateRouterConfig] - key-specific router settings. Example - {"model_group_retry_policy": {"gpt-4": {"RateLimitErrorRetries": 5}}}. IF null or {} then no router settings.
  * - access_group_ids: Optional[List[str]] - List of access group IDs to associate with the key. Access groups define which models a key can access. Example - ["access_group_1", "access_group_2"].
  * - budget_limits: Optional[list] - List of concurrent budget windows for the key. Each window specifies a budget_limit, time_period, and optional budget_duration. Example - [{"budget_limit": 10.0, "time_period": "1d"}, {"budget_limit": 50.0, "time_period": "7d"}].
@@ -13159,7 +13291,7 @@ export async function keyHealthKeyHealthPost(
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - internal user-specific object permission. Example - {"vector_stores": ["vector_store_1"], "mcp_servers": ["github"], "mcp_tool_permissions": {"github": ["list_issues"]}}. The MCP grants act as a ceiling on every key this user holds. IF null or {} then no object permission.
  * - prompts: Optional[List[str]] - List of allowed prompts for the user. If specified, the user will only be able to use these specific prompts.
  * - organizations: List[str] - List of organization id's the user is a member of
- * - budget_limits: Optional[list] - List of concurrent budget windows for the user. Each window specifies a budget_limit, time_period, and optional budget_duration. Example - [{"budget_limit": 10.0, "time_period": "1d"}, {"budget_limit": 50.0, "time_period": "7d"}].
+ * - budget_limits: Optional[list] - Budget windows the user carries at the same time. Each window has a budget_duration and a max_budget, and whichever window runs out first blocks the user. Example - [{"budget_duration": "1h", "max_budget": 1.0}, {"budget_duration": "1mo", "max_budget": 100.0}].
  * - password: Optional[str] - Not supported; any value is rejected with a 422. Users set their own password through an invitation link (POST /invitation/new).
  * Returns:
  * - key: (str) The generated api key for the user
@@ -13342,7 +13474,7 @@ export async function userInfoV2V2UserInfoGet(
  *     - key_alias: Optional[str] - [NOT IMPLEMENTED].
  *     - object_permission: Optional[LiteLLM_ObjectPermissionBase] - internal user-specific object permission. Example - {"vector_stores": ["vector_store_1"], "mcp_servers": ["github"], "mcp_tool_permissions": {"github": ["list_issues"]}}. The MCP grants act as a ceiling on every key this user holds. IF null or {} then no object permission.
  *     - prompts: Optional[List[str]] - List of allowed prompts for the user. If specified, the user will only be able to use these specific prompts.
- *     - budget_limits: Optional[list] - List of concurrent budget windows for the user. Each window specifies a budget_limit, time_period, and optional budget_duration. Example - [{"budget_limit": 10.0, "time_period": "1d"}, {"budget_limit": 50.0, "time_period": "7d"}].
+ *     - budget_limits: Optional[list] - Budget windows the user carries at the same time. Each window has a budget_duration and a max_budget, and whichever window runs out first blocks the user. Example - [{"budget_duration": "1h", "max_budget": 1.0}, {"budget_duration": "1mo", "max_budget": 100.0}].
  * @link /user/update
  */
 export async function userUpdateUserUpdatePost(
@@ -14808,7 +14940,7 @@ export async function sessionLogoutSessionLogoutPost(
  * - team_member_key_duration: Optional[str] - The duration for a team member's key. e.g. "1d", "1w", "1mo"
  * - allowed_passthrough_routes: Optional[List[str]] - List of allowed pass through routes for the team.
  * - denied_passthrough_routes: Optional[List[str]] - List of pass through routes the team's keys may not call, even if allowed. Applies together with each key's `denied_passthrough_routes`.
- * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Create index, using `/v1/indexes` endpoint.
+ * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Only a proxy admin can set or change it. Create index, using `/v1/indexes` endpoint.
  * - secret_manager_settings: Optional[dict] - Secret manager settings for the team. [Docs](https://docs.litellm.ai/docs/secret_managers/overview)
  * - router_settings: Optional[UpdateRouterConfig] - team-specific router settings. Example - {"model_group_retry_policy": {"gpt-4": {"RateLimitErrorRetries": 5}}}. IF null or {} then no router settings.
  * - access_group_ids: Optional[List[str]] - List of access group IDs to associate with the team. Access groups define which models the team can access. Example - ["access_group_1", "access_group_2"].
@@ -14915,7 +15047,7 @@ export async function newTeamTeamNewPost(
  * - default_estimated_output_tokens_per_model: Optional[Dict[str, int]] - Per-model override of the above. Example: {"gpt-4": 4096, "gpt-3.5-turbo": 1024}
  * - mcp_rpm_limit: Optional[Dict[str, int]] - Per-MCP-server RPM limit for this team, keyed by MCP server name (alias if set, else the configured name). Example: {"github": 100, "slack": 200}. Applied across all keys for this team.
  * Example - update team TPM Limit
- * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Create index, using `/v1/indexes` endpoint.
+ * - allowed_vector_store_indexes: Optional[List[dict]] - List of allowed vector store indexes for the key. Example - [{"index_name": "my-index", "index_permissions": ["write", "read"]}]. If specified, the key will only be able to use these specific vector store indexes. Only a proxy admin can set or change it. Create index, using `/v1/indexes` endpoint.
  * - secret_manager_settings: Optional[dict] - Secret manager settings for the team. [Docs](https://docs.litellm.ai/docs/secret_managers/overview)
  * - router_settings: Optional[UpdateRouterConfig] - team-specific router settings. Example - {"model_group_retry_policy": {"gpt-4": {"RateLimitErrorRetries": 5}}}. IF null or {} then no router settings.
  * - access_group_ids: Optional[List[str]] - List of access group IDs to associate with the team. Access groups define which models the team can access. Example - ["access_group_1", "access_group_2"].
@@ -16545,12 +16677,13 @@ export async function unblockUserCustomerUnblockPost(
  * - allowed_model_region: Optional[Union[Literal["eu"], Literal["us"]]] - Require all user requests to use models in this specific region.
  * - default_model: Optional[str] - If no equivalent model in the allowed region, default all requests to this model.
  * - models: Optional[list[str]] - Restrict this customer's access to the listed models.
- * - metadata: Optional[dict] = Metadata for customer, store information for customer. Example metadata = {"data_training_opt_out": True}
  * - budget_duration: Optional[str] - Budget is reset at the end of specified duration. If not set, budget is never reset. You can set duration as seconds ("30s"), minutes ("30m"), hours ("30h"), days ("30d").
  * - tpm_limit: Optional[int] - [Not Implemented Yet] Specify tpm limit for a given customer (Tokens per minute)
  * - rpm_limit: Optional[int] - [Not Implemented Yet] Specify rpm limit for a given customer (Requests per minute)
  * - tpd_limit: Optional[int] - Specify tpd limit for a given customer (Tokens per day). Batch submissions are charged against it instead of tpm_limit/rpm_limit
  * - model_max_budget: Optional[dict] - [Not Implemented Yet] Specify max budget for a given model. Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d"}}
+ * - model_tpm_limit: Optional[dict] - Max tokens per minute per model for this customer, shared across every key the customer is sent on. Stored on the customer's budget. Example: {"gpt-4o": 400000}
+ * - model_rpm_limit: Optional[dict] - Max requests per minute per model for this customer. Stored on the customer's budget. Example: {"gpt-4o": 200}
  * - max_parallel_requests: Optional[int] - [Not Implemented Yet] Specify max parallel requests for a given customer.
  * - soft_budget: Optional[float] - [Not Implemented Yet] Get alerts when customer crosses given budget, doesn't block requests.
  * - spend: Optional[float] - Specify initial spend for a given customer.
@@ -16571,7 +16704,7 @@ export async function unblockUserCustomerUnblockPost(
  * ```
  * curl --location 'http://0.0.0.0:4000/customer/new'         --header "Authorization: Bearer $LITELLM_MASTER_KEY"         --header 'Content-Type: application/json'         --data '{
  *         "user_id" : "ishaan-jaff-3",
- *         "allowed_region": "eu",
+ *         "allowed_model_region": "eu",
  *         "budget_id": "free_tier",
  *         "models": ["gpt-4o-mini"],
  *         "default_model": "azure/gpt-3.5-turbo-eu"
@@ -16884,6 +17017,1122 @@ export async function listBudgetsManagementV1BudgetsGet(
 	>({
 		method: "GET",
 		url: `/management/v1/budgets`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Customer Management Limits
+ * @description Get Customer Management free-tier limits and current capacity. Proxy admins only.
+ * @link /management/v1/customer_portal/limits
+ */
+export async function getCustomerPortalLimitsManagementV1CustomerPortalLimitsGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_portal/limits`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Customer Organizations
+ * @description List customer organizations with page-number pagination and resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_organizations
+ */
+export async function listCustomerOrganizationsManagementV1CustomerOrganizationsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListCustomerOrganizationsManagementV1CustomerOrganizationsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListCustomerOrganizationsManagementV1CustomerOrganizationsGetResponse,
+		ErrorWrapper<ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListCustomerOrganizationsManagementV1CustomerOrganizationsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_organizations`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Customer Organization
+ * @description Create a customer organization with resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_organizations
+ */
+export async function createCustomerOrganizationManagementV1CustomerOrganizationsPost(
+	{
+		body,
+		config,
+	}: {
+		body: CreateCustomerOrganizationManagementV1CustomerOrganizationsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateCustomerOrganizationManagementV1CustomerOrganizationsPostResponse,
+		ErrorWrapper<CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus422>,
+		CreateCustomerOrganizationManagementV1CustomerOrganizationsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/management/v1/customer_organizations`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Upsert Customer Organization
+ * @description Create or update a customer org by customer_org_id, or by alias when no ID is supplied. Returns 200 with created=true for creation and created=false for updates. Repeated identical calls are no-ops. Supplied default_budgets are merged by template name, preserving existing template IDs and omitted templates. A single supplied template becomes the default; multiple templates require default_budget_template to name one. Omitted fields retain their values. Conflicting or ambiguous aliases return 409. Proxy admins only.
+ * @link /management/v1/customer_organizations/upsert
+ */
+export async function upsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPost(
+	{
+		body,
+		config,
+	}: {
+		body: UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostResponse,
+		ErrorWrapper<UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus422>,
+		UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/management/v1/customer_organizations/upsert`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Customer Organization
+ * @description Get a customer organization with resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}
+ */
+export async function getCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+	const data = await request<
+		GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetResponse,
+		ErrorWrapper<GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetPath
+	>({
+		method: "GET",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Customer Organization
+ * @description Update a customer organization alias or overall budget. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}
+ */
+export async function updateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchPath;
+		body: UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+	const data = await request<
+		UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchResponse,
+		ErrorWrapper<UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus422>,
+		UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchPath
+	>({
+		method: "PATCH",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Customer Organization
+ * @description Delete a customer organization and its owned budgets. Set cascade=true to also delete its customer teams and members; otherwise parents with children return 409. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}
+ */
+export async function deleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeletePath;
+		queryParams?: Partial<DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+	const data = await request<
+		DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteResponse,
+		ErrorWrapper<DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteQuery>,
+		DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Customer Teams
+ * @description List customer teams with page-number pagination and resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_teams
+ */
+export async function listCustomerTeamsManagementV1CustomerTeamsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListCustomerTeamsManagementV1CustomerTeamsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListCustomerTeamsManagementV1CustomerTeamsGetResponse,
+		ErrorWrapper<ListCustomerTeamsManagementV1CustomerTeamsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListCustomerTeamsManagementV1CustomerTeamsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_teams`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Customer Team
+ * @description Create a customer team with resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_teams
+ */
+export async function createCustomerTeamManagementV1CustomerTeamsPost(
+	{
+		body,
+		config,
+	}: {
+		body: CreateCustomerTeamManagementV1CustomerTeamsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateCustomerTeamManagementV1CustomerTeamsPostResponse,
+		ErrorWrapper<CreateCustomerTeamManagementV1CustomerTeamsPostStatus422>,
+		CreateCustomerTeamManagementV1CustomerTeamsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/management/v1/customer_teams`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Customer Team
+ * @description Get a customer team with resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_teams/{customer_team_id}
+ */
+export async function getCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_team_id == null || String(pathParams.customer_team_id) === "") {
+		throw new Error(`Missing required path parameter: customer_team_id`);
+	}
+	const data = await request<
+		GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetResponse,
+		ErrorWrapper<GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetPath
+	>({
+		method: "GET",
+		url: `/management/v1/customer_teams/${encodeURIComponent(String(pathParams.customer_team_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Customer Team
+ * @description Update a customer team and its budgets. Proxy admins only.
+ * @link /management/v1/customer_teams/{customer_team_id}
+ */
+export async function updateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchPath;
+		body: UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_team_id == null || String(pathParams.customer_team_id) === "") {
+		throw new Error(`Missing required path parameter: customer_team_id`);
+	}
+	const data = await request<
+		UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchResponse,
+		ErrorWrapper<UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus422>,
+		UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchPath
+	>({
+		method: "PATCH",
+		url: `/management/v1/customer_teams/${encodeURIComponent(String(pathParams.customer_team_id))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Customer Team
+ * @description Delete a customer team and its owned budgets. Set cascade=true to also delete its customer members; otherwise parents with children return 409. Proxy admins only.
+ * @link /management/v1/customer_teams/{customer_team_id}
+ */
+export async function deleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeletePath;
+		queryParams?: Partial<DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_team_id == null || String(pathParams.customer_team_id) === "") {
+		throw new Error(`Missing required path parameter: customer_team_id`);
+	}
+	const data = await request<
+		DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteResponse,
+		ErrorWrapper<DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteQuery>,
+		DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/management/v1/customer_teams/${encodeURIComponent(String(pathParams.customer_team_id))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Customer Members
+ * @description List customer members with page-number pagination and resolved budgets. search filters by customer member ID or alias before paginating. Proxy admins only.
+ * @link /management/v1/customer_members
+ */
+export async function listCustomerMembersManagementV1CustomerMembersGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListCustomerMembersManagementV1CustomerMembersGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListCustomerMembersManagementV1CustomerMembersGetResponse,
+		ErrorWrapper<ListCustomerMembersManagementV1CustomerMembersGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListCustomerMembersManagementV1CustomerMembersGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_members`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Customer Member
+ * @description Create a customer member with resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_members
+ */
+export async function createCustomerMemberManagementV1CustomerMembersPost(
+	{
+		body,
+		config,
+	}: {
+		body: CreateCustomerMemberManagementV1CustomerMembersPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateCustomerMemberManagementV1CustomerMembersPostResponse,
+		ErrorWrapper<CreateCustomerMemberManagementV1CustomerMembersPostStatus422>,
+		CreateCustomerMemberManagementV1CustomerMembersPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/management/v1/customer_members`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Upsert Customer Member
+ * @description Create or update a customer member by customer_member_id within a customer org identified by customer_org_id or customer_org_alias. If both are supplied they must match. A new customer member with no parent_team_id joins the customer org's default customer team, created if necessary. An existing customer member keeps its customer teams, and a supplied parent_team_id becomes its first customer team. Alias, budget_id, budget_override and budget_override_expires_at follow the existing customer member models. Omitted update fields retain their values. Moving between customer teams in the same customer org is allowed. Moving between customer orgs or selecting another customer org's customer team returns 409. Returns 200 with created=true for creation and created=false for updates. Repeated identical calls are no-ops. Proxy admins only.
+ * @link /management/v1/customer_members/upsert
+ */
+export async function upsertCustomerMemberManagementV1CustomerMembersUpsertPost(
+	{
+		body,
+		config,
+	}: {
+		body: UpsertCustomerMemberManagementV1CustomerMembersUpsertPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpsertCustomerMemberManagementV1CustomerMembersUpsertPostResponse,
+		ErrorWrapper<UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus422>,
+		UpsertCustomerMemberManagementV1CustomerMembersUpsertPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/management/v1/customer_members/upsert`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Customer Member
+ * @description Get a customer member with resolved budgets. Proxy admins only.
+ * @link /management/v1/customer_members/{customer_member_id}
+ */
+export async function getCustomerMemberManagementV1CustomerMembersCustomerMemberIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_member_id == null || String(pathParams.customer_member_id) === "") {
+		throw new Error(`Missing required path parameter: customer_member_id`);
+	}
+	const data = await request<
+		GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetResponse,
+		ErrorWrapper<GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetPath
+	>({
+		method: "GET",
+		url: `/management/v1/customer_members/${encodeURIComponent(String(pathParams.customer_member_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Customer Member
+ * @description Update a customer member and its budgets. Supply parent_team_ids to replace its teams within the same organization, with the first team as default. Identity, budget counters and historical usage are retained. Historical usage stays attributed to the original team. Proxy admins only.
+ * @link /management/v1/customer_members/{customer_member_id}
+ */
+export async function updateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchPath;
+		body: UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_member_id == null || String(pathParams.customer_member_id) === "") {
+		throw new Error(`Missing required path parameter: customer_member_id`);
+	}
+	const data = await request<
+		UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchResponse,
+		ErrorWrapper<UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus422>,
+		UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchPath
+	>({
+		method: "PATCH",
+		url: `/management/v1/customer_members/${encodeURIComponent(String(pathParams.customer_member_id))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Customer Member
+ * @description Delete a customer member and its owned budgets. Parents with children return 409. Proxy admins only.
+ * @link /management/v1/customer_members/{customer_member_id}
+ */
+export async function deleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_member_id == null || String(pathParams.customer_member_id) === "") {
+		throw new Error(`Missing required path parameter: customer_member_id`);
+	}
+	const data = await request<
+		DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteResponse,
+		ErrorWrapper<DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/management/v1/customer_members/${encodeURIComponent(String(pathParams.customer_member_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Add Customer Budget Template
+ * @description Add a named budget template to a customer organization. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}/default_budgets
+ */
+export async function addCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostPath;
+		body: AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+	const data = await request<
+		AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostResponse,
+		ErrorWrapper<AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus422>,
+		AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostPath
+	>({
+		method: "POST",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}/default_budgets`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Configure Customer Budget Groups
+ * @description Atomically configure budget groups and their default. Requires the current budget_groups_revision. Existing groups retain omitted settings and window reset dates. Stale revisions and referenced deletions return 409 without applying changes. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}/default_budgets
+ */
+export async function configureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchPath;
+		body: ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+	const data = await request<
+		ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchResponse,
+		ErrorWrapper<ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus422>,
+		ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchPath
+	>({
+		method: "PATCH",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}/default_budgets`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Customer Budget Template
+ * @description Edit a budget template in place. Members inherit the updated values. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}/default_budgets/{budget_id}
+ */
+export async function updateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchPath;
+		body: UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+
+	if (pathParams?.budget_id == null || String(pathParams.budget_id) === "") {
+		throw new Error(`Missing required path parameter: budget_id`);
+	}
+	const data = await request<
+		UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchResponse,
+		ErrorWrapper<UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus422>,
+		UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchPath
+	>({
+		method: "PATCH",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}/default_budgets/${encodeURIComponent(String(pathParams.budget_id))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Customer Budget Template
+ * @description Delete an unreferenced, non-default customer budget template. Proxy admins only.
+ * @link /management/v1/customer_organizations/{customer_org_id}/default_budgets/{budget_id}
+ */
+export async function deleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.customer_org_id == null || String(pathParams.customer_org_id) === "") {
+		throw new Error(`Missing required path parameter: customer_org_id`);
+	}
+
+	if (pathParams?.budget_id == null || String(pathParams.budget_id) === "") {
+		throw new Error(`Missing required path parameter: budget_id`);
+	}
+	const data = await request<
+		DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteResponse,
+		ErrorWrapper<DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/management/v1/customer_organizations/${encodeURIComponent(String(pathParams.customer_org_id))}/default_budgets/${encodeURIComponent(String(pathParams.budget_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Budget Increase Requests
+ * @description The admin review queue. Proxy admins only.
+ * @link /management/v1/customer_budget_increase_requests
+ */
+export async function listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetResponse,
+		ErrorWrapper<ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_budget_increase_requests`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Request Budget Increase
+ * @description File a temporary increase for a member whose budget is set to pause_allow_increase. Waits for an admin.
+ * @link /management/v1/customer_budget_increase_requests
+ */
+export async function requestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPost(
+	{
+		body,
+		config,
+	}: {
+		body: RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostResponse,
+		ErrorWrapper<RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus422>,
+		RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/management/v1/customer_budget_increase_requests`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Budget Increase Request
+ * @description One request. Proxy admins only.
+ * @link /management/v1/customer_budget_increase_requests/{request_id}
+ */
+export async function getBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.request_id == null || String(pathParams.request_id) === "") {
+		throw new Error(`Missing required path parameter: request_id`);
+	}
+	const data = await request<
+		GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetResponse,
+		ErrorWrapper<GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetPath
+	>({
+		method: "GET",
+		url: `/management/v1/customer_budget_increase_requests/${encodeURIComponent(String(pathParams.request_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Approve Budget Increase Request
+ * @description Grant the increase: the member's override takes the requested cap until the request's expiry. Proxy admins only.
+ * The claim and the override land in one transaction, so a racing reject sees ``request_not_pending`` instead of
+ * leaving a rejected request with the cap still granted.
+ * @link /management/v1/customer_budget_increase_requests/{request_id}/approve
+ */
+export async function approveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePut(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.request_id == null || String(pathParams.request_id) === "") {
+		throw new Error(`Missing required path parameter: request_id`);
+	}
+	const data = await request<
+		ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutResponse,
+		ErrorWrapper<ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutPath
+	>({
+		method: "PUT",
+		url: `/management/v1/customer_budget_increase_requests/${encodeURIComponent(String(pathParams.request_id))}/approve`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Reject Budget Increase Request
+ * @description Decline the increase and leave the member paused, with optional review notes. Proxy admins only.
+ * @link /management/v1/customer_budget_increase_requests/{request_id}/reject
+ */
+export async function rejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutPath;
+		body?: RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.request_id == null || String(pathParams.request_id) === "") {
+		throw new Error(`Missing required path parameter: request_id`);
+	}
+	const data = await request<
+		RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutResponse,
+		ErrorWrapper<RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus422>,
+		RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutPath
+	>({
+		method: "PUT",
+		url: `/management/v1/customer_budget_increase_requests/${encodeURIComponent(String(pathParams.request_id))}/reject`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Customer Organization Daily Activity Aggregated
+ * @description Get complete daily usage totals for up to 100 customer organizations in one response. Uses shared SQL daily-spend aggregation with per-organization breakdowns. Dates are inclusive UTC days, limited to 400 days. Model/API-key filters apply before aggregation. Provide either customer_org_ids or customer_org_id for one exact ID, including commas or whitespace. Key breakdowns show the top key; totals include every key. No raw-row pagination is required. Budget counters are returned separately by organization reads. Proxy admins only.
+ * @link /management/v1/customer_organizations/daily/activity/aggregated
+ */
+export async function customerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams: CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetQuery;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetResponse,
+		ErrorWrapper<CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus422>,
+		null,
+		Record<string, string>,
+		CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetQuery,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_organizations/daily/activity/aggregated`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Customer Organization Daily Activity
+ * @description Get paginated daily customer organization activity with model, provider, key and organization breakdowns. Filters accept comma-separated organization IDs. Proxy admins only.
+ * @link /management/v1/customer_organizations/daily/activity
+ */
+export async function customerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetResponse,
+		ErrorWrapper<CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_organizations/daily/activity`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Customer Team Daily Activity
+ * @description Get paginated daily customer team activity with model, provider, key and team breakdowns. Filters accept comma-separated team IDs. Proxy admins only.
+ * @link /management/v1/customer_teams/daily/activity
+ */
+export async function customerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetResponse,
+		ErrorWrapper<CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_teams/daily/activity`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Customer Member Daily Activity
+ * @description Get paginated daily customer member activity with model, provider, key and member breakdowns. Filters accept comma-separated member IDs. Proxy admins only.
+ * @link /management/v1/customer_members/daily/activity
+ */
+export async function customerMemberDailyActivityManagementV1CustomerMembersDailyActivityGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetResponse,
+		ErrorWrapper<CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/management/v1/customer_members/daily/activity`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -18854,7 +20103,11 @@ export async function updateUserBannerUpdateUserBannerPatch(
  * @summary Latest Release Info
  * @description Newest stable release on the LiteLLM changelog, linked to its changelog page, with the PR count of its whole
  * minor line (e.g. v1.105.0 + v1.105.1) from GitHub split into new features, bug fixes and other updates.
- * Returns null when the changelog or GitHub can't be reached so the dashboard upgrade banner simply doesn't render.
+ * Never waits on the changelog or GitHub. It answers from the cache and, when the cache is empty or expired, responds
+ * 202 with null and fetches after the response is sent, so a later call returns the release. Responds 502 once that
+ * fetch has failed because the changelog or GitHub couldn't be reached or answered with something unusable, so the dashboard
+ * upgrade notice simply doesn't render. The three counts are all zero when the release notes list no change in a
+ * format this proxy can count.
  * Set LITELLM_DISABLE_LATEST_RELEASE_CHECK=true to return null without making any outbound request.
  * @link /get/latest_release_info
  */
@@ -18865,7 +20118,7 @@ export async function latestReleaseInfoGetLatestReleaseInfoGet(
 
 	const data = await request<
 		LatestReleaseInfoGetLatestReleaseInfoGetResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<LatestReleaseInfoGetLatestReleaseInfoGetStatus502>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -18953,11 +20206,15 @@ export async function getTeamCallbacksTeamTeamIdCallbackGet(
  *     - langfuse_secret: The secret for the Langfuse callback
  *     - langfuse_host: The host for the Langfuse callback
  *     - langfuse_environment: The tracing environment for the Langfuse callback (lowercase; falls back to LANGFUSE_TRACING_ENVIRONMENT)
- *     - langfuse_span_scope: For langfuse_otel, "full" (default) sends the whole request trace, "llm_only" sends only the model-call spans
+ *     - langfuse_span_scope: For langfuse_otel, "full" sends the whole request trace,
+ *       "llm_only" sends only model-call spans.
+ *       Omitted follows LITELLM_OTEL_LANGFUSE_DESTINATION_SPAN_SCOPE (default "full"), also configurable as
+ *       callback_settings.otel.langfuse_destination_span_scope.
  *     - capture_message_content: For OTel v2 callbacks, "no_content" or "span_only".
  *       An explicit value overrides the global setting for this destination; omitted follows the proxy's own callback for that backend, else the global setting.
  *       "span_only" puts prompt and response content on the destination's spans, "no_content" leaves it out
  *     - excluded_services: For OTel v2 callbacks, a comma-separated list of datastore names such as "redis,postgres", or "none" to exclude nothing. An explicit value replaces the global exclusions; omitted follows them
+ *     - baggage_metadata_keys: For OTel v2 callbacks, a comma-separated list of request metadata keys such as "requester_metadata.correlation_id", exported as litellm.metadata.<key> on this destination's spans only, on top of the global LITELLM_OTEL_BAGGAGE_METADATA_KEYS. At most 20 keys; names of proxy identity fields (user_api_key_*, requester_ip_address) and request headers (requester_metadata.headers.*) are rejected
  *     - gcs_bucket_name: The name of the GCS bucket
  *     - gcs_path_service_account: The path to the GCS service account
  *     - langsmith_api_key: The API key for the Langsmith callback
@@ -19132,10 +20389,11 @@ export async function disableTeamLoggingTeamTeamIdDisableLoggingPost(
 }
 
 /**
- * @summary New Budget
+ * @summary New Budget Endpoint
  * @description Create a new budget object. Can apply this to teams, orgs, end-users, keys.
  * Parameters:
  * - budget_duration: Optional[str] - Budget reset period ("30d", "1h", etc.)
+ * - budget_limits: Optional[list] - Concurrent budget windows with independent caps and reset times.
  * - budget_id: Optional[str] - The id of the budget. If not provided, a new id will be generated.
  * - max_budget: Optional[float] - The max budget for the budget.
  * - soft_budget: Optional[float] - The soft budget for the budget.
@@ -19144,6 +20402,8 @@ export async function disableTeamLoggingTeamTeamIdDisableLoggingPost(
  * - rpm_limit: Optional[int] - The requests per minute limit for the budget.
  * - tpd_limit: Optional[int] - The tokens per day limit for the budget. Charged by batch submissions instead of tpm_limit/rpm_limit.
  * - model_max_budget: Optional[dict] - Specify max budget for a given model. Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d", "tpm_limit": 100000, "rpm_limit": 100000}}
+ * - model_tpm_limit: Optional[dict] - Max tokens per minute per model, shared by everything on this budget. Example: {"gpt-4o": 400000}
+ * - model_rpm_limit: Optional[dict] - Max requests per minute per model, shared by everything on this budget. Example: {"gpt-4o": 200}
  * - budget_reset_at: Optional[datetime] - Datetime when the initial budget is reset. Default is now.
  * @link /budget/new
  */
@@ -19177,10 +20437,11 @@ export async function newBudgetBudgetNewPost(
 }
 
 /**
- * @summary Update Budget
+ * @summary Update Budget Endpoint
  * @description Update an existing budget object.
  * Parameters:
  * - budget_duration: Optional[str] - Budget reset period ("30d", "1h", etc.)
+ * - budget_limits: Optional[list] - Replace concurrent budget windows. Null or an empty list clears them.
  * - budget_id: Optional[str] - The id of the budget. If not provided, a new id will be generated.
  * - max_budget: Optional[float] - The max budget for the budget.
  * - soft_budget: Optional[float] - The soft budget for the budget.
@@ -19189,6 +20450,8 @@ export async function newBudgetBudgetNewPost(
  * - rpm_limit: Optional[int] - The requests per minute limit for the budget.
  * - tpd_limit: Optional[int] - The tokens per day limit for the budget. Charged by batch submissions instead of tpm_limit/rpm_limit.
  * - model_max_budget: Optional[dict] - Specify max budget for a given model. Example: {"openai/gpt-4o-mini": {"max_budget": 100.0, "budget_duration": "1d", "tpm_limit": 100000, "rpm_limit": 100000}}
+ * - model_tpm_limit: Optional[dict] - Max tokens per minute per model, shared by everything on this budget. Example: {"gpt-4o": 400000}
+ * - model_rpm_limit: Optional[dict] - Max requests per minute per model, shared by everything on this budget. Example: {"gpt-4o": 200}
  * - budget_reset_at: Optional[datetime] - Update the Datetime when the budget was last reset.
  * @link /budget/update
  */
@@ -22615,6 +23878,176 @@ export async function getDeprecationUsageTagsAlertingModelDeprecationsTagsGet(
 		method: "GET",
 		url: `/alerting/model-deprecations/tags`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List saved alerts
+ * @description Read saved alerts with current resource names and eight days of Usage history. Requires a gateway admin.
+ * @link /alerts
+ */
+export async function listAlertsAlertsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListAlertsAlertsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListAlertsAlertsGetResponse,
+		ErrorWrapper<ListAlertsAlertsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListAlertsAlertsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/alerts`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Read alert monitoring settings
+ * @description Read the gateway's opt-out setting and free allowance. Requires a gateway admin or view-only admin.
+ * @link /alerts/monitoring
+ */
+export async function getMonitoringAlertsMonitoringGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetMonitoringAlertsMonitoringGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/alerts/monitoring`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Enable or disable alert monitoring
+ * @description Change monitoring for every worker using this database. Only gateway admins can write. Keeps saved alerts.
+ * @link /alerts/monitoring
+ */
+export async function updateMonitoringAlertsMonitoringPatch(
+	{
+		body,
+		config,
+	}: {
+		body: UpdateMonitoringAlertsMonitoringPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpdateMonitoringAlertsMonitoringPatchResponse,
+		ErrorWrapper<UpdateMonitoringAlertsMonitoringPatchStatus422>,
+		UpdateMonitoringAlertsMonitoringPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "PATCH",
+		url: `/alerts/monitoring`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Read an alert
+ * @description Return the saved evidence and status. Requires a gateway admin or view-only admin.
+ * @link /alerts/{alert_id}
+ */
+export async function getAlertAlertsAlertIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetAlertAlertsAlertIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.alert_id == null || String(pathParams.alert_id) === "") {
+		throw new Error(`Missing required path parameter: alert_id`);
+	}
+	const data = await request<
+		GetAlertAlertsAlertIdGetResponse,
+		ErrorWrapper<GetAlertAlertsAlertIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetAlertAlertsAlertIdGetPath
+	>({
+		method: "GET",
+		url: `/alerts/${encodeURIComponent(String(pathParams.alert_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Change an alert's status
+ * @description Resolve, dismiss, or reopen an alert. Only gateway admins can write. Returns the updated alert.
+ * @link /alerts/{alert_id}
+ */
+export async function updateAlertAlertsAlertIdPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateAlertAlertsAlertIdPatchPath;
+		body: UpdateAlertAlertsAlertIdPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.alert_id == null || String(pathParams.alert_id) === "") {
+		throw new Error(`Missing required path parameter: alert_id`);
+	}
+	const data = await request<
+		UpdateAlertAlertsAlertIdPatchResponse,
+		ErrorWrapper<UpdateAlertAlertsAlertIdPatchStatus422>,
+		UpdateAlertAlertsAlertIdPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateAlertAlertsAlertIdPatchPath
+	>({
+		method: "PATCH",
+		url: `/alerts/${encodeURIComponent(String(pathParams.alert_id))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -32969,6 +34402,7 @@ export async function authorizeAuthorizeGet(
  * (``delivery=manual``). POST plus the per-flow HttpOnly cookie set at /authorize; an
  * anonymous or bad-flow request just 400s. The native-client consent page adds
  * ``decision`` (approve or deny) and the ``team_id`` the credential is attributed to.
+ * Each ``server`` field is the id of a server the connect page shows as on.
  * @link /authorize/complete
  */
 export async function authorizeCompleteAuthorizeCompletePost(
@@ -36136,6 +37570,49 @@ export async function downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArc
 }
 
 /**
+ * @summary Restore Skill Version
+ * @description Proxy admins may republish retained bytes and metadata as a new version, preserving visibility and grants.
+ * @link /skill-hub/skills/{name}/versions/{version_id}/restore
+ */
+export async function restoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostPath;
+		body: RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+
+	if (pathParams?.version_id == null || String(pathParams.version_id) === "") {
+		throw new Error(`Missing required path parameter: version_id`);
+	}
+	const data = await request<
+		RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostResponse,
+		ErrorWrapper<RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus422>,
+		RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostBody,
+		Record<string, string>,
+		Record<string, string>,
+		RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostPath
+	>({
+		method: "POST",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/versions/${encodeURIComponent(String(pathParams.version_id))}/restore`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Plugin Downloads
  * @description Admin-only ZIP download totals and authenticated downloader history.
  * Anonymous downloads contribute only to totals. Counts include repeat requests and client prefetches,
@@ -36212,7 +37689,7 @@ export async function listSubmissionsSkillHubSubmissionsGet(
 
 /**
  * @summary Get Submission
- * @description Read an immutable proposal and its currently visible published skill.
+ * @description Read a proposal revision and its currently visible published skill.
  * @link /skill-hub/submissions/{submission_id}
  */
 export async function getSubmissionSkillHubSubmissionsSubmissionIdGet(
@@ -36247,6 +37724,45 @@ export async function getSubmissionSkillHubSubmissionsSubmissionIdGet(
 }
 
 /**
+ * @summary Edit Submission
+ * @description Replace a pending proposal's metadata, preserving files. Only its original submitting user may edit.
+ * @link /skill-hub/submissions/{submission_id}
+ */
+export async function editSubmissionSkillHubSubmissionsSubmissionIdPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: EditSubmissionSkillHubSubmissionsSubmissionIdPutPath;
+		body: EditSubmissionSkillHubSubmissionsSubmissionIdPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		EditSubmissionSkillHubSubmissionsSubmissionIdPutResponse,
+		ErrorWrapper<EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus422>,
+		EditSubmissionSkillHubSubmissionsSubmissionIdPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		EditSubmissionSkillHubSubmissionsSubmissionIdPutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Approve Submission
  * @description Publish a pending proposal and record its approval atomically. Only proxy admins may review.
  * @link /skill-hub/submissions/{submission_id}/approve
@@ -36254,9 +37770,11 @@ export async function getSubmissionSkillHubSubmissionsSubmissionIdGet(
 export async function approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath;
+		body?: ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -36268,13 +37786,14 @@ export async function approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut
 	const data = await request<
 		ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponse,
 		ErrorWrapper<ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422>,
-		null,
+		ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutBody,
 		Record<string, string>,
 		Record<string, string>,
 		ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath
 	>({
 		method: "PUT",
 		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/approve`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -36424,6 +37943,102 @@ export async function startSkillScanSkillHubSubmissionsSubmissionIdScanPost(
 	>({
 		method: "POST",
 		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/scan`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Edit Submission Archive
+ * @description Replace a pending proposal's files using the upload limits. Only its original submitting user may edit.
+ * @link /skill-hub/submissions/{submission_id}/upload
+ */
+export async function editSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutPath;
+		body: EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
+	}
+	const data = await request<
+		EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutResponse,
+		ErrorWrapper<EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus422>,
+		FormData,
+		Record<string, string>,
+		Record<string, string>,
+		EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/upload`,
+		body: formData,
+		...requestConfig,
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Withdraw Submission
+ * @description Withdraw a pending proposal without publishing it. Only its original submitting user may withdraw.
+ * @link /skill-hub/submissions/{submission_id}/withdraw
+ */
+export async function withdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutPath;
+		body: WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutResponse,
+		ErrorWrapper<WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus422>,
+		WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/withdraw`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -39692,6 +41307,64 @@ export const operationsByPath = {
 	"GET /customer/list": listEndUserCustomerListGet,
 	"GET /customer/daily/activity": getCustomerDailyActivityCustomerDailyActivityGet,
 	"GET /management/v1/budgets": listBudgetsManagementV1BudgetsGet,
+	"GET /management/v1/customer_portal/limits":
+		getCustomerPortalLimitsManagementV1CustomerPortalLimitsGet,
+	"GET /management/v1/customer_organizations":
+		listCustomerOrganizationsManagementV1CustomerOrganizationsGet,
+	"POST /management/v1/customer_organizations":
+		createCustomerOrganizationManagementV1CustomerOrganizationsPost,
+	"POST /management/v1/customer_organizations/upsert":
+		upsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPost,
+	"GET /management/v1/customer_organizations/{customer_org_id}":
+		getCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGet,
+	"PATCH /management/v1/customer_organizations/{customer_org_id}":
+		updateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatch,
+	"DELETE /management/v1/customer_organizations/{customer_org_id}":
+		deleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDelete,
+	"GET /management/v1/customer_teams": listCustomerTeamsManagementV1CustomerTeamsGet,
+	"POST /management/v1/customer_teams": createCustomerTeamManagementV1CustomerTeamsPost,
+	"GET /management/v1/customer_teams/{customer_team_id}":
+		getCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGet,
+	"PATCH /management/v1/customer_teams/{customer_team_id}":
+		updateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatch,
+	"DELETE /management/v1/customer_teams/{customer_team_id}":
+		deleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDelete,
+	"GET /management/v1/customer_members": listCustomerMembersManagementV1CustomerMembersGet,
+	"POST /management/v1/customer_members": createCustomerMemberManagementV1CustomerMembersPost,
+	"POST /management/v1/customer_members/upsert":
+		upsertCustomerMemberManagementV1CustomerMembersUpsertPost,
+	"GET /management/v1/customer_members/{customer_member_id}":
+		getCustomerMemberManagementV1CustomerMembersCustomerMemberIdGet,
+	"PATCH /management/v1/customer_members/{customer_member_id}":
+		updateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatch,
+	"DELETE /management/v1/customer_members/{customer_member_id}":
+		deleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDelete,
+	"POST /management/v1/customer_organizations/{customer_org_id}/default_budgets":
+		addCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPost,
+	"PATCH /management/v1/customer_organizations/{customer_org_id}/default_budgets":
+		configureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatch,
+	"PATCH /management/v1/customer_organizations/{customer_org_id}/default_budgets/{budget_id}":
+		updateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatch,
+	"DELETE /management/v1/customer_organizations/{customer_org_id}/default_budgets/{budget_id}":
+		deleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDelete,
+	"GET /management/v1/customer_budget_increase_requests":
+		listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGet,
+	"POST /management/v1/customer_budget_increase_requests":
+		requestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPost,
+	"GET /management/v1/customer_budget_increase_requests/{request_id}":
+		getBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGet,
+	"PUT /management/v1/customer_budget_increase_requests/{request_id}/approve":
+		approveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePut,
+	"PUT /management/v1/customer_budget_increase_requests/{request_id}/reject":
+		rejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPut,
+	"GET /management/v1/customer_organizations/daily/activity/aggregated":
+		customerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGet,
+	"GET /management/v1/customer_organizations/daily/activity":
+		customerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGet,
+	"GET /management/v1/customer_teams/daily/activity":
+		customerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGet,
+	"GET /management/v1/customer_members/daily/activity":
+		customerMemberDailyActivityManagementV1CustomerMembersDailyActivityGet,
 	"GET /management/v1/spend_logs/end_users": listSpendLogEndUsersManagementV1SpendLogsEndUsersGet,
 	"GET /management/v1/spend_logs/users": listSpendLogUsersManagementV1SpendLogsUsersGet,
 	"POST /management/v1/teams/{team_id}/members/bulk_delete":
@@ -39858,6 +41531,11 @@ export const operationsByPath = {
 	"PUT /alerting/model-deprecations/state":
 		updateDeprecationAlertStateAlertingModelDeprecationsStatePut,
 	"GET /alerting/model-deprecations/tags": getDeprecationUsageTagsAlertingModelDeprecationsTagsGet,
+	"GET /alerts": listAlertsAlertsGet,
+	"GET /alerts/monitoring": getMonitoringAlertsMonitoringGet,
+	"PATCH /alerts/monitoring": updateMonitoringAlertsMonitoringPatch,
+	"GET /alerts/{alert_id}": getAlertAlertsAlertIdGet,
+	"PATCH /alerts/{alert_id}": updateAlertAlertsAlertIdPatch,
 	"GET /coordination_redis/settings": getCoordinationRedisSettingsCoordinationRedisSettingsGet,
 	"POST /coordination_redis/settings": updateCoordinationRedisSettingsCoordinationRedisSettingsPost,
 	"POST /coordination_redis/settings/test":
@@ -40271,10 +41949,13 @@ export const operationsByPath = {
 		getSkillVersionSkillHubSkillsNameVersionsVersionIdGet,
 	"GET /skill-hub/skills/{name}/versions/{version_id}/archive":
 		downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet,
+	"POST /skill-hub/skills/{name}/versions/{version_id}/restore":
+		restoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePost,
 	"GET /skill-hub/skills/{plugin_name}/downloads":
 		getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet,
 	"GET /skill-hub/submissions": listSubmissionsSkillHubSubmissionsGet,
 	"GET /skill-hub/submissions/{submission_id}": getSubmissionSkillHubSubmissionsSubmissionIdGet,
+	"PUT /skill-hub/submissions/{submission_id}": editSubmissionSkillHubSubmissionsSubmissionIdPut,
 	"PUT /skill-hub/submissions/{submission_id}/approve":
 		approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut,
 	"GET /skill-hub/submissions/{submission_id}/archive":
@@ -40285,6 +41966,10 @@ export const operationsByPath = {
 		getSkillScanSkillHubSubmissionsSubmissionIdScanGet,
 	"POST /skill-hub/submissions/{submission_id}/scan":
 		startSkillScanSkillHubSubmissionsSubmissionIdScanPost,
+	"PUT /skill-hub/submissions/{submission_id}/upload":
+		editSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut,
+	"PUT /skill-hub/submissions/{submission_id}/withdraw":
+		withdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPut,
 	"GET /claude-code/marketplace.json": getMarketplaceClaudeCodeMarketplaceJsonGet,
 	"GET /claude-code/plugins": listPluginsClaudeCodePluginsGet,
 	"POST /claude-code/plugins": registerPluginClaudeCodePluginsPost,
@@ -40897,6 +42582,11 @@ export const operationsByTag = {
 		deleteEndUserCustomerDeletePost,
 		listEndUserCustomerListGet,
 		getCustomerDailyActivityCustomerDailyActivityGet,
+		listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGet,
+		requestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPost,
+		getBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGet,
+		approveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePut,
+		rejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPut,
 	},
 	agentManagement: {
 		getAgentDailyActivityAggregatedAgentDailyActivityAggregatedGet,
@@ -40919,6 +42609,36 @@ export const operationsByTag = {
 		budgetSettingsBudgetSettingsGet,
 		listBudgetBudgetListGet,
 		deleteBudgetBudgetDeletePost,
+	},
+	customerHierarchy: {
+		getCustomerPortalLimitsManagementV1CustomerPortalLimitsGet,
+		listCustomerOrganizationsManagementV1CustomerOrganizationsGet,
+		createCustomerOrganizationManagementV1CustomerOrganizationsPost,
+		upsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPost,
+		getCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGet,
+		updateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatch,
+		deleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDelete,
+		listCustomerTeamsManagementV1CustomerTeamsGet,
+		createCustomerTeamManagementV1CustomerTeamsPost,
+		getCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGet,
+		updateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatch,
+		deleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDelete,
+		listCustomerMembersManagementV1CustomerMembersGet,
+		createCustomerMemberManagementV1CustomerMembersPost,
+		upsertCustomerMemberManagementV1CustomerMembersUpsertPost,
+		getCustomerMemberManagementV1CustomerMembersCustomerMemberIdGet,
+		updateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatch,
+		deleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDelete,
+		addCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPost,
+		configureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatch,
+		updateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatch,
+		deleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDelete,
+	},
+	customerUsage: {
+		customerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGet,
+		customerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGet,
+		customerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGet,
+		customerMemberDailyActivityManagementV1CustomerMembersDailyActivityGet,
 	},
 	caching: {
 		cachePingCachePingGet,
@@ -41038,6 +42758,13 @@ export const operationsByTag = {
 		getDeprecationAlertStateAlertingModelDeprecationsStateGet,
 		updateDeprecationAlertStateAlertingModelDeprecationsStatePut,
 		getDeprecationUsageTagsAlertingModelDeprecationsTagsGet,
+	},
+	alerts: {
+		listAlertsAlertsGet,
+		getMonitoringAlertsMonitoringGet,
+		updateMonitoringAlertsMonitoringPatch,
+		getAlertAlertsAlertIdGet,
+		updateAlertAlertsAlertIdPatch,
 	},
 	coordinationRedisSettings: {
 		getCoordinationRedisSettingsCoordinationRedisSettingsGet,
@@ -41421,14 +43148,18 @@ export const operationsByTag = {
 		listSkillVersionsSkillHubSkillsNameVersionsGet,
 		getSkillVersionSkillHubSkillsNameVersionsVersionIdGet,
 		downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet,
+		restoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePost,
 		getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet,
 		listSubmissionsSkillHubSubmissionsGet,
 		getSubmissionSkillHubSubmissionsSubmissionIdGet,
+		editSubmissionSkillHubSubmissionsSubmissionIdPut,
 		approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut,
 		downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet,
 		rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut,
 		getSkillScanSkillHubSubmissionsSubmissionIdScanGet,
 		startSkillScanSkillHubSubmissionsSubmissionIdScanPost,
+		editSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut,
+		withdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPut,
 	},
 	scim: {
 		getScimBaseScimV2Get,
@@ -42138,6 +43869,8 @@ export const tagDictionary = {
 			"endUserInfoCustomerInfoGet",
 			"listEndUserCustomerListGet",
 			"getCustomerDailyActivityCustomerDailyActivityGet",
+			"listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGet",
+			"getBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGet",
 		],
 		POST: [
 			"blockUserCustomerBlockPost",
@@ -42145,6 +43878,11 @@ export const tagDictionary = {
 			"newEndUserCustomerNewPost",
 			"updateEndUserCustomerUpdatePost",
 			"deleteEndUserCustomerDeletePost",
+			"requestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPost",
+		],
+		PUT: [
+			"approveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePut",
+			"rejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPut",
 		],
 	},
 	agentManagement: {
@@ -42173,6 +43911,46 @@ export const tagDictionary = {
 			"updateBudgetBudgetUpdatePost",
 			"infoBudgetBudgetInfoPost",
 			"deleteBudgetBudgetDeletePost",
+		],
+	},
+	customerHierarchy: {
+		GET: [
+			"getCustomerPortalLimitsManagementV1CustomerPortalLimitsGet",
+			"listCustomerOrganizationsManagementV1CustomerOrganizationsGet",
+			"getCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGet",
+			"listCustomerTeamsManagementV1CustomerTeamsGet",
+			"getCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGet",
+			"listCustomerMembersManagementV1CustomerMembersGet",
+			"getCustomerMemberManagementV1CustomerMembersCustomerMemberIdGet",
+		],
+		POST: [
+			"createCustomerOrganizationManagementV1CustomerOrganizationsPost",
+			"upsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPost",
+			"createCustomerTeamManagementV1CustomerTeamsPost",
+			"createCustomerMemberManagementV1CustomerMembersPost",
+			"upsertCustomerMemberManagementV1CustomerMembersUpsertPost",
+			"addCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPost",
+		],
+		PATCH: [
+			"updateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatch",
+			"updateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatch",
+			"updateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatch",
+			"configureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatch",
+			"updateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatch",
+		],
+		DELETE: [
+			"deleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDelete",
+			"deleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDelete",
+			"deleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDelete",
+			"deleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDelete",
+		],
+	},
+	customerUsage: {
+		GET: [
+			"customerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGet",
+			"customerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGet",
+			"customerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGet",
+			"customerMemberDailyActivityManagementV1CustomerMembersDailyActivityGet",
 		],
 	},
 	caching: {
@@ -42302,6 +44080,10 @@ export const tagDictionary = {
 			"getDeprecationUsageTagsAlertingModelDeprecationsTagsGet",
 		],
 		PUT: ["updateDeprecationAlertStateAlertingModelDeprecationsStatePut"],
+	},
+	alerts: {
+		GET: ["listAlertsAlertsGet", "getMonitoringAlertsMonitoringGet", "getAlertAlertsAlertIdGet"],
+		PATCH: ["updateMonitoringAlertsMonitoringPatch", "updateAlertAlertsAlertIdPatch"],
 	},
 	coordinationRedisSettings: {
 		GET: ["getCoordinationRedisSettingsCoordinationRedisSettingsGet"],
@@ -42774,13 +44556,17 @@ export const tagDictionary = {
 			"uploadSkillSkillHubSkillsUploadPost",
 			"publishSkillSkillHubSkillsNamePublishPost",
 			"unpublishSkillSkillHubSkillsNameUnpublishPost",
+			"restoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePost",
 			"startSkillScanSkillHubSubmissionsSubmissionIdScanPost",
 		],
 		PUT: [
 			"replaceSkillMetadataSkillHubSkillsNamePut",
 			"replaceSkillArchiveSkillHubSkillsNameUploadPut",
+			"editSubmissionSkillHubSubmissionsSubmissionIdPut",
 			"approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut",
 			"rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut",
+			"editSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut",
+			"withdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPut",
 		],
 		DELETE: ["removeSkillSkillHubSkillsNameDelete"],
 	},

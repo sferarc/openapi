@@ -1725,6 +1725,341 @@ export type AgentSkillsIndex = {
 	skills: AgentSkillsIndexEntry[];
 };
 
+export const metricEvidenceUnitEnum = {
+	usd: "usd",
+	requests: "requests",
+	milliseconds: "milliseconds",
+	ratio: "ratio",
+} as const;
+
+export type MetricEvidenceUnitEnumKey =
+	(typeof metricEvidenceUnitEnum)[keyof typeof metricEvidenceUnitEnum];
+
+export type MetricEvidence = {
+	/**
+	 * @description Observed metric value in the alert window.
+	 * @minimum 0
+	 * @type number
+	 */
+	value: number;
+	/**
+	 * @description Comparison value in the same unit.
+	 * @minimum 0
+	 * @type number
+	 */
+	baseline: number;
+	/**
+	 * @description Unit for both values.
+	 * @type string
+	 */
+	unit: MetricEvidenceUnitEnumKey;
+	/**
+	 * @description Number of requests in the alert window.
+	 * @minimum 0
+	 * @maximum 9223372036854776000
+	 * @type integer
+	 */
+	sample_size: number;
+};
+
+export type DeprecationEvidence = {
+	/**
+	 * @description Date the affected model retires.
+	 *
+	 * Format: `date`
+	 * @type string
+	 */
+	deprecation_date: string;
+	/**
+	 * @description Suggested replacement.
+	 */
+	replacement_model?: (string | (null | null)) | undefined;
+};
+
+export const alertTypeEnum = {
+	spend: "spend",
+	traffic: "traffic",
+	latency: "latency",
+	reliability: "reliability",
+	model_deprecation: "model_deprecation",
+} as const;
+
+export type AlertTypeEnumKey = (typeof alertTypeEnum)[keyof typeof alertTypeEnum];
+
+export const alertResourceTypeEnum = {
+	gateway: "gateway",
+	key: "key",
+	team: "team",
+	user: "user",
+	model: "model",
+} as const;
+
+export type AlertResourceTypeEnumKey =
+	(typeof alertResourceTypeEnum)[keyof typeof alertResourceTypeEnum];
+
+export const alertStatusEnum = {
+	open: "open",
+	resolved: "resolved",
+	dismissed: "dismissed",
+} as const;
+
+export type AlertStatusEnumKey = (typeof alertStatusEnum)[keyof typeof alertStatusEnum];
+
+export type Alert = {
+	/**
+	 * @description Built-in alert category.
+	 * @type string
+	 */
+	type: AlertTypeEnumKey;
+	/**
+	 * @description Kind of affected resource.
+	 * @type string
+	 */
+	resource_type: AlertResourceTypeEnumKey;
+	/**
+	 * @description Resource ID. Whole-gateway alerts use 'gateway'. Keys use their SHA-256 hash, never a secret.
+	 * @minLength 1
+	 * @maxLength 1024
+	 * @type string
+	 */
+	resource_id: string;
+	/**
+	 * @description Inclusive start of the observed window, normalized to UTC milliseconds.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	window_start: string;
+	/**
+	 * @description Exclusive end of the observed window, normalized to UTC milliseconds.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	window_end: string;
+	/**
+	 * @description Small saved snapshot explaining the alert.
+	 */
+	evidence: MetricEvidence | DeprecationEvidence;
+	/**
+	 * @description Opaque alert ID, also used as a pagination cursor.
+	 * @maxLength 19
+	 * @pattern ^[1-9][0-9]{0,18}$
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description Current review status.
+	 * @type string
+	 */
+	status: AlertStatusEnumKey;
+	/**
+	 * @description When the alert was first saved.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	/**
+	 * @description When its status last changed.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	/**
+	 * @description User who last changed the status.
+	 */
+	updated_by?: (string | (null | null)) | undefined;
+};
+
+export type AlertHistoryPoint = {
+	/**
+	 * @description UTC day represented by this value.
+	 *
+	 * Format: `date`
+	 * @type string
+	 */
+	date: string;
+	/**
+	 * @description Recorded daily value in the alert metric's unit.
+	 * @type number
+	 */
+	value: number;
+};
+
+export type AlertMonitoring = {
+	/**
+	 * @description Whether performance monitoring is enabled. Defaults to true.
+	 * @type boolean
+	 */
+	enabled: boolean;
+	/**
+	 * @description Whether model deprecation alerts are enabled.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	model_deprecations_enabled?: boolean | undefined;
+	/**
+	 * @description Lifetime free allowance consumed, capped at five.
+	 * @minimum 0
+	 * @maximum 5
+	 * @type integer
+	 */
+	alerts_used: number;
+	/**
+	 * @description Free allowance, or null for Enterprise.
+	 */
+	alert_limit: number | (null | null);
+	/**
+	 * @description Whether performance_alerts_enabled is false in proxy settings.
+	 * @type boolean
+	 */
+	disabled_by_config: boolean;
+};
+
+export type AlertMonitoringUpdate = {
+	/**
+	 * @description Enable or disable performance monitoring for this gateway.
+	 * @type boolean
+	 */
+	enabled: boolean;
+};
+
+export const alertUpdateStatusEnum = {
+	open: "open",
+	resolved: "resolved",
+	dismissed: "dismissed",
+} as const;
+
+export type AlertUpdateStatusEnumKey =
+	(typeof alertUpdateStatusEnum)[keyof typeof alertUpdateStatusEnum];
+
+export type AlertUpdate = {
+	/**
+	 * @description Mark resolved, dismiss, or reopen the alert.
+	 * @type string
+	 */
+	status: AlertUpdateStatusEnumKey;
+};
+
+export const alertViewTypeEnum = {
+	spend: "spend",
+	traffic: "traffic",
+	latency: "latency",
+	reliability: "reliability",
+	model_deprecation: "model_deprecation",
+} as const;
+
+export type AlertViewTypeEnumKey = (typeof alertViewTypeEnum)[keyof typeof alertViewTypeEnum];
+
+export const alertViewResourceTypeEnum = {
+	gateway: "gateway",
+	key: "key",
+	team: "team",
+	user: "user",
+	model: "model",
+} as const;
+
+export type AlertViewResourceTypeEnumKey =
+	(typeof alertViewResourceTypeEnum)[keyof typeof alertViewResourceTypeEnum];
+
+export const alertViewStatusEnum = {
+	open: "open",
+	resolved: "resolved",
+	dismissed: "dismissed",
+} as const;
+
+export type AlertViewStatusEnumKey = (typeof alertViewStatusEnum)[keyof typeof alertViewStatusEnum];
+
+export type AlertView = {
+	/**
+	 * @description Built-in alert category.
+	 * @type string
+	 */
+	type: AlertViewTypeEnumKey;
+	/**
+	 * @description Kind of affected resource.
+	 * @type string
+	 */
+	resource_type: AlertViewResourceTypeEnumKey;
+	/**
+	 * @description Resource ID. Whole-gateway alerts use 'gateway'. Keys use their SHA-256 hash, never a secret.
+	 * @minLength 1
+	 * @maxLength 1024
+	 * @type string
+	 */
+	resource_id: string;
+	/**
+	 * @description Inclusive start of the observed window, normalized to UTC milliseconds.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	window_start: string;
+	/**
+	 * @description Exclusive end of the observed window, normalized to UTC milliseconds.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	window_end: string;
+	/**
+	 * @description Small saved snapshot explaining the alert.
+	 */
+	evidence: MetricEvidence | DeprecationEvidence;
+	/**
+	 * @description Opaque alert ID, also used as a pagination cursor.
+	 * @maxLength 19
+	 * @pattern ^[1-9][0-9]{0,18}$
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description Current review status.
+	 * @type string
+	 */
+	status: AlertViewStatusEnumKey;
+	/**
+	 * @description When the alert was first saved.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	/**
+	 * @description When its status last changed.
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	/**
+	 * @description User who last changed the status.
+	 */
+	updated_by?: (string | (null | null)) | undefined;
+	/**
+	 * @description Current resource display name.
+	 */
+	resource_name?: (string | (null | null)) | undefined;
+	/**
+	 * @description Current Usage values for the seven baseline days and observed day. Null if unavailable.
+	 */
+	history?: (AlertHistoryPoint[] | (null | null)) | undefined;
+};
+
+export type AlertViewPage = {
+	/**
+	 * @description Alerts ordered newest first, with current Usage history.
+	 * @type array
+	 */
+	data: AlertView[];
+	/**
+	 * @description Cursor for the next page, or null at the end.
+	 */
+	next_cursor?: (string | (null | null)) | undefined;
+};
+
 export const allowedVectorStoreIndexItemIndexPermissionsEnum = {
 	read: "read",
 	write: "write",
@@ -3122,7 +3457,7 @@ export type RequestComplexityRouterConfig = {
 	 */
 	route_housekeeping_to_cheapest_tier?: boolean | undefined;
 	/**
-	 * @description Additional case-sensitive literal sentinels that mark a request as client housekeeping, on top of the built-in conversation-title ones. For clients whose wording the built-ins don't cover, or after a client release changes its strings.
+	 * @description Additional case-sensitive literal sentinels that mark a request as client housekeeping, on top of the built-in conversation-title, agent-summary and prompt-suggestion ones. For clients whose wording the built-ins don't cover, or after a client release changes its strings.
 	 */
 	housekeeping_patterns?: (string[] | (null | null)) | undefined;
 	/**
@@ -3511,6 +3846,10 @@ export type AutoRouterSessionResponse = {
 	 */
 	spend: number;
 	/**
+	 * @description Spend billed to this key under the session id, routed or not, from a shared Redis counter whose one-hour expiry every billed request resets. None without a shared Redis or once the counter expired. A best-effort figure, not a lifetime total: a session idle past the expiry restarts from zero, and a failed Redis write, eviction or flush drops spend without notice
+	 */
+	total_spend?: (number | (null | null)) | undefined;
+	/**
 	 * @description Requests whose savings estimate recorded its baseline cost
 	 * @type integer
 	 */
@@ -3521,7 +3860,7 @@ export type AutoRouterSessionResponse = {
 	 */
 	savings_estimated_actual_spend: number;
 	/**
-	 * @description Recorded historical savings plus newer estimates, net of classifier cost
+	 * @description Recorded historical savings plus newer estimates, net of classifier cost. None until a turn is estimated. A turn that starts within the longest prompt-cache TTL its breakpoints use (5 minutes, or 1 hour with a 1h breakpoint) of the session's first observed turn, or of the last turn whose observation was incomplete, is not estimated, because the baseline's cache state is unknown then. Two kinds of turn are still estimated inside that window: turns that took the identical baseline path, and turns whose whole cached prefix the session had already written
 	 */
 	saved_spend: number | (null | null);
 	/**
@@ -3643,6 +3982,22 @@ export type LiteLLMBudgetTable = {
 		| (
 				| {
 						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
 				  }
 				| (null | null)
 		  )
@@ -4013,6 +4368,12 @@ export type SpendMetrics = {
 	 */
 	autorouter_savings_spend?: number | undefined;
 	/**
+	 * @description Guardrail spend in USD, already included in spend, so model spend is spend - guardrail_spend. Rows recorded before this field existed report 0 even when their spend includes guardrail cost
+	 * @default 0
+	 * @type number | undefined
+	 */
+	guardrail_spend?: number | undefined;
+	/**
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -4182,6 +4543,17 @@ export type BreakdownMetrics = {
 		  }
 		| undefined;
 	/**
+	 * @description Customer spend by the key's current team, or last team for deleted keys. Keys without a known team are grouped under Unassigned
+	 */
+	teams?:
+		| (
+				| {
+						[key: string]: MetricWithMetadata;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
 	 * @description Spend by guardrail ID, already included in key and model spend. Populated on user, team and organization aggregated activity only, without a model filter
 	 * @type object | undefined
 	 */
@@ -4190,6 +4562,61 @@ export type BreakdownMetrics = {
 				[key: string]: GuardrailMetric;
 		  }
 		| undefined;
+};
+
+export const budgetLimitBudgetDurationEnum = {
+	"1mo": "1mo",
+	"12mo": "12mo",
+} as const;
+
+export type BudgetLimitBudgetDurationEnumKey =
+	(typeof budgetLimitBudgetDurationEnum)[keyof typeof budgetLimitBudgetDurationEnum];
+
+export type BudgetLimit = {
+	budget_duration: BudgetLimitBudgetDurationEnumKey;
+	/**
+	 * @minimum 0
+	 * @type number
+	 */
+	max_budget: number;
+	reset_at?: (string | (null | null)) | undefined;
+};
+
+export const budgetCapPolicy = {
+	pause_until_reset: "pause_until_reset",
+	pause_allow_increase: "pause_allow_increase",
+} as const;
+
+export type BudgetCapPolicyKey = (typeof budgetCapPolicy)[keyof typeof budgetCapPolicy];
+
+export type Budget = {
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description What a paused member can do at the cap: wait for the reset (default) or request a temporary increase
+	 */
+	cap_policy?: (BudgetCapPolicyKey | (null | null)) | undefined;
 };
 
 export type BudgetConfig = {
@@ -4201,6 +4628,124 @@ export type BudgetConfig = {
 
 export type BudgetDeleteRequest = {
 	id: string;
+};
+
+export const budgetGroupChangeCapPolicy = {
+	pause_until_reset: "pause_until_reset",
+	pause_allow_increase: "pause_allow_increase",
+} as const;
+
+export type BudgetGroupChangeCapPolicyKey =
+	(typeof budgetGroupChangeCapPolicy)[keyof typeof budgetGroupChangeCapPolicy];
+
+export type BudgetGroupChange = {
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description What a paused member can do at the cap: wait for the reset (default) or request a temporary increase
+	 */
+	cap_policy?: (BudgetGroupChangeCapPolicyKey | (null | null)) | undefined;
+	/**
+	 * @minLength 1
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Existing template ID. Omit to create a template.
+	 */
+	budget_id?: (string | (null | null)) | undefined;
+};
+
+export type BudgetGroupsUpdate = {
+	/**
+	 * @minLength 64
+	 * @maxLength 64
+	 * @type string
+	 */
+	expected_revision: string;
+	/**
+	 * @description Complete retained group list. Existing groups patch only supplied fields. Omitted groups are deleted.
+	 * @type array
+	 */
+	default_budgets: BudgetGroupChange[];
+	/**
+	 * @description Final name of the default group, or null for no default.
+	 */
+	default_budget_template: string | (null | null);
+};
+
+export type BudgetIncreaseRejection = {
+	review_notes?: (string | (null | null)) | undefined;
+};
+
+export const budgetIncreaseRequestStatusEnum = {
+	pending_review: "pending_review",
+	approved: "approved",
+	rejected: "rejected",
+} as const;
+
+export type BudgetIncreaseRequestStatusEnumKey =
+	(typeof budgetIncreaseRequestStatusEnum)[keyof typeof budgetIncreaseRequestStatusEnum];
+
+export type BudgetIncreaseRequest = {
+	request_id: string;
+	customer_member_id: string;
+	requested_max_budget: number;
+	expires_at?: (string | (null | null)) | undefined;
+	reason?: (string | (null | null)) | undefined;
+	status: BudgetIncreaseRequestStatusEnumKey;
+	submitted_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	submitted_at: string;
+	reviewed_by?: (string | (null | null)) | undefined;
+	reviewed_at?: (string | (null | null)) | undefined;
+	review_notes?: (string | (null | null)) | undefined;
+};
+
+export type BudgetIncreaseRequestCreate = {
+	/**
+	 * @maxLength 256
+	 * @type string
+	 */
+	customer_member_id: string;
+	/**
+	 * @minimum 0
+	 * @type number
+	 */
+	requested_max_budget: number;
+	/**
+	 * @description When the granted cap ends; a temporary increase always has one
+	 *
+	 * Format: `date-time`
+	 * @type string
+	 */
+	expires_at: string;
+	reason?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -4229,6 +4774,7 @@ export type BudgetListItem = {
 	rpm_limit?: (number | (null | null)) | undefined;
 	tpd_limit?: (number | (null | null)) | undefined;
 	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
 	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description
@@ -4244,7 +4790,54 @@ export type BudgetListItem = {
 	updated_at: string;
 };
 
-export type BudgetNewRequest = {
+export type BudgetRequest = {
+	budgets: string[];
+};
+
+export const budgetTemplateCapPolicy = {
+	pause_until_reset: "pause_until_reset",
+	pause_allow_increase: "pause_allow_increase",
+} as const;
+
+export type BudgetTemplateCapPolicyKey =
+	(typeof budgetTemplateCapPolicy)[keyof typeof budgetTemplateCapPolicy];
+
+export type BudgetTemplate = {
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description What a paused member can do at the cap: wait for the reset (default) or request a temporary increase
+	 */
+	cap_policy?: (BudgetTemplateCapPolicyKey | (null | null)) | undefined;
+	/**
+	 * @minLength 1
+	 * @type string
+	 */
+	name: string;
+};
+
+export type BudgetWriteRequest = {
 	/**
 	 * @description The unique budget id.
 	 */
@@ -4289,13 +4882,35 @@ export type BudgetNewRequest = {
 		  )
 		| undefined;
 	/**
+	 * @description Max tokens per minute per model for this budget id, shared by every key, team and customer on it (e.g. {'gpt-4o': 400000})
+	 */
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description Max requests per minute per model for this budget id, shared by every key, team and customer on it (e.g. {'gpt-4o': 200})
+	 */
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
 	 * @description Datetime when the budget is reset
 	 */
 	budget_reset_at?: (string | (null | null)) | undefined;
-};
-
-export type BudgetRequest = {
-	budgets: string[];
+	/**
+	 * @description Independent budget windows. Omit to preserve, or pass null or an empty list to clear.
+	 */
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
 };
 
 /**
@@ -6420,6 +7035,159 @@ export type CustomToolCallOutputItem = {
 	[key: string]: unknown;
 };
 
+export const customerBudgetUsageSourceEnum = {
+	scalar: "scalar",
+	window: "window",
+} as const;
+
+export type CustomerBudgetUsageSourceEnumKey =
+	(typeof customerBudgetUsageSourceEnum)[keyof typeof customerBudgetUsageSourceEnum];
+
+export type CustomerBudgetUsage = {
+	source: CustomerBudgetUsageSourceEnumKey;
+	budget_duration: string | (null | null);
+	max_budget: number;
+	spend: number | (null | null);
+	window_start?: (string | (null | null)) | undefined;
+	reset_at?: (string | (null | null)) | undefined;
+};
+
+export const customerScopeAuthKeyEnum = {
+	customer_org: "customer_org",
+	customer_team: "customer_team",
+	customer_member: "customer_member",
+} as const;
+
+export type CustomerScopeAuthKeyEnumKey =
+	(typeof customerScopeAuthKeyEnum)[keyof typeof customerScopeAuthKeyEnum];
+
+export const customerScopeAuthCapPolicy = {
+	pause_until_reset: "pause_until_reset",
+	pause_allow_increase: "pause_allow_increase",
+} as const;
+
+export type CustomerScopeAuthCapPolicyKey =
+	(typeof customerScopeAuthCapPolicy)[keyof typeof customerScopeAuthCapPolicy];
+
+/**
+ * @description One level of the customer hierarchy a request runs under, with the limits its budget row grants.
+ * @type object
+ */
+export type CustomerScopeAuth = {
+	key: CustomerScopeAuthKeyEnumKey;
+	entity_id: string;
+	alias?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	budget_limits?: BudgetLimit[] | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	cap_policy?: (CustomerScopeAuthCapPolicyKey | (null | null)) | undefined;
+};
+
+/**
+ * @description The levels a request is charged to. A request that named only an organization alias has no team or member.
+ * @type object
+ */
+export type CustomerHierarchyAuth = {
+	customer_org_id: string;
+	customer_org_alias?: (string | (null | null)) | undefined;
+	customer_team_id?: (string | (null | null)) | undefined;
+	customer_team_alias?: (string | (null | null)) | undefined;
+	customer_member_id?: (string | (null | null)) | undefined;
+	customer_member_alias?: (string | (null | null)) | undefined;
+	scopes: CustomerScopeAuth[];
+	/**
+	 * @description Every team the member belongs to, in parent_team_ids order; scopes holds the selected one
+	 * @default []
+	 * @type array | undefined
+	 */
+	team_scopes?: CustomerScopeAuth[] | undefined;
+};
+
+export type CustomerMember = {
+	alias?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Recorded spend for each independent effective budget. Excludes pending reservations and updates after accounting flushes. Window boundaries follow the configured reset timezone and time.
+	 */
+	budget_usage?: (CustomerBudgetUsage[] | (null | null)) | undefined;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	created_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	updated_by: string;
+	customer_member_id: string;
+	parent_org_id: string;
+	parent_team_ids: string[];
+	budget_id?: (string | (null | null)) | undefined;
+	budget_override_id?: (string | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	effective_budget: Budget;
+};
+
+export type CustomerPortalLimits = {
+	limits_apply: boolean;
+	/**
+	 * @default 5
+	 * @type integer | undefined
+	 */
+	organization_limit?: number | undefined;
+	/**
+	 * @default 5
+	 * @type integer | undefined
+	 */
+	teams_per_organization_limit?: number | undefined;
+	/**
+	 * @default 5
+	 * @type integer | undefined
+	 */
+	members_per_team_limit?: number | undefined;
+	organization_count: number;
+	any_limit_reached: boolean;
+};
+
 /**
  * @description LiteLLM_BudgetTable + server-managed fields returned on API responses.
  * @type object
@@ -6436,6 +7204,22 @@ export type LiteLLMBudgetTableFull = {
 		| (
 				| {
 						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
 				  }
 				| (null | null)
 		  )
@@ -6941,6 +7725,16 @@ export type LiteLLMParams = {
 	input_cost_per_text_message?: (number | (null | null)) | undefined;
 	output_cost_per_second?: (number | (null | null)) | undefined;
 	output_cost_per_second_1080p?: (number | (null | null)) | undefined;
+	output_cost_per_video_clip?:
+		| (
+				| {
+						[key: string]: {
+							[key: string]: number;
+						};
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	output_cost_per_second_480p?: (number | (null | null)) | undefined;
 	output_cost_per_second_720p?: (number | (null | null)) | undefined;
 	output_cost_per_second_768p?: (number | (null | null)) | undefined;
@@ -6951,6 +7745,7 @@ export type LiteLLMParams = {
 	output_cost_per_image_1536?: (number | (null | null)) | undefined;
 	output_cost_per_image_1K?: (number | (null | null)) | undefined;
 	output_cost_per_image_2K?: (number | (null | null)) | undefined;
+	output_cost_per_billable_unit?: (number | (null | null)) | undefined;
 	input_cost_per_pixel?: (number | (null | null)) | undefined;
 	output_cost_per_pixel?: (number | (null | null)) | undefined;
 	input_cost_per_token_flex?: (number | (null | null)) | undefined;
@@ -6987,6 +7782,7 @@ export type LiteLLMParams = {
 	cache_read_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
 	cache_read_input_token_cost_above_272k_tokens_batches?: (number | (null | null)) | undefined;
 	cache_read_input_audio_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_read_input_image_token_cost_batches?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_batches?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
@@ -7054,6 +7850,7 @@ export type LiteLLMParams = {
 	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token_priority?: (number | (null | null)) | undefined;
+	output_cost_per_video?: (number | (null | null)) | undefined;
 	output_cost_per_video_per_second?: (number | (null | null)) | undefined;
 	output_cost_per_audio_per_second?: (number | (null | null)) | undefined;
 	search_context_cost_per_query?:
@@ -7160,6 +7957,10 @@ export type LiteLLMParams = {
 	token_exchange_profile?: (string | (null | null)) | undefined;
 	token_exchange_scope?: (string | (null | null)) | undefined;
 	token_exchange_audience?: (string | (null | null)) | undefined;
+	github_copilot_app_id?: (string | number | (null | null)) | undefined;
+	github_copilot_app_installation_id?: (string | number | (null | null)) | undefined;
+	github_copilot_app_private_key_ref?: (string | (null | null)) | undefined;
+	github_copilot_app_private_key?: (string | (null | null)) | undefined;
 	custom_llm_provider?: (string | (null | null)) | undefined;
 	responses_api_version?: (string | (null | null)) | undefined;
 	tpm?: (number | (null | null)) | undefined;
@@ -7401,6 +8202,7 @@ export type ModelInfo = {
 	enable_tag_filtering?: (boolean | (null | null)) | undefined;
 	internal_router_model?: (boolean | (null | null)) | undefined;
 	max_embedding_batch_size?: (number | (null | null)) | undefined;
+	encrypted_content_boundary?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -7611,9 +8413,11 @@ export type Drag = {
 
 export const emailEvent = {
 	"Model Deprecations": "Model Deprecations",
+	"Performance Alerts": "Performance Alerts",
 	"Virtual Key Created": "Virtual Key Created",
 	"New User Invitation": "New User Invitation",
 	"Virtual Key Rotated": "Virtual Key Rotated",
+	"Virtual Key Expiring": "Virtual Key Expiring",
 	"Soft Budget Crossed": "Soft Budget Crossed",
 	"Max Budget Alert": "Max Budget Alert",
 } as const;
@@ -8059,6 +8863,7 @@ export type UpdateRouterConfig = {
 		| (UpdateRouterConfigOptionalPreCallChecksEnumKey[] | (null | null))
 		| undefined;
 	fallback_on_unsupported_params?: (boolean | (null | null)) | undefined;
+	fallback_on_saturation?: (boolean | (null | null)) | undefined;
 };
 
 export const liteLLMKeyType = {
@@ -8980,6 +9785,23 @@ export type UserAPIKeyAuth = {
 				| (null | null)
 		  )
 		| undefined;
+	end_user_model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	end_user_model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	customer_hierarchy?: (CustomerHierarchyAuth | (null | null)) | undefined;
 	organization_alias?: (string | (null | null)) | undefined;
 	organization_max_budget?: (number | (null | null)) | undefined;
 	organization_tpm_limit?: (number | (null | null)) | undefined;
@@ -9288,8 +10110,36 @@ export type ListMeta = {
 	total_pages: number;
 };
 
+export type ListResponseBudgetIncreaseRequest = {
+	data: BudgetIncreaseRequest[];
+	/**
+	 * @description Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
+	 * @type object
+	 */
+	meta: ListMeta;
+	/**
+	 * @description Page-mode counterpart to `PageLinks`. `first`/`last` are knowable here because the total count is.
+	 * @type object
+	 */
+	links: ListLinks;
+};
+
 export type ListResponseBudgetListItem = {
 	data: BudgetListItem[];
+	/**
+	 * @description Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
+	 * @type object
+	 */
+	meta: ListMeta;
+	/**
+	 * @description Page-mode counterpart to `PageLinks`. `first`/`last` are knowable here because the total count is.
+	 * @type object
+	 */
+	links: ListLinks;
+};
+
+export type ListResponseCustomerMember = {
+	data: CustomerMember[];
 	/**
 	 * @description Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
 	 * @type object
@@ -9400,6 +10250,8 @@ export type ModelGroupInfoProxy = {
 	health_status?: (string | (null | null)) | undefined;
 	health_response_time?: (number | (null | null)) | undefined;
 	health_checked_at?: (string | (null | null)) | undefined;
+	pass_through_path?: (string | (null | null)) | undefined;
+	pass_through_methods?: (string[] | (null | null)) | undefined;
 	custom_tags?: (string[] | (null | null)) | undefined;
 	custom_metadata?:
 		| (
@@ -9413,6 +10265,159 @@ export type ModelGroupInfoProxy = {
 
 export type ListResponseModelGroupInfoProxy = {
 	data: ModelGroupInfoProxy[];
+	/**
+	 * @description Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
+	 * @type object
+	 */
+	meta: ListMeta;
+	/**
+	 * @description Page-mode counterpart to `PageLinks`. `first`/`last` are knowable here because the total count is.
+	 * @type object
+	 */
+	links: ListLinks;
+};
+
+export const organizationBudgetCapPolicy = {
+	pause_until_reset: "pause_until_reset",
+	pause_allow_increase: "pause_allow_increase",
+} as const;
+
+export type OrganizationBudgetCapPolicyKey =
+	(typeof organizationBudgetCapPolicy)[keyof typeof organizationBudgetCapPolicy];
+
+export type OrganizationBudget = {
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description What a paused member can do at the cap: wait for the reset (default) or request a temporary increase
+	 */
+	cap_policy?: (OrganizationBudgetCapPolicyKey | (null | null)) | undefined;
+	/**
+	 * @minLength 1
+	 * @type string
+	 */
+	name: string;
+	budget_id: string;
+};
+
+export type Organization = {
+	alias?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Recorded spend for each independent effective budget. Excludes pending reservations and updates after accounting flushes. Window boundaries follow the configured reset timezone and time.
+	 */
+	budget_usage?: (CustomerBudgetUsage[] | (null | null)) | undefined;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	created_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	updated_by: string;
+	/**
+	 * @description Current registered members across all customer teams
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	member_count?: number | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	customer_org_id: string;
+	default_budget_template_id?: (string | (null | null)) | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	default_budgets?: OrganizationBudget[] | undefined;
+	readonly budget_groups_revision: string;
+};
+
+export type ListResponseOrganization = {
+	data: Organization[];
+	/**
+	 * @description Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
+	 * @type object
+	 */
+	meta: ListMeta;
+	/**
+	 * @description Page-mode counterpart to `PageLinks`. `first`/`last` are knowable here because the total count is.
+	 * @type object
+	 */
+	links: ListLinks;
+};
+
+export type Team = {
+	alias?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Recorded spend for each independent effective budget. Excludes pending reservations and updates after accounting flushes. Window boundaries follow the configured reset timezone and time.
+	 */
+	budget_usage?: (CustomerBudgetUsage[] | (null | null)) | undefined;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	created_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	updated_by: string;
+	customer_team_id: string;
+	parent_org_id: string;
+	budget_id?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	budget_override_id?: (string | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	effective_budget: Budget;
+};
+
+export type ListResponseTeam = {
+	data: Team[];
 	/**
 	 * @description Page-mode counterpart to `PageMeta`: an entity list pays for the COUNT(*) so the table can show a page count.
 	 * @type object
@@ -9719,6 +10724,7 @@ export type LiteLLMUserTable = {
 	teams?: string[] | undefined;
 	user_role?: (string | (null | null)) | undefined;
 	max_budget?: (number | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -10057,6 +11063,7 @@ export type LiteLLMUserTableWithKeyCount = {
 	teams?: string[] | undefined;
 	user_role?: (string | (null | null)) | undefined;
 	max_budget?: (number | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -10601,6 +11608,87 @@ export type McpListTools = {
 	[key: string]: unknown;
 };
 
+export type MemberCreate = {
+	alias?: (string | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	customer_member_id?: (string | (null | null)) | undefined;
+	/**
+	 * @description Must match the parent teams' organization when set
+	 */
+	parent_org_id?: (string | (null | null)) | undefined;
+	/**
+	 * @description Teams the member belongs to, first is default
+	 * @type array
+	 */
+	parent_team_ids: string[];
+};
+
+export type MemberPatch = {
+	alias?: (string | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Replace the member's teams within its existing organization. First team is the default. Omit to keep current teams. Member identity, budgets and historical usage are retained.
+	 * @type array | undefined
+	 */
+	parent_team_ids?: string[] | undefined;
+};
+
+export type MemberUpsert = {
+	alias?: (string | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	/**
+	 * @minLength 1
+	 * @type string
+	 */
+	customer_member_id: string;
+	customer_org_id?: (string | (null | null)) | undefined;
+	customer_org_alias?: (string | (null | null)) | undefined;
+	parent_team_id?: (string | (null | null)) | undefined;
+};
+
+export type MemberUpsertResponse = {
+	alias?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Recorded spend for each independent effective budget. Excludes pending reservations and updates after accounting flushes. Window boundaries follow the configured reset timezone and time.
+	 */
+	budget_usage?: (CustomerBudgetUsage[] | (null | null)) | undefined;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	created_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	updated_by: string;
+	customer_member_id: string;
+	parent_org_id: string;
+	parent_team_ids: string[];
+	budget_id?: (string | (null | null)) | undefined;
+	budget_override_id?: (string | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	effective_budget: Budget;
+	created: boolean;
+};
+
 export type MemoryCreateRequest = {
 	/**
 	 * @description Memory key (acts as the namespace in the URL).
@@ -10707,6 +11795,14 @@ export type ModelDeprecationInfo = {
 	 * @description Provider deprecation notice linked by the selected model cost-map entry.
 	 */
 	deprecation_source?: (string | (null | null)) | undefined;
+};
+
+export type ModelDeprecationMonitoringUpdate = {
+	/**
+	 * @description Enable or disable model deprecation alerts.
+	 * @type boolean
+	 */
+	model_deprecations_enabled: boolean;
 };
 
 export type ModelDeprecationResponse = {
@@ -10835,6 +11931,28 @@ export type NewCustomerRequest = {
 		  )
 		| undefined;
 	/**
+	 * @description Max tokens per minute per model for this budget id, shared by every key, team and customer on it (e.g. {'gpt-4o': 400000})
+	 */
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description Max requests per minute per model for this budget id, shared by every key, team and customer on it (e.g. {'gpt-4o': 200})
+	 */
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
 	 * @description Datetime when the budget is reset
 	 */
 	budget_reset_at?: (string | (null | null)) | undefined;
@@ -10881,6 +11999,22 @@ export type NewOrganizationRequest = {
 				| (null | null)
 		  )
 		| undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	budget_duration?: (string | (null | null)) | undefined;
 	allowed_models?: (string[] | (null | null)) | undefined;
 	temp_budget_increase?: (number | (null | null)) | undefined;
@@ -10896,22 +12030,6 @@ export type NewOrganizationRequest = {
 		| (
 				| {
 						[key: string]: unknown;
-				  }
-				| (null | null)
-		  )
-		| undefined;
-	model_rpm_limit?:
-		| (
-				| {
-						[key: string]: number;
-				  }
-				| (null | null)
-		  )
-		| undefined;
-	model_tpm_limit?:
-		| (
-				| {
-						[key: string]: number;
 				  }
 				| (null | null)
 		  )
@@ -10992,6 +12110,22 @@ export type NewProjectRequest = {
 				| (null | null)
 		  )
 		| undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	budget_duration?: (string | (null | null)) | undefined;
 	allowed_models?: (string[] | (null | null)) | undefined;
 	temp_budget_increase?: (number | (null | null)) | undefined;
@@ -11016,22 +12150,6 @@ export type NewProjectRequest = {
 	 * @type array | undefined
 	 */
 	models?: string[] | undefined;
-	model_rpm_limit?:
-		| (
-				| {
-						[key: string]: unknown;
-				  }
-				| (null | null)
-		  )
-		| undefined;
-	model_tpm_limit?:
-		| (
-				| {
-						[key: string]: unknown;
-				  }
-				| (null | null)
-		  )
-		| undefined;
 	model_itpm_limit?:
 		| (
 				| {
@@ -11702,6 +12820,18 @@ export type OrganizationAddMemberResponse = {
 	updated_organization_memberships: LiteLLMOrganizationMembershipTable[];
 };
 
+export type OrganizationCreate = {
+	alias?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	customer_org_id?: (string | (null | null)) | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	default_budgets?: BudgetTemplate[] | undefined;
+	default_budget_template?: (string | (null | null)) | undefined;
+};
+
 export type OrganizationMemberAddRequest = {
 	member: OrgMember[] | OrgMember;
 	organization_id: string;
@@ -11720,6 +12850,12 @@ export type OrganizationMemberUpdateRequest = {
 	organization_id: string;
 	max_budget_in_organization?: (number | (null | null)) | undefined;
 	role?: (LitellmUserRolesKey | (null | null)) | undefined;
+};
+
+export type OrganizationPatch = {
+	alias?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	default_budget_template_id?: (string | (null | null)) | undefined;
 };
 
 export type OrganizationRequest = {
@@ -11760,6 +12896,64 @@ export type OrganizationUpdateRequestV2 = {
 		| undefined;
 	budget_duration?: (string | (null | null)) | undefined;
 	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+};
+
+export type OrganizationUpsert = {
+	alias?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	customer_org_id?: (string | (null | null)) | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	default_budgets?: BudgetTemplate[] | undefined;
+	default_budget_template?: (string | (null | null)) | undefined;
+};
+
+export type OrganizationUpsertResponse = {
+	alias?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Recorded spend for each independent effective budget. Excludes pending reservations and updates after accounting flushes. Window boundaries follow the configured reset timezone and time.
+	 */
+	budget_usage?: (CustomerBudgetUsage[] | (null | null)) | undefined;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	created_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	updated_by: string;
+	/**
+	 * @description Current registered members across all customer teams
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	member_count?: number | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	customer_org_id: string;
+	default_budget_template_id?: (string | (null | null)) | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	default_budgets?: OrganizationBudget[] | undefined;
+	created: boolean;
+	readonly budget_groups_revision: string;
 };
 
 /**
@@ -11935,6 +13129,41 @@ export type OutputToolSearchCall = {
 	[key: string]: unknown;
 };
 
+export const outputToolSearchOutputExecutionEnum = {
+	server: "server",
+	client: "client",
+} as const;
+
+export type OutputToolSearchOutputExecutionEnumKey =
+	(typeof outputToolSearchOutputExecutionEnum)[keyof typeof outputToolSearchOutputExecutionEnum];
+
+export const outputToolSearchOutputStatusEnum = {
+	in_progress: "in_progress",
+	completed: "completed",
+	incomplete: "incomplete",
+} as const;
+
+export type OutputToolSearchOutputStatusEnumKey =
+	(typeof outputToolSearchOutputStatusEnum)[keyof typeof outputToolSearchOutputStatusEnum];
+
+export type OutputToolSearchOutput = {
+	id: string;
+	call_id?: (string | (null | null)) | undefined;
+	execution: OutputToolSearchOutputExecutionEnumKey;
+	status: OutputToolSearchOutputStatusEnumKey;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	tools?:
+		| {
+				[key: string]: unknown;
+		  }[]
+		| undefined;
+	type: "tool_search_output";
+	[key: string]: unknown;
+};
+
 /**
  * @description Response model for paginated audit logs
  * @type object
@@ -12058,6 +13287,16 @@ export type PassThroughGenericEndpoint = {
 	 * @description List of HTTP methods this endpoint handles (e.g., ['GET', 'POST']). If None or empty, all methods (GET, POST, PUT, DELETE, PATCH) are supported for backward compatibility. This allows the same path to have different targets for different HTTP methods.
 	 */
 	methods?: (string[] | (null | null)) | undefined;
+	/**
+	 * @description Human-readable name for this endpoint. The Model Hub lists the endpoint under this name, falling back to the path when unset.
+	 */
+	display_name?: (string | (null | null)) | undefined;
+	/**
+	 * @description If True, this endpoint is published on the public Model Hub as a row in mode 'passthrough'.
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	show_in_model_hub?: boolean | undefined;
 };
 
 export type PassThroughEndpointResponse = {
@@ -12106,6 +13345,16 @@ export type UpdateLiteLLMParams = {
 	input_cost_per_text_message?: (number | (null | null)) | undefined;
 	output_cost_per_second?: (number | (null | null)) | undefined;
 	output_cost_per_second_1080p?: (number | (null | null)) | undefined;
+	output_cost_per_video_clip?:
+		| (
+				| {
+						[key: string]: {
+							[key: string]: number;
+						};
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	output_cost_per_second_480p?: (number | (null | null)) | undefined;
 	output_cost_per_second_720p?: (number | (null | null)) | undefined;
 	output_cost_per_second_768p?: (number | (null | null)) | undefined;
@@ -12116,6 +13365,7 @@ export type UpdateLiteLLMParams = {
 	output_cost_per_image_1536?: (number | (null | null)) | undefined;
 	output_cost_per_image_1K?: (number | (null | null)) | undefined;
 	output_cost_per_image_2K?: (number | (null | null)) | undefined;
+	output_cost_per_billable_unit?: (number | (null | null)) | undefined;
 	input_cost_per_pixel?: (number | (null | null)) | undefined;
 	output_cost_per_pixel?: (number | (null | null)) | undefined;
 	input_cost_per_token_flex?: (number | (null | null)) | undefined;
@@ -12152,6 +13402,7 @@ export type UpdateLiteLLMParams = {
 	cache_read_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
 	cache_read_input_token_cost_above_272k_tokens_batches?: (number | (null | null)) | undefined;
 	cache_read_input_audio_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_read_input_image_token_cost_batches?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_batches?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
@@ -12219,6 +13470,7 @@ export type UpdateLiteLLMParams = {
 	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token_priority?: (number | (null | null)) | undefined;
+	output_cost_per_video?: (number | (null | null)) | undefined;
 	output_cost_per_video_per_second?: (number | (null | null)) | undefined;
 	output_cost_per_audio_per_second?: (number | (null | null)) | undefined;
 	search_context_cost_per_query?:
@@ -12325,6 +13577,10 @@ export type UpdateLiteLLMParams = {
 	token_exchange_profile?: (string | (null | null)) | undefined;
 	token_exchange_scope?: (string | (null | null)) | undefined;
 	token_exchange_audience?: (string | (null | null)) | undefined;
+	github_copilot_app_id?: (string | number | (null | null)) | undefined;
+	github_copilot_app_installation_id?: (string | number | (null | null)) | undefined;
+	github_copilot_app_private_key_ref?: (string | (null | null)) | undefined;
+	github_copilot_app_private_key?: (string | (null | null)) | undefined;
 	custom_llm_provider?: (string | (null | null)) | undefined;
 	responses_api_version?: (string | (null | null)) | undefined;
 	tpm?: (number | (null | null)) | undefined;
@@ -12747,18 +14003,8 @@ export type PromptCachingRequestsResponse = {
 	next_cursor: PromptCachingRequestCursor | (null | null);
 };
 
-export const promptTokensDetailsModalityEnum = {
-	TEXT: "TEXT",
-	AUDIO: "AUDIO",
-	IMAGE: "IMAGE",
-	VIDEO: "VIDEO",
-} as const;
-
-export type PromptTokensDetailsModalityEnumKey =
-	(typeof promptTokensDetailsModalityEnum)[keyof typeof promptTokensDetailsModalityEnum];
-
 export type PromptTokensDetails = {
-	modality: PromptTokensDetailsModalityEnumKey;
+	modality: string;
 	tokenCount: number;
 };
 
@@ -14271,6 +15517,7 @@ export type ResponsesAPIResponse = {
 				| ResponseFunctionWebSearch
 				| CustomToolCallOutputItem
 				| OutputToolSearchCall
+				| OutputToolSearchOutput
 				| ResponseCompactionItem
 		  )[];
 	parallel_tool_calls?: (boolean | (null | null)) | undefined;
@@ -15384,6 +16631,15 @@ export type TeamCallbackDeleteResponse = {
 	data: TeamCallbackDeleteResponseData;
 };
 
+export type TeamCreate = {
+	alias?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+	customer_team_id?: (string | (null | null)) | undefined;
+	parent_org_id: string;
+};
+
 /**
  * @description The calling user's own spend and effective member budget in a team.
  * @type object
@@ -15721,6 +16977,13 @@ export type TeamModelDeleteRequest = {
 	models: string[];
 };
 
+export type TeamPatch = {
+	alias?: (string | (null | null)) | undefined;
+	budget?: (Budget | (null | null)) | undefined;
+	budget_override?: (Budget | (null | null)) | undefined;
+	budget_override_expires_at?: (string | (null | null)) | undefined;
+};
+
 export type TeamUserSpendRow = {
 	team_id: string;
 	team_alias?: (string | (null | null)) | undefined;
@@ -15833,6 +17096,45 @@ export type TelemetrySettingsUpdate = {
 	destination?: (TelemetryDestinationKey | (null | null)) | undefined;
 };
 
+export const templatePatchCapPolicy = {
+	pause_until_reset: "pause_until_reset",
+	pause_allow_increase: "pause_allow_increase",
+} as const;
+
+export type TemplatePatchCapPolicyKey =
+	(typeof templatePatchCapPolicy)[keyof typeof templatePatchCapPolicy];
+
+export type TemplatePatch = {
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimit[] | (null | null)) | undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	/**
+	 * @description What a paused member can do at the cap: wait for the reset (default) or request a temporary increase
+	 */
+	cap_policy?: (TemplatePatchCapPolicyKey | (null | null)) | undefined;
+	name?: (string | (null | null)) | undefined;
+};
+
 export const tokenCountDetailsResponseLitellmCountSourceEnum = {
 	provider: "provider",
 	token_count_model: "token_count_model",
@@ -15884,7 +17186,14 @@ export type TokenCountRequest = {
 				| (null | null)
 		  )
 		| undefined;
+	tool_choice?: JsonValue | undefined;
+	additional_drop_params?: JsonValue | undefined;
 	system?: (unknown | (null | null)) | undefined;
+	thinking?: JsonValue | undefined;
+	reasoning_effort?: JsonValue | undefined;
+	parallel_tool_calls?: JsonValue | undefined;
+	response_format?: JsonValue | undefined;
+	web_search_options?: JsonValue | undefined;
 };
 
 export const tokenCountResponseCountSource = {
@@ -16620,6 +17929,22 @@ export type UpdateProjectRequest = {
 				| (null | null)
 		  )
 		| undefined;
+	model_tpm_limit?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model_rpm_limit?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	budget_duration?: (string | (null | null)) | undefined;
 	allowed_models?: (string[] | (null | null)) | undefined;
 	temp_budget_increase?: (number | (null | null)) | undefined;
@@ -16640,22 +17965,6 @@ export type UpdateProjectRequest = {
 	guardrails?: (string[] | (null | null)) | undefined;
 	policies?: (string[] | (null | null)) | undefined;
 	models?: (string[] | (null | null)) | undefined;
-	model_rpm_limit?:
-		| (
-				| {
-						[key: string]: unknown;
-				  }
-				| (null | null)
-		  )
-		| undefined;
-	model_tpm_limit?:
-		| (
-				| {
-						[key: string]: unknown;
-				  }
-				| (null | null)
-		  )
-		| undefined;
 	model_itpm_limit?:
 		| (
 				| {
@@ -17004,6 +18313,7 @@ export type UserInfoV2Response = {
 	models?: string[] | undefined;
 	budget_duration?: (string | (null | null)) | undefined;
 	budget_reset_at?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	metadata?:
 		| (
 				| {
@@ -24416,6 +25726,11 @@ export type BodyAuthorizeCompleteAuthorizeCompletePost = {
 	decision?: (string | (null | null)) | undefined;
 	delivery?: (string | (null | null)) | undefined;
 	flow: string;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	server?: string[] | undefined;
 	team_id?: (string | (null | null)) | undefined;
 };
 
@@ -25212,6 +26527,20 @@ export type OpenAIDecisionResponse = {
 	[key: string]: unknown;
 };
 
+export type BodyEditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut = {
+	/**
+	 * @minimum 0
+	 * @type integer
+	 */
+	expected_revision: number;
+	/**
+	 * @description Replacement Agent Skills ZIP with the same declared skill name
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
+	file: Blob;
+	version?: (string | (null | null)) | undefined;
+};
+
 export type BodyReplaceSkillArchiveSkillHubSkillsNameUploadPut = {
 	expected_updated_at?: (string | (null | null)) | undefined;
 	/**
@@ -25384,7 +26713,24 @@ export type SkillHubPendingSkill = {
 export type SkillHubPublication = object;
 
 export type SkillHubRejection = {
+	expected_revision?: (number | (null | null)) | undefined;
 	reason?: (string | (null | null)) | undefined;
+};
+
+export type SkillHubRestore = {
+	/**
+	 * @description Current skill ID read by the editor
+	 * @type string
+	 */
+	expected_skill_id: string;
+	/**
+	 * @description Current updated_at read by the editor, including null
+	 */
+	expected_updated_at: string | (null | null);
+	/**
+	 * @description Higher semantic version, or omit/null for an automatic patch bump
+	 */
+	version?: (string | (null | null)) | undefined;
 };
 
 export const skillHubSubmissionOperationEnum = {
@@ -25399,6 +26745,7 @@ export const skillHubSubmissionStatusEnum = {
 	pending_review: "pending_review",
 	approved: "approved",
 	rejected: "rejected",
+	withdrawn: "withdrawn",
 } as const;
 
 export type SkillHubSubmissionStatusEnumKey =
@@ -25407,6 +26754,12 @@ export type SkillHubSubmissionStatusEnumKey =
 export type SkillHubSubmission = {
 	base_skill_id: string | (null | null);
 	base_updated_at: string | (null | null);
+	/**
+	 * @description Whether the caller may edit or withdraw this pending submission
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	can_edit?: boolean | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -25420,6 +26773,13 @@ export type SkillHubSubmission = {
 	rejection_reason: string | (null | null);
 	reviewed_at: string | (null | null);
 	reviewed_by: string | (null | null);
+	/**
+	 * @description Proposal revision used to prevent stale edits and reviews
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	revision?: number | undefined;
 	skill_name: string;
 	status: SkillHubSubmissionStatusEnumKey;
 	submitted_by: string;
@@ -25449,10 +26809,40 @@ export type SkillHubSubmissionDetail = {
 	submission: SkillHubSubmission;
 };
 
+export type SkillHubSubmissionEdit = {
+	description?: (string | (null | null)) | undefined;
+	domain?: (string | (null | null)) | undefined;
+	/**
+	 * @description Revision read from the submission detail
+	 * @minimum 0
+	 * @type integer
+	 */
+	expected_revision: number;
+	/**
+	 * @description Published updated_at read by the editor. A stale value returns 409
+	 */
+	expected_updated_at?: (string | (null | null)) | undefined;
+	keywords?: (string[] | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
+	/**
+	 * @description Explicit higher SemVer, or omit/null for an automatic patch bump
+	 */
+	version?: (string | (null | null)) | undefined;
+};
+
 export type SkillHubSubmissionList = {
 	count: number;
 	has_more: boolean;
 	submissions: SkillHubSubmission[];
+};
+
+export type SkillHubSubmissionRevision = {
+	/**
+	 * @description Revision read from the submission detail
+	 * @minimum 0
+	 * @type integer
+	 */
+	expected_revision: number;
 };
 
 export const skillHubVersionContentKindEnum = {
@@ -26633,6 +28023,7 @@ export type AccessGroupCreateRequest = {
 	access_mcp_server_ids?: (string[] | (null | null)) | undefined;
 	access_model_names?: (string[] | (null | null)) | undefined;
 	access_skill_names?: (string[] | (null | null)) | undefined;
+	access_vector_store_ids?: (string[] | (null | null)) | undefined;
 	assigned_key_ids?: (string[] | (null | null)) | undefined;
 	assigned_team_ids?: (string[] | (null | null)) | undefined;
 	description?: (string | (null | null)) | undefined;
@@ -26668,6 +28059,12 @@ export type AccessGroupResponse = {
 	 * @type array | undefined
 	 */
 	access_skill_names?: string[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	access_vector_store_ids?: string[] | undefined;
+	access_vector_stores: AccessGroupResource[];
 	assigned_key_ids: string[];
 	assigned_keys: AccessGroupResource[];
 	assigned_team_ids: string[];
@@ -26703,6 +28100,7 @@ export type AccessGroupUpdateRequest = {
 	access_mcp_server_ids?: (string[] | (null | null)) | undefined;
 	access_model_names?: (string[] | (null | null)) | undefined;
 	access_skill_names?: (string[] | (null | null)) | undefined;
+	access_vector_store_ids?: (string[] | (null | null)) | undefined;
 	assigned_key_ids?: (string[] | (null | null)) | undefined;
 	assigned_team_ids?: (string[] | (null | null)) | undefined;
 	description?: (string | (null | null)) | undefined;
@@ -35454,6 +36852,12 @@ export type GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuery = 
 	 */
 	api_key_limit?: number | undefined;
 	/**
+	 * @description Include per-entity usage and key counts.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	include_entity_breakdown?: boolean | undefined;
+	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
 	start_date?: (string | (null | null)) | undefined;
@@ -35942,6 +37346,12 @@ export type GetTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQuery = 
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
+	/**
+	 * @description Include per-entity usage and key counts.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	include_entity_breakdown?: boolean | undefined;
 	team_ids?: (string | (null | null)) | undefined;
 	start_date?: (string | (null | null)) | undefined;
 	end_date?: (string | (null | null)) | undefined;
@@ -36177,6 +37587,12 @@ export type GetTagDailyActivityAggregatedTagDailyActivityAggregatedGetQuery = {
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
+	/**
+	 * @description Include per-entity usage and key counts.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	include_entity_breakdown?: boolean | undefined;
 	start_date?: (string | (null | null)) | undefined;
 	end_date?: (string | (null | null)) | undefined;
 	model?: (string | (null | null)) | undefined;
@@ -36407,6 +37823,12 @@ export type GetOrganizationDailyActivityAggregatedOrganizationDailyActivityAggre
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
+	/**
+	 * @description Include per-entity usage and key counts.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	include_entity_breakdown?: boolean | undefined;
 	organization_ids?: (string | (null | null)) | undefined;
 	start_date?: (string | (null | null)) | undefined;
 	end_date?: (string | (null | null)) | undefined;
@@ -36660,6 +38082,12 @@ export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGet
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
+	/**
+	 * @description Include per-entity usage and key counts.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	include_entity_breakdown?: boolean | undefined;
 	end_user_ids?: (string | (null | null)) | undefined;
 	start_date?: (string | (null | null)) | undefined;
 	end_date?: (string | (null | null)) | undefined;
@@ -36667,6 +38095,7 @@ export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGet
 	api_key?: (string | (null | null)) | undefined;
 	exclude_end_user_ids?: (string | (null | null)) | undefined;
 	timezone?: (number | (null | null)) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetStatus200 =
@@ -36714,6 +38143,7 @@ export type GetCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregate
 	api_key?: (string | (null | null)) | undefined;
 	exclude_end_user_ids?: (string | (null | null)) | undefined;
 	timezone?: (number | (null | null)) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetStatus200 =
@@ -36764,6 +38194,7 @@ export type GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggrega
 		api_key?: (string | (null | null)) | undefined;
 		exclude_end_user_ids?: (string | (null | null)) | undefined;
 		timezone?: (number | (null | null)) | undefined;
+		team_ids?: (string | (null | null)) | undefined;
 	};
 
 export type GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetStatus200 =
@@ -36818,6 +38249,7 @@ export type GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedM
 		api_key?: (string | (null | null)) | undefined;
 		exclude_end_user_ids?: (string | (null | null)) | undefined;
 		timezone?: (number | (null | null)) | undefined;
+		team_ids?: (string | (null | null)) | undefined;
 	};
 
 export type GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetStatus200 =
@@ -36872,6 +38304,7 @@ export type GetCustomerDailyActivityExportCustomerDailyActivityExportGetQuery = 
 	api_key?: (string | (null | null)) | undefined;
 	exclude_end_user_ids?: (string | (null | null)) | undefined;
 	timezone?: (number | (null | null)) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityExportCustomerDailyActivityExportGetStatus200 = object[];
@@ -36905,6 +38338,12 @@ export type GetAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQuery 
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
+	/**
+	 * @description Include per-entity usage and key counts.
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	include_entity_breakdown?: boolean | undefined;
 	agent_ids?: (string | (null | null)) | undefined;
 	start_date?: (string | (null | null)) | undefined;
 	end_date?: (string | (null | null)) | undefined;
@@ -38609,6 +40048,7 @@ export type GetCustomerDailyActivityCustomerDailyActivityGetQuery = {
 	 */
 	page_size?: number | undefined;
 	exclude_end_user_ids?: (string | (null | null)) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityCustomerDailyActivityGetStatus200 =
@@ -38651,6 +40091,1083 @@ export type ListBudgetsManagementV1BudgetsGetResponses = {
  * @description Union of all possible responses
  */
 export type ListBudgetsManagementV1BudgetsGetResponse = ListBudgetsManagementV1BudgetsGetStatus200;
+
+export type GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetStatus200 =
+	CustomerPortalLimits;
+
+export type GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetResponses = {
+	"200": GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetResponse =
+	GetCustomerPortalLimitsManagementV1CustomerPortalLimitsGetStatus200;
+
+export type ListCustomerOrganizationsManagementV1CustomerOrganizationsGetQuery = {
+	/**
+	 * @minimum 1
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @minimum 1
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+	/**
+	 * @description Case-insensitive substring of the customer ID or alias
+	 * @default ''
+	 * @type string | undefined
+	 */
+	q?: string | undefined;
+};
+
+export type ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus200 =
+	ListResponseOrganization;
+
+export type ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus422 =
+	HTTPValidationError;
+
+export type ListCustomerOrganizationsManagementV1CustomerOrganizationsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListCustomerOrganizationsManagementV1CustomerOrganizationsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListCustomerOrganizationsManagementV1CustomerOrganizationsGetResponses = {
+	"200": ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus200;
+	"422": ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListCustomerOrganizationsManagementV1CustomerOrganizationsGetResponse =
+	ListCustomerOrganizationsManagementV1CustomerOrganizationsGetStatus200;
+
+export type CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus201 = Organization;
+
+export type CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus422 =
+	HTTPValidationError;
+
+export type CreateCustomerOrganizationManagementV1CustomerOrganizationsPostBody =
+	OrganizationCreate;
+
+export type CreateCustomerOrganizationManagementV1CustomerOrganizationsPostOptions = {
+	body: CreateCustomerOrganizationManagementV1CustomerOrganizationsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateCustomerOrganizationManagementV1CustomerOrganizationsPostResponses = {
+	"201": CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus201;
+	"422": CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateCustomerOrganizationManagementV1CustomerOrganizationsPostResponse =
+	CreateCustomerOrganizationManagementV1CustomerOrganizationsPostStatus201;
+
+export type UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus200 =
+	OrganizationUpsertResponse;
+
+export type UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus422 =
+	HTTPValidationError;
+
+export type UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostBody =
+	OrganizationUpsert;
+
+export type UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostOptions = {
+	body: UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostResponses = {
+	"200": UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus200;
+	"422": UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostResponse =
+	UpsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPostStatus200;
+
+export type GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetPath = {
+	customer_org_id: string;
+};
+
+export type GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus200 =
+	Organization;
+
+export type GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus422 =
+	HTTPValidationError;
+
+export type GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetOptions = {
+	body?: never | undefined;
+	path: GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetResponses = {
+	"200": GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus200;
+	"422": GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetResponse =
+	GetCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGetStatus200;
+
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchPath = {
+	customer_org_id: string;
+};
+
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus200 =
+	Organization;
+
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus422 =
+	HTTPValidationError;
+
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchBody =
+	OrganizationPatch;
+
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchOptions = {
+	body: UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchBody;
+	path: UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchResponses =
+	{
+		"200": UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus200;
+		"422": UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchResponse =
+	UpdateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatchStatus200;
+
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeletePath = {
+	customer_org_id: string;
+};
+
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteQuery = {
+	/**
+	 * @description Also delete this customer organization's teams and members.
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	cascade?: boolean | undefined;
+};
+
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus204 =
+	void;
+
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteOptions =
+	{
+		body?: never | undefined;
+		path: DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeletePath;
+		query?:
+			| DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteQuery
+			| undefined;
+		headers?: never | undefined;
+	};
+
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteResponses =
+	{
+		"204": DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus204;
+		"422": DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteResponse =
+	DeleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDeleteStatus204;
+
+export const listCustomerTeamsManagementV1CustomerTeamsGetSort = {
+	budget_asc: "budget_asc",
+	budget_desc: "budget_desc",
+} as const;
+
+export type ListCustomerTeamsManagementV1CustomerTeamsGetSortKey =
+	(typeof listCustomerTeamsManagementV1CustomerTeamsGetSort)[keyof typeof listCustomerTeamsManagementV1CustomerTeamsGetSort];
+
+export type ListCustomerTeamsManagementV1CustomerTeamsGetQuery = {
+	/**
+	 * @minimum 1
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @minimum 1
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+	parent_org_id?: (string | (null | null)) | undefined;
+	/**
+	 * @description Sort by displayed budget limit, with uncapped rows last.
+	 */
+	sort?: (ListCustomerTeamsManagementV1CustomerTeamsGetSortKey | (null | null)) | undefined;
+};
+
+export type ListCustomerTeamsManagementV1CustomerTeamsGetStatus200 = ListResponseTeam;
+
+export type ListCustomerTeamsManagementV1CustomerTeamsGetStatus422 = HTTPValidationError;
+
+export type ListCustomerTeamsManagementV1CustomerTeamsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListCustomerTeamsManagementV1CustomerTeamsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListCustomerTeamsManagementV1CustomerTeamsGetResponses = {
+	"200": ListCustomerTeamsManagementV1CustomerTeamsGetStatus200;
+	"422": ListCustomerTeamsManagementV1CustomerTeamsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListCustomerTeamsManagementV1CustomerTeamsGetResponse =
+	ListCustomerTeamsManagementV1CustomerTeamsGetStatus200;
+
+export type CreateCustomerTeamManagementV1CustomerTeamsPostStatus201 = Team;
+
+export type CreateCustomerTeamManagementV1CustomerTeamsPostStatus422 = HTTPValidationError;
+
+export type CreateCustomerTeamManagementV1CustomerTeamsPostBody = TeamCreate;
+
+export type CreateCustomerTeamManagementV1CustomerTeamsPostOptions = {
+	body: CreateCustomerTeamManagementV1CustomerTeamsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateCustomerTeamManagementV1CustomerTeamsPostResponses = {
+	"201": CreateCustomerTeamManagementV1CustomerTeamsPostStatus201;
+	"422": CreateCustomerTeamManagementV1CustomerTeamsPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateCustomerTeamManagementV1CustomerTeamsPostResponse =
+	CreateCustomerTeamManagementV1CustomerTeamsPostStatus201;
+
+export type GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetPath = {
+	customer_team_id: string;
+};
+
+export type GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus200 = Team;
+
+export type GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus422 =
+	HTTPValidationError;
+
+export type GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetOptions = {
+	body?: never | undefined;
+	path: GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetResponses = {
+	"200": GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus200;
+	"422": GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetResponse =
+	GetCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGetStatus200;
+
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchPath = {
+	customer_team_id: string;
+};
+
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus200 = Team;
+
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus422 =
+	HTTPValidationError;
+
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchBody = TeamPatch;
+
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchOptions = {
+	body: UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchBody;
+	path: UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchResponses = {
+	"200": UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus200;
+	"422": UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchResponse =
+	UpdateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatchStatus200;
+
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeletePath = {
+	customer_team_id: string;
+};
+
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteQuery = {
+	/**
+	 * @description Also delete this customer team's members.
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	cascade?: boolean | undefined;
+};
+
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus204 = void;
+
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeletePath;
+	query?: DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteResponses = {
+	"204": DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus204;
+	"422": DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteResponse =
+	DeleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDeleteStatus204;
+
+export const listCustomerMembersManagementV1CustomerMembersGetSort = {
+	budget_asc: "budget_asc",
+	budget_desc: "budget_desc",
+} as const;
+
+export type ListCustomerMembersManagementV1CustomerMembersGetSortKey =
+	(typeof listCustomerMembersManagementV1CustomerMembersGetSort)[keyof typeof listCustomerMembersManagementV1CustomerMembersGetSort];
+
+export type ListCustomerMembersManagementV1CustomerMembersGetQuery = {
+	/**
+	 * @minimum 1
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @minimum 1
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+	parent_team_id?: (string | (null | null)) | undefined;
+	parent_org_id?: (string | (null | null)) | undefined;
+	/**
+	 * @description Case-insensitive substring of the customer member ID or alias
+	 * @default ''
+	 * @type string | undefined
+	 */
+	search?: string | undefined;
+	/**
+	 * @description Sort by displayed budget limit, with uncapped rows last.
+	 */
+	sort?: (ListCustomerMembersManagementV1CustomerMembersGetSortKey | (null | null)) | undefined;
+};
+
+export type ListCustomerMembersManagementV1CustomerMembersGetStatus200 = ListResponseCustomerMember;
+
+export type ListCustomerMembersManagementV1CustomerMembersGetStatus422 = HTTPValidationError;
+
+export type ListCustomerMembersManagementV1CustomerMembersGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListCustomerMembersManagementV1CustomerMembersGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListCustomerMembersManagementV1CustomerMembersGetResponses = {
+	"200": ListCustomerMembersManagementV1CustomerMembersGetStatus200;
+	"422": ListCustomerMembersManagementV1CustomerMembersGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListCustomerMembersManagementV1CustomerMembersGetResponse =
+	ListCustomerMembersManagementV1CustomerMembersGetStatus200;
+
+export type CreateCustomerMemberManagementV1CustomerMembersPostStatus201 = CustomerMember;
+
+export type CreateCustomerMemberManagementV1CustomerMembersPostStatus422 = HTTPValidationError;
+
+export type CreateCustomerMemberManagementV1CustomerMembersPostBody = MemberCreate;
+
+export type CreateCustomerMemberManagementV1CustomerMembersPostOptions = {
+	body: CreateCustomerMemberManagementV1CustomerMembersPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateCustomerMemberManagementV1CustomerMembersPostResponses = {
+	"201": CreateCustomerMemberManagementV1CustomerMembersPostStatus201;
+	"422": CreateCustomerMemberManagementV1CustomerMembersPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateCustomerMemberManagementV1CustomerMembersPostResponse =
+	CreateCustomerMemberManagementV1CustomerMembersPostStatus201;
+
+export type UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus200 =
+	MemberUpsertResponse;
+
+export type UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus422 =
+	HTTPValidationError;
+
+export type UpsertCustomerMemberManagementV1CustomerMembersUpsertPostBody = MemberUpsert;
+
+export type UpsertCustomerMemberManagementV1CustomerMembersUpsertPostOptions = {
+	body: UpsertCustomerMemberManagementV1CustomerMembersUpsertPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpsertCustomerMemberManagementV1CustomerMembersUpsertPostResponses = {
+	"200": UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus200;
+	"422": UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpsertCustomerMemberManagementV1CustomerMembersUpsertPostResponse =
+	UpsertCustomerMemberManagementV1CustomerMembersUpsertPostStatus200;
+
+export type GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetPath = {
+	customer_member_id: string;
+};
+
+export type GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus200 =
+	CustomerMember;
+
+export type GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus422 =
+	HTTPValidationError;
+
+export type GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetOptions = {
+	body?: never | undefined;
+	path: GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetResponses = {
+	"200": GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus200;
+	"422": GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetResponse =
+	GetCustomerMemberManagementV1CustomerMembersCustomerMemberIdGetStatus200;
+
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchPath = {
+	customer_member_id: string;
+};
+
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus200 =
+	CustomerMember;
+
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus422 =
+	HTTPValidationError;
+
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchBody = MemberPatch;
+
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchOptions = {
+	body: UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchBody;
+	path: UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchResponses = {
+	"200": UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus200;
+	"422": UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchResponse =
+	UpdateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatchStatus200;
+
+export type DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeletePath = {
+	customer_member_id: string;
+};
+
+export type DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus204 = void;
+
+export type DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteResponses = {
+	"204": DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus204;
+	"422": DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteResponse =
+	DeleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDeleteStatus204;
+
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostPath =
+	{
+		customer_org_id: string;
+	};
+
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus201 =
+	Organization;
+
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus422 =
+	HTTPValidationError;
+
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostBody =
+	BudgetTemplate;
+
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostOptions =
+	{
+		body: AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostBody;
+		path: AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostResponses =
+	{
+		"201": AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus201;
+		"422": AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostResponse =
+	AddCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPostStatus201;
+
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchPath =
+	{
+		customer_org_id: string;
+	};
+
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus200 =
+	Organization;
+
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus422 =
+	HTTPValidationError;
+
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchBody =
+	BudgetGroupsUpdate;
+
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchOptions =
+	{
+		body: ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchBody;
+		path: ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchResponses =
+	{
+		"200": ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus200;
+		"422": ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchResponse =
+	ConfigureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatchStatus200;
+
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchPath =
+	{
+		customer_org_id: string;
+		budget_id: string;
+	};
+
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus200 =
+	Organization;
+
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus422 =
+	HTTPValidationError;
+
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchBody =
+	TemplatePatch;
+
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchOptions =
+	{
+		body: UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchBody;
+		path: UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchResponses =
+	{
+		"200": UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus200;
+		"422": UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchResponse =
+	UpdateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatchStatus200;
+
+export type DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeletePath =
+	{
+		customer_org_id: string;
+		budget_id: string;
+	};
+
+export type DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus204 =
+	void;
+
+export type DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteOptions =
+	{
+		body?: never | undefined;
+		path: DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeletePath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteResponses =
+	{
+		"204": DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus204;
+		"422": DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteResponse =
+	DeleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDeleteStatus204;
+
+export const listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus = {
+	pending_review: "pending_review",
+	approved: "approved",
+	rejected: "rejected",
+} as const;
+
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatusKey =
+	(typeof listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus)[keyof typeof listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus];
+
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetQuery = {
+	status?:
+		| (
+				| ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatusKey
+				| (null | null)
+		  )
+		| undefined;
+	customer_member_id?: (string | (null | null)) | undefined;
+	/**
+	 * @minimum 1
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @minimum 1
+	 * @maximum 200
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+};
+
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus200 =
+	ListResponseBudgetIncreaseRequest;
+
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus422 =
+	HTTPValidationError;
+
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetResponses = {
+	"200": ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus200;
+	"422": ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetResponse =
+	ListBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGetStatus200;
+
+export type RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus201 =
+	BudgetIncreaseRequest;
+
+export type RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus422 =
+	HTTPValidationError;
+
+export type RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostBody =
+	BudgetIncreaseRequestCreate;
+
+export type RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostOptions = {
+	body: RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostResponses = {
+	"201": RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus201;
+	"422": RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostResponse =
+	RequestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPostStatus201;
+
+export type GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetPath = {
+	request_id: string;
+};
+
+export type GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus200 =
+	BudgetIncreaseRequest;
+
+export type GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus422 =
+	HTTPValidationError;
+
+export type GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetOptions =
+	{
+		body?: never | undefined;
+		path: GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetResponses =
+	{
+		"200": GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus200;
+		"422": GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetResponse =
+	GetBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGetStatus200;
+
+export type ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutPath =
+	{
+		request_id: string;
+	};
+
+export type ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus200 =
+	BudgetIncreaseRequest;
+
+export type ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus422 =
+	HTTPValidationError;
+
+export type ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutOptions =
+	{
+		body?: never | undefined;
+		path: ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutResponses =
+	{
+		"200": ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus200;
+		"422": ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutResponse =
+	ApproveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePutStatus200;
+
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutPath =
+	{
+		request_id: string;
+	};
+
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus200 =
+	BudgetIncreaseRequest;
+
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus422 =
+	HTTPValidationError;
+
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutBody =
+	| (BudgetIncreaseRejection | (null | null))
+	| undefined;
+
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutOptions =
+	{
+		body?:
+			| RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutBody
+			| undefined;
+		path: RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutResponses =
+	{
+		"200": RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus200;
+		"422": RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutResponse =
+	RejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPutStatus200;
+
+export type CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetQuery =
+	{
+		/**
+		 * @description First UTC calendar day, YYYY-MM-DD, inclusive
+		 * @type string
+		 */
+		start_date: string;
+		/**
+		 * @description Last UTC calendar day, YYYY-MM-DD, inclusive, at most 400 days after start
+		 * @type string
+		 */
+		end_date: string;
+		/**
+		 * @description Comma-separated IDs for up to 100 visible customer organizations
+		 */
+		customer_org_ids?: (string | (null | null)) | undefined;
+		/**
+		 * @description One exact customer organization ID, without splitting or trimming
+		 */
+		customer_org_id?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+	};
+
+export type CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus200 =
+	SpendAnalyticsPaginatedResponse;
+
+export type CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus422 =
+	HTTPValidationError;
+
+export type CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetOptions =
+	{
+		body?: never | undefined;
+		path?: never | undefined;
+		query: CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetQuery;
+		headers?: never | undefined;
+	};
+
+export type CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetResponses =
+	{
+		"200": CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus200;
+		"422": CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetResponse =
+	CustomerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGetStatus200;
+
+export type CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetQuery =
+	{
+		customer_org_ids?: (string | (null | null)) | undefined;
+		start_date?: (string | (null | null)) | undefined;
+		end_date?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+		/**
+		 * @default 1
+		 * @type integer | undefined
+		 */
+		page?: number | undefined;
+		/**
+		 * @default 10
+		 * @type integer | undefined
+		 */
+		page_size?: number | undefined;
+		exclude_customer_org_ids?: (string | (null | null)) | undefined;
+	};
+
+export type CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus200 =
+	SpendAnalyticsPaginatedResponse;
+
+export type CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus422 =
+	HTTPValidationError;
+
+export type CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetOptions =
+	{
+		body?: never | undefined;
+		path?: never | undefined;
+		query?:
+			| CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetQuery
+			| undefined;
+		headers?: never | undefined;
+	};
+
+export type CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetResponses =
+	{
+		"200": CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus200;
+		"422": CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus422;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetResponse =
+	CustomerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGetStatus200;
+
+export type CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetQuery = {
+	customer_team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	/**
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @default 10
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+	exclude_customer_team_ids?: (string | (null | null)) | undefined;
+};
+
+export type CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus200 =
+	SpendAnalyticsPaginatedResponse;
+
+export type CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus422 =
+	HTTPValidationError;
+
+export type CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetResponses = {
+	"200": CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus200;
+	"422": CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetResponse =
+	CustomerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGetStatus200;
+
+export type CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetQuery = {
+	customer_member_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	/**
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @default 10
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+	exclude_customer_member_ids?: (string | (null | null)) | undefined;
+};
+
+export type CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus200 =
+	SpendAnalyticsPaginatedResponse;
+
+export type CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus422 =
+	HTTPValidationError;
+
+export type CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetResponses = {
+	"200": CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus200;
+	"422": CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetResponse =
+	CustomerMemberDailyActivityManagementV1CustomerMembersDailyActivityGetStatus200;
 
 export type ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery = {
 	/**
@@ -40369,6 +42886,10 @@ export type UpdateUserBannerUpdateUserBannerPatchResponse =
 
 export type LatestReleaseInfoGetLatestReleaseInfoGetStatus200 = LatestReleaseInfo | (null | null);
 
+export type LatestReleaseInfoGetLatestReleaseInfoGetStatus202 = unknown;
+
+export type LatestReleaseInfoGetLatestReleaseInfoGetStatus502 = unknown;
+
 export type LatestReleaseInfoGetLatestReleaseInfoGetOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
@@ -40378,13 +42899,16 @@ export type LatestReleaseInfoGetLatestReleaseInfoGetOptions = {
 
 export type LatestReleaseInfoGetLatestReleaseInfoGetResponses = {
 	"200": LatestReleaseInfoGetLatestReleaseInfoGetStatus200;
+	"202": LatestReleaseInfoGetLatestReleaseInfoGetStatus202;
+	"502": LatestReleaseInfoGetLatestReleaseInfoGetStatus502;
 };
 
 /**
  * @description Union of all possible responses
  */
 export type LatestReleaseInfoGetLatestReleaseInfoGetResponse =
-	LatestReleaseInfoGetLatestReleaseInfoGetStatus200;
+	| LatestReleaseInfoGetLatestReleaseInfoGetStatus200
+	| LatestReleaseInfoGetLatestReleaseInfoGetStatus202;
 
 export type GetTeamCallbacksTeamTeamIdCallbackGetPath = {
 	team_id: string;
@@ -40521,13 +43045,11 @@ export type DisableTeamLoggingTeamTeamIdDisableLoggingPostResponses = {
 export type DisableTeamLoggingTeamTeamIdDisableLoggingPostResponse =
 	DisableTeamLoggingTeamTeamIdDisableLoggingPostStatus200;
 
-export type NewBudgetBudgetNewPostStatus200 = {
-	[key: string]: unknown;
-};
+export type NewBudgetBudgetNewPostStatus200 = unknown;
 
 export type NewBudgetBudgetNewPostStatus422 = HTTPValidationError;
 
-export type NewBudgetBudgetNewPostBody = BudgetNewRequest;
+export type NewBudgetBudgetNewPostBody = BudgetWriteRequest;
 
 export type NewBudgetBudgetNewPostOptions = {
 	body: NewBudgetBudgetNewPostBody;
@@ -40546,13 +43068,11 @@ export type NewBudgetBudgetNewPostResponses = {
  */
 export type NewBudgetBudgetNewPostResponse = NewBudgetBudgetNewPostStatus200;
 
-export type UpdateBudgetBudgetUpdatePostStatus200 = {
-	[key: string]: unknown;
-};
+export type UpdateBudgetBudgetUpdatePostStatus200 = unknown;
 
 export type UpdateBudgetBudgetUpdatePostStatus422 = HTTPValidationError;
 
-export type UpdateBudgetBudgetUpdatePostBody = BudgetNewRequest;
+export type UpdateBudgetBudgetUpdatePostBody = BudgetWriteRequest;
 
 export type UpdateBudgetBudgetUpdatePostOptions = {
 	body: UpdateBudgetBudgetUpdatePostBody;
@@ -43201,6 +45721,180 @@ export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponses = {
  */
 export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponse =
 	GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus200;
+
+export const listAlertsAlertsGetStatus = {
+	open: "open",
+	resolved: "resolved",
+	dismissed: "dismissed",
+} as const;
+
+export type ListAlertsAlertsGetStatusKey =
+	(typeof listAlertsAlertsGetStatus)[keyof typeof listAlertsAlertsGetStatus];
+
+export const listAlertsAlertsGetType = {
+	spend: "spend",
+	traffic: "traffic",
+	latency: "latency",
+	reliability: "reliability",
+	model_deprecation: "model_deprecation",
+} as const;
+
+export type ListAlertsAlertsGetTypeKey =
+	(typeof listAlertsAlertsGetType)[keyof typeof listAlertsAlertsGetType];
+
+export type ListAlertsAlertsGetQuery = {
+	/**
+	 * @description Status to list.
+	 * @default 'open'
+	 * @type string | undefined
+	 */
+	status?: ListAlertsAlertsGetStatusKey | undefined;
+	/**
+	 * @description Maximum alerts per page.
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 25
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description next_cursor from the preceding page.
+	 */
+	cursor?: (string | (null | null)) | undefined;
+	/**
+	 * @description Alert category, or all performance alerts.
+	 */
+	type?: (ListAlertsAlertsGetTypeKey | "performance" | (null | null)) | undefined;
+};
+
+export type ListAlertsAlertsGetStatus200 = AlertViewPage;
+
+export type ListAlertsAlertsGetStatus422 = HTTPValidationError;
+
+export type ListAlertsAlertsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListAlertsAlertsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListAlertsAlertsGetResponses = {
+	"200": ListAlertsAlertsGetStatus200;
+	"422": ListAlertsAlertsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListAlertsAlertsGetResponse = ListAlertsAlertsGetStatus200;
+
+export type GetMonitoringAlertsMonitoringGetStatus200 = AlertMonitoring;
+
+export type GetMonitoringAlertsMonitoringGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetMonitoringAlertsMonitoringGetResponses = {
+	"200": GetMonitoringAlertsMonitoringGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetMonitoringAlertsMonitoringGetResponse = GetMonitoringAlertsMonitoringGetStatus200;
+
+export type UpdateMonitoringAlertsMonitoringPatchStatus200 = AlertMonitoring;
+
+export type UpdateMonitoringAlertsMonitoringPatchStatus422 = HTTPValidationError;
+
+export type UpdateMonitoringAlertsMonitoringPatchBody =
+	| AlertMonitoringUpdate
+	| ModelDeprecationMonitoringUpdate;
+
+export type UpdateMonitoringAlertsMonitoringPatchOptions = {
+	body: UpdateMonitoringAlertsMonitoringPatchBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateMonitoringAlertsMonitoringPatchResponses = {
+	"200": UpdateMonitoringAlertsMonitoringPatchStatus200;
+	"422": UpdateMonitoringAlertsMonitoringPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateMonitoringAlertsMonitoringPatchResponse =
+	UpdateMonitoringAlertsMonitoringPatchStatus200;
+
+export type GetAlertAlertsAlertIdGetPath = {
+	/**
+	 * @description Alert ID returned by GET /alerts.
+	 * @maxLength 19
+	 * @pattern ^[1-9][0-9]{0,18}$
+	 * @type string
+	 */
+	alert_id: string;
+};
+
+export type GetAlertAlertsAlertIdGetStatus200 = AlertView;
+
+export type GetAlertAlertsAlertIdGetStatus422 = HTTPValidationError;
+
+export type GetAlertAlertsAlertIdGetOptions = {
+	body?: never | undefined;
+	path: GetAlertAlertsAlertIdGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetAlertAlertsAlertIdGetResponses = {
+	"200": GetAlertAlertsAlertIdGetStatus200;
+	"422": GetAlertAlertsAlertIdGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetAlertAlertsAlertIdGetResponse = GetAlertAlertsAlertIdGetStatus200;
+
+export type UpdateAlertAlertsAlertIdPatchPath = {
+	/**
+	 * @description Alert ID returned by GET /alerts.
+	 * @maxLength 19
+	 * @pattern ^[1-9][0-9]{0,18}$
+	 * @type string
+	 */
+	alert_id: string;
+};
+
+export type UpdateAlertAlertsAlertIdPatchStatus200 = Alert;
+
+export type UpdateAlertAlertsAlertIdPatchStatus422 = HTTPValidationError;
+
+export type UpdateAlertAlertsAlertIdPatchBody = AlertUpdate;
+
+export type UpdateAlertAlertsAlertIdPatchOptions = {
+	body: UpdateAlertAlertsAlertIdPatchBody;
+	path: UpdateAlertAlertsAlertIdPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateAlertAlertsAlertIdPatchResponses = {
+	"200": UpdateAlertAlertsAlertIdPatchStatus200;
+	"422": UpdateAlertAlertsAlertIdPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateAlertAlertsAlertIdPatchResponse = UpdateAlertAlertsAlertIdPatchStatus200;
 
 export type GetCoordinationRedisSettingsCoordinationRedisSettingsGetStatus200 =
 	CoordinationRedisSettingsResponse;
@@ -54381,6 +57075,37 @@ export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetRes
 export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetResponse =
 	DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus200;
 
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostPath = {
+	name: string;
+	version_id: string;
+};
+
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus200 =
+	SkillHubSkill;
+
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus422 =
+	HTTPValidationError;
+
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostBody = SkillHubRestore;
+
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostOptions = {
+	body: RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostBody;
+	path: RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostResponses = {
+	"200": RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus200;
+	"422": RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostResponse =
+	RestoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePostStatus200;
+
 export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPath = {
 	plugin_name: string;
 };
@@ -54427,6 +57152,7 @@ export const listSubmissionsSkillHubSubmissionsGetStatus = {
 	pending_review: "pending_review",
 	approved: "approved",
 	rejected: "rejected",
+	withdrawn: "withdrawn",
 } as const;
 
 export type ListSubmissionsSkillHubSubmissionsGetStatusKey =
@@ -54497,6 +57223,34 @@ export type GetSubmissionSkillHubSubmissionsSubmissionIdGetResponses = {
 export type GetSubmissionSkillHubSubmissionsSubmissionIdGetResponse =
 	GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus200;
 
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutPath = {
+	submission_id: string;
+};
+
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus200 = SkillHubSubmission;
+
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus422 = HTTPValidationError;
+
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutBody = SkillHubSubmissionEdit;
+
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutOptions = {
+	body: EditSubmissionSkillHubSubmissionsSubmissionIdPutBody;
+	path: EditSubmissionSkillHubSubmissionsSubmissionIdPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutResponses = {
+	"200": EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus200;
+	"422": EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type EditSubmissionSkillHubSubmissionsSubmissionIdPutResponse =
+	EditSubmissionSkillHubSubmissionsSubmissionIdPutStatus200;
+
 export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath = {
 	submission_id: string;
 };
@@ -54507,8 +57261,12 @@ export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus200 
 export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422 =
 	HTTPValidationError;
 
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutBody =
+	| (SkillHubSubmissionRevision | (null | null))
+	| undefined;
+
 export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutOptions = {
-	body?: never | undefined;
+	body?: ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutBody | undefined;
 	path: ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -54638,6 +57396,68 @@ export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostResponses = {
  */
 export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostResponse =
 	StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus200;
+
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutPath = {
+	submission_id: string;
+};
+
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus200 =
+	SkillHubSubmission;
+
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus422 =
+	HTTPValidationError;
+
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutBody =
+	BodyEditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut;
+
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutOptions = {
+	body: EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutBody;
+	path: EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutResponses = {
+	"200": EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus200;
+	"422": EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutResponse =
+	EditSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPutStatus200;
+
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutPath = {
+	submission_id: string;
+};
+
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus200 =
+	SkillHubSubmission;
+
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus422 =
+	HTTPValidationError;
+
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutBody =
+	SkillHubSubmissionRevision;
+
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutOptions = {
+	body: WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutBody;
+	path: WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutResponses = {
+	"200": WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus200;
+	"422": WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutResponse =
+	WithdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPutStatus200;
 
 export type GetMarketplaceClaudeCodeMarketplaceJsonGetQuery = {
 	key?: (string | (null | null)) | undefined;
