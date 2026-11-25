@@ -56,6 +56,12 @@ export const aiGatewayVirtualModelConfigSchema = z
 			.union([z.literal(false), z.literal(true)])
 			.optional()
 			.describe("Allow fallback from fast to standard providers on failure."),
+		autoRouterDefaultVersion: z
+			.number()
+			.optional()
+			.describe(
+				"For the team's `auto` router: the Vercel default version the team last saved against.",
+			),
 		baseUrl: z
 			.string()
 			.optional()
@@ -125,6 +131,7 @@ export const aiGatewayVirtualModelConfigSchema = z
 					z.union([
 						z.string(),
 						z.strictObject({
+							effort: z.enum(["high", "low", "medium", "minimal", "none", "xhigh"]).optional(),
 							intelligence: z
 								.number()
 								.optional()
@@ -176,12 +183,17 @@ export const aiGatewayVirtualModelConfigSchema = z
 				"Per-request provider timeouts in ms, keyed by provider slug for BYOK credentials.",
 			),
 		selector: z
-			.enum(["cost", "tps", "ttft"])
+			.enum(["cost", "intelligence", "tps", "ttft"])
 			.optional()
 			.describe("For kind=router: how to order candidates. Absent means declared order."),
 		selectorOptions: z
 			.object({
 				cost: aiGatewayRouterSelectorOptionBagSchema
+					.optional()
+					.describe(
+						"For kind=router: option slices keyed by selector name; each selector owns its slice's shape.",
+					),
+				intelligence: aiGatewayRouterSelectorOptionBagSchema
 					.optional()
 					.describe(
 						"For kind=router: option slices keyed by selector name; each selector owns its slice's shape.",
@@ -61279,73 +61291,79 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					userDisabled: z.union([z.literal(false), z.literal(true)]),
 				})
 				.optional(),
-			defaultResourceConfig: z.object({
-				buildMachineElasticLastUpdated: z.number().optional(),
-				buildMachineElasticReason: z
-					.enum([
-						"basic-floor",
-						"build-timeout-failure",
-						"enospc-failure",
-						"enterprise-floor",
-						"high-peak-disk",
-						"high-peak-memory",
-						"long-build-duration",
-						"oom-failure",
-						"short-build-duration",
-						"sustained-high-cpu",
-					])
-					.optional(),
-				buildMachineElasticTransition: z
-					.object({
-						algorithmVersion: z.string(),
-						at: z.number(),
-						direction: z.enum(["downgrade", "upgrade"]),
-					})
-					.optional(),
-				buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-				buildMachineType: z
-					.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
-					.optional(),
-				buildQueue: z
-					.object({
-						configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-					})
-					.optional(),
-				elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-				enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-				fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-				functionDefaultMemoryType: z
-					.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-					.optional(),
-				functionDefaultRegions: z.array(z.string()),
-				functionDefaultTimeout: z.number().optional(),
-				functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-				isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-				elasticBuildMachine: z
-					.discriminatedUnion("cores", [
-						z.object({
-							cores: z.literal(4),
-							label: z.enum(["standard"]),
-							memory: z.literal(8192),
-						}),
-						z.object({
-							cores: z.literal(8),
-							label: z.enum(["enhanced"]),
-							memory: z.literal(16384),
-						}),
-						z.object({
-							cores: z.literal(14),
-							label: z.enum(["14cpu-28gb"]),
-							memory: z.literal(28672),
-						}),
-						z.object({
-							cores: z.literal(30),
-							label: z.enum(["turbo"]),
-							memory: z.literal(61440),
-						}),
-					])
-					.optional(),
-			}),
+			defaultResourceConfig: z
+				.object({
+					buildMachineElasticLastUpdated: z.number().optional(),
+					buildMachineElasticReason: z
+						.enum([
+							"basic-floor",
+							"build-timeout-failure",
+							"enospc-failure",
+							"enterprise-floor",
+							"high-peak-disk",
+							"high-peak-memory",
+							"long-build-duration",
+							"oom-failure",
+							"short-build-duration",
+							"sustained-high-cpu",
+						])
+						.optional(),
+					buildMachineElasticTransition: z
+						.object({
+							algorithmVersion: z.string(),
+							at: z.number(),
+							direction: z.enum(["downgrade", "upgrade"]),
+						})
+						.optional(),
+					buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+					buildQueue: z
+						.object({
+							configuration: z
+								.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+								.optional(),
+						})
+						.optional(),
+					elasticBuildMachine: z
+						.discriminatedUnion("cores", [
+							z.object({
+								cores: z.literal(4),
+								label: z.enum(["standard"]),
+								memory: z.literal(8192),
+							}),
+							z.object({
+								cores: z.literal(8),
+								label: z.enum(["enhanced"]),
+								memory: z.literal(16384),
+							}),
+							z.object({
+								cores: z.literal(14),
+								label: z.enum(["14cpu-28gb"]),
+								memory: z.literal(28672),
+							}),
+							z.object({
+								cores: z.literal(30),
+								label: z.enum(["turbo"]),
+								memory: z.literal(61440),
+							}),
+						])
+						.optional(),
+					elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+					fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+					functionDefaultMemoryType: z
+						.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+						.optional(),
+					functionDefaultRegions: z.array(z.string()),
+					functionDefaultTimeout: z.number().optional(),
+					functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+					isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					buildMachineType: z
+						.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+						.optional(),
+				})
+				.describe(
+					"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+				),
 			deploymentExpiration: z
 				.object({
 					deploymentsToKeep: z
@@ -64182,73 +64200,79 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.optional(),
 				})
 				.optional(),
-			resourceConfig: z.object({
-				buildMachineElasticLastUpdated: z.number().optional(),
-				buildMachineElasticReason: z
-					.enum([
-						"basic-floor",
-						"build-timeout-failure",
-						"enospc-failure",
-						"enterprise-floor",
-						"high-peak-disk",
-						"high-peak-memory",
-						"long-build-duration",
-						"oom-failure",
-						"short-build-duration",
-						"sustained-high-cpu",
-					])
-					.optional(),
-				buildMachineElasticTransition: z
-					.object({
-						algorithmVersion: z.string(),
-						at: z.number(),
-						direction: z.enum(["downgrade", "upgrade"]),
-					})
-					.optional(),
-				buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-				buildMachineType: z
-					.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
-					.optional(),
-				buildQueue: z
-					.object({
-						configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-					})
-					.optional(),
-				elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-				enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-				fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-				functionDefaultMemoryType: z
-					.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-					.optional(),
-				functionDefaultRegions: z.array(z.string()),
-				functionDefaultTimeout: z.number().optional(),
-				functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-				isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-				elasticBuildMachine: z
-					.discriminatedUnion("cores", [
-						z.object({
-							cores: z.literal(4),
-							label: z.enum(["standard"]),
-							memory: z.literal(8192),
-						}),
-						z.object({
-							cores: z.literal(8),
-							label: z.enum(["enhanced"]),
-							memory: z.literal(16384),
-						}),
-						z.object({
-							cores: z.literal(14),
-							label: z.enum(["14cpu-28gb"]),
-							memory: z.literal(28672),
-						}),
-						z.object({
-							cores: z.literal(30),
-							label: z.enum(["turbo"]),
-							memory: z.literal(61440),
-						}),
-					])
-					.optional(),
-			}),
+			resourceConfig: z
+				.object({
+					buildMachineElasticLastUpdated: z.number().optional(),
+					buildMachineElasticReason: z
+						.enum([
+							"basic-floor",
+							"build-timeout-failure",
+							"enospc-failure",
+							"enterprise-floor",
+							"high-peak-disk",
+							"high-peak-memory",
+							"long-build-duration",
+							"oom-failure",
+							"short-build-duration",
+							"sustained-high-cpu",
+						])
+						.optional(),
+					buildMachineElasticTransition: z
+						.object({
+							algorithmVersion: z.string(),
+							at: z.number(),
+							direction: z.enum(["downgrade", "upgrade"]),
+						})
+						.optional(),
+					buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+					buildQueue: z
+						.object({
+							configuration: z
+								.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+								.optional(),
+						})
+						.optional(),
+					elasticBuildMachine: z
+						.discriminatedUnion("cores", [
+							z.object({
+								cores: z.literal(4),
+								label: z.enum(["standard"]),
+								memory: z.literal(8192),
+							}),
+							z.object({
+								cores: z.literal(8),
+								label: z.enum(["enhanced"]),
+								memory: z.literal(16384),
+							}),
+							z.object({
+								cores: z.literal(14),
+								label: z.enum(["14cpu-28gb"]),
+								memory: z.literal(28672),
+							}),
+							z.object({
+								cores: z.literal(30),
+								label: z.enum(["turbo"]),
+								memory: z.literal(61440),
+							}),
+						])
+						.optional(),
+					elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+					fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+					functionDefaultMemoryType: z
+						.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+						.optional(),
+					functionDefaultRegions: z.array(z.string()),
+					functionDefaultTimeout: z.number().optional(),
+					functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+					isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					buildMachineType: z
+						.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+						.optional(),
+				})
+				.describe(
+					"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+				),
 			rollbackDescription: z
 				.object({
 					createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -70105,75 +70129,79 @@ export const getProjectsStatus200Schema = z
 					.nullish(),
 				passwordProtection: z.object({}).nullish(),
 				paused: z.union([z.literal(false), z.literal(true)]).optional(),
-				resourceConfig: z.object({
-					buildMachineElasticLastUpdated: z.number().optional(),
-					buildMachineElasticReason: z
-						.enum([
-							"basic-floor",
-							"build-timeout-failure",
-							"enospc-failure",
-							"enterprise-floor",
-							"high-peak-disk",
-							"high-peak-memory",
-							"long-build-duration",
-							"oom-failure",
-							"short-build-duration",
-							"sustained-high-cpu",
-						])
-						.optional(),
-					buildMachineElasticTransition: z
-						.object({
-							algorithmVersion: z.string(),
-							at: z.number(),
-							direction: z.enum(["downgrade", "upgrade"]),
-						})
-						.optional(),
-					buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-					buildMachineType: z
-						.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
-						.optional(),
-					buildQueue: z
-						.object({
-							configuration: z
-								.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
-								.optional(),
-						})
-						.optional(),
-					elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-					enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-					fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-					functionDefaultMemoryType: z
-						.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-						.optional(),
-					functionDefaultRegions: z.array(z.string()),
-					functionDefaultTimeout: z.number().optional(),
-					functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-					isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-					elasticBuildMachine: z
-						.discriminatedUnion("cores", [
-							z.object({
-								cores: z.literal(4),
-								label: z.enum(["standard"]),
-								memory: z.literal(8192),
-							}),
-							z.object({
-								cores: z.literal(8),
-								label: z.enum(["enhanced"]),
-								memory: z.literal(16384),
-							}),
-							z.object({
-								cores: z.literal(14),
-								label: z.enum(["14cpu-28gb"]),
-								memory: z.literal(28672),
-							}),
-							z.object({
-								cores: z.literal(30),
-								label: z.enum(["turbo"]),
-								memory: z.literal(61440),
-							}),
-						])
-						.optional(),
-				}),
+				resourceConfig: z
+					.object({
+						buildMachineElasticLastUpdated: z.number().optional(),
+						buildMachineElasticReason: z
+							.enum([
+								"basic-floor",
+								"build-timeout-failure",
+								"enospc-failure",
+								"enterprise-floor",
+								"high-peak-disk",
+								"high-peak-memory",
+								"long-build-duration",
+								"oom-failure",
+								"short-build-duration",
+								"sustained-high-cpu",
+							])
+							.optional(),
+						buildMachineElasticTransition: z
+							.object({
+								algorithmVersion: z.string(),
+								at: z.number(),
+								direction: z.enum(["downgrade", "upgrade"]),
+							})
+							.optional(),
+						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+						buildQueue: z
+							.object({
+								configuration: z
+									.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+									.optional(),
+							})
+							.optional(),
+						elasticBuildMachine: z
+							.discriminatedUnion("cores", [
+								z.object({
+									cores: z.literal(4),
+									label: z.enum(["standard"]),
+									memory: z.literal(8192),
+								}),
+								z.object({
+									cores: z.literal(8),
+									label: z.enum(["enhanced"]),
+									memory: z.literal(16384),
+								}),
+								z.object({
+									cores: z.literal(14),
+									label: z.enum(["14cpu-28gb"]),
+									memory: z.literal(28672),
+								}),
+								z.object({
+									cores: z.literal(30),
+									label: z.enum(["turbo"]),
+									memory: z.literal(61440),
+								}),
+							])
+							.optional(),
+						elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+						enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+						fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+						functionDefaultMemoryType: z
+							.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+							.optional(),
+						functionDefaultRegions: z.array(z.string()),
+						functionDefaultTimeout: z.number().optional(),
+						functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+						buildMachineType: z
+							.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+							.optional(),
+					})
+					.describe(
+						"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+					),
 				rollingRelease: z
 					.object({
 						canaryResponseHeader: z
@@ -71697,75 +71725,79 @@ export const getProjectsStatus200Schema = z
 						.nullish(),
 					passwordProtection: z.object({}).nullish(),
 					paused: z.union([z.literal(false), z.literal(true)]).optional(),
-					resourceConfig: z.object({
-						buildMachineElasticLastUpdated: z.number().optional(),
-						buildMachineElasticReason: z
-							.enum([
-								"basic-floor",
-								"build-timeout-failure",
-								"enospc-failure",
-								"enterprise-floor",
-								"high-peak-disk",
-								"high-peak-memory",
-								"long-build-duration",
-								"oom-failure",
-								"short-build-duration",
-								"sustained-high-cpu",
-							])
-							.optional(),
-						buildMachineElasticTransition: z
-							.object({
-								algorithmVersion: z.string(),
-								at: z.number(),
-								direction: z.enum(["downgrade", "upgrade"]),
-							})
-							.optional(),
-						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-						buildMachineType: z
-							.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
-							.optional(),
-						buildQueue: z
-							.object({
-								configuration: z
-									.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
-									.optional(),
-							})
-							.optional(),
-						elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-						fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-						functionDefaultMemoryType: z
-							.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-							.optional(),
-						functionDefaultRegions: z.array(z.string()),
-						functionDefaultTimeout: z.number().optional(),
-						functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						elasticBuildMachine: z
-							.discriminatedUnion("cores", [
-								z.object({
-									cores: z.literal(4),
-									label: z.enum(["standard"]),
-									memory: z.literal(8192),
-								}),
-								z.object({
-									cores: z.literal(8),
-									label: z.enum(["enhanced"]),
-									memory: z.literal(16384),
-								}),
-								z.object({
-									cores: z.literal(14),
-									label: z.enum(["14cpu-28gb"]),
-									memory: z.literal(28672),
-								}),
-								z.object({
-									cores: z.literal(30),
-									label: z.enum(["turbo"]),
-									memory: z.literal(61440),
-								}),
-							])
-							.optional(),
-					}),
+					resourceConfig: z
+						.object({
+							buildMachineElasticLastUpdated: z.number().optional(),
+							buildMachineElasticReason: z
+								.enum([
+									"basic-floor",
+									"build-timeout-failure",
+									"enospc-failure",
+									"enterprise-floor",
+									"high-peak-disk",
+									"high-peak-memory",
+									"long-build-duration",
+									"oom-failure",
+									"short-build-duration",
+									"sustained-high-cpu",
+								])
+								.optional(),
+							buildMachineElasticTransition: z
+								.object({
+									algorithmVersion: z.string(),
+									at: z.number(),
+									direction: z.enum(["downgrade", "upgrade"]),
+								})
+								.optional(),
+							buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+							buildQueue: z
+								.object({
+									configuration: z
+										.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+										.optional(),
+								})
+								.optional(),
+							elasticBuildMachine: z
+								.discriminatedUnion("cores", [
+									z.object({
+										cores: z.literal(4),
+										label: z.enum(["standard"]),
+										memory: z.literal(8192),
+									}),
+									z.object({
+										cores: z.literal(8),
+										label: z.enum(["enhanced"]),
+										memory: z.literal(16384),
+									}),
+									z.object({
+										cores: z.literal(14),
+										label: z.enum(["14cpu-28gb"]),
+										memory: z.literal(28672),
+									}),
+									z.object({
+										cores: z.literal(30),
+										label: z.enum(["turbo"]),
+										memory: z.literal(61440),
+									}),
+								])
+								.optional(),
+							elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+							enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+							fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+							functionDefaultMemoryType: z
+								.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+								.optional(),
+							functionDefaultRegions: z.array(z.string()),
+							functionDefaultTimeout: z.number().optional(),
+							functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+							isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+							buildMachineType: z
+								.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+								.optional(),
+						})
+						.describe(
+							"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+						),
 					rollingRelease: z
 						.object({
 							canaryResponseHeader: z
@@ -72752,75 +72784,79 @@ export const getProjectsStatus200Schema = z
 							userDisabled: z.union([z.literal(false), z.literal(true)]),
 						})
 						.optional(),
-					defaultResourceConfig: z.object({
-						buildMachineElasticLastUpdated: z.number().optional(),
-						buildMachineElasticReason: z
-							.enum([
-								"basic-floor",
-								"build-timeout-failure",
-								"enospc-failure",
-								"enterprise-floor",
-								"high-peak-disk",
-								"high-peak-memory",
-								"long-build-duration",
-								"oom-failure",
-								"short-build-duration",
-								"sustained-high-cpu",
-							])
-							.optional(),
-						buildMachineElasticTransition: z
-							.object({
-								algorithmVersion: z.string(),
-								at: z.number(),
-								direction: z.enum(["downgrade", "upgrade"]),
-							})
-							.optional(),
-						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-						buildMachineType: z
-							.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
-							.optional(),
-						buildQueue: z
-							.object({
-								configuration: z
-									.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
-									.optional(),
-							})
-							.optional(),
-						elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-						fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-						functionDefaultMemoryType: z
-							.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-							.optional(),
-						functionDefaultRegions: z.array(z.string()),
-						functionDefaultTimeout: z.number().optional(),
-						functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						elasticBuildMachine: z
-							.discriminatedUnion("cores", [
-								z.object({
-									cores: z.literal(4),
-									label: z.enum(["standard"]),
-									memory: z.literal(8192),
-								}),
-								z.object({
-									cores: z.literal(8),
-									label: z.enum(["enhanced"]),
-									memory: z.literal(16384),
-								}),
-								z.object({
-									cores: z.literal(14),
-									label: z.enum(["14cpu-28gb"]),
-									memory: z.literal(28672),
-								}),
-								z.object({
-									cores: z.literal(30),
-									label: z.enum(["turbo"]),
-									memory: z.literal(61440),
-								}),
-							])
-							.optional(),
-					}),
+					defaultResourceConfig: z
+						.object({
+							buildMachineElasticLastUpdated: z.number().optional(),
+							buildMachineElasticReason: z
+								.enum([
+									"basic-floor",
+									"build-timeout-failure",
+									"enospc-failure",
+									"enterprise-floor",
+									"high-peak-disk",
+									"high-peak-memory",
+									"long-build-duration",
+									"oom-failure",
+									"short-build-duration",
+									"sustained-high-cpu",
+								])
+								.optional(),
+							buildMachineElasticTransition: z
+								.object({
+									algorithmVersion: z.string(),
+									at: z.number(),
+									direction: z.enum(["downgrade", "upgrade"]),
+								})
+								.optional(),
+							buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+							buildQueue: z
+								.object({
+									configuration: z
+										.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+										.optional(),
+								})
+								.optional(),
+							elasticBuildMachine: z
+								.discriminatedUnion("cores", [
+									z.object({
+										cores: z.literal(4),
+										label: z.enum(["standard"]),
+										memory: z.literal(8192),
+									}),
+									z.object({
+										cores: z.literal(8),
+										label: z.enum(["enhanced"]),
+										memory: z.literal(16384),
+									}),
+									z.object({
+										cores: z.literal(14),
+										label: z.enum(["14cpu-28gb"]),
+										memory: z.literal(28672),
+									}),
+									z.object({
+										cores: z.literal(30),
+										label: z.enum(["turbo"]),
+										memory: z.literal(61440),
+									}),
+								])
+								.optional(),
+							elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+							enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+							fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+							functionDefaultMemoryType: z
+								.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+								.optional(),
+							functionDefaultRegions: z.array(z.string()),
+							functionDefaultTimeout: z.number().optional(),
+							functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+							isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+							buildMachineType: z
+								.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+								.optional(),
+						})
+						.describe(
+							"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+						),
 					deploymentExpiration: z
 						.object({
 							deploymentsToKeep: z
@@ -75663,75 +75699,79 @@ export const getProjectsStatus200Schema = z
 								.optional(),
 						})
 						.optional(),
-					resourceConfig: z.object({
-						buildMachineElasticLastUpdated: z.number().optional(),
-						buildMachineElasticReason: z
-							.enum([
-								"basic-floor",
-								"build-timeout-failure",
-								"enospc-failure",
-								"enterprise-floor",
-								"high-peak-disk",
-								"high-peak-memory",
-								"long-build-duration",
-								"oom-failure",
-								"short-build-duration",
-								"sustained-high-cpu",
-							])
-							.optional(),
-						buildMachineElasticTransition: z
-							.object({
-								algorithmVersion: z.string(),
-								at: z.number(),
-								direction: z.enum(["downgrade", "upgrade"]),
-							})
-							.optional(),
-						buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-						buildMachineType: z
-							.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"])
-							.optional(),
-						buildQueue: z
-							.object({
-								configuration: z
-									.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
-									.optional(),
-							})
-							.optional(),
-						elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-						fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-						functionDefaultMemoryType: z
-							.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-							.optional(),
-						functionDefaultRegions: z.array(z.string()),
-						functionDefaultTimeout: z.number().optional(),
-						functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-						elasticBuildMachine: z
-							.discriminatedUnion("cores", [
-								z.object({
-									cores: z.literal(4),
-									label: z.enum(["standard"]),
-									memory: z.literal(8192),
-								}),
-								z.object({
-									cores: z.literal(8),
-									label: z.enum(["enhanced"]),
-									memory: z.literal(16384),
-								}),
-								z.object({
-									cores: z.literal(14),
-									label: z.enum(["14cpu-28gb"]),
-									memory: z.literal(28672),
-								}),
-								z.object({
-									cores: z.literal(30),
-									label: z.enum(["turbo"]),
-									memory: z.literal(61440),
-								}),
-							])
-							.optional(),
-					}),
+					resourceConfig: z
+						.object({
+							buildMachineElasticLastUpdated: z.number().optional(),
+							buildMachineElasticReason: z
+								.enum([
+									"basic-floor",
+									"build-timeout-failure",
+									"enospc-failure",
+									"enterprise-floor",
+									"high-peak-disk",
+									"high-peak-memory",
+									"long-build-duration",
+									"oom-failure",
+									"short-build-duration",
+									"sustained-high-cpu",
+								])
+								.optional(),
+							buildMachineElasticTransition: z
+								.object({
+									algorithmVersion: z.string(),
+									at: z.number(),
+									direction: z.enum(["downgrade", "upgrade"]),
+								})
+								.optional(),
+							buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+							buildQueue: z
+								.object({
+									configuration: z
+										.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"])
+										.optional(),
+								})
+								.optional(),
+							elasticBuildMachine: z
+								.discriminatedUnion("cores", [
+									z.object({
+										cores: z.literal(4),
+										label: z.enum(["standard"]),
+										memory: z.literal(8192),
+									}),
+									z.object({
+										cores: z.literal(8),
+										label: z.enum(["enhanced"]),
+										memory: z.literal(16384),
+									}),
+									z.object({
+										cores: z.literal(14),
+										label: z.enum(["14cpu-28gb"]),
+										memory: z.literal(28672),
+									}),
+									z.object({
+										cores: z.literal(30),
+										label: z.enum(["turbo"]),
+										memory: z.literal(61440),
+									}),
+								])
+								.optional(),
+							elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+							enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+							fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+							functionDefaultMemoryType: z
+								.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+								.optional(),
+							functionDefaultRegions: z.array(z.string()),
+							functionDefaultTimeout: z.number().optional(),
+							functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+							isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+							buildMachineType: z
+								.enum(["basic", "elastic", "enhanced", "standard", "turbo"])
+								.optional(),
+						})
+						.describe(
+							"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+						),
 					rollbackDescription: z
 						.object({
 							createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -77003,71 +77043,75 @@ export const createProjectStatus200Schema = z.object({
 			userDisabled: z.union([z.literal(false), z.literal(true)]),
 		})
 		.optional(),
-	defaultResourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	defaultResourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	deploymentExpiration: z
 		.object({
 			deploymentsToKeep: z
@@ -79898,71 +79942,75 @@ export const createProjectStatus200Schema = z.object({
 				.optional(),
 		})
 		.optional(),
-	resourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	resourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	rollbackDescription: z
 		.object({
 			createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -81614,71 +81662,75 @@ export const getProjectStatus200Schema = z.object({
 			userDisabled: z.union([z.literal(false), z.literal(true)]),
 		})
 		.optional(),
-	defaultResourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	defaultResourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	deploymentExpiration: z
 		.object({
 			deploymentsToKeep: z
@@ -84527,71 +84579,75 @@ export const getProjectStatus200Schema = z.object({
 				.optional(),
 		})
 		.optional(),
-	resourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	resourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	rollbackDescription: z
 		.object({
 			createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -85728,71 +85784,75 @@ export const updateProjectStatus200Schema = z.object({
 			userDisabled: z.union([z.literal(false), z.literal(true)]),
 		})
 		.optional(),
-	defaultResourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	defaultResourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	deploymentExpiration: z
 		.object({
 			deploymentsToKeep: z
@@ -88620,71 +88680,75 @@ export const updateProjectStatus200Schema = z.object({
 				.optional(),
 		})
 		.optional(),
-	resourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	resourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	rollbackDescription: z
 		.object({
 			createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -90734,71 +90798,75 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			userDisabled: z.union([z.literal(false), z.literal(true)]),
 		})
 		.optional(),
-	defaultResourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	defaultResourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	deploymentExpiration: z
 		.object({
 			deploymentsToKeep: z
@@ -93629,71 +93697,75 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.optional(),
 		})
 		.optional(),
-	resourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	resourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	rollbackDescription: z
 		.object({
 			createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -94836,71 +94908,75 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			userDisabled: z.union([z.literal(false), z.literal(true)]),
 		})
 		.optional(),
-	defaultResourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	defaultResourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	deploymentExpiration: z
 		.object({
 			deploymentsToKeep: z
@@ -97731,71 +97807,75 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				.optional(),
 		})
 		.optional(),
-	resourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	resourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	rollbackDescription: z
 		.object({
 			createdAt: z.number().describe("Timestamp of when the rollback was requested."),
@@ -105174,71 +105254,75 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			userDisabled: z.union([z.literal(false), z.literal(true)]),
 		})
 		.optional(),
-	defaultResourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	defaultResourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	deploymentExpiration: z
 		.object({
 			deploymentsToKeep: z
@@ -108069,71 +108153,75 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				.optional(),
 		})
 		.optional(),
-	resourceConfig: z.object({
-		buildMachineElasticLastUpdated: z.number().optional(),
-		buildMachineElasticReason: z
-			.enum([
-				"basic-floor",
-				"build-timeout-failure",
-				"enospc-failure",
-				"enterprise-floor",
-				"high-peak-disk",
-				"high-peak-memory",
-				"long-build-duration",
-				"oom-failure",
-				"short-build-duration",
-				"sustained-high-cpu",
-			])
-			.optional(),
-		buildMachineElasticTransition: z
-			.object({
-				algorithmVersion: z.string(),
-				at: z.number(),
-				direction: z.enum(["downgrade", "upgrade"]),
-			})
-			.optional(),
-		buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
-		buildMachineType: z.enum(["14cpu-28gb", "basic", "enhanced", "standard", "turbo"]).optional(),
-		buildQueue: z
-			.object({
-				configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
-			})
-			.optional(),
-		elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
-		fluid: z.union([z.literal(false), z.literal(true)]).optional(),
-		functionDefaultMemoryType: z
-			.enum(["performance", "performance_xl", "standard", "standard_legacy"])
-			.optional(),
-		functionDefaultRegions: z.array(z.string()),
-		functionDefaultTimeout: z.number().optional(),
-		functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
-		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
-		elasticBuildMachine: z
-			.discriminatedUnion("cores", [
-				z.object({
-					cores: z.literal(4),
-					label: z.enum(["standard"]),
-					memory: z.literal(8192),
-				}),
-				z.object({
-					cores: z.literal(8),
-					label: z.enum(["enhanced"]),
-					memory: z.literal(16384),
-				}),
-				z.object({
-					cores: z.literal(14),
-					label: z.enum(["14cpu-28gb"]),
-					memory: z.literal(28672),
-				}),
-				z.object({
-					cores: z.literal(30),
-					label: z.enum(["turbo"]),
-					memory: z.literal(61440),
-				}),
-			])
-			.optional(),
-	}),
+	resourceConfig: z
+		.object({
+			buildMachineElasticLastUpdated: z.number().optional(),
+			buildMachineElasticReason: z
+				.enum([
+					"basic-floor",
+					"build-timeout-failure",
+					"enospc-failure",
+					"enterprise-floor",
+					"high-peak-disk",
+					"high-peak-memory",
+					"long-build-duration",
+					"oom-failure",
+					"short-build-duration",
+					"sustained-high-cpu",
+				])
+				.optional(),
+			buildMachineElasticTransition: z
+				.object({
+					algorithmVersion: z.string(),
+					at: z.number(),
+					direction: z.enum(["downgrade", "upgrade"]),
+				})
+				.optional(),
+			buildMachineSelection: z.enum(["elastic", "fixed"]).optional(),
+			buildQueue: z
+				.object({
+					configuration: z.enum(["SKIP_NAMESPACE_QUEUE", "WAIT_FOR_NAMESPACE_QUEUE"]).optional(),
+				})
+				.optional(),
+			elasticBuildMachine: z
+				.discriminatedUnion("cores", [
+					z.object({
+						cores: z.literal(4),
+						label: z.enum(["standard"]),
+						memory: z.literal(8192),
+					}),
+					z.object({
+						cores: z.literal(8),
+						label: z.enum(["enhanced"]),
+						memory: z.literal(16384),
+					}),
+					z.object({
+						cores: z.literal(14),
+						label: z.enum(["14cpu-28gb"]),
+						memory: z.literal(28672),
+					}),
+					z.object({
+						cores: z.literal(30),
+						label: z.enum(["turbo"]),
+						memory: z.literal(61440),
+					}),
+				])
+				.optional(),
+			elasticConcurrencyEnabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			enableFunctionsBeta: z.union([z.literal(false), z.literal(true)]).optional(),
+			fluid: z.union([z.literal(false), z.literal(true)]).optional(),
+			functionDefaultMemoryType: z
+				.enum(["performance", "performance_xl", "standard", "standard_legacy"])
+				.optional(),
+			functionDefaultRegions: z.array(z.string()),
+			functionDefaultTimeout: z.number().optional(),
+			functionZeroConfigFailover: z.union([z.literal(false), z.literal(true)]).optional(),
+			isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			buildMachineType: z.enum(["basic", "elastic", "enhanced", "standard", "turbo"]).optional(),
+		})
+		.describe(
+			"Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.",
+		),
 	rollbackDescription: z
 		.object({
 			createdAt: z.number().describe("Timestamp of when the rollback was requested."),
