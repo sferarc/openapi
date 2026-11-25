@@ -1,5 +1,29 @@
 # litellm-api
 
+## 2.22.0
+
+### Minor Changes
+
+- f48f629: Added endpoint to restore a skill version for the skill hub (for proxy admins only).
+- f48f629: Added endpoint to edit a skill hub submission and its archive (for submitting users only).
+- f48f629: Added endpoints for listing and managing alerts, as well as alert monitoring configuration (for gateway admins).
+- f48f629: Added endpoints for listing and handling customer budget increase requests, including approve and reject actions (for proxy admins only).
+- f48f629: Added endpoints for customer organization, team, and member daily activity reporting (for proxy admins only).
+- f48f629: Added management endpoints for customer organizations, customer teams, and customer members, including CRUD, upsert, and budget template operations (for proxy admins only).
+
+### Patch Changes
+
+- f48f629: Documented that only proxy admins can set allowed_vector_store_indexes in several endpoints.
+- f48f629: Improved documentation for authorizeAuthorizeGet, downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArc, and listSubmissionsSkillHubSubmissionsGet endpoints.
+- f48f629: Changed approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut to accept a request body.
+- f48f629: Changed the error type for latestReleaseInfoGetLatestReleaseInfoGet from generic Error to a specific status error.
+- f48f629: Clarified changelog and GitHub fetch and error logic for updateUserBannerUpdateUserBannerPatch function.
+- f48f629: Changed allowed_region to allowed_model_region in the unblock user endpoint.
+- f48f629: Updated description of budget_limits on several endpoints to clarify semantics and examples.
+- f48f629: Improved documentation for langfuse_span_scope and added baggage_metadata_keys parameter for getTeamCallbacksTeamTeamIdCallbackGet.
+- f48f629: Added optional fields model_tpm_limit and model_rpm_limit to the unblock user endpoint for configuring per-customer model rate limits.
+- f48f629: Updated budget endpoint summaries and descriptions to clarify new and updated usage.
+
 ## 2.21.4
 
 ### Patch Changes
