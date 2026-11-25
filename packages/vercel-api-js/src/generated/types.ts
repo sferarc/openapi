@@ -5240,13 +5240,22 @@ export type UserEventPayloadActionEnum2Key =
 	(typeof userEventPayloadActionEnum2)[keyof typeof userEventPayloadActionEnum2];
 
 export const userEventPayloadActionEnum3 = {
+	created: "created",
+	deleted: "deleted",
+	updated: "updated",
+} as const;
+
+export type UserEventPayloadActionEnum3Key =
+	(typeof userEventPayloadActionEnum3)[keyof typeof userEventPayloadActionEnum3];
+
+export const userEventPayloadActionEnum4 = {
 	added: "added",
 	deleted: "deleted",
 	rotated: "rotated",
 } as const;
 
-export type UserEventPayloadActionEnum3Key =
-	(typeof userEventPayloadActionEnum3)[keyof typeof userEventPayloadActionEnum3];
+export type UserEventPayloadActionEnum4Key =
+	(typeof userEventPayloadActionEnum4)[keyof typeof userEventPayloadActionEnum4];
 
 export const userEventPayloadUpdatedFieldsEnum = {
 	expression: "expression",
@@ -5395,6 +5404,7 @@ export const userEventPayloadChangeEnum2 = {
 	enable: "enable",
 	"enable-commitment": "enable-commitment",
 	update: "update",
+	"update-commitment": "update-commitment",
 } as const;
 
 export type UserEventPayloadChangeEnum2Key =
@@ -5620,13 +5630,13 @@ export const userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2 
 export type UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2Key =
 	(typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2)[keyof typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2];
 
-export const userEventPayloadActionEnum5 = {
+export const userEventPayloadActionEnum6 = {
 	created: "created",
 	removed: "removed",
 } as const;
 
-export type UserEventPayloadActionEnum5Key =
-	(typeof userEventPayloadActionEnum5)[keyof typeof userEventPayloadActionEnum5];
+export type UserEventPayloadActionEnum6Key =
+	(typeof userEventPayloadActionEnum6)[keyof typeof userEventPayloadActionEnum6];
 
 export const userEventPayloadPermissionsEnum = {
 	"*": "*",
@@ -6567,14 +6577,14 @@ export const userEventPayloadPreviousModeEnum2 = {
 export type UserEventPayloadPreviousModeEnum2Key =
 	(typeof userEventPayloadPreviousModeEnum2)[keyof typeof userEventPayloadPreviousModeEnum2];
 
-export const userEventPayloadActionEnum9 = {
+export const userEventPayloadActionEnum10 = {
 	add: "add",
 	delete: "delete",
 	update: "update",
 } as const;
 
-export type UserEventPayloadActionEnum9Key =
-	(typeof userEventPayloadActionEnum9)[keyof typeof userEventPayloadActionEnum9];
+export type UserEventPayloadActionEnum10Key =
+	(typeof userEventPayloadActionEnum10)[keyof typeof userEventPayloadActionEnum10];
 
 export const userEventPayloadInitiatorEnum = {
 	system: "system",
@@ -6744,22 +6754,22 @@ export const actionEnum = {
 
 export type ActionEnumKey = (typeof actionEnum)[keyof typeof actionEnum];
 
-export const userEventPayloadActionEnum10 = {
+export const userEventPayloadActionEnum11 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 } as const;
 
-export type UserEventPayloadActionEnum10Key =
-	(typeof userEventPayloadActionEnum10)[keyof typeof userEventPayloadActionEnum10];
+export type UserEventPayloadActionEnum11Key =
+	(typeof userEventPayloadActionEnum11)[keyof typeof userEventPayloadActionEnum11];
 
-export const userEventPayloadActionEnum11 = {
+export const userEventPayloadActionEnum12 = {
 	disable: "disable",
 	enable: "enable",
 } as const;
 
-export type UserEventPayloadActionEnum11Key =
-	(typeof userEventPayloadActionEnum11)[keyof typeof userEventPayloadActionEnum11];
+export type UserEventPayloadActionEnum12Key =
+	(typeof userEventPayloadActionEnum12)[keyof typeof userEventPayloadActionEnum12];
 
 export const userEventPayloadSourceEnum = {
 	create: "create",
@@ -7149,15 +7159,15 @@ export const roleEnum2 = {
 
 export type RoleEnum2Key = (typeof roleEnum2)[keyof typeof roleEnum2];
 
-export const userEventPayloadActionEnum12 = {
+export const userEventPayloadActionEnum13 = {
 	disabled: "disabled",
 	enabled: "enabled",
 	regenerated: "regenerated",
 	updated: "updated",
 } as const;
 
-export type UserEventPayloadActionEnum12Key =
-	(typeof userEventPayloadActionEnum12)[keyof typeof userEventPayloadActionEnum12];
+export type UserEventPayloadActionEnum13Key =
+	(typeof userEventPayloadActionEnum13)[keyof typeof userEventPayloadActionEnum13];
 
 export const userEventPayloadWidgetEnum = {
 	alert: "alert",
@@ -7197,13 +7207,13 @@ export const userEventPayloadProjectOldConnectConfigurationsEnvId = {
 export type UserEventPayloadProjectOldConnectConfigurationsEnvIdKey =
 	(typeof userEventPayloadProjectOldConnectConfigurationsEnvId)[keyof typeof userEventPayloadProjectOldConnectConfigurationsEnvId];
 
-export const userEventPayloadActionEnum13 = {
+export const userEventPayloadActionEnum14 = {
 	disabled: "disabled",
 	enabled: "enabled",
 } as const;
 
-export type UserEventPayloadActionEnum13Key =
-	(typeof userEventPayloadActionEnum13)[keyof typeof userEventPayloadActionEnum13];
+export type UserEventPayloadActionEnum14Key =
+	(typeof userEventPayloadActionEnum14)[keyof typeof userEventPayloadActionEnum14];
 
 export const userEventPayloadBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
@@ -7766,22 +7776,22 @@ export const userEventPayloadActorTypeEnum11 = {
 export type UserEventPayloadActorTypeEnum11Key =
 	(typeof userEventPayloadActorTypeEnum11)[keyof typeof userEventPayloadActorTypeEnum11];
 
-export const userEventPayloadActionEnum14 = {
-	enable: "enable",
-	update: "update",
-} as const;
-
-export type UserEventPayloadActionEnum14Key =
-	(typeof userEventPayloadActionEnum14)[keyof typeof userEventPayloadActionEnum14];
-
 export const userEventPayloadActionEnum15 = {
-	disable: "disable",
 	enable: "enable",
 	update: "update",
 } as const;
 
 export type UserEventPayloadActionEnum15Key =
 	(typeof userEventPayloadActionEnum15)[keyof typeof userEventPayloadActionEnum15];
+
+export const userEventPayloadActionEnum16 = {
+	disable: "disable",
+	enable: "enable",
+	update: "update",
+} as const;
+
+export type UserEventPayloadActionEnum16Key =
+	(typeof userEventPayloadActionEnum16)[keyof typeof userEventPayloadActionEnum16];
 
 export const userEventPayloadEndpointEnum2 = {
 	"/v1/vade/code-review/configure": "/v1/vade/code-review/configure",
@@ -7977,13 +7987,13 @@ export const roleEnum3 = {
 
 export type RoleEnum3Key = (typeof roleEnum3)[keyof typeof roleEnum3];
 
-export const userEventPayloadActionEnum16 = {
+export const userEventPayloadActionEnum17 = {
 	reset: "reset",
 	updated: "updated",
 } as const;
 
-export type UserEventPayloadActionEnum16Key =
-	(typeof userEventPayloadActionEnum16)[keyof typeof userEventPayloadActionEnum16];
+export type UserEventPayloadActionEnum17Key =
+	(typeof userEventPayloadActionEnum17)[keyof typeof userEventPayloadActionEnum17];
 
 export const userEventPayloadEnvironmentEnum = {
 	preview: "preview",
@@ -8244,7 +8254,7 @@ export const userEventPayloadAllowedMethodsEnum = {
 export type UserEventPayloadAllowedMethodsEnumKey =
 	(typeof userEventPayloadAllowedMethodsEnum)[keyof typeof userEventPayloadAllowedMethodsEnum];
 
-export const userEventPayloadActionEnum17 = {
+export const userEventPayloadActionEnum18 = {
 	"add-passkey": "add-passkey",
 	"add-totp": "add-totp",
 	"admin-remove": "admin-remove",
@@ -8254,8 +8264,8 @@ export const userEventPayloadActionEnum17 = {
 	"remove-passkey": "remove-passkey",
 } as const;
 
-export type UserEventPayloadActionEnum17Key =
-	(typeof userEventPayloadActionEnum17)[keyof typeof userEventPayloadActionEnum17];
+export type UserEventPayloadActionEnum18Key =
+	(typeof userEventPayloadActionEnum18)[keyof typeof userEventPayloadActionEnum18];
 
 export const userEventPayloadMethodEnum2 = {
 	passkey: "passkey",
@@ -8816,6 +8826,9 @@ export const userEventTypeEnum = {
 	"flags-connection-created": "flags-connection-created",
 	"flags-connection-deleted": "flags-connection-deleted",
 	"flags-explorer-subscription": "flags-explorer-subscription",
+	"flags-layer-created": "flags-layer-created",
+	"flags-layer-deleted": "flags-layer-deleted",
+	"flags-layer-updated": "flags-layer-updated",
 	"flags-overrides-signed": "flags-overrides-signed",
 	"flags-sdk-key": "flags-sdk-key",
 	"flags-sdk-key-added": "flags-sdk-key-added",
@@ -9474,6 +9487,14 @@ export type UserEvent = {
 				  }
 				| {
 						action: UserEventPayloadActionEnum3Key;
+						id: string;
+						name: string;
+						projectId: string;
+						projectName?: string | undefined;
+						slug: string;
+				  }
+				| {
+						action: UserEventPayloadActionEnum4Key;
 						environment: string;
 						label?: string | undefined;
 						projectId?: string | undefined;
@@ -9868,11 +9889,17 @@ export type UserEvent = {
 							  }
 							| undefined;
 						previous?:
-							| {
-									maximumMonthlySpend: string | null;
-									minimumBalance: string;
-									targetBalance: string;
-							  }
+							| (
+									| {
+											maximumMonthlySpend: string | null;
+											minimumBalance: string;
+											targetBalance: string;
+									  }
+									| {
+											deferredInvoiceTargetBalance: string;
+											maximumMonthlySpend: string | null;
+									  }
+							  )
 							| undefined;
 						settings?:
 							| {
@@ -10277,7 +10304,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnum5Key;
+						action: UserEventPayloadActionEnum6Key;
 						alias: string;
 						projectId?: string | undefined;
 						projectName: string;
@@ -11789,7 +11816,7 @@ export type UserEvent = {
 						value: string;
 				  }
 				| {
-						action: UserEventPayloadActionEnum9Key;
+						action: UserEventPayloadActionEnum10Key;
 						domain: string;
 						id: string;
 						initiator: UserEventPayloadInitiatorEnumKey;
@@ -12594,7 +12621,7 @@ export type UserEvent = {
 						rulesetName: string;
 				  }
 				| {
-						action?: UserEventPayloadActionEnum10Key | undefined;
+						action?: UserEventPayloadActionEnum11Key | undefined;
 						active: false | true;
 						projectId: string;
 						rulesetName: string;
@@ -12612,7 +12639,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnum11Key;
+						action: UserEventPayloadActionEnum12Key;
 				  }
 				| {
 						environment: string;
@@ -13826,7 +13853,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnum12Key;
+						action: UserEventPayloadActionEnum13Key;
 						isEnvVar?: (false | true) | undefined;
 						note?: string | undefined;
 						projectId: string;
@@ -13953,7 +13980,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnum13Key;
+						action: UserEventPayloadActionEnum14Key;
 						projectId: string;
 						projectName: string;
 				  }
@@ -15478,7 +15505,7 @@ export type UserEvent = {
 						source: string;
 				  }
 				| {
-						action: UserEventPayloadActionEnum14Key;
+						action: UserEventPayloadActionEnum15Key;
 						codeReviewEnabled: false | true;
 						codeReviewSelection?:
 							| {
@@ -15502,7 +15529,7 @@ export type UserEvent = {
 						topupCleanupCompleted: false | true;
 				  }
 				| {
-						action?: UserEventPayloadActionEnum15Key | undefined;
+						action?: UserEventPayloadActionEnum16Key | undefined;
 						codeReviewSelection?:
 							| {
 									initial: false | true;
@@ -15864,7 +15891,7 @@ export type UserEvent = {
 						} | null;
 				  }
 				| {
-						action: UserEventPayloadActionEnum16Key;
+						action: UserEventPayloadActionEnum17Key;
 						targetId: string;
 				  }
 				| {
@@ -16344,7 +16371,7 @@ export type UserEvent = {
 						loginSessionId?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnum17Key;
+						action: UserEventPayloadActionEnum18Key;
 						reason: string;
 				  }
 				| {
@@ -17686,6 +17713,9 @@ export const listEventTypeNameEnum = {
 	"flags-connection-created": "flags-connection-created",
 	"flags-connection-deleted": "flags-connection-deleted",
 	"flags-explorer-subscription": "flags-explorer-subscription",
+	"flags-layer-created": "flags-layer-created",
+	"flags-layer-deleted": "flags-layer-deleted",
+	"flags-layer-updated": "flags-layer-updated",
 	"flags-overrides-signed": "flags-overrides-signed",
 	"flags-sdk-key": "flags-sdk-key",
 	"flags-sdk-key-added": "flags-sdk-key-added",
@@ -18547,6 +18577,9 @@ export const listEventTypeReplacedByEnum = {
 	"flags-connection-created": "flags-connection-created",
 	"flags-connection-deleted": "flags-connection-deleted",
 	"flags-explorer-subscription": "flags-explorer-subscription",
+	"flags-layer-created": "flags-layer-created",
+	"flags-layer-deleted": "flags-layer-deleted",
+	"flags-layer-updated": "flags-layer-updated",
 	"flags-overrides-signed": "flags-overrides-signed",
 	"flags-sdk-key": "flags-sdk-key",
 	"flags-sdk-key-added": "flags-sdk-key-added",
@@ -22973,7 +23006,27 @@ export type AuthUser = {
 		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
 		 * @type number | undefined
 		 */
+		messageboardAttachmentBytes?: number | undefined;
+		/**
+		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+		 * @type number | undefined
+		 */
 		messageboardBoards?: number | undefined;
+		/**
+		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+		 * @type number | undefined
+		 */
+		messageboardChannelsPerBoard?: number | undefined;
+		/**
+		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+		 * @type number | undefined
+		 */
+		messageboardMessages?: number | undefined;
+		/**
+		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+		 * @type number | undefined
+		 */
+		messageboardStoredAttachmentBytes?: number | undefined;
 		/**
 		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
 		 * @type number | undefined
@@ -60795,6 +60848,10 @@ export type GetEdgeConfigTokenStatus404 = unknown;
 
 export type GetEdgeConfigTokenStatus410 = unknown;
 
+/**
+ * @deprecated
+ * @type object
+ */
 export type GetEdgeConfigTokenOptions = {
 	body?: never | undefined;
 	path: GetEdgeConfigTokenPath;
@@ -64182,7 +64239,7 @@ export type CreateFlagBody =
 			/**
 			 * @description A random seed to prevent split points in different flags from having the same targets
 			 * @minimum 0
-			 * @maximum 100000
+			 * @maximum 2147483647
 			 * @type number | undefined
 			 */
 			seed?: number | undefined;
@@ -64952,7 +65009,7 @@ export type UpdateFlagBody =
 			/**
 			 * @description A random seed to prevent split points in different flags from having the same targets
 			 * @minimum 0
-			 * @maximum 100000
+			 * @maximum 2147483647
 			 * @type number | undefined
 			 */
 			seed?: number | undefined;

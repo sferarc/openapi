@@ -12251,8 +12251,9 @@ export async function deleteEdgeConfigTokens(
 }
 
 /**
- * @summary Get Global Config token meta data
+ * @summary Deprecated: Use `GET /v1/global-config/:edgeConfigId/token` with the `x-vercel-global-config-token` header instead. Get Global Config token metadata
  * @description Return metadata about a Global Config token.
+ * @deprecated
  * @link /v1/global-config/{edgeConfigId}/token/{token}
  */
 export async function getEdgeConfigToken(
@@ -14988,7 +14989,7 @@ export async function updateResource(
 
 /**
  * @summary Submit Billing Data
- * @description Sends the billing and usage data. The partner should do this at least once a day and ideally once per hour. <br/> Use the `credentials.access_token` we provided in the [Upsert Installation](#upsert-installation) body to authorize this request.
+ * @description Sends the billing and usage data. The partner should do this at least once a day and ideally once per hour.
  * @link /v1/installations/{integrationConfigurationId}/billing
  */
 export async function submitBillingData(
@@ -15036,7 +15037,7 @@ export async function submitBillingData(
 
 /**
  * @summary Submit Invoice
- * @description This endpoint allows the partner to submit an invoice to Vercel. The invoice is created in Vercel's billing system and sent to the customer. Depending on the type of billing plan, the invoice can be sent at a time of signup, at the start of the billing period, or at the end of the billing period.<br/> <br/> Use the `credentials.access_token` we provided in the [Upsert Installation](#upsert-installation) body to authorize this request. <br/> There are several limitations to the invoice submission:<br/> <br/> 1. A resource can only be billed once per the billing period and the billing plan.<br/> 2. The billing plan used to bill the resource must have been active for this resource during the billing period.<br/> 3. The billing plan used must be a subscription plan.<br/> 4. The interim usage data must be sent hourly for all types of subscriptions. See [Send subscription billing and usage data](#send-subscription-billing-and-usage-data) API on how to send interim billing and usage data.<br/> 5. If provided, `externalId` must be unique for the installation.<br/>
+ * @description This endpoint allows the partner to submit an invoice to Vercel. The invoice is created in Vercel's billing system and sent to the customer. Depending on the type of billing plan, the invoice can be sent at a time of signup, at the start of the billing period, or at the end of the billing period.<br/> <br/> There are several limitations to the invoice submission:<br/> <br/> 1. A resource can only be billed once per the billing period and the billing plan.<br/> 2. The billing plan used to bill the resource must have been active for this resource during the billing period.<br/> 3. The billing plan used must be a subscription plan.<br/> 4. The interim usage data must be sent hourly for all types of subscriptions. See [Send subscription billing and usage data](#send-subscription-billing-and-usage-data) API on how to send interim billing and usage data.<br/> 5. If provided, `externalId` must be unique for the installation.<br/>
  * @link /v1/installations/{integrationConfigurationId}/billing/invoices
  */
 export async function submitInvoice(
@@ -15085,7 +15086,7 @@ export async function submitInvoice(
 
 /**
  * @summary Finalize Installation
- * @description This endpoint allows the partner to mark an installation as finalized. This means you will not send any more invoices for the installation. Use this after a customer has requested uninstall and you have sent any remaining invoices. This will allow the uninstall process to proceed immediately after all invoices have been paid. <br/> Use the `credentials.access_token` we provided in the [Upsert Installation](#upsert-installation) body to authorize this request.
+ * @description This endpoint allows the partner to mark an installation as finalized. This means you will not send any more invoices for the installation. Use this after a customer has requested uninstall and you have sent any remaining invoices. This will allow the uninstall process to proceed immediately after all invoices have been paid.
  * @link /v1/installations/{integrationConfigurationId}/billing/finalize
  */
 export async function finalizeInstallation(
@@ -15233,7 +15234,7 @@ export async function updateInvoice(
 
 /**
  * @summary Submit Prepayment Balances
- * @description Sends the prepayment balances. The partner should do this at least once a day and ideally once per hour. <br/> Use the `credentials.access_token` we provided in the [Upsert Installation](#upsert-installation) body to authorize this request.
+ * @description Sends the prepayment balances. The partner should do this at least once a day and ideally once per hour.
  * @link /v1/installations/{integrationConfigurationId}/billing/balance
  */
 export async function submitPrepaymentBalances(

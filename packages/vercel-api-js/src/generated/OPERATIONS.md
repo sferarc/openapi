@@ -297,7 +297,7 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 493 operations. C
 | `client.api.globalConfig.getEdgeConfigItem` | `GET /v1/global-config/{edgeConfigId}/item/{edgeConfigItemKey}` | Get a Global Config item |
 | `client.api.globalConfig.getEdgeConfigTokens` | `GET /v1/global-config/{edgeConfigId}/tokens` | Get all tokens of a Global Config |
 | `client.api.globalConfig.deleteEdgeConfigTokens` | `DELETE /v1/global-config/{edgeConfigId}/tokens` | Delete one or more Global Config tokens |
-| `client.api.globalConfig.getEdgeConfigToken` | `GET /v1/global-config/{edgeConfigId}/token/{token}` | Get Global Config token meta data |
+| `client.api.globalConfig.getEdgeConfigToken` | `GET /v1/global-config/{edgeConfigId}/token/{token}` | Deprecated: Use `GET /v1/global-config/:edgeConfigId/token` with the `x-vercel-global-config-token` header instead. Get Global Config token metadata |
 | `client.api.globalConfig.createEdgeConfigToken` | `POST /v1/global-config/{edgeConfigId}/token` | Create a Global Config token |
 | `client.api.globalConfig.lookupEdgeConfigToken` | `GET /v1/global-config/{edgeConfigId}/token` | Look up a Global Config token |
 | `client.api.globalConfig.getEdgeConfigBackup` | `GET /v1/global-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}` | Get Global Config backup |
