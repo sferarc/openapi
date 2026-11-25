@@ -3639,6 +3639,14 @@ export const userEventSchema = z
 					state: z.string(),
 				}),
 				z.strictObject({
+					action: z.enum(["created", "deleted", "updated"]),
+					id: z.string(),
+					name: z.string(),
+					projectId: z.string(),
+					projectName: z.string().optional(),
+					slug: z.string(),
+				}),
+				z.strictObject({
 					action: z.enum(["added", "deleted", "rotated"]),
 					environment: z.string(),
 					label: z.string().optional(),
@@ -3984,6 +3992,7 @@ export const userEventSchema = z
 						"enable",
 						"enable-commitment",
 						"update",
+						"update-commitment",
 					]),
 					commitment: z
 						.object({
@@ -3992,11 +4001,17 @@ export const userEventSchema = z
 						})
 						.optional(),
 					previous: z
-						.object({
-							maximumMonthlySpend: z.string().nullable(),
-							minimumBalance: z.string(),
-							targetBalance: z.string(),
-						})
+						.union([
+							z.strictObject({
+								maximumMonthlySpend: z.string().nullable(),
+								minimumBalance: z.string(),
+								targetBalance: z.string(),
+							}),
+							z.strictObject({
+								deferredInvoiceTargetBalance: z.string(),
+								maximumMonthlySpend: z.string().nullable(),
+							}),
+						])
 						.optional(),
 					settings: z
 						.object({
@@ -12435,6 +12450,9 @@ export const userEventSchema = z
 				"flags-connection-created",
 				"flags-connection-deleted",
 				"flags-explorer-subscription",
+				"flags-layer-created",
+				"flags-layer-deleted",
+				"flags-layer-updated",
 				"flags-overrides-signed",
 				"flags-sdk-key",
 				"flags-sdk-key-added",
@@ -13385,6 +13403,9 @@ export const listEventTypeSchema = z
 				"flags-connection-created",
 				"flags-connection-deleted",
 				"flags-explorer-subscription",
+				"flags-layer-created",
+				"flags-layer-deleted",
+				"flags-layer-updated",
 				"flags-overrides-signed",
 				"flags-sdk-key",
 				"flags-sdk-key-added",
@@ -14227,6 +14248,9 @@ export const listEventTypeSchema = z
 					"flags-connection-created",
 					"flags-connection-deleted",
 					"flags-explorer-subscription",
+					"flags-layer-created",
+					"flags-layer-deleted",
+					"flags-layer-updated",
 					"flags-overrides-signed",
 					"flags-sdk-key",
 					"flags-sdk-key-added",
@@ -17643,7 +17667,31 @@ export const authUserSchema = z
 					.describe(
 						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
 					),
+				messageboardAttachmentBytes: z
+					.number()
+					.optional()
+					.describe(
+						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
+					),
 				messageboardBoards: z
+					.number()
+					.optional()
+					.describe(
+						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
+					),
+				messageboardChannelsPerBoard: z
+					.number()
+					.optional()
+					.describe(
+						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
+					),
+				messageboardMessages: z
+					.number()
+					.optional()
+					.describe(
+						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
+					),
+				messageboardStoredAttachmentBytes: z
 					.number()
 					.optional()
 					.describe(
@@ -50700,7 +50748,7 @@ export const createFlagBodySchema = z
 		seed: z
 			.number()
 			.min(0)
-			.max(100000)
+			.max(2147483647)
 			.optional()
 			.describe(
 				"A random seed to prevent split points in different flags from having the same targets",
@@ -51407,7 +51455,7 @@ export const updateFlagBodySchema = z
 		seed: z
 			.number()
 			.min(0)
-			.max(100000)
+			.max(2147483647)
 			.optional()
 			.describe(
 				"A random seed to prevent split points in different flags from having the same targets",
