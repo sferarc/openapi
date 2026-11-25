@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.55.0
+
+### Minor Changes
+
+- f5a3c3a: Added new enum aiGatewayVirtualModelConfigModelsEffortEnum and type AiGatewayVirtualModelConfigModelsEffortEnumKey for AI Gateway model configuration effort levels.
+- f5a3c3a: [BREAKING] Removed '14cpu-28gb' as a possible value from all *BuildMachineTypeEnum enums and added 'elastic' as a new possible value.
+
+### Patch Changes
+
+- f5a3c3a: Added additional JSDoc descriptions to various resource config types indicating support for 'elastic' buildMachineType.
+- f5a3c3a: Added 'intelligence' selector to aiGatewayVirtualModelConfigSelectorEnum and the corresponding option bag to AiGatewayVirtualModelConfig type.
+- f5a3c3a: Added optional 'autoRouterDefaultVersion', 'effort', and 'intelligence' fields to AiGatewayVirtualModelConfig type.
+
 ## 2.54.0
 
 ### Minor Changes
