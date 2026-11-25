@@ -69,8 +69,21 @@ export const aiGatewayVirtualModelConfigInferenceRegionScopeEnum = {
 export type AiGatewayVirtualModelConfigInferenceRegionScopeEnumKey =
 	(typeof aiGatewayVirtualModelConfigInferenceRegionScopeEnum)[keyof typeof aiGatewayVirtualModelConfigInferenceRegionScopeEnum];
 
+export const aiGatewayVirtualModelConfigModelsEffortEnum = {
+	high: "high",
+	low: "low",
+	medium: "medium",
+	minimal: "minimal",
+	none: "none",
+	xhigh: "xhigh",
+} as const;
+
+export type AiGatewayVirtualModelConfigModelsEffortEnumKey =
+	(typeof aiGatewayVirtualModelConfigModelsEffortEnum)[keyof typeof aiGatewayVirtualModelConfigModelsEffortEnum];
+
 export const aiGatewayVirtualModelConfigSelectorEnum = {
 	cost: "cost",
+	intelligence: "intelligence",
 	tps: "tps",
 	ttft: "ttft",
 } as const;
@@ -109,6 +122,11 @@ export type AiGatewayVirtualModelConfig = {
 	 * @type boolean | undefined
 	 */
 	allowFallbackFromFast?: (false | true) | undefined;
+	/**
+	 * @description For the team's `auto` router: the Vercel default version the team last saved against.
+	 * @type number | undefined
+	 */
+	autoRouterDefaultVersion?: number | undefined;
 	/**
 	 * @description For kind=relay: URL the gateway forwards requests to as a transparent proxy.
 	 * @type string | undefined
@@ -230,6 +248,7 @@ export type AiGatewayVirtualModelConfig = {
 		| (
 				| string
 				| {
+						effort?: AiGatewayVirtualModelConfigModelsEffortEnumKey | undefined;
 						/**
 						 * @description Highest task level the member handles, in [0, 1]. Read by the intelligence selector.
 						 * @type number | undefined
@@ -306,6 +325,11 @@ export type AiGatewayVirtualModelConfig = {
 				 * @type object | undefined
 				 */
 				cost?: AiGatewayRouterSelectorOptionBag | undefined;
+				/**
+				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
+				 * @type object | undefined
+				 */
+				intelligence?: AiGatewayRouterSelectorOptionBag | undefined;
 				/**
 				 * @description For kind=router: option slices keyed by selector name; each selector owns its slice's shape.
 				 * @type object | undefined
@@ -76299,17 +76323,6 @@ export const getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuild
 export type GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum];
 
-export const getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum];
-
 export const getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildQueueConfigurationEnum =
 	{
 		SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
@@ -76329,6 +76342,17 @@ export const getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigFunct
 
 export type GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum];
 
 export const getMicrofrontendsInGroupStatus200ProjectsDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum =
 	{
@@ -76692,17 +76716,6 @@ export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachine
 export type GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineSelectionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineSelectionEnum];
 
-export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnumKey =
-	(typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum];
-
 export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -76721,6 +76734,17 @@ export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefa
 
 export type GetMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnumKey =
+	(typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnum];
 
 export const getMicrofrontendsInGroupStatus200ProjectsSandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -77480,6 +77504,10 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					userDisabled: false | true;
 			  }
 			| undefined;
+		/**
+		 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+		 * @type object
+		 */
 		defaultResourceConfig: {
 			buildMachineElasticLastUpdated?: number | undefined;
 			buildMachineElasticReason?:
@@ -77495,9 +77523,6 @@ export type GetMicrofrontendsInGroupStatus200 = {
 			buildMachineSelection?:
 				| GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnumKey
 				| undefined;
-			buildMachineType?:
-				| GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey
-				| undefined;
 			buildQueue?:
 				| {
 						configuration?:
@@ -77505,16 +77530,6 @@ export type GetMicrofrontendsInGroupStatus200 = {
 							| undefined;
 				  }
 				| undefined;
-			elasticConcurrencyEnabled?: (false | true) | undefined;
-			enableFunctionsBeta?: (false | true) | undefined;
-			fluid?: (false | true) | undefined;
-			functionDefaultMemoryType?:
-				| GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-				| undefined;
-			functionDefaultRegions: string[];
-			functionDefaultTimeout?: number | undefined;
-			functionZeroConfigFailover?: (false | true) | undefined;
-			isNSNBDisabled?: (false | true) | undefined;
 			elasticBuildMachine?:
 				| (
 						| {
@@ -77538,6 +77553,19 @@ export type GetMicrofrontendsInGroupStatus200 = {
 								memory: 61440;
 						  }
 				  )
+				| undefined;
+			elasticConcurrencyEnabled?: (false | true) | undefined;
+			enableFunctionsBeta?: (false | true) | undefined;
+			fluid?: (false | true) | undefined;
+			functionDefaultMemoryType?:
+				| GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+				| undefined;
+			functionDefaultRegions: string[];
+			functionDefaultTimeout?: number | undefined;
+			functionZeroConfigFailover?: (false | true) | undefined;
+			isNSNBDisabled?: (false | true) | undefined;
+			buildMachineType?:
+				| GetMicrofrontendsInGroupStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey
 				| undefined;
 		};
 		/**
@@ -79971,6 +79999,10 @@ export type GetMicrofrontendsInGroupStatus200 = {
 						| undefined;
 			  }
 			| undefined;
+		/**
+		 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+		 * @type object
+		 */
 		resourceConfig: {
 			buildMachineElasticLastUpdated?: number | undefined;
 			buildMachineElasticReason?:
@@ -79986,9 +80018,6 @@ export type GetMicrofrontendsInGroupStatus200 = {
 			buildMachineSelection?:
 				| GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineSelectionEnumKey
 				| undefined;
-			buildMachineType?:
-				| GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnumKey
-				| undefined;
 			buildQueue?:
 				| {
 						configuration?:
@@ -79996,16 +80025,6 @@ export type GetMicrofrontendsInGroupStatus200 = {
 							| undefined;
 				  }
 				| undefined;
-			elasticConcurrencyEnabled?: (false | true) | undefined;
-			enableFunctionsBeta?: (false | true) | undefined;
-			fluid?: (false | true) | undefined;
-			functionDefaultMemoryType?:
-				| GetMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey
-				| undefined;
-			functionDefaultRegions: string[];
-			functionDefaultTimeout?: number | undefined;
-			functionZeroConfigFailover?: (false | true) | undefined;
-			isNSNBDisabled?: (false | true) | undefined;
 			elasticBuildMachine?:
 				| (
 						| {
@@ -80029,6 +80048,19 @@ export type GetMicrofrontendsInGroupStatus200 = {
 								memory: 61440;
 						  }
 				  )
+				| undefined;
+			elasticConcurrencyEnabled?: (false | true) | undefined;
+			enableFunctionsBeta?: (false | true) | undefined;
+			fluid?: (false | true) | undefined;
+			functionDefaultMemoryType?:
+				| GetMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey
+				| undefined;
+			functionDefaultRegions: string[];
+			functionDefaultTimeout?: number | undefined;
+			functionZeroConfigFailover?: (false | true) | undefined;
+			isNSNBDisabled?: (false | true) | undefined;
+			buildMachineType?:
+				| GetMicrofrontendsInGroupStatus200ProjectsResourceConfigBuildMachineTypeEnumKey
 				| undefined;
 		};
 		/**
@@ -86173,17 +86205,6 @@ export const getProjectsStatus200ResourceConfigBuildMachineSelectionEnum = {
 export type GetProjectsStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectsStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectsStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const getProjectsStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetProjectsStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof getProjectsStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectsStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const getProjectsStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -86201,6 +86222,17 @@ export const getProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum = {
 
 export type GetProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getProjectsStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectsStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof getProjectsStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectsStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const getProjectsStatus200SecurityFirewallRoutesHandleEnum = {
 	finalize: "finalize",
@@ -86816,17 +86848,6 @@ export const getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum
 export type GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum];
 
-export const getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnumKey =
-	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum];
-
 export const getProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -86844,6 +86865,17 @@ export const getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryType
 
 export type GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnumKey =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum];
 
 export const getProjectsStatus200ProjectsSecurityFirewallRoutesHandleEnum = {
 	finalize: "finalize",
@@ -87270,17 +87302,6 @@ export const getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelect
 export type GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnum];
 
-export const getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum];
-
 export const getProjectsStatus200ProjectsDefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -87298,6 +87319,17 @@ export const getProjectsStatus200ProjectsDefaultResourceConfigFunctionDefaultMem
 
 export type GetProjectsStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectsStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnum];
 
 export const getProjectsStatus200ProjectsDeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
 	preview: "preview",
@@ -87656,17 +87688,6 @@ export const getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum
 export type GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2Key =
 	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2];
 
-export const getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2 = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2Key =
-	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2];
-
 export const getProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum2 = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -87684,6 +87705,17 @@ export const getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryType
 
 export type GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2Key =
 	(typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2 = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2];
 
 export const getProjectsStatus200ProjectsSandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -88842,6 +88874,10 @@ export type GetProjectsStatus200 =
 						| undefined;
 					passwordProtection?: (object | null) | undefined;
 					paused?: (false | true) | undefined;
+					/**
+					 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+					 * @type object
+					 */
 					resourceConfig: {
 						buildMachineElasticLastUpdated?: number | undefined;
 						buildMachineElasticReason?:
@@ -88857,9 +88893,6 @@ export type GetProjectsStatus200 =
 						buildMachineSelection?:
 							| GetProjectsStatus200ResourceConfigBuildMachineSelectionEnumKey
 							| undefined;
-						buildMachineType?:
-							| GetProjectsStatus200ResourceConfigBuildMachineTypeEnumKey
-							| undefined;
 						buildQueue?:
 							| {
 									configuration?:
@@ -88867,16 +88900,6 @@ export type GetProjectsStatus200 =
 										| undefined;
 							  }
 							| undefined;
-						elasticConcurrencyEnabled?: (false | true) | undefined;
-						enableFunctionsBeta?: (false | true) | undefined;
-						fluid?: (false | true) | undefined;
-						functionDefaultMemoryType?:
-							| GetProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-							| undefined;
-						functionDefaultRegions: string[];
-						functionDefaultTimeout?: number | undefined;
-						functionZeroConfigFailover?: (false | true) | undefined;
-						isNSNBDisabled?: (false | true) | undefined;
 						elasticBuildMachine?:
 							| (
 									| {
@@ -88900,6 +88923,19 @@ export type GetProjectsStatus200 =
 											memory: 61440;
 									  }
 							  )
+							| undefined;
+						elasticConcurrencyEnabled?: (false | true) | undefined;
+						enableFunctionsBeta?: (false | true) | undefined;
+						fluid?: (false | true) | undefined;
+						functionDefaultMemoryType?:
+							| GetProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+							| undefined;
+						functionDefaultRegions: string[];
+						functionDefaultTimeout?: number | undefined;
+						functionZeroConfigFailover?: (false | true) | undefined;
+						isNSNBDisabled?: (false | true) | undefined;
+						buildMachineType?:
+							| GetProjectsStatus200ResourceConfigBuildMachineTypeEnumKey
 							| undefined;
 					};
 					/**
@@ -90260,6 +90296,10 @@ export type GetProjectsStatus200 =
 							| undefined;
 						passwordProtection?: (object | null) | undefined;
 						paused?: (false | true) | undefined;
+						/**
+						 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+						 * @type object
+						 */
 						resourceConfig: {
 							buildMachineElasticLastUpdated?: number | undefined;
 							buildMachineElasticReason?:
@@ -90275,9 +90315,6 @@ export type GetProjectsStatus200 =
 							buildMachineSelection?:
 								| GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnumKey
 								| undefined;
-							buildMachineType?:
-								| GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnumKey
-								| undefined;
 							buildQueue?:
 								| {
 										configuration?:
@@ -90285,16 +90322,6 @@ export type GetProjectsStatus200 =
 											| undefined;
 								  }
 								| undefined;
-							elasticConcurrencyEnabled?: (false | true) | undefined;
-							enableFunctionsBeta?: (false | true) | undefined;
-							fluid?: (false | true) | undefined;
-							functionDefaultMemoryType?:
-								| GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey
-								| undefined;
-							functionDefaultRegions: string[];
-							functionDefaultTimeout?: number | undefined;
-							functionZeroConfigFailover?: (false | true) | undefined;
-							isNSNBDisabled?: (false | true) | undefined;
 							elasticBuildMachine?:
 								| (
 										| {
@@ -90318,6 +90345,19 @@ export type GetProjectsStatus200 =
 												memory: 61440;
 										  }
 								  )
+								| undefined;
+							elasticConcurrencyEnabled?: (false | true) | undefined;
+							enableFunctionsBeta?: (false | true) | undefined;
+							fluid?: (false | true) | undefined;
+							functionDefaultMemoryType?:
+								| GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey
+								| undefined;
+							functionDefaultRegions: string[];
+							functionDefaultTimeout?: number | undefined;
+							functionZeroConfigFailover?: (false | true) | undefined;
+							isNSNBDisabled?: (false | true) | undefined;
+							buildMachineType?:
+								| GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnumKey
 								| undefined;
 						};
 						/**
@@ -91261,6 +91301,10 @@ export type GetProjectsStatus200 =
 									userDisabled: false | true;
 							  }
 							| undefined;
+						/**
+						 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+						 * @type object
+						 */
 						defaultResourceConfig: {
 							buildMachineElasticLastUpdated?: number | undefined;
 							buildMachineElasticReason?:
@@ -91276,9 +91320,6 @@ export type GetProjectsStatus200 =
 							buildMachineSelection?:
 								| GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineSelectionEnumKey
 								| undefined;
-							buildMachineType?:
-								| GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey
-								| undefined;
 							buildQueue?:
 								| {
 										configuration?:
@@ -91286,16 +91327,6 @@ export type GetProjectsStatus200 =
 											| undefined;
 								  }
 								| undefined;
-							elasticConcurrencyEnabled?: (false | true) | undefined;
-							enableFunctionsBeta?: (false | true) | undefined;
-							fluid?: (false | true) | undefined;
-							functionDefaultMemoryType?:
-								| GetProjectsStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-								| undefined;
-							functionDefaultRegions: string[];
-							functionDefaultTimeout?: number | undefined;
-							functionZeroConfigFailover?: (false | true) | undefined;
-							isNSNBDisabled?: (false | true) | undefined;
 							elasticBuildMachine?:
 								| (
 										| {
@@ -91319,6 +91350,19 @@ export type GetProjectsStatus200 =
 												memory: 61440;
 										  }
 								  )
+								| undefined;
+							elasticConcurrencyEnabled?: (false | true) | undefined;
+							enableFunctionsBeta?: (false | true) | undefined;
+							fluid?: (false | true) | undefined;
+							functionDefaultMemoryType?:
+								| GetProjectsStatus200ProjectsDefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+								| undefined;
+							functionDefaultRegions: string[];
+							functionDefaultTimeout?: number | undefined;
+							functionZeroConfigFailover?: (false | true) | undefined;
+							isNSNBDisabled?: (false | true) | undefined;
+							buildMachineType?:
+								| GetProjectsStatus200ProjectsDefaultResourceConfigBuildMachineTypeEnumKey
 								| undefined;
 						};
 						/**
@@ -93749,6 +93793,10 @@ export type GetProjectsStatus200 =
 										| undefined;
 							  }
 							| undefined;
+						/**
+						 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+						 * @type object
+						 */
 						resourceConfig: {
 							buildMachineElasticLastUpdated?: number | undefined;
 							buildMachineElasticReason?:
@@ -93764,9 +93812,6 @@ export type GetProjectsStatus200 =
 							buildMachineSelection?:
 								| GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2Key
 								| undefined;
-							buildMachineType?:
-								| GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2Key
-								| undefined;
 							buildQueue?:
 								| {
 										configuration?:
@@ -93774,16 +93819,6 @@ export type GetProjectsStatus200 =
 											| undefined;
 								  }
 								| undefined;
-							elasticConcurrencyEnabled?: (false | true) | undefined;
-							enableFunctionsBeta?: (false | true) | undefined;
-							fluid?: (false | true) | undefined;
-							functionDefaultMemoryType?:
-								| GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2Key
-								| undefined;
-							functionDefaultRegions: string[];
-							functionDefaultTimeout?: number | undefined;
-							functionZeroConfigFailover?: (false | true) | undefined;
-							isNSNBDisabled?: (false | true) | undefined;
 							elasticBuildMachine?:
 								| (
 										| {
@@ -93807,6 +93842,19 @@ export type GetProjectsStatus200 =
 												memory: 61440;
 										  }
 								  )
+								| undefined;
+							elasticConcurrencyEnabled?: (false | true) | undefined;
+							enableFunctionsBeta?: (false | true) | undefined;
+							fluid?: (false | true) | undefined;
+							functionDefaultMemoryType?:
+								| GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2Key
+								| undefined;
+							functionDefaultRegions: string[];
+							functionDefaultTimeout?: number | undefined;
+							functionZeroConfigFailover?: (false | true) | undefined;
+							isNSNBDisabled?: (false | true) | undefined;
+							buildMachineType?:
+								| GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2Key
 								| undefined;
 						};
 						/**
@@ -94724,17 +94772,6 @@ export const createProjectStatus200DefaultResourceConfigBuildMachineSelectionEnu
 export type CreateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof createProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof createProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
-export const createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type CreateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum];
-
 export const createProjectStatus200DefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -94752,6 +94789,17 @@ export const createProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTyp
 
 export type CreateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof createProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof createProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type CreateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof createProjectStatus200DefaultResourceConfigBuildMachineTypeEnum];
 
 export const createProjectStatus200DeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
 	preview: "preview",
@@ -95109,17 +95157,6 @@ export const createProjectStatus200ResourceConfigBuildMachineSelectionEnum = {
 export type CreateProjectStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof createProjectStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof createProjectStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const createProjectStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type CreateProjectStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof createProjectStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof createProjectStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const createProjectStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -95137,6 +95174,17 @@ export const createProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum =
 
 export type CreateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof createProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof createProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const createProjectStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type CreateProjectStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof createProjectStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof createProjectStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const createProjectStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -95877,6 +95925,10 @@ export type CreateProjectStatus200 = {
 				userDisabled: false | true;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	defaultResourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -95892,9 +95944,6 @@ export type CreateProjectStatus200 = {
 		buildMachineSelection?:
 			| CreateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| CreateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -95902,16 +95951,6 @@ export type CreateProjectStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| CreateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -95935,6 +95974,19 @@ export type CreateProjectStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| CreateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| CreateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -98353,6 +98405,10 @@ export type CreateProjectStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	resourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -98368,7 +98424,6 @@ export type CreateProjectStatus200 = {
 		buildMachineSelection?:
 			| CreateProjectStatus200ResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?: CreateProjectStatus200ResourceConfigBuildMachineTypeEnumKey | undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -98376,16 +98431,6 @@ export type CreateProjectStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| CreateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -98410,6 +98455,17 @@ export type CreateProjectStatus200 = {
 					  }
 			  )
 			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| CreateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?: CreateProjectStatus200ResourceConfigBuildMachineTypeEnumKey | undefined;
 	};
 	/**
 	 * @description Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
@@ -99905,17 +99961,6 @@ export const getProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum =
 export type GetProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
-export const getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum];
-
 export const getProjectStatus200DefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -99933,6 +99978,17 @@ export const getProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEn
 
 export type GetProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectStatus200DefaultResourceConfigBuildMachineTypeEnum];
 
 export const getProjectStatus200DeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
 	preview: "preview",
@@ -100290,17 +100346,6 @@ export const getProjectStatus200ResourceConfigBuildMachineSelectionEnum = {
 export type GetProjectStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof getProjectStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof getProjectStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const getProjectStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type GetProjectStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof getProjectStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const getProjectStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -100318,6 +100363,17 @@ export const getProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum = {
 
 export type GetProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const getProjectStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof getProjectStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof getProjectStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const getProjectStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -101057,6 +101113,10 @@ export type GetProjectStatus200 = {
 				userDisabled: false | true;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	defaultResourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -101072,7 +101132,6 @@ export type GetProjectStatus200 = {
 		buildMachineSelection?:
 			| GetProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?: GetProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey | undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -101080,16 +101139,6 @@ export type GetProjectStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| GetProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -101114,6 +101163,17 @@ export type GetProjectStatus200 = {
 					  }
 			  )
 			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| GetProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?: GetProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey | undefined;
 	};
 	/**
 	 * @description Retention policies for deployments. These are enforced at the project level, but we also maintain an instance of this at the team level as a default policy that gets applied to new projects.
@@ -103548,6 +103608,10 @@ export type GetProjectStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	resourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -103563,7 +103627,6 @@ export type GetProjectStatus200 = {
 		buildMachineSelection?:
 			| GetProjectStatus200ResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?: GetProjectStatus200ResourceConfigBuildMachineTypeEnumKey | undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -103571,16 +103634,6 @@ export type GetProjectStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| GetProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -103605,6 +103658,17 @@ export type GetProjectStatus200 = {
 					  }
 			  )
 			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| GetProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?: GetProjectStatus200ResourceConfigBuildMachineTypeEnumKey | undefined;
 	};
 	/**
 	 * @description Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
@@ -104407,17 +104471,6 @@ export const updateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnu
 export type UpdateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof updateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof updateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
-export const updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type UpdateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum];
-
 export const updateProjectStatus200DefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -104435,6 +104488,17 @@ export const updateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTyp
 
 export type UpdateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof updateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UpdateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof updateProjectStatus200DefaultResourceConfigBuildMachineTypeEnum];
 
 export const updateProjectStatus200DeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
 	preview: "preview",
@@ -104783,17 +104847,6 @@ export const updateProjectStatus200ResourceConfigBuildMachineSelectionEnum = {
 export type UpdateProjectStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof updateProjectStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof updateProjectStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const updateProjectStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type UpdateProjectStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof updateProjectStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof updateProjectStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const updateProjectStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -104811,6 +104864,17 @@ export const updateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum =
 
 export type UpdateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof updateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const updateProjectStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UpdateProjectStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof updateProjectStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof updateProjectStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const updateProjectStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -105551,6 +105615,10 @@ export type UpdateProjectStatus200 = {
 				userDisabled: false | true;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	defaultResourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -105566,9 +105634,6 @@ export type UpdateProjectStatus200 = {
 		buildMachineSelection?:
 			| UpdateProjectStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| UpdateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -105576,16 +105641,6 @@ export type UpdateProjectStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| UpdateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -105609,6 +105664,19 @@ export type UpdateProjectStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| UpdateProjectStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| UpdateProjectStatus200DefaultResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -108025,6 +108093,10 @@ export type UpdateProjectStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	resourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -108040,7 +108112,6 @@ export type UpdateProjectStatus200 = {
 		buildMachineSelection?:
 			| UpdateProjectStatus200ResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?: UpdateProjectStatus200ResourceConfigBuildMachineTypeEnumKey | undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -108048,16 +108119,6 @@ export type UpdateProjectStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| UpdateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -108082,6 +108143,17 @@ export type UpdateProjectStatus200 = {
 					  }
 			  )
 			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| UpdateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?: UpdateProjectStatus200ResourceConfigBuildMachineTypeEnumKey | undefined;
 	};
 	/**
 	 * @description Description of why a project was rolled back, and by whom. Note that lastAliasRequest contains the from/to details of the rollback.
@@ -109937,17 +110009,6 @@ export const uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelect
 export type UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
-export const uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum];
-
 export const uploadProjectAvatarStatus200DefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -109965,6 +110026,17 @@ export const uploadProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMem
 
 export type UploadProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof uploadProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof uploadProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof uploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum];
 
 export const uploadProjectAvatarStatus200DeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
 	preview: "preview",
@@ -110323,17 +110395,6 @@ export const uploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum
 export type UploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type UploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const uploadProjectAvatarStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -110351,6 +110412,17 @@ export const uploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryType
 
 export type UploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof uploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof uploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof uploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const uploadProjectAvatarStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -111095,6 +111167,10 @@ export type UploadProjectAvatarStatus200 = {
 				userDisabled: false | true;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	defaultResourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -111110,9 +111186,6 @@ export type UploadProjectAvatarStatus200 = {
 		buildMachineSelection?:
 			| UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -111120,16 +111193,6 @@ export type UploadProjectAvatarStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| UploadProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -111153,6 +111216,19 @@ export type UploadProjectAvatarStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| UploadProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| UploadProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -113576,6 +113652,10 @@ export type UploadProjectAvatarStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	resourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -113591,9 +113671,6 @@ export type UploadProjectAvatarStatus200 = {
 		buildMachineSelection?:
 			| UploadProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| UploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -113601,16 +113678,6 @@ export type UploadProjectAvatarStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| UploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -113634,6 +113701,19 @@ export type UploadProjectAvatarStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| UploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| UploadProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -114452,17 +114532,6 @@ export const deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelect
 export type DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
-export const deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum];
-
 export const deleteProjectAvatarStatus200DefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -114480,6 +114549,17 @@ export const deleteProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMem
 
 export type DeleteProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof deleteProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof deleteProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof deleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnum];
 
 export const deleteProjectAvatarStatus200DeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum = {
 	preview: "preview",
@@ -114838,17 +114918,6 @@ export const deleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum
 export type DeleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type DeleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const deleteProjectAvatarStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -114866,6 +114935,17 @@ export const deleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryType
 
 export type DeleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof deleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof deleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type DeleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof deleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const deleteProjectAvatarStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -115610,6 +115690,10 @@ export type DeleteProjectAvatarStatus200 = {
 				userDisabled: false | true;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	defaultResourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -115625,9 +115709,6 @@ export type DeleteProjectAvatarStatus200 = {
 		buildMachineSelection?:
 			| DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -115635,16 +115716,6 @@ export type DeleteProjectAvatarStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| DeleteProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -115668,6 +115739,19 @@ export type DeleteProjectAvatarStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| DeleteProjectAvatarStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| DeleteProjectAvatarStatus200DefaultResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -118091,6 +118175,10 @@ export type DeleteProjectAvatarStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	resourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -118106,9 +118194,6 @@ export type DeleteProjectAvatarStatus200 = {
 		buildMachineSelection?:
 			| DeleteProjectAvatarStatus200ResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| DeleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -118116,16 +118201,6 @@ export type DeleteProjectAvatarStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| DeleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -118149,6 +118224,19 @@ export type DeleteProjectAvatarStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| DeleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| DeleteProjectAvatarStatus200ResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -126290,17 +126378,6 @@ export const updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelec
 export type UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelectionEnumKey =
 	(typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelectionEnum)[keyof typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelectionEnum];
 
-export const updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
-	(typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum];
-
 export const updateMicrofrontendsStatus200DefaultResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -126318,6 +126395,17 @@ export const updateMicrofrontendsStatus200DefaultResourceConfigFunctionDefaultMe
 
 export type UpdateMicrofrontendsStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof updateMicrofrontendsStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateMicrofrontendsStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnumKey =
+	(typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum)[keyof typeof updateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnum];
 
 export const updateMicrofrontendsStatus200DeploymentPolicyDeploymentSourcesEnvironmentsTargetEnum =
 	{
@@ -126677,17 +126765,6 @@ export const updateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnu
 export type UpdateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnumKey =
 	(typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnum)[keyof typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnum];
 
-export const updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum = {
-	"14cpu-28gb": "14cpu-28gb",
-	basic: "basic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
-} as const;
-
-export type UpdateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnumKey =
-	(typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum];
-
 export const updateMicrofrontendsStatus200ResourceConfigBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
 	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
@@ -126705,6 +126782,17 @@ export const updateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTyp
 
 export type UpdateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof updateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
+
+export const updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UpdateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnumKey =
+	(typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum)[keyof typeof updateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnum];
 
 export const updateMicrofrontendsStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -127449,6 +127537,10 @@ export type UpdateMicrofrontendsStatus200 = {
 				userDisabled: false | true;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	defaultResourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -127464,9 +127556,6 @@ export type UpdateMicrofrontendsStatus200 = {
 		buildMachineSelection?:
 			| UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -127474,16 +127563,6 @@ export type UpdateMicrofrontendsStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| UpdateMicrofrontendsStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -127507,6 +127586,19 @@ export type UpdateMicrofrontendsStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| UpdateMicrofrontendsStatus200DefaultResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| UpdateMicrofrontendsStatus200DefaultResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
@@ -129930,6 +130022,10 @@ export type UpdateMicrofrontendsStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description Project resource config returned by the API. `buildMachineType` is a fixed machine type or `elastic`; the active Elastic machine is reported through `elasticBuildMachine`.
+	 * @type object
+	 */
 	resourceConfig: {
 		buildMachineElasticLastUpdated?: number | undefined;
 		buildMachineElasticReason?:
@@ -129945,9 +130041,6 @@ export type UpdateMicrofrontendsStatus200 = {
 		buildMachineSelection?:
 			| UpdateMicrofrontendsStatus200ResourceConfigBuildMachineSelectionEnumKey
 			| undefined;
-		buildMachineType?:
-			| UpdateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnumKey
-			| undefined;
 		buildQueue?:
 			| {
 					configuration?:
@@ -129955,16 +130048,6 @@ export type UpdateMicrofrontendsStatus200 = {
 						| undefined;
 			  }
 			| undefined;
-		elasticConcurrencyEnabled?: (false | true) | undefined;
-		enableFunctionsBeta?: (false | true) | undefined;
-		fluid?: (false | true) | undefined;
-		functionDefaultMemoryType?:
-			| UpdateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
-			| undefined;
-		functionDefaultRegions: string[];
-		functionDefaultTimeout?: number | undefined;
-		functionZeroConfigFailover?: (false | true) | undefined;
-		isNSNBDisabled?: (false | true) | undefined;
 		elasticBuildMachine?:
 			| (
 					| {
@@ -129988,6 +130071,19 @@ export type UpdateMicrofrontendsStatus200 = {
 							memory: 61440;
 					  }
 			  )
+			| undefined;
+		elasticConcurrencyEnabled?: (false | true) | undefined;
+		enableFunctionsBeta?: (false | true) | undefined;
+		fluid?: (false | true) | undefined;
+		functionDefaultMemoryType?:
+			| UpdateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey
+			| undefined;
+		functionDefaultRegions: string[];
+		functionDefaultTimeout?: number | undefined;
+		functionZeroConfigFailover?: (false | true) | undefined;
+		isNSNBDisabled?: (false | true) | undefined;
+		buildMachineType?:
+			| UpdateMicrofrontendsStatus200ResourceConfigBuildMachineTypeEnumKey
 			| undefined;
 	};
 	/**
