@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the LiteLLM API 1.110.3 OpenAPI spec; do not edit. 900 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the LiteLLM API 1.111.0 OpenAPI spec; do not edit. 940 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## modelManagement
 
@@ -644,6 +644,11 @@ Generated from the LiteLLM API 1.110.3 OpenAPI spec; do not edit. 900 operations
 | `client.api.customerManagement.deleteEndUserCustomerDeletePost` | `POST /customer/delete` | Delete End User |
 | `client.api.customerManagement.listEndUserCustomerListGet` | `GET /customer/list` | List End User |
 | `client.api.customerManagement.getCustomerDailyActivityCustomerDailyActivityGet` | `GET /customer/daily/activity` | Get Customer Daily Activity |
+| `client.api.customerManagement.listBudgetIncreaseRequestsManagementV1CustomerBudgetIncreaseRequestsGet` | `GET /management/v1/customer_budget_increase_requests` | List Budget Increase Requests |
+| `client.api.customerManagement.requestBudgetIncreaseManagementV1CustomerBudgetIncreaseRequestsPost` | `POST /management/v1/customer_budget_increase_requests` | Request Budget Increase |
+| `client.api.customerManagement.getBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdGet` | `GET /management/v1/customer_budget_increase_requests/{request_id}` | Get Budget Increase Request |
+| `client.api.customerManagement.approveBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdApprovePut` | `PUT /management/v1/customer_budget_increase_requests/{request_id}/approve` | Approve Budget Increase Request |
+| `client.api.customerManagement.rejectBudgetIncreaseRequestManagementV1CustomerBudgetIncreaseRequestsRequestIdRejectPut` | `PUT /management/v1/customer_budget_increase_requests/{request_id}/reject` | Reject Budget Increase Request |
 
 ## agentManagement
 
@@ -672,12 +677,48 @@ Generated from the LiteLLM API 1.110.3 OpenAPI spec; do not edit. 900 operations
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.budgetManagement.listBudgetsManagementV1BudgetsGet` | `GET /management/v1/budgets` | List Budgets |
-| `client.api.budgetManagement.newBudgetBudgetNewPost` | `POST /budget/new` | New Budget |
-| `client.api.budgetManagement.updateBudgetBudgetUpdatePost` | `POST /budget/update` | Update Budget |
+| `client.api.budgetManagement.newBudgetBudgetNewPost` | `POST /budget/new` | New Budget Endpoint |
+| `client.api.budgetManagement.updateBudgetBudgetUpdatePost` | `POST /budget/update` | Update Budget Endpoint |
 | `client.api.budgetManagement.infoBudgetBudgetInfoPost` | `POST /budget/info` | Info Budget |
 | `client.api.budgetManagement.budgetSettingsBudgetSettingsGet` | `GET /budget/settings` | Budget Settings |
 | `client.api.budgetManagement.listBudgetBudgetListGet` | `GET /budget/list` | List Budget |
 | `client.api.budgetManagement.deleteBudgetBudgetDeletePost` | `POST /budget/delete` | Delete Budget |
+
+## customerHierarchy
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.customerHierarchy.getCustomerPortalLimitsManagementV1CustomerPortalLimitsGet` | `GET /management/v1/customer_portal/limits` | Get Customer Management Limits |
+| `client.api.customerHierarchy.listCustomerOrganizationsManagementV1CustomerOrganizationsGet` | `GET /management/v1/customer_organizations` | List Customer Organizations |
+| `client.api.customerHierarchy.createCustomerOrganizationManagementV1CustomerOrganizationsPost` | `POST /management/v1/customer_organizations` | Create Customer Organization |
+| `client.api.customerHierarchy.upsertCustomerOrganizationManagementV1CustomerOrganizationsUpsertPost` | `POST /management/v1/customer_organizations/upsert` | Upsert Customer Organization |
+| `client.api.customerHierarchy.getCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdGet` | `GET /management/v1/customer_organizations/{customer_org_id}` | Get Customer Organization |
+| `client.api.customerHierarchy.updateCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdPatch` | `PATCH /management/v1/customer_organizations/{customer_org_id}` | Update Customer Organization |
+| `client.api.customerHierarchy.deleteCustomerOrganizationManagementV1CustomerOrganizationsCustomerOrgIdDelete` | `DELETE /management/v1/customer_organizations/{customer_org_id}` | Delete Customer Organization |
+| `client.api.customerHierarchy.listCustomerTeamsManagementV1CustomerTeamsGet` | `GET /management/v1/customer_teams` | List Customer Teams |
+| `client.api.customerHierarchy.createCustomerTeamManagementV1CustomerTeamsPost` | `POST /management/v1/customer_teams` | Create Customer Team |
+| `client.api.customerHierarchy.getCustomerTeamManagementV1CustomerTeamsCustomerTeamIdGet` | `GET /management/v1/customer_teams/{customer_team_id}` | Get Customer Team |
+| `client.api.customerHierarchy.updateCustomerTeamManagementV1CustomerTeamsCustomerTeamIdPatch` | `PATCH /management/v1/customer_teams/{customer_team_id}` | Update Customer Team |
+| `client.api.customerHierarchy.deleteCustomerTeamManagementV1CustomerTeamsCustomerTeamIdDelete` | `DELETE /management/v1/customer_teams/{customer_team_id}` | Delete Customer Team |
+| `client.api.customerHierarchy.listCustomerMembersManagementV1CustomerMembersGet` | `GET /management/v1/customer_members` | List Customer Members |
+| `client.api.customerHierarchy.createCustomerMemberManagementV1CustomerMembersPost` | `POST /management/v1/customer_members` | Create Customer Member |
+| `client.api.customerHierarchy.upsertCustomerMemberManagementV1CustomerMembersUpsertPost` | `POST /management/v1/customer_members/upsert` | Upsert Customer Member |
+| `client.api.customerHierarchy.getCustomerMemberManagementV1CustomerMembersCustomerMemberIdGet` | `GET /management/v1/customer_members/{customer_member_id}` | Get Customer Member |
+| `client.api.customerHierarchy.updateCustomerMemberManagementV1CustomerMembersCustomerMemberIdPatch` | `PATCH /management/v1/customer_members/{customer_member_id}` | Update Customer Member |
+| `client.api.customerHierarchy.deleteCustomerMemberManagementV1CustomerMembersCustomerMemberIdDelete` | `DELETE /management/v1/customer_members/{customer_member_id}` | Delete Customer Member |
+| `client.api.customerHierarchy.addCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPost` | `POST /management/v1/customer_organizations/{customer_org_id}/default_budgets` | Add Customer Budget Template |
+| `client.api.customerHierarchy.configureCustomerBudgetGroupsManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsPatch` | `PATCH /management/v1/customer_organizations/{customer_org_id}/default_budgets` | Configure Customer Budget Groups |
+| `client.api.customerHierarchy.updateCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdPatch` | `PATCH /management/v1/customer_organizations/{customer_org_id}/default_budgets/{budget_id}` | Update Customer Budget Template |
+| `client.api.customerHierarchy.deleteCustomerBudgetTemplateManagementV1CustomerOrganizationsCustomerOrgIdDefaultBudgetsBudgetIdDelete` | `DELETE /management/v1/customer_organizations/{customer_org_id}/default_budgets/{budget_id}` | Delete Customer Budget Template |
+
+## customerUsage
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.customerUsage.customerOrganizationDailyActivityAggregatedManagementV1CustomerOrganizationsDailyActivityAggregatedGet` | `GET /management/v1/customer_organizations/daily/activity/aggregated` | Customer Organization Daily Activity Aggregated |
+| `client.api.customerUsage.customerOrganizationDailyActivityManagementV1CustomerOrganizationsDailyActivityGet` | `GET /management/v1/customer_organizations/daily/activity` | Customer Organization Daily Activity |
+| `client.api.customerUsage.customerTeamDailyActivityManagementV1CustomerTeamsDailyActivityGet` | `GET /management/v1/customer_teams/daily/activity` | Customer Team Daily Activity |
+| `client.api.customerUsage.customerMemberDailyActivityManagementV1CustomerMembersDailyActivityGet` | `GET /management/v1/customer_members/daily/activity` | Customer Member Daily Activity |
 
 ## caching
 
@@ -854,6 +895,16 @@ Generated from the LiteLLM API 1.110.3 OpenAPI spec; do not edit. 900 operations
 | `client.api.alerting.getDeprecationAlertStateAlertingModelDeprecationsStateGet` | `GET /alerting/model-deprecations/state` | Get Deprecation Alert State |
 | `client.api.alerting.updateDeprecationAlertStateAlertingModelDeprecationsStatePut` | `PUT /alerting/model-deprecations/state` | Update Deprecation Alert State |
 | `client.api.alerting.getDeprecationUsageTagsAlertingModelDeprecationsTagsGet` | `GET /alerting/model-deprecations/tags` | Get Deprecation Usage Tags |
+
+## alerts
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.alerts.listAlertsAlertsGet` | `GET /alerts` | List saved alerts |
+| `client.api.alerts.getMonitoringAlertsMonitoringGet` | `GET /alerts/monitoring` | Read alert monitoring settings |
+| `client.api.alerts.updateMonitoringAlertsMonitoringPatch` | `PATCH /alerts/monitoring` | Enable or disable alert monitoring |
+| `client.api.alerts.getAlertAlertsAlertIdGet` | `GET /alerts/{alert_id}` | Read an alert |
+| `client.api.alerts.updateAlertAlertsAlertIdPatch` | `PATCH /alerts/{alert_id}` | Change an alert's status |
 
 ## coordinationRedisSettings
 
@@ -1336,14 +1387,18 @@ Generated from the LiteLLM API 1.110.3 OpenAPI spec; do not edit. 900 operations
 | `client.api.skillHub.listSkillVersionsSkillHubSkillsNameVersionsGet` | `GET /skill-hub/skills/{name}/versions` | List Skill Versions |
 | `client.api.skillHub.getSkillVersionSkillHubSkillsNameVersionsVersionIdGet` | `GET /skill-hub/skills/{name}/versions/{version_id}` | Get Skill Version |
 | `client.api.skillHub.downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet` | `GET /skill-hub/skills/{name}/versions/{version_id}/archive` | Download Skill Version |
+| `client.api.skillHub.restoreSkillVersionSkillHubSkillsNameVersionsVersionIdRestorePost` | `POST /skill-hub/skills/{name}/versions/{version_id}/restore` | Restore Skill Version |
 | `client.api.skillHub.getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet` | `GET /skill-hub/skills/{plugin_name}/downloads` | Get Plugin Downloads |
 | `client.api.skillHub.listSubmissionsSkillHubSubmissionsGet` | `GET /skill-hub/submissions` | List Submissions |
 | `client.api.skillHub.getSubmissionSkillHubSubmissionsSubmissionIdGet` | `GET /skill-hub/submissions/{submission_id}` | Get Submission |
+| `client.api.skillHub.editSubmissionSkillHubSubmissionsSubmissionIdPut` | `PUT /skill-hub/submissions/{submission_id}` | Edit Submission |
 | `client.api.skillHub.approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut` | `PUT /skill-hub/submissions/{submission_id}/approve` | Approve Submission |
 | `client.api.skillHub.downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet` | `GET /skill-hub/submissions/{submission_id}/archive` | Download Submission |
 | `client.api.skillHub.rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut` | `PUT /skill-hub/submissions/{submission_id}/reject` | Reject Submission |
 | `client.api.skillHub.getSkillScanSkillHubSubmissionsSubmissionIdScanGet` | `GET /skill-hub/submissions/{submission_id}/scan` | Get Skill Scan |
 | `client.api.skillHub.startSkillScanSkillHubSubmissionsSubmissionIdScanPost` | `POST /skill-hub/submissions/{submission_id}/scan` | Start Skill Scan |
+| `client.api.skillHub.editSubmissionArchiveSkillHubSubmissionsSubmissionIdUploadPut` | `PUT /skill-hub/submissions/{submission_id}/upload` | Edit Submission Archive |
+| `client.api.skillHub.withdrawSubmissionSkillHubSubmissionsSubmissionIdWithdrawPut` | `PUT /skill-hub/submissions/{submission_id}/withdraw` | Withdraw Submission |
 
 ## scim
 
