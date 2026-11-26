@@ -1,5 +1,25 @@
 # vercel-api-js
 
+## 2.56.0
+
+### Minor Changes
+
+- 7136b9c: The values for userEventPayloadActionEnum3 have been changed from 'added' and 'rotated' to 'created' and 'updated'.
+- 5a60a95: [BREAKING] Removed multiple 'pricingPlan' and 'webhookNotified' fields typed with the BudgetPricingPlan-related enum keys from UserEvent.
+- 7136b9c: [BREAKING] Several userEventPayloadActionEnum types have been renamed or replaced, affecting the associated type keys (e.g., userEventPayloadActionEnum5 -> userEventPayloadActionEnum6).
+- 7136b9c: The UserEvent type now includes additional fields: id, name, projectId, projectName, and slug.
+- 7136b9c: New enum values were added for userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum to include flags-layer-created, flags-layer-deleted, and flags-layer-updated.
+- 7136b9c: A new userEventPayloadActionEnum4 and key type were added, supporting 'added', 'deleted', and 'rotated' values.
+- 7136b9c: The AuthUser type now includes four new optional properties for messageboard-related platform resource limits.
+- 5a60a95: [BREAKING] Removed the BudgetPricingPlan-related enums and their associated types from exports.
+
+### Patch Changes
+
+- 5a60a95: Added 'read:vercel-ci' to userEventPayloadPermissionsEnum and related enums.
+- 7136b9c: The deleteEdgeConfigTokens operation is now deprecated in favor of GET /v1/global-config/:edgeConfigId/token with the x-vercel-global-config-token header.
+- 7136b9c: Descriptions for several billing and invoice operations were updated to remove authorization details from the documentation.
+- 7136b9c: The possible maximum value for CreateFlagBody and UpdateFlagBody was increased from 100,000 to 2,147,483,647.
+
 ## 2.55.0
 
 ### Minor Changes
