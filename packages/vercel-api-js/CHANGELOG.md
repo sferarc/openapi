@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.57.0
+
+### Minor Changes
+
+- 77034a2: [BREAKING] Updated types referencing the changed enums to use new enum names and key types across multiple API response and body types (e.g., UpdateFlagBody.type now uses TypeEnum73Key instead of TypeEnum77Key).
+- 77034a2: [BREAKING] Renamed several exported enum constants and their associated key types (e.g., from typeEnum10 to typeEnum9 and TypeEnum10Key to TypeEnum9Key).
+
 ## 2.56.0
 
 ### Minor Changes
