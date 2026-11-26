@@ -5722,6 +5722,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read:team": "read:team",
 	"read:user": "read:user",
 	"read:vcr": "read:vcr",
+	"read:vercel-ci": "read:vercel-ci",
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
@@ -5828,6 +5829,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read:team": "read:team",
 	"read:user": "read:user",
 	"read:vcr": "read:vcr",
+	"read:vercel-ci": "read:vercel-ci",
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
@@ -5931,6 +5933,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read:speed-insights": "read:speed-insights",
 	"read:team": "read:team",
 	"read:vcr": "read:vcr",
+	"read:vercel-ci": "read:vercel-ci",
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
@@ -6023,6 +6026,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read:speed-insights": "read:speed-insights",
 	"read:team": "read:team",
 	"read:vcr": "read:vcr",
+	"read:vercel-ci": "read:vercel-ci",
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
@@ -6115,6 +6119,7 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read:speed-insights": "read:speed-insights",
 	"read:team": "read:team",
 	"read:vcr": "read:vcr",
+	"read:vercel-ci": "read:vercel-ci",
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
@@ -7584,17 +7589,6 @@ export const userEventPayloadFactorsOriginEnum4 = {
 export type UserEventPayloadFactorsOriginEnum4Key =
 	(typeof userEventPayloadFactorsOriginEnum4)[keyof typeof userEventPayloadFactorsOriginEnum4];
 
-export const userEventPayloadBudgetBudgetItemPricingPlanEnum = {
-	flex: "flex",
-	legacy: "legacy",
-	platform: "platform",
-	plus: "plus",
-	unbundled: "unbundled",
-} as const;
-
-export type UserEventPayloadBudgetBudgetItemPricingPlanEnumKey =
-	(typeof userEventPayloadBudgetBudgetItemPricingPlanEnum)[keyof typeof userEventPayloadBudgetBudgetItemPricingPlanEnum];
-
 export const userEventPayloadBudgetBudgetItemScopeEnum = {
 	organization: "organization",
 	product: "product",
@@ -7604,17 +7598,6 @@ export const userEventPayloadBudgetBudgetItemScopeEnum = {
 
 export type UserEventPayloadBudgetBudgetItemScopeEnumKey =
 	(typeof userEventPayloadBudgetBudgetItemScopeEnum)[keyof typeof userEventPayloadBudgetBudgetItemScopeEnum];
-
-export const userEventPayloadBudgetPricingPlanEnum = {
-	flex: "flex",
-	legacy: "legacy",
-	platform: "platform",
-	plus: "plus",
-	unbundled: "unbundled",
-} as const;
-
-export type UserEventPayloadBudgetPricingPlanEnumKey =
-	(typeof userEventPayloadBudgetPricingPlanEnum)[keyof typeof userEventPayloadBudgetPricingPlanEnum];
 
 export const userEventPayloadBudgetScopeEnum2 = {
 	organization: "organization",
@@ -7626,17 +7609,6 @@ export const userEventPayloadBudgetScopeEnum2 = {
 export type UserEventPayloadBudgetScopeEnum2Key =
 	(typeof userEventPayloadBudgetScopeEnum2)[keyof typeof userEventPayloadBudgetScopeEnum2];
 
-export const userEventPayloadBudgetPricingPlanEnum2 = {
-	flex: "flex",
-	legacy: "legacy",
-	platform: "platform",
-	plus: "plus",
-	unbundled: "unbundled",
-} as const;
-
-export type UserEventPayloadBudgetPricingPlanEnum2Key =
-	(typeof userEventPayloadBudgetPricingPlanEnum2)[keyof typeof userEventPayloadBudgetPricingPlanEnum2];
-
 export const userEventPayloadBudgetScopeEnum3 = {
 	organization: "organization",
 	product: "product",
@@ -7647,17 +7619,6 @@ export const userEventPayloadBudgetScopeEnum3 = {
 export type UserEventPayloadBudgetScopeEnum3Key =
 	(typeof userEventPayloadBudgetScopeEnum3)[keyof typeof userEventPayloadBudgetScopeEnum3];
 
-export const userEventPayloadBudgetPricingPlanEnum3 = {
-	flex: "flex",
-	legacy: "legacy",
-	platform: "platform",
-	plus: "plus",
-	unbundled: "unbundled",
-} as const;
-
-export type UserEventPayloadBudgetPricingPlanEnum3Key =
-	(typeof userEventPayloadBudgetPricingPlanEnum3)[keyof typeof userEventPayloadBudgetPricingPlanEnum3];
-
 export const userEventPayloadBudgetScopeEnum4 = {
 	organization: "organization",
 	product: "product",
@@ -7667,17 +7628,6 @@ export const userEventPayloadBudgetScopeEnum4 = {
 
 export type UserEventPayloadBudgetScopeEnum4Key =
 	(typeof userEventPayloadBudgetScopeEnum4)[keyof typeof userEventPayloadBudgetScopeEnum4];
-
-export const userEventPayloadPrevBudgetPricingPlanEnum = {
-	flex: "flex",
-	legacy: "legacy",
-	platform: "platform",
-	plus: "plus",
-	unbundled: "unbundled",
-} as const;
-
-export type UserEventPayloadPrevBudgetPricingPlanEnumKey =
-	(typeof userEventPayloadPrevBudgetPricingPlanEnum)[keyof typeof userEventPayloadPrevBudgetPricingPlanEnum];
 
 export const userEventPayloadPrevBudgetScopeEnum = {
 	organization: "organization",
@@ -14995,26 +14945,13 @@ export type UserEvent = {
 								 * @type boolean
 								 */
 								isActive: false | true;
-								/**
-								 * @description Array of 50, 75, 100 to keep track of notifications sent out
-								 * @type array
-								 */
 								notifiedAt: number[];
 								/**
 								 * @description Should all projects be paused if budget is exceeded
 								 * @type boolean | undefined
 								 */
 								pauseProjects?: (false | true) | undefined;
-								/**
-								 * @description Array of the last 3 months of spend data
-								 * @type array
-								 */
 								previousSpend: number[];
-								/**
-								 * @description The acive pricing plan the team is billed with
-								 * @type string | undefined
-								 */
-								pricingPlan?: UserEventPayloadBudgetBudgetItemPricingPlanEnumKey | undefined;
 								/**
 								 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 								 * @type string | undefined
@@ -15030,10 +14967,6 @@ export type UserEvent = {
 								 * @type string
 								 */
 								teamId: string;
-								/**
-								 * @description The budget type
-								 * @type string
-								 */
 								type: "fixed";
 								/**
 								 * @description Date time when budget is updated last
@@ -15045,11 +14978,6 @@ export type UserEvent = {
 								 * @type string | undefined
 								 */
 								webhookId?: string | undefined;
-								/**
-								 * @description Keep track if the webhook has been called for the month
-								 * @type boolean | undefined
-								 */
-								webhookNotified?: (false | true) | undefined;
 							};
 						};
 						/**
@@ -15085,26 +15013,13 @@ export type UserEvent = {
 							 * @type boolean
 							 */
 							isActive: false | true;
-							/**
-							 * @description Array of 50, 75, 100 to keep track of notifications sent out
-							 * @type array
-							 */
 							notifiedAt: number[];
 							/**
 							 * @description Should all projects be paused if budget is exceeded
 							 * @type boolean | undefined
 							 */
 							pauseProjects?: (false | true) | undefined;
-							/**
-							 * @description Array of the last 3 months of spend data
-							 * @type array
-							 */
 							previousSpend: number[];
-							/**
-							 * @description The acive pricing plan the team is billed with
-							 * @type string | undefined
-							 */
-							pricingPlan?: UserEventPayloadBudgetPricingPlanEnumKey | undefined;
 							/**
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
@@ -15120,10 +15035,6 @@ export type UserEvent = {
 							 * @type string
 							 */
 							teamId: string;
-							/**
-							 * @description The budget type
-							 * @type string
-							 */
 							type: "fixed";
 							/**
 							 * @description Date time when budget is updated last
@@ -15135,11 +15046,6 @@ export type UserEvent = {
 							 * @type string | undefined
 							 */
 							webhookId?: string | undefined;
-							/**
-							 * @description Keep track if the webhook has been called for the month
-							 * @type boolean | undefined
-							 */
-							webhookNotified?: (false | true) | undefined;
 						};
 						/**
 						 * @description Stored for project budgets. Same value as `budget.scopeId`.
@@ -15180,26 +15086,13 @@ export type UserEvent = {
 							 * @type boolean
 							 */
 							isActive: false | true;
-							/**
-							 * @description Array of 50, 75, 100 to keep track of notifications sent out
-							 * @type array
-							 */
 							notifiedAt: number[];
 							/**
 							 * @description Should all projects be paused if budget is exceeded
 							 * @type boolean | undefined
 							 */
 							pauseProjects?: (false | true) | undefined;
-							/**
-							 * @description Array of the last 3 months of spend data
-							 * @type array
-							 */
 							previousSpend: number[];
-							/**
-							 * @description The acive pricing plan the team is billed with
-							 * @type string | undefined
-							 */
-							pricingPlan?: UserEventPayloadBudgetPricingPlanEnum2Key | undefined;
 							/**
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
@@ -15215,10 +15108,6 @@ export type UserEvent = {
 							 * @type string
 							 */
 							teamId: string;
-							/**
-							 * @description The budget type
-							 * @type string
-							 */
 							type: "fixed";
 							/**
 							 * @description Date time when budget is updated last
@@ -15230,11 +15119,6 @@ export type UserEvent = {
 							 * @type string | undefined
 							 */
 							webhookId?: string | undefined;
-							/**
-							 * @description Keep track if the webhook has been called for the month
-							 * @type boolean | undefined
-							 */
-							webhookNotified?: (false | true) | undefined;
 						};
 						/**
 						 * @description Stored for project budgets. Same value as `budget.scopeId`.
@@ -15274,26 +15158,13 @@ export type UserEvent = {
 							 * @type boolean
 							 */
 							isActive: false | true;
-							/**
-							 * @description Array of 50, 75, 100 to keep track of notifications sent out
-							 * @type array
-							 */
 							notifiedAt: number[];
 							/**
 							 * @description Should all projects be paused if budget is exceeded
 							 * @type boolean | undefined
 							 */
 							pauseProjects?: (false | true) | undefined;
-							/**
-							 * @description Array of the last 3 months of spend data
-							 * @type array
-							 */
 							previousSpend: number[];
-							/**
-							 * @description The acive pricing plan the team is billed with
-							 * @type string | undefined
-							 */
-							pricingPlan?: UserEventPayloadBudgetPricingPlanEnum3Key | undefined;
 							/**
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
@@ -15309,10 +15180,6 @@ export type UserEvent = {
 							 * @type string
 							 */
 							teamId: string;
-							/**
-							 * @description The budget type
-							 * @type string
-							 */
 							type: "fixed";
 							/**
 							 * @description Date time when budget is updated last
@@ -15324,11 +15191,6 @@ export type UserEvent = {
 							 * @type string | undefined
 							 */
 							webhookId?: string | undefined;
-							/**
-							 * @description Keep track if the webhook has been called for the month
-							 * @type boolean | undefined
-							 */
-							webhookNotified?: (false | true) | undefined;
 						};
 						/**
 						 * @description Represents a budget for tracking and notifying teams on their spending.
@@ -15356,26 +15218,13 @@ export type UserEvent = {
 									 * @type boolean
 									 */
 									isActive: false | true;
-									/**
-									 * @description Array of 50, 75, 100 to keep track of notifications sent out
-									 * @type array
-									 */
 									notifiedAt: number[];
 									/**
 									 * @description Should all projects be paused if budget is exceeded
 									 * @type boolean | undefined
 									 */
 									pauseProjects?: (false | true) | undefined;
-									/**
-									 * @description Array of the last 3 months of spend data
-									 * @type array
-									 */
 									previousSpend: number[];
-									/**
-									 * @description The acive pricing plan the team is billed with
-									 * @type string | undefined
-									 */
-									pricingPlan?: UserEventPayloadPrevBudgetPricingPlanEnumKey | undefined;
 									/**
 									 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 									 * @type string | undefined
@@ -15391,10 +15240,6 @@ export type UserEvent = {
 									 * @type string
 									 */
 									teamId: string;
-									/**
-									 * @description The budget type
-									 * @type string
-									 */
 									type: "fixed";
 									/**
 									 * @description Date time when budget is updated last
@@ -15406,11 +15251,6 @@ export type UserEvent = {
 									 * @type string | undefined
 									 */
 									webhookId?: string | undefined;
-									/**
-									 * @description Keep track if the webhook has been called for the month
-									 * @type boolean | undefined
-									 */
-									webhookNotified?: (false | true) | undefined;
 							  }
 							| undefined;
 						prevWebhookUrl?: string | undefined;
