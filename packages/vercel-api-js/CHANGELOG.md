@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.57.1
+
+### Patch Changes
+
+- 1875f66: Added a 503 error response type to the listSessionSnapshots operation.
+- 1875f66: Clarified that the creator ID descriptions in Edge Config response types now refer to the principal instead of the user.
+- 1875f66: Added the optional doNotInheritDefaultAppManagedRules property to multiple response and request types to indicate if requests to a microfrontend skip default managed rulesets.
+
 ## 2.57.0
 
 ### Minor Changes
