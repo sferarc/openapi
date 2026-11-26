@@ -14818,9 +14818,6 @@ export const flagSchema = z.object({
 					startTimestamp: z.number(),
 					type: z.enum(["rollout"]),
 				}),
-				z.object({
-					type: z.enum(["experiment"]),
-				}),
 			]),
 			pausedOutcome: z.object({
 				type: z.enum(["variant"]),
@@ -14942,9 +14939,6 @@ export const flagSchema = z.object({
 							),
 							startTimestamp: z.number(),
 							type: z.enum(["rollout"]),
-						}),
-						z.object({
-							type: z.enum(["experiment"]),
 						}),
 					]),
 				}),
@@ -49724,9 +49718,6 @@ export const createFlagStatus201Schema = z.object({
 					startTimestamp: z.number(),
 					type: z.enum(["rollout"]),
 				}),
-				z.object({
-					type: z.enum(["experiment"]),
-				}),
 			]),
 			pausedOutcome: z.object({
 				type: z.enum(["variant"]),
@@ -49848,9 +49839,6 @@ export const createFlagStatus201Schema = z.object({
 							),
 							startTimestamp: z.number(),
 							type: z.enum(["rollout"]),
-						}),
-						z.object({
-							type: z.enum(["experiment"]),
 						}),
 					]),
 				}),
@@ -50899,9 +50887,6 @@ export const updateFlagStatus200Schema = z.object({
 					startTimestamp: z.number(),
 					type: z.enum(["rollout"]),
 				}),
-				z.object({
-					type: z.enum(["experiment"]),
-				}),
 			]),
 			pausedOutcome: z.object({
 				type: z.enum(["variant"]),
@@ -51023,9 +51008,6 @@ export const updateFlagStatus200Schema = z.object({
 							),
 							startTimestamp: z.number(),
 							type: z.enum(["rollout"]),
-						}),
-						z.object({
-							type: z.enum(["experiment"]),
 						}),
 					]),
 				}),
@@ -51626,9 +51608,6 @@ export const listFlagVersionsStatus200Schema = z.object({
 								startTimestamp: z.number(),
 								type: z.enum(["rollout"]),
 							}),
-							z.object({
-								type: z.enum(["experiment"]),
-							}),
 						]),
 						pausedOutcome: z.object({
 							type: z.enum(["variant"]),
@@ -51750,9 +51729,6 @@ export const listFlagVersionsStatus200Schema = z.object({
 										),
 										startTimestamp: z.number(),
 										type: z.enum(["rollout"]),
-									}),
-									z.object({
-										type: z.enum(["experiment"]),
 									}),
 								]),
 							}),
@@ -122250,6 +122226,7 @@ export const generateFirewallRuleQuerySchema = z.object({
 export const createSpeedInsightsToggleQueryProjectIdSchema = z.string();
 
 export const createSpeedInsightsToggleStatus200Schema = z.object({
+	changed: z.union([z.literal(false), z.literal(true)]),
 	value: z.union([z.literal(false), z.literal(true)]),
 });
 
