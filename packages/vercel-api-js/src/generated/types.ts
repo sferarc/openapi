@@ -19074,12 +19074,12 @@ export const cmpEnum = {
 
 export type CmpEnumKey = (typeof cmpEnum)[keyof typeof cmpEnum];
 
-export const typeEnum10 = {
+export const typeEnum9 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum10Key = (typeof typeEnum10)[keyof typeof typeEnum10];
+export type TypeEnum9Key = (typeof typeEnum9)[keyof typeof typeEnum9];
 
 export const flagKindEnum = {
 	boolean: "boolean",
@@ -19144,9 +19144,6 @@ export type Flag = {
 						}[];
 						startTimestamp: number;
 						type: "rollout";
-				  }
-				| {
-						type: "experiment";
 				  };
 			pausedOutcome: {
 				type: "variant";
@@ -19193,7 +19190,7 @@ export type Flag = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnum10Key;
+										type: TypeEnum9Key;
 								  }
 								| {
 										flags: string;
@@ -19238,9 +19235,6 @@ export type Flag = {
 							}[];
 							startTimestamp: number;
 							type: "rollout";
-					  }
-					| {
-							type: "experiment";
 					  };
 			}[];
 			targets?:
@@ -36167,14 +36161,14 @@ export type GetConnectorTokenStatus429 = unknown;
 
 export type GetConnectorTokenStatus500 = unknown;
 
-export const typeEnum18 = {
+export const typeEnum16 = {
 	app: "app",
 	user: "user",
 	"jwt-bearer": "jwt-bearer",
 	token: "token",
 } as const;
 
-export type TypeEnum18Key = (typeof typeEnum18)[keyof typeof typeEnum18];
+export type TypeEnum16Key = (typeof typeEnum16)[keyof typeof typeEnum16];
 
 export type GetConnectorTokenBody =
 	| {
@@ -36335,14 +36329,14 @@ export type CreateConnectorAuthorizationRequestStatus422 = unknown;
 
 export type CreateConnectorAuthorizationRequestStatus500 = unknown;
 
-export const typeEnum19 = {
+export const typeEnum17 = {
 	app: "app",
 	user: "user",
 	"jwt-bearer": "jwt-bearer",
 	token: "token",
 } as const;
 
-export type TypeEnum19Key = (typeof typeEnum19)[keyof typeof typeEnum19];
+export type TypeEnum17Key = (typeof typeEnum17)[keyof typeof typeEnum17];
 
 export type CreateConnectorAuthorizationRequestBody =
 	| {
@@ -61931,12 +61925,12 @@ export type UpdateSharedEnvVariableStatus404 = unknown;
 
 export type UpdateSharedEnvVariableStatus410 = unknown;
 
-export const typeEnum59 = {
+export const typeEnum57 = {
 	encrypted: "encrypted",
 	sensitive: "sensitive",
 } as const;
 
-export type TypeEnum59Key = (typeof typeEnum59)[keyof typeof typeEnum59];
+export type TypeEnum57Key = (typeof typeEnum57)[keyof typeof typeEnum57];
 
 export type UpdateSharedEnvVariableBody =
 	| {
@@ -61996,7 +61990,7 @@ export type UpdateSharedEnvVariableBody =
 					 * @example encrypted
 					 * @type string | undefined
 					 */
-					type?: TypeEnum59Key | undefined;
+					type?: TypeEnum57Key | undefined;
 					/**
 					 * @description A comment to add context on what this Shared Environment Variable is for
 					 * @maxLength 500
@@ -62922,12 +62916,12 @@ export const cmpEnum2 = {
 
 export type CmpEnum2Key = (typeof cmpEnum2)[keyof typeof cmpEnum2];
 
-export const typeEnum69 = {
+export const typeEnum66 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum69Key = (typeof typeEnum69)[keyof typeof typeEnum69];
+export type TypeEnum66Key = (typeof typeEnum66)[keyof typeof typeEnum66];
 
 export const createFlagStatus201KindEnum = {
 	boolean: "boolean",
@@ -62995,9 +62989,6 @@ export type CreateFlagStatus201 = {
 						}[];
 						startTimestamp: number;
 						type: "rollout";
-				  }
-				| {
-						type: "experiment";
 				  };
 			pausedOutcome: {
 				type: "variant";
@@ -63044,7 +63035,7 @@ export type CreateFlagStatus201 = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnum69Key;
+										type: TypeEnum66Key;
 								  }
 								| {
 										flags: string;
@@ -63089,9 +63080,6 @@ export type CreateFlagStatus201 = {
 							}[];
 							startTimestamp: number;
 							type: "rollout";
-					  }
-					| {
-							type: "experiment";
 					  };
 			}[];
 			targets?:
@@ -64273,12 +64261,12 @@ export const cmpEnum4 = {
 
 export type CmpEnum4Key = (typeof cmpEnum4)[keyof typeof cmpEnum4];
 
-export const typeEnum87 = {
+export const typeEnum82 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum87Key = (typeof typeEnum87)[keyof typeof typeEnum87];
+export type TypeEnum82Key = (typeof typeEnum82)[keyof typeof typeEnum82];
 
 export const updateFlagStatus200KindEnum = {
 	boolean: "boolean",
@@ -64346,9 +64334,6 @@ export type UpdateFlagStatus200 = {
 						}[];
 						startTimestamp: number;
 						type: "rollout";
-				  }
-				| {
-						type: "experiment";
 				  };
 			pausedOutcome: {
 				type: "variant";
@@ -64395,7 +64380,7 @@ export type UpdateFlagStatus200 = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnum87Key;
+										type: TypeEnum82Key;
 								  }
 								| {
 										flags: string;
@@ -64440,9 +64425,6 @@ export type UpdateFlagStatus200 = {
 							}[];
 							startTimestamp: number;
 							type: "rollout";
-					  }
-					| {
-							type: "experiment";
 					  };
 			}[];
 			targets?:
@@ -64536,12 +64518,12 @@ export const cmpEnum3 = {
 
 export type CmpEnum3Key = (typeof cmpEnum3)[keyof typeof cmpEnum3];
 
-export const typeEnum77 = {
+export const typeEnum73 = {
 	"list/inline": "list/inline",
 	list: "list",
 } as const;
 
-export type TypeEnum77Key = (typeof typeEnum77)[keyof typeof typeEnum77];
+export type TypeEnum73Key = (typeof typeEnum73)[keyof typeof typeEnum73];
 
 export const updateFlagRequestStateEnum = {
 	active: "active",
@@ -64649,7 +64631,7 @@ export type UpdateFlagBody =
 									rhs?:
 										| (
 												| {
-														type: TypeEnum77Key;
+														type: TypeEnum73Key;
 														items: (
 															| {
 																	label?: string | undefined;
@@ -65052,12 +65034,12 @@ export const cmpEnum5 = {
 
 export type CmpEnum5Key = (typeof cmpEnum5)[keyof typeof cmpEnum5];
 
-export const typeEnum104 = {
+export const typeEnum97 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum104Key = (typeof typeEnum104)[keyof typeof typeEnum104];
+export type TypeEnum97Key = (typeof typeEnum97)[keyof typeof typeEnum97];
 
 export const listFlagVersionsStatus200VersionsDataStateEnum = {
 	active: "active",
@@ -65123,9 +65105,6 @@ export type ListFlagVersionsStatus200 = {
 								}[];
 								startTimestamp: number;
 								type: "rollout";
-						  }
-						| {
-								type: "experiment";
 						  };
 					pausedOutcome: {
 						type: "variant";
@@ -65172,7 +65151,7 @@ export type ListFlagVersionsStatus200 = {
 															value: string;
 													  }
 												)[];
-												type: TypeEnum104Key;
+												type: TypeEnum97Key;
 										  }
 										| {
 												flags: string;
@@ -65217,9 +65196,6 @@ export type ListFlagVersionsStatus200 = {
 									}[];
 									startTimestamp: number;
 									type: "rollout";
-							  }
-							| {
-									type: "experiment";
 							  };
 					}[];
 					targets?:
@@ -76890,13 +76866,13 @@ export const getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTyp
 export type GetMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnum];
 
-export const typeEnum127 = {
+export const typeEnum119 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum127Key = (typeof typeEnum127)[keyof typeof typeEnum127];
+export type TypeEnum119Key = (typeof typeEnum119)[keyof typeof typeEnum119];
 
 export const checksConclusionEnum = {
 	canceled: "canceled",
@@ -80288,7 +80264,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 									 * @description The type of matching to perform
 									 * @type string
 									 */
-									type: TypeEnum127Key;
+									type: TypeEnum119Key;
 							  }
 							| undefined;
 						buildingAt?: number | undefined;
@@ -86320,13 +86296,13 @@ export const getProjectsStatus200SsoProtectionDeploymentTypeEnum = {
 export type GetProjectsStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum129 = {
+export const typeEnum121 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum129Key = (typeof typeEnum129)[keyof typeof typeEnum129];
+export type TypeEnum121Key = (typeof typeEnum121)[keyof typeof typeEnum121];
 
 export const checksConclusionEnum2 = {
 	canceled: "canceled",
@@ -86964,13 +86940,13 @@ export const getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum = {
 export type GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum];
 
-export const typeEnum131 = {
+export const typeEnum123 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum131Key = (typeof typeEnum131)[keyof typeof typeEnum131];
+export type TypeEnum123Key = (typeof typeEnum123)[keyof typeof typeEnum123];
 
 export const checksConclusionEnum3 = {
 	canceled: "canceled",
@@ -87858,13 +87834,13 @@ export const getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2 = {
 export type GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2Key =
 	(typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2)[keyof typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2];
 
-export const typeEnum133 = {
+export const typeEnum125 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum133Key = (typeof typeEnum133)[keyof typeof typeEnum133];
+export type TypeEnum125Key = (typeof typeEnum125)[keyof typeof typeEnum125];
 
 export const checksConclusionEnum4 = {
 	canceled: "canceled",
@@ -89179,7 +89155,7 @@ export type GetProjectsStatus200 =
 												 * @description The type of matching to perform
 												 * @type string
 												 */
-												type: TypeEnum129Key;
+												type: TypeEnum121Key;
 										  }
 										| undefined;
 									buildingAt?: number | undefined;
@@ -90603,7 +90579,7 @@ export type GetProjectsStatus200 =
 													 * @description The type of matching to perform
 													 * @type string
 													 */
-													type: TypeEnum131Key;
+													type: TypeEnum123Key;
 											  }
 											| undefined;
 										buildingAt?: number | undefined;
@@ -94080,7 +94056,7 @@ export type GetProjectsStatus200 =
 													 * @description The type of matching to perform
 													 * @type string
 													 */
-													type: TypeEnum133Key;
+													type: TypeEnum125Key;
 											  }
 											| undefined;
 										buildingAt?: number | undefined;
@@ -95327,13 +95303,13 @@ export const createProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type CreateProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof createProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof createProjectStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum135 = {
+export const typeEnum127 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum135Key = (typeof typeEnum135)[keyof typeof typeEnum135];
+export type TypeEnum127Key = (typeof typeEnum127)[keyof typeof typeEnum127];
 
 export const checksConclusionEnum5 = {
 	canceled: "canceled",
@@ -98684,7 +98660,7 @@ export type CreateProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum135Key;
+								type: TypeEnum127Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -100515,13 +100491,13 @@ export const getProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type GetProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof getProjectStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum137 = {
+export const typeEnum129 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum137Key = (typeof typeEnum137)[keyof typeof typeEnum137];
+export type TypeEnum129Key = (typeof typeEnum129)[keyof typeof typeEnum129];
 
 export const checksConclusionEnum6 = {
 	canceled: "canceled",
@@ -103885,7 +103861,7 @@ export type GetProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum137Key;
+								type: TypeEnum129Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -105017,13 +104993,13 @@ export const updateProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type UpdateProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof updateProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof updateProjectStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum139 = {
+export const typeEnum131 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum139Key = (typeof typeEnum139)[keyof typeof typeEnum139];
+export type TypeEnum131Key = (typeof typeEnum131)[keyof typeof typeEnum131];
 
 export const checksConclusionEnum7 = {
 	canceled: "canceled",
@@ -108372,7 +108348,7 @@ export type UpdateProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum139Key;
+								type: TypeEnum131Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -110565,13 +110541,13 @@ export const uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum = {
 export type UploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum141 = {
+export const typeEnum133 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum141Key = (typeof typeEnum141)[keyof typeof typeEnum141];
+export type TypeEnum133Key = (typeof typeEnum133)[keyof typeof typeEnum133];
 
 export const checksConclusionEnum8 = {
 	canceled: "canceled",
@@ -113937,7 +113913,7 @@ export type UploadProjectAvatarStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum141Key;
+								type: TypeEnum133Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -115088,13 +115064,13 @@ export const deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum = {
 export type DeleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum143 = {
+export const typeEnum135 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum143Key = (typeof typeEnum143)[keyof typeof typeEnum143];
+export type TypeEnum135Key = (typeof typeEnum135)[keyof typeof typeEnum135];
 
 export const checksConclusionEnum9 = {
 	canceled: "canceled",
@@ -118460,7 +118436,7 @@ export type DeleteProjectAvatarStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum143Key;
+								type: TypeEnum135Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -126935,13 +126911,13 @@ export const updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum = {
 export type UpdateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum145 = {
+export const typeEnum137 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum145Key = (typeof typeEnum145)[keyof typeof typeEnum145];
+export type TypeEnum137Key = (typeof typeEnum137)[keyof typeof typeEnum137];
 
 export const checksConclusionEnum10 = {
 	canceled: "canceled",
@@ -130307,7 +130283,7 @@ export type UpdateMicrofrontendsStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum145Key;
+								type: TypeEnum137Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -146427,6 +146403,7 @@ export type CreateSpeedInsightsToggleQuery = {
 };
 
 export type CreateSpeedInsightsToggleStatus200 = {
+	changed: false | true;
 	value: false | true;
 };
 
