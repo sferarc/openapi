@@ -4536,6 +4536,7 @@ export const userEventSchema = z
 								"read:team",
 								"read:user",
 								"read:vcr",
+								"read:vercel-ci",
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
@@ -4641,6 +4642,7 @@ export const userEventSchema = z
 								"read:team",
 								"read:user",
 								"read:vcr",
+								"read:vercel-ci",
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
@@ -4739,6 +4741,7 @@ export const userEventSchema = z
 										"read:speed-insights",
 										"read:team",
 										"read:vcr",
+										"read:vercel-ci",
 										"read:web-analytics",
 										"read:webhooks",
 										"use:ai-gateway",
@@ -4850,6 +4853,7 @@ export const userEventSchema = z
 										"read:speed-insights",
 										"read:team",
 										"read:vcr",
+										"read:vercel-ci",
 										"read:web-analytics",
 										"read:webhooks",
 										"use:ai-gateway",
@@ -4964,6 +4968,7 @@ export const userEventSchema = z
 								"read:speed-insights",
 								"read:team",
 								"read:vcr",
+								"read:vercel-ci",
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
@@ -9947,20 +9952,12 @@ export const userEventSchema = z
 								isActive: z
 									.union([z.literal(false), z.literal(true)])
 									.describe("Is the budget currently active for a customer"),
-								notifiedAt: z
-									.array(z.number())
-									.describe("Array of 50, 75, 100 to keep track of notifications sent out"),
+								notifiedAt: z.array(z.number()),
 								pauseProjects: z
 									.union([z.literal(false), z.literal(true)])
 									.optional()
 									.describe("Should all projects be paused if budget is exceeded"),
-								previousSpend: z
-									.array(z.number())
-									.describe("Array of the last 3 months of spend data"),
-								pricingPlan: z
-									.enum(["flex", "legacy", "platform", "plus", "unbundled"])
-									.optional()
-									.describe("The acive pricing plan the team is billed with"),
+								previousSpend: z.array(z.number()),
 								scope: z
 									.enum(["organization", "product", "project", "team"])
 									.optional()
@@ -9974,7 +9971,7 @@ export const userEventSchema = z
 										"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 									),
 								teamId: z.string().describe("Partition key"),
-								type: z.enum(["fixed"]).describe("The budget type"),
+								type: z.enum(["fixed"]),
 								updatedAt: z.number().optional().describe("Date time when budget is updated last"),
 								webhookId: z
 									.string()
@@ -9982,10 +9979,6 @@ export const userEventSchema = z
 									.describe(
 										"Webhook id that corresponds to a webhook in Cosmos webhook collection",
 									),
-								webhookNotified: z
-									.union([z.literal(false), z.literal(true)])
-									.optional()
-									.describe("Keep track if the webhook has been called for the month"),
 							})
 							.describe("Represents a budget for tracking and notifying teams on their spending."),
 					}),
@@ -10004,20 +9997,12 @@ export const userEventSchema = z
 							isActive: z
 								.union([z.literal(false), z.literal(true)])
 								.describe("Is the budget currently active for a customer"),
-							notifiedAt: z
-								.array(z.number())
-								.describe("Array of 50, 75, 100 to keep track of notifications sent out"),
+							notifiedAt: z.array(z.number()),
 							pauseProjects: z
 								.union([z.literal(false), z.literal(true)])
 								.optional()
 								.describe("Should all projects be paused if budget is exceeded"),
-							previousSpend: z
-								.array(z.number())
-								.describe("Array of the last 3 months of spend data"),
-							pricingPlan: z
-								.enum(["flex", "legacy", "platform", "plus", "unbundled"])
-								.optional()
-								.describe("The acive pricing plan the team is billed with"),
+							previousSpend: z.array(z.number()),
 							scope: z
 								.enum(["organization", "product", "project", "team"])
 								.optional()
@@ -10031,16 +10016,12 @@ export const userEventSchema = z
 									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
-							type: z.enum(["fixed"]).describe("The budget type"),
+							type: z.enum(["fixed"]),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
 							webhookId: z
 								.string()
 								.optional()
 								.describe("Webhook id that corresponds to a webhook in Cosmos webhook collection"),
-							webhookNotified: z
-								.union([z.literal(false), z.literal(true)])
-								.optional()
-								.describe("Keep track if the webhook has been called for the month"),
 						})
 						.describe("Represents a budget for tracking and notifying teams on their spending."),
 					projectId: z
@@ -10063,20 +10044,12 @@ export const userEventSchema = z
 							isActive: z
 								.union([z.literal(false), z.literal(true)])
 								.describe("Is the budget currently active for a customer"),
-							notifiedAt: z
-								.array(z.number())
-								.describe("Array of 50, 75, 100 to keep track of notifications sent out"),
+							notifiedAt: z.array(z.number()),
 							pauseProjects: z
 								.union([z.literal(false), z.literal(true)])
 								.optional()
 								.describe("Should all projects be paused if budget is exceeded"),
-							previousSpend: z
-								.array(z.number())
-								.describe("Array of the last 3 months of spend data"),
-							pricingPlan: z
-								.enum(["flex", "legacy", "platform", "plus", "unbundled"])
-								.optional()
-								.describe("The acive pricing plan the team is billed with"),
+							previousSpend: z.array(z.number()),
 							scope: z
 								.enum(["organization", "product", "project", "team"])
 								.optional()
@@ -10090,16 +10063,12 @@ export const userEventSchema = z
 									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
-							type: z.enum(["fixed"]).describe("The budget type"),
+							type: z.enum(["fixed"]),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
 							webhookId: z
 								.string()
 								.optional()
 								.describe("Webhook id that corresponds to a webhook in Cosmos webhook collection"),
-							webhookNotified: z
-								.union([z.literal(false), z.literal(true)])
-								.optional()
-								.describe("Keep track if the webhook has been called for the month"),
 						})
 						.describe("Represents a budget for tracking and notifying teams on their spending."),
 					projectId: z
@@ -10121,20 +10090,12 @@ export const userEventSchema = z
 							isActive: z
 								.union([z.literal(false), z.literal(true)])
 								.describe("Is the budget currently active for a customer"),
-							notifiedAt: z
-								.array(z.number())
-								.describe("Array of 50, 75, 100 to keep track of notifications sent out"),
+							notifiedAt: z.array(z.number()),
 							pauseProjects: z
 								.union([z.literal(false), z.literal(true)])
 								.optional()
 								.describe("Should all projects be paused if budget is exceeded"),
-							previousSpend: z
-								.array(z.number())
-								.describe("Array of the last 3 months of spend data"),
-							pricingPlan: z
-								.enum(["flex", "legacy", "platform", "plus", "unbundled"])
-								.optional()
-								.describe("The acive pricing plan the team is billed with"),
+							previousSpend: z.array(z.number()),
 							scope: z
 								.enum(["organization", "product", "project", "team"])
 								.optional()
@@ -10148,16 +10109,12 @@ export const userEventSchema = z
 									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
-							type: z.enum(["fixed"]).describe("The budget type"),
+							type: z.enum(["fixed"]),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
 							webhookId: z
 								.string()
 								.optional()
 								.describe("Webhook id that corresponds to a webhook in Cosmos webhook collection"),
-							webhookNotified: z
-								.union([z.literal(false), z.literal(true)])
-								.optional()
-								.describe("Keep track if the webhook has been called for the month"),
 						})
 						.describe("Represents a budget for tracking and notifying teams on their spending."),
 					prevBudget: z
@@ -10168,20 +10125,12 @@ export const userEventSchema = z
 							isActive: z
 								.union([z.literal(false), z.literal(true)])
 								.describe("Is the budget currently active for a customer"),
-							notifiedAt: z
-								.array(z.number())
-								.describe("Array of 50, 75, 100 to keep track of notifications sent out"),
+							notifiedAt: z.array(z.number()),
 							pauseProjects: z
 								.union([z.literal(false), z.literal(true)])
 								.optional()
 								.describe("Should all projects be paused if budget is exceeded"),
-							previousSpend: z
-								.array(z.number())
-								.describe("Array of the last 3 months of spend data"),
-							pricingPlan: z
-								.enum(["flex", "legacy", "platform", "plus", "unbundled"])
-								.optional()
-								.describe("The acive pricing plan the team is billed with"),
+							previousSpend: z.array(z.number()),
 							scope: z
 								.enum(["organization", "product", "project", "team"])
 								.optional()
@@ -10195,16 +10144,12 @@ export const userEventSchema = z
 									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
-							type: z.enum(["fixed"]).describe("The budget type"),
+							type: z.enum(["fixed"]),
 							updatedAt: z.number().optional().describe("Date time when budget is updated last"),
 							webhookId: z
 								.string()
 								.optional()
 								.describe("Webhook id that corresponds to a webhook in Cosmos webhook collection"),
-							webhookNotified: z
-								.union([z.literal(false), z.literal(true)])
-								.optional()
-								.describe("Keep track if the webhook has been called for the month"),
 						})
 						.optional()
 						.describe("Represents a budget for tracking and notifying teams on their spending."),
