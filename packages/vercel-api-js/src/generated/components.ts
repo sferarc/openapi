@@ -3180,6 +3180,7 @@ import type {
 	ListSessionSnapshotsStatus410,
 	ListSessionSnapshotsStatus422,
 	ListSessionSnapshotsStatus429,
+	ListSessionSnapshotsStatus503,
 	ListSessionsQuery,
 	ListSessionsResponse,
 	ListSessionsStatus400,
@@ -20990,6 +20991,7 @@ export async function listSessionSnapshots(
 			| ListSessionSnapshotsStatus410
 			| ListSessionSnapshotsStatus422
 			| ListSessionSnapshotsStatus429
+			| ListSessionSnapshotsStatus503
 		>,
 		null,
 		Record<string, string>,

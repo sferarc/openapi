@@ -7814,6 +7814,12 @@ export const userEventSchema = z
 											.describe(
 												"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
 											),
+										doNotInheritDefaultAppManagedRules: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
+											),
 										doNotRouteWithMicrofrontendsRouting: z
 											.union([z.literal(false), z.literal(true)])
 											.optional()
@@ -7895,6 +7901,12 @@ export const userEventSchema = z
 										.optional()
 										.describe(
 											"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
+										),
+									doNotInheritDefaultAppManagedRules: z
+										.union([z.literal(false), z.literal(true)])
+										.optional()
+										.describe(
+											"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
 										),
 									doNotRouteWithMicrofrontendsRouting: z
 										.union([z.literal(false), z.literal(true)])
@@ -46763,7 +46775,7 @@ export const getEdgeConfigsStatus200Schema = z.array(
 			.string()
 			.optional()
 			.describe(
-				"The ID of the user who created the Global Config, optional because it is not always set.",
+				"The ID of the principal who created the Global Config, optional because it is not always set.",
 			),
 		digest: z.string(),
 		id: z.string(),
@@ -46832,7 +46844,7 @@ export const createEdgeConfigStatus201Schema = z
 			.string()
 			.optional()
 			.describe(
-				"The ID of the user who created the Global Config, optional because it is not always set.",
+				"The ID of the principal who created the Global Config, optional because it is not always set.",
 			),
 		digest: z.string(),
 		id: z.string(),
@@ -46914,7 +46926,7 @@ export const getEdgeConfigStatus200Schema = z
 			.string()
 			.optional()
 			.describe(
-				"The ID of the user who created the Global Config, optional because it is not always set.",
+				"The ID of the principal who created the Global Config, optional because it is not always set.",
 			),
 		digest: z.string(),
 		id: z.string(),
@@ -46989,7 +47001,7 @@ export const updateEdgeConfigStatus200Schema = z
 			.string()
 			.optional()
 			.describe(
-				"The ID of the user who created the Global Config, optional because it is not always set.",
+				"The ID of the principal who created the Global Config, optional because it is not always set.",
 			),
 		digest: z.string(),
 		id: z.string(),
@@ -62179,6 +62191,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							.describe(
 								"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
 							),
+						doNotInheritDefaultAppManagedRules: z
+							.union([z.literal(false), z.literal(true)])
+							.optional()
+							.describe(
+								"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
+							),
 						doNotRouteWithMicrofrontendsRouting: z
 							.union([z.literal(false), z.literal(true)])
 							.optional()
@@ -73676,6 +73694,12 @@ export const getProjectsStatus200Schema = z
 									.describe(
 										"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
 									),
+								doNotInheritDefaultAppManagedRules: z
+									.union([z.literal(false), z.literal(true)])
+									.optional()
+									.describe(
+										"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
+									),
 								doNotRouteWithMicrofrontendsRouting: z
 									.union([z.literal(false), z.literal(true)])
 									.optional()
@@ -77922,6 +77946,12 @@ export const createProjectStatus200Schema = z.object({
 					.optional()
 					.describe(
 						"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
+					),
+				doNotInheritDefaultAppManagedRules: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
 					),
 				doNotRouteWithMicrofrontendsRouting: z
 					.union([z.literal(false), z.literal(true)])
@@ -82560,6 +82590,12 @@ export const getProjectStatus200Schema = z.object({
 					.describe(
 						"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
 					),
+				doNotInheritDefaultAppManagedRules: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
+					),
 				doNotRouteWithMicrofrontendsRouting: z
 					.union([z.literal(false), z.literal(true)])
 					.optional()
@@ -86660,6 +86696,12 @@ export const updateProjectStatus200Schema = z.object({
 					.optional()
 					.describe(
 						"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
+					),
+				doNotInheritDefaultAppManagedRules: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
 					),
 				doNotRouteWithMicrofrontendsRouting: z
 					.union([z.literal(false), z.literal(true)])
@@ -91678,6 +91720,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					.describe(
 						"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
 					),
+				doNotInheritDefaultAppManagedRules: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
+					),
 				doNotRouteWithMicrofrontendsRouting: z
 					.union([z.literal(false), z.literal(true)])
 					.optional()
@@ -95787,6 +95835,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					.optional()
 					.describe(
 						"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
+					),
+				doNotInheritDefaultAppManagedRules: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
 					),
 				doNotRouteWithMicrofrontendsRouting: z
 					.union([z.literal(false), z.literal(true)])
@@ -106134,6 +106188,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					.describe(
 						"A path that is used to take screenshots and as the default path in preview links when a domain for this microfrontend is shown in the UI. Includes the leading slash, e.g. `/docs`",
 					),
+				doNotInheritDefaultAppManagedRules: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.",
+					),
 				doNotRouteWithMicrofrontendsRouting: z
 					.union([z.literal(false), z.literal(true)])
 					.optional()
@@ -108974,6 +109034,12 @@ export const updateMicrofrontendsBodySchema = z
 			.describe(
 				"Whether domains in this project should route as a microfrontend. Can only be set for child applications.",
 			),
+		doNotInheritDefaultAppManagedRules: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether requests routed to this project skip the default application's managed rulesets, so only this project's own managed rulesets apply. Can only be set for child applications.",
+			),
 	})
 	.optional();
 
@@ -110714,6 +110780,8 @@ export const listSessionSnapshotsStatus422Schema = z.unknown();
 
 export const listSessionSnapshotsStatus429Schema = z.unknown();
 
+export const listSessionSnapshotsStatus503Schema = z.unknown();
+
 export const listSessionSnapshotsResponseSchema = listSessionSnapshotsStatus200Schema;
 
 export const listSessionSnapshotsErrorSchema = z.union([
@@ -110724,6 +110792,7 @@ export const listSessionSnapshotsErrorSchema = z.union([
 	listSessionSnapshotsStatus410Schema,
 	listSessionSnapshotsStatus422Schema,
 	listSessionSnapshotsStatus429Schema,
+	listSessionSnapshotsStatus503Schema,
 ]);
 
 export const listSessionSnapshotsQuerySchema = z.object({

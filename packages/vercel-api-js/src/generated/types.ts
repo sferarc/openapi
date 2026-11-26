@@ -13041,6 +13041,11 @@ export type UserEvent = {
 													 */
 													defaultRoute?: string | undefined;
 													/**
+													 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+													 * @type boolean | undefined
+													 */
+													doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
+													/**
 													 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 													 * @type boolean | undefined
 													 */
@@ -13120,6 +13125,11 @@ export type UserEvent = {
 												 * @type string | undefined
 												 */
 												defaultRoute?: string | undefined;
+												/**
+												 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+												 * @type boolean | undefined
+												 */
+												doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
 												/**
 												 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 												 * @type boolean | undefined
@@ -59709,7 +59719,7 @@ export type GetEdgeConfigsQuery = {
 export type GetEdgeConfigsStatus200 = {
 	createdAt: number;
 	/**
-	 * @description The ID of the user who created the Global Config, optional because it is not always set.
+	 * @description The ID of the principal who created the Global Config, optional because it is not always set.
 	 * @type string | undefined
 	 */
 	createdBy?: string | undefined;
@@ -59779,7 +59789,7 @@ export type CreateEdgeConfigQuery = {
 export type CreateEdgeConfigStatus201 = {
 	createdAt: number;
 	/**
-	 * @description The ID of the user who created the Global Config, optional because it is not always set.
+	 * @description The ID of the principal who created the Global Config, optional because it is not always set.
 	 * @type string | undefined
 	 */
 	createdBy?: string | undefined;
@@ -59870,7 +59880,7 @@ export type GetEdgeConfigQuery = {
 export type GetEdgeConfigStatus200 = {
 	createdAt: number;
 	/**
-	 * @description The ID of the user who created the Global Config, optional because it is not always set.
+	 * @description The ID of the principal who created the Global Config, optional because it is not always set.
 	 * @type string | undefined
 	 */
 	createdBy?: string | undefined;
@@ -59944,7 +59954,7 @@ export type UpdateEdgeConfigQuery = {
 export type UpdateEdgeConfigStatus200 = {
 	createdAt: number;
 	/**
-	 * @description The ID of the user who created the Global Config, optional because it is not always set.
+	 * @description The ID of the principal who created the Global Config, optional because it is not always set.
 	 * @type string | undefined
 	 */
 	createdBy?: string | undefined;
@@ -78209,6 +78219,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 							 */
 							defaultRoute?: string | undefined;
 							/**
+							 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+							 * @type boolean | undefined
+							 */
+							doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
+							/**
 							 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 							 * @type boolean | undefined
 							 */
@@ -92003,6 +92018,11 @@ export type GetProjectsStatus200 =
 											 */
 											defaultRoute?: string | undefined;
 											/**
+											 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+											 * @type boolean | undefined
+											 */
+											doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
+											/**
 											 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 											 * @type boolean | undefined
 											 */
@@ -96616,6 +96636,11 @@ export type CreateProjectStatus200 = {
 						 * @type string | undefined
 						 */
 						defaultRoute?: string | undefined;
+						/**
+						 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+						 * @type boolean | undefined
+						 */
+						doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
 						/**
 						 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 						 * @type boolean | undefined
@@ -101820,6 +101845,11 @@ export type GetProjectStatus200 = {
 						 */
 						defaultRoute?: string | undefined;
 						/**
+						 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+						 * @type boolean | undefined
+						 */
+						doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
+						/**
 						 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 						 * @type boolean | undefined
 						 */
@@ -106304,6 +106334,11 @@ export type UpdateProjectStatus200 = {
 						 * @type string | undefined
 						 */
 						defaultRoute?: string | undefined;
+						/**
+						 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+						 * @type boolean | undefined
+						 */
+						doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
 						/**
 						 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 						 * @type boolean | undefined
@@ -111864,6 +111899,11 @@ export type UploadProjectAvatarStatus200 = {
 						 */
 						defaultRoute?: string | undefined;
 						/**
+						 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+						 * @type boolean | undefined
+						 */
+						doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
+						/**
 						 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 						 * @type boolean | undefined
 						 */
@@ -116386,6 +116426,11 @@ export type DeleteProjectAvatarStatus200 = {
 						 * @type string | undefined
 						 */
 						defaultRoute?: string | undefined;
+						/**
+						 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+						 * @type boolean | undefined
+						 */
+						doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
 						/**
 						 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 						 * @type boolean | undefined
@@ -128234,6 +128279,11 @@ export type UpdateMicrofrontendsStatus200 = {
 						 */
 						defaultRoute?: string | undefined;
 						/**
+						 * @description Whether requests routed to this microfrontend skip the default app's managed rulesets (OWASP Core Ruleset, Bot Protection, AI Bots), so only this project's own managed rulesets apply to its routes. The default app's custom firewall rules apply either way.
+						 * @type boolean | undefined
+						 */
+						doNotInheritDefaultAppManagedRules?: (false | true) | undefined;
+						/**
 						 * @description Whether to add microfrontends routing to aliases. This means domains in this project will route as a microfrontend.
 						 * @type boolean | undefined
 						 */
@@ -130590,6 +130640,11 @@ export type UpdateMicrofrontendsBody =
 			 * @type boolean | undefined
 			 */
 			doNotRouteWithMicrofrontendsRouting?: boolean | undefined;
+			/**
+			 * @description Whether requests routed to this project skip the default application's managed rulesets, so only this project's own managed rulesets apply. Can only be set for child applications.
+			 * @type boolean | undefined
+			 */
+			doNotInheritDefaultAppManagedRules?: boolean | undefined;
 	  }
 	| undefined;
 
@@ -132416,6 +132471,8 @@ export type ListSessionSnapshotsStatus422 = unknown;
 
 export type ListSessionSnapshotsStatus429 = unknown;
 
+export type ListSessionSnapshotsStatus503 = unknown;
+
 export type ListSessionSnapshotsOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
@@ -132432,6 +132489,7 @@ export type ListSessionSnapshotsResponses = {
 	"410": ListSessionSnapshotsStatus410;
 	"422": ListSessionSnapshotsStatus422;
 	"429": ListSessionSnapshotsStatus429;
+	"503": ListSessionSnapshotsStatus503;
 };
 
 /**
