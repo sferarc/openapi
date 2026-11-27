@@ -125645,6 +125645,11 @@ export type CreateProjectTransferRequestQuery = {
 };
 
 export type CreateProjectTransferRequestStatus200 = {
+	/**
+	 * @description Code that can be used to accept the project transfer request.
+	 * @example f99cc49a-602e-4786-a748-762dfb205880
+	 * @type string
+	 */
 	code: string;
 };
 
