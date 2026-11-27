@@ -104465,7 +104465,10 @@ export const createProjectTransferRequestQuerySlugSchema = z
 	.meta({ examples: ["my-team-url-slug"] });
 
 export const createProjectTransferRequestStatus200Schema = z.object({
-	code: z.string(),
+	code: z
+		.string()
+		.describe("Code that can be used to accept the project transfer request.")
+		.meta({ examples: ["f99cc49a-602e-4786-a748-762dfb205880"] }),
 });
 
 export const createProjectTransferRequestStatus400Schema = z.unknown();
