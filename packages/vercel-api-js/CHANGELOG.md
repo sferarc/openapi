@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.57.2
+
+### Patch Changes
+
+- c9cd9ef: Added a new field 'code' to the CreateProjectTransferRequestStatus200 response type containing a code that can be used to accept the project transfer request.
+
 ## 2.57.1
 
 ### Patch Changes
